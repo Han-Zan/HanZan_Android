@@ -8,15 +8,20 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.kud.hanzan.ui.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
+    </fragment>
     <fragment
         android:id="@+id/likeFragment"
         android:name="com.kud.hanzan.ui.like.LikeFragment"
         android:label="LikeFragment" />
-    <fragment
-        android:id="@+id/searchFragment"
-        android:name="com.kud.hanzan.ui.search.SearchFragment"
-        android:label="SearchFragment" />
+    <activity
+        android:id="@+id/searchActivity"
+        android:name="com.kud.hanzan.ui.search.SearchActivity"
+        android:label="SearchFragment" >
+    </activity>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.kud.hanzan.ui.category.CategoryFragment"

@@ -8,7 +8,7 @@
         android:icon="@drawable/ic_category"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/searchFragment"
+        android:id="@+id/searchActivity"
         android:title="검색"
         android:icon="@drawable/ic_search"
         app:showAsAction="always"/>
