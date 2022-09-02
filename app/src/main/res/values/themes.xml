@@ -1,9 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.HanZan" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Base.Theme.HanZan" parent="Theme.Material3.Dark.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView</item>
     </style>
-
-    <style name="Theme.HanZan" parent="Base.Theme.HanZan" />
 </resources>

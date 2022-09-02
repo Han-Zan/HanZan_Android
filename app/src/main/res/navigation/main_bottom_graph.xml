@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.kud.hanzan.ui.home.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/likeFragment"
+        android:name="com.kud.hanzan.ui.like.LikeFragment"
+        android:label="LikeFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.kud.hanzan.ui.search.SearchFragment"
+        android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.kud.hanzan.ui.category.CategoryFragment"
+        android:label="CategoryFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.kud.hanzan.ui.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+</navigation>

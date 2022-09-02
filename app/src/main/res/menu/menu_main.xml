@@ -3,8 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.kud.hanzan.ui.MainActivity">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/categoryFragment"
+        android:title="카테고리"
+        android:icon="@drawable/ic_category"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/searchFragment"
+        android:title="검색"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/homeFragment"
+        android:title="홈"
+        android:icon="@drawable/ic_home"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/profileFragment"
+        android:title="프로필"
+        android:icon="@drawable/ic_profile"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/likeFragment"
+        android:title="라이크"
+        android:icon="@drawable/ic_like"
+        app:showAsAction="always"/>
 </menu>
