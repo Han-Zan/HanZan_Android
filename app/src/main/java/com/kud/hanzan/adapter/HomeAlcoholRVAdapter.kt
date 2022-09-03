@@ -26,6 +26,7 @@ class HomeAlcoholRVAdapter : RecyclerView.Adapter<HomeAlcoholRVAdapter.ViewHolde
     override fun getItemCount(): Int = alcoholList.size
 
     fun setData(data: List<Alcohol>){
+        alcoholList.clear()
         alcoholList.addAll(data)
         notifyDataSetChanged()
     }
