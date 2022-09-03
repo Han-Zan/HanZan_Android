@@ -2,7 +2,7 @@ package com.kud.hanzan.ui.profile
 
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.FragmentProfileBinding
-import com.kud.hanzan.utils.BaseFragment
+import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

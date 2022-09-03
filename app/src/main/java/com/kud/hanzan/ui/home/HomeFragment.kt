@@ -9,7 +9,7 @@ import com.kud.hanzan.adapter.HomeAlcoholRVAdapter
 import com.kud.hanzan.databinding.FragmentHomeBinding
 import com.kud.hanzan.domain.model.Alcohol
 import com.kud.hanzan.domain.model.User
-import com.kud.hanzan.utils.BaseFragment
+import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,7 +40,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         (binding.homeTypeAlcoholRv.adapter as HomeAlcoholRVAdapter)
             .setData(listOf(Alcohol("고든", "양주", 3, 4.9,  R.drawable.godons, "태그"),
                 Alcohol("참이슬", "소주", 1, 4.5, R.drawable.soju1, "깔끔"),
-                Alcohol("모스카토 다스티", "와인", 4, 4.9,  R.drawable.wine1, "산미")
+                Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.wine1, "산미")
             ))
     }
 }

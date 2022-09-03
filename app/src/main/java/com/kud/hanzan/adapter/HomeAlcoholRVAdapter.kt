@@ -37,6 +37,7 @@ class HomeAlcoholRVAdapter : RecyclerView.Adapter<HomeAlcoholRVAdapter.ViewHolde
             binding.itemHomeAlcoholLayout.apply {
                 when(alcohol.typeNum){
                     1 -> setBackgroundResource(R.drawable.bg_alcohol_type1)
+                    2 -> setBackgroundResource(R.drawable.bg_alcohol_type2)
                     3 -> setBackgroundResource(R.drawable.bg_alcohol_type3)
                     4 -> setBackgroundResource(R.drawable.bg_alcohol_type4)
                     else -> setBackgroundResource(R.drawable.bg_alcohol_type0)

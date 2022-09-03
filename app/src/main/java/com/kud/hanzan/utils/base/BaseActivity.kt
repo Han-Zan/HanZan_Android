@@ -1,4 +1,4 @@
-package com.kud.hanzan.utils
+package com.kud.hanzan.utils.base
 
 import android.os.Bundle
 import androidx.annotation.LayoutRes
