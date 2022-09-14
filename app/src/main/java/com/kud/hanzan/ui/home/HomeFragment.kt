@@ -18,8 +18,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        reenterTransition = MaterialFadeThrough().apply { duration = 1000 }
         enterTransition = MaterialFadeThrough().apply { duration = 1000 }
-        exitTransition = MaterialFadeThrough().apply { duration = 1000 }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

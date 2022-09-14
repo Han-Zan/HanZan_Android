@@ -30,4 +30,8 @@
         android:id="@+id/profileFragment"
         android:name="com.kud.hanzan.ui.profile.ProfileFragment"
         android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.kud.hanzan.ui.map.MapFragment"
+        android:label="MapFragment" />
 </navigation>
