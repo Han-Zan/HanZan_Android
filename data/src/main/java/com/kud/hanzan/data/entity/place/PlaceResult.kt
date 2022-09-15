@@ -1,8 +1,7 @@
 package com.kud.hanzan.data.entity.place
 
-
-data class PlaceResult(
-    val documents: List<Place>,
+data class PlaceKeywordResult(
+    val documents: List<PlaceResult>,
     val meta: PlaceMeta
 )
 
@@ -19,7 +18,7 @@ data class RegionInfo(
     val selected_region: String // 인식된 지역 리스트 중, 현재 검색에 사용된 지역 정보
 )
 
-data class Place(
+data class PlaceResult(
     val id: String, // 장소 ID
     val place_name: String, // 장소명, 업체명
     val category_name: String, // 카테고리 이름
