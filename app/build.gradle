@@ -67,4 +67,5 @@ dependencies {
     //kakao sdk
     implementation "com.kakao.sdk:v2-user:2.11.0" // 카카오 로그인
     implementation files('libs/libDaumMapAndroid.jar') // 카카오 맵
+    implementation "com.kakao.sdk:v2-all:2.11.0" // 카카오 전체 모듈
 }
