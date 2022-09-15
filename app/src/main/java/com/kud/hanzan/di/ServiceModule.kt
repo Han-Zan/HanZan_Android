@@ -11,8 +11,8 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
-    @Singleton
     @Provides
+    @Singleton
     fun provideKakaoService(@NetworkModule.KakaoRetrofit retrofit: Retrofit) : KakaoService {
         return retrofit.create(KakaoService::class.java)
     }

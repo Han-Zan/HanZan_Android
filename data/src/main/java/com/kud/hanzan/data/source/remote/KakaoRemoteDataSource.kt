@@ -16,8 +16,7 @@ class KakaoRemoteDataSource @Inject constructor(
     override suspend fun getKeywordPlace(emitter: RemoteErrorEmitter, keyword: String) : Flow<PlaceKeywordResult>? {
         return safeApiCall(emitter){
             flow {
-                val result = kakaoService.getKeywordPlace(keyword)
-                emit(result)
+                emit(kakaoService.getKeywordPlace(keyword))
             }
         }
     }

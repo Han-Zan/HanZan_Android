@@ -5,5 +5,5 @@ import com.kud.hanzan.domain.utils.error.RemoteErrorEmitter
 import kotlinx.coroutines.flow.Flow
 
 interface KakaoRepository {
-    suspend fun getKeywordPlace(emitter: RemoteErrorEmitter, keyword: String) : Flow<List<Place>>
+    fun getKeywordPlace(emitter: RemoteErrorEmitter, keyword: String) : Flow<Place>
 }

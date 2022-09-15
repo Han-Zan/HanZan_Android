@@ -30,7 +30,7 @@ object NetworkModule {
     @Provides
     @Singleton
     @KakaoRetrofit
-    fun provideKakaoRetrofit(gsonConverterFactory: GsonConverterFactory, client: OkHttpClient) : Retrofit{
+    fun provideKakaoRetrofit(gsonConverterFactory: GsonConverterFactory, @KakaoRetrofit client: OkHttpClient) : Retrofit{
         return Retrofit.Builder()
             .baseUrl(KAKAO_BASE_URL)
             .addConverterFactory(gsonConverterFactory)
@@ -41,7 +41,7 @@ object NetworkModule {
     @Provides
     @Singleton
     @HanZanRetrofit
-    fun provideRetrofit(gsonConverterFactory: GsonConverterFactory, client: OkHttpClient) : Retrofit{
+    fun provideRetrofit(gsonConverterFactory: GsonConverterFactory, @HanZanRetrofit client: OkHttpClient) : Retrofit{
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(gsonConverterFactory)
@@ -54,6 +54,7 @@ object NetworkModule {
     fun provideGsonConverterFactory() : GsonConverterFactory{
         return GsonConverterFactory.create()
     }
+
 
     @Provides
     @Singleton
