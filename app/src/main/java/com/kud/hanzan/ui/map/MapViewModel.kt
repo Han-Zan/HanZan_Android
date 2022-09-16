@@ -1,23 +1,38 @@
 package com.kud.hanzan.ui.map
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kud.hanzan.domain.model.Place
 import com.kud.hanzan.domain.usecase.GetKeywordPlaceUseCase
-import com.kud.hanzan.utils.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
     private val useCase: GetKeywordPlaceUseCase
-) : BaseViewModel() {
-    fun getKeyWordPlace(keyword: String) : Flow<Place> = useCase(this@MapViewModel, keyword)
+) : ViewModel() {
+    private val _placeInfo = MutableStateFlow<PlaceUiState>(PlaceUiState.Success(emptyList()))
+    val placeInfo : StateFlow<PlaceUiState>
+        get() = _placeInfo
+
+    fun getKeyWordPlace(keyword: String) {
+        viewModelScope.launch {
+            useCase(keyword)
+                .flowOn(Dispatchers.IO)
+                    // 오류 처리 로직
+                .catch { _placeInfo.value = PlaceUiState.Error(it) }
+                .collect{
+                    _placeInfo.value = PlaceUiState.Success(it)
+                }
+        }
+    }
+}
+
+sealed class PlaceUiState {
+    data class Success(val placeList: List<Place>): PlaceUiState()
+    data class Error(val exception: Throwable): PlaceUiState()
 }

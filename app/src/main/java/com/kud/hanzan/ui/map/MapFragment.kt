@@ -3,16 +3,18 @@ package com.kud.hanzan.ui.map
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.FragmentMapBinding
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import net.daum.mf.map.api.CalloutBalloonAdapter
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
@@ -31,6 +33,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
         super.onViewCreated(view, savedInstanceState)
         initMap()
         initListener()
+        observe()
     }
 
     // Todo : 권한 설정 추가
@@ -58,19 +61,12 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
     }
 
     // Todo : 삭제 버튼 눌렀을 때 핀 제거 추가해보기
-    // 화면 나갔다 오면 마커 없어지는 것 해결 노력
     private fun initListener(){
         with(binding){
             mapSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     query?.let {
-                        lifecycleScope.launch{
-                            viewModel.getKeyWordPlace(query).also {
-                                withContext(Dispatchers.Main) {mapView.removeAllPOIItems()} }.collect{
-                                // 내부 로직 구현
-                                addMarker(it.placeName, it.x, it.y)
-                            }
-                        } }
+                        viewModel.getKeyWordPlace(it) }
                     return true
                 }
 
@@ -78,6 +74,19 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
                     return false
                 }
             })
+        }
+    }
+
+    private fun observe(){
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.placeInfo.collectLatest {
+                    state -> when(state){
+                        is PlaceUiState.Success -> state.placeList.forEach { addMarker(it.placeName, it.x, it.y) }
+                        is PlaceUiState.Error -> Toast.makeText(context, state.exception.toString(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
         }
     }
 
@@ -96,7 +105,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
             //블루핀, 옐로우핀, 레드핀도 가능
             markerType = MapPOIItem.MarkerType.RedPin
         }
-        mapView.addPOIItem(marker).also { Log.e(TAG, name) }
+        mapView.addPOIItem(marker)
     }
 
     class CustomBalloonAdapter(): CalloutBalloonAdapter{
