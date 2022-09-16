@@ -1,10 +1,14 @@
 package com.kud.hanzan.ui.map
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SearchView
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -26,21 +30,41 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
 
     companion object{
         private const val TAG = "MapFragment"
+        private const val multiplePermissionCode = 100
+        private val requestPermissions = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+    }
+
+    val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                // Precise location access granted.
+            }
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                // Only approximate location access granted.
+            } else -> {
+            // No location access granted.
+        }
+        }
     }
 
     private val viewModel by viewModels<MapViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        checkPermission()
         initMap()
         initListener()
         observe()
     }
 
-    // Todo : 권한 설정 추가
+    // Todo : 현재 위치 찾으려 할 때 권한 항상 check
     private fun initMap(){
         mapView = MapView(activity)
         binding.kakaoMapView.addView(mapView)
-        mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
 
         // 마커 추가
 //        val marker = MapPOIItem()
@@ -58,6 +82,43 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
 //            markerType = MapPOIItem.MarkerType.RedPin
 //        }
 //        mapView.addPOIItem(marker)
+    }
+
+    private fun checkPermission(){
+        val rejectedPermissions = ArrayList<String>()
+        for (permission in requestPermissions){
+            if (ActivityCompat.checkSelfPermission(requireActivity(), permission) != PackageManager.PERMISSION_GRANTED){
+                // 권한 없다면 거절된 리스트에 추가
+                rejectedPermissions.add(permission)
+            }
+        }
+        // 거절된 게 있다면 다시 물어보기
+        if (rejectedPermissions.isNotEmpty()){
+            val array = arrayOfNulls<String>(rejectedPermissions.size)
+            ActivityCompat.requestPermissions(requireActivity(), rejectedPermissions.toArray(array), multiplePermissionCode)
+        }
+//        locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+//            Manifest.permission.ACCESS_COARSE_LOCATION))
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            multiplePermissionCode -> {
+                if ((grantResults.isNotEmpty()) && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                } else{
+                    Toast.makeText(requireContext(), "권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
+                }
+                return
+            }
+            else -> {
+                Toast.makeText(requireContext(), "권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     // Todo : 삭제 버튼 눌렀을 때 핀 제거 추가해보기
