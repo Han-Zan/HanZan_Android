@@ -4,5 +4,5 @@ import com.kud.hanzan.data.entity.place.PlaceKeywordResult
 import kotlinx.coroutines.flow.Flow
 
 interface KakaoDataSource {
-    suspend fun getKeywordPlace(keyword: String) : Flow<PlaceKeywordResult>
+    fun getKeywordPlace(keyword: String) : Flow<PlaceKeywordResult>
 }

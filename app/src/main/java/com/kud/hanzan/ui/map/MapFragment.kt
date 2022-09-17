@@ -143,7 +143,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.placeInfo.collectLatest {
                     state -> when(state){
-                        is PlaceUiState.Success -> state.placeList.forEach { addMarker(it.placeName, it.x, it.y) }
+                        is PlaceUiState.Success -> state.placeList.also { Log.e(TAG, it.toString()) }.forEach { addMarker(it.placeName, it.x, it.y) }
                         is PlaceUiState.Error -> Toast.makeText(context, state.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }

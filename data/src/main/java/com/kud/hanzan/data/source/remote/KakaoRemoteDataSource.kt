@@ -10,10 +10,9 @@ import javax.inject.Inject
 class KakaoRemoteDataSource @Inject constructor(
     private val kakaoService: KakaoService
 ) : KakaoDataSource {
-    override suspend fun getKeywordPlace(
+    override fun getKeywordPlace(
         keyword: String
-    ): Flow<PlaceKeywordResult> =
-        flow {
+    ): Flow<PlaceKeywordResult> = flow {
             emit(kakaoService.getKeywordPlace(keyword))
-        }
+    }
 }
