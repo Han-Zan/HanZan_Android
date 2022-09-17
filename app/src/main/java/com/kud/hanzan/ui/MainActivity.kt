@@ -16,16 +16,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     private fun initBottomNav(){
         val navController = supportFragmentManager.findFragmentById(R.id.main_fragment_container)?.findNavController()
         navController?.let { binding.mainBottomNav.setupWithNavController(it) }
-//        binding.mainBottomNav.setOnItemSelectedListener {
-//            item ->
-//                if (item.itemId == R.id.searchActivity)
-//                    startActivity(Intent(this, SearchActivity::class.java))
-//                else {
-//                    navController?.let {
-//                        NavigationUI.onNavDestinationSelected(item, it) }
-//                }
-//            return@setOnItemSelectedListener true
-//        }
-//        binding.mainBottomNav.selectedItemId = R.id.homeFragment
     }
 }

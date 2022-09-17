@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.transition.MaterialFadeThrough
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.HomeAlcoholRVAdapter
 import com.kud.hanzan.databinding.FragmentHomeBinding
@@ -14,6 +15,13 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        reenterTransition = MaterialFadeThrough().apply { duration = 1000 }
+        enterTransition = MaterialFadeThrough().apply { duration = 1000 }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // 임시 데이터
@@ -32,6 +40,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 adapter = HomeAlcoholRVAdapter()
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             }
+            homeLikeAlcoholRv.apply {
+                adapter = HomeAlcoholRVAdapter()
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            }
         }
     }
 
@@ -40,6 +52,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         (binding.homeTypeAlcoholRv.adapter as HomeAlcoholRVAdapter)
             .setData(listOf(Alcohol("고든", "양주", 3, 4.9,  R.drawable.godons, "태그"),
                 Alcohol("참이슬", "소주", 1, 4.5, R.drawable.soju1, "깔끔"),
+                Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.wine1, "산미")
+            ))
+
+        (binding.homeLikeAlcoholRv.adapter as HomeAlcoholRVAdapter)
+            .setData(listOf(Alcohol("참이슬", "소주", 1, 4.5, R.drawable.soju1, "깔끔"),
+                Alcohol("고든", "양주", 3, 4.9,  R.drawable.godons, "태그"),
                 Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.wine1, "산미")
             ))
     }
