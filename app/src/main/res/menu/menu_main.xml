@@ -8,9 +8,9 @@
         android:icon="@drawable/ic_category"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/searchActivity"
-        android:title="검색"
-        android:icon="@drawable/ic_search"
+        android:id="@+id/mapFragment"
+        android:title="지도"
+        android:icon="@drawable/ic_map"
         app:showAsAction="always"/>
     <item
         android:id="@+id/homeFragment"
@@ -18,13 +18,14 @@
         android:icon="@drawable/ic_home"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/profileFragment"
-        android:title="프로필"
-        android:icon="@drawable/ic_profile"
-        app:showAsAction="always"/>
-    <item
         android:id="@+id/likeFragment"
         android:title="라이크"
         android:icon="@drawable/ic_like"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/profileFragment"
+        android:title="프로필"
+        android:icon="@drawable/ic_profile"
+        app:showAsAction="always"/>
+
 </menu>
