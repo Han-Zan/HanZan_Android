@@ -7,4 +7,23 @@
     <color name="color_858585">#858585</color>
     <color name="color_d4d4d4">#D4D4D4</color>
     <color name="color_hanzan">#FFAA11</color>
+
+<!--  Text Colors  -->
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#D4D4D4</color>
+    <color name="text_black">#121212</color>
+    <color name="text_main_color">#FFAA11</color>
+    <color name="text_unselected">#66D4D4D4</color>
+    <color name="text_hint">#858585</color>
+    <color name="text_sale">#F55F31</color>
+    <color name="text_positive">#00FF00</color>
+    <color name="text_negative">#FF0000</color>
+<!--  Colors  -->
+    <color name="color_main">#FFAA11</color>
+    <color name="color_background">#121212</color>
+    <color name="color_navigation_bar">#1B1B1B</color>
+    <color name="color_text_field">#1B1B1B</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_heart">#B00020</color>
+
 </resources>
