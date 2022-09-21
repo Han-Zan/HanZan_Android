@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.kud.hanzan.domain.model.Place
 import com.kud.hanzan.domain.usecase.GetKeywordPlaceUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,8 +21,7 @@ class MapViewModel @Inject constructor(
     fun getKeyWordPlace(keyword: String) {
         viewModelScope.launch {
             useCase(keyword)
-                .flowOn(Dispatchers.IO)
-                    // 오류 처리 로직
+                // 오류 처리 로직
                 .catch { _placeInfo.value = PlaceUiState.Error(it) }
                 .collect{
                     _placeInfo.value = PlaceUiState.Success(it)

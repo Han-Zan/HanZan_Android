@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.FragmentMapBinding
 import com.kud.hanzan.utils.base.BaseFragment
@@ -27,6 +28,8 @@ import net.daum.mf.map.api.MapView
 @AndroidEntryPoint
 class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
     private lateinit var mapView: MapView
+    private var isPickUpShown: Boolean = true
+    private var isNearShown: Boolean = true
 
     companion object{
         private const val TAG = "MapFragment"
@@ -37,35 +40,26 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
         )
     }
 
-    val locationPermissionRequest = registerForActivityResult(
-        ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-        when {
-            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
-                // Precise location access granted.
-            }
-            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
-                // Only approximate location access granted.
-            } else -> {
-            // No location access granted.
-        }
-        }
-    }
-
     private val viewModel by viewModels<MapViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        checkPermission()
         initMap()
         initListener()
         observe()
     }
 
+    override fun onResume() {
+        super.onResume()
+        isPickUpShown = binding.mapPickupAvailCb.isChecked
+        isNearShown = binding.mapPickupNearCb.isChecked
+        binding.mapPickupAvailCb.text = if (isPickUpShown) "픽업 가능" else "전체"
+        binding.mapPickupNearCb.text = if (isNearShown) "가까운 순" else "정확도 순"
+    }
     // Todo : 현재 위치 찾으려 할 때 권한 항상 check
     private fun initMap(){
         mapView = MapView(activity)
         binding.kakaoMapView.addView(mapView)
-
+        checkPermission()
         // 마커 추가
 //        val marker = MapPOIItem()
 //        marker.apply {
@@ -96,6 +90,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
         if (rejectedPermissions.isNotEmpty()){
             val array = arrayOfNulls<String>(rejectedPermissions.size)
             ActivityCompat.requestPermissions(requireActivity(), rejectedPermissions.toArray(array), multiplePermissionCode)
+        } else{
+            mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
         }
 //        locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
 //            Manifest.permission.ACCESS_COARSE_LOCATION))
@@ -109,7 +105,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
         when(requestCode){
             multiplePermissionCode -> {
                 if ((grantResults.isNotEmpty()) && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
+                    mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading
                 } else{
                     Toast.makeText(requireContext(), "권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
                 }
@@ -124,6 +120,18 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
     // Todo : 삭제 버튼 눌렀을 때 핀 제거 추가해보기
     private fun initListener(){
         with(binding){
+            mapCurrentPosIv.setOnClickListener {
+                checkPermission() }
+            // 체크박스 리스너
+            mapPickupAvailCb.setOnClickListener { isPickUpShown = mapPickupAvailCb.isChecked
+                mapPickupAvailCb.text = if (isPickUpShown) "픽업 가능" else "전체"
+            }
+
+            mapPickupNearCb.setOnClickListener { isNearShown = mapPickupNearCb.isChecked
+                mapPickupNearCb.text = if (isNearShown) "가까운 순" else "정확도 순"
+            }
+
+            // 서치뷰 리스너
             mapSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     query?.let {
@@ -143,7 +151,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map) {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.placeInfo.collectLatest {
                     state -> when(state){
-                        is PlaceUiState.Success -> state.placeList.also { Log.e(TAG, it.toString()) }.forEach { addMarker(it.placeName, it.x, it.y) }
+                        is PlaceUiState.Success -> state.placeList.also { mapView.removeAllPOIItems() }.forEach { addMarker(it.placeName, it.x, it.y) }
                         is PlaceUiState.Error -> Toast.makeText(context, state.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
