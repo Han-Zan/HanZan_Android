@@ -1,8 +1,22 @@
 <resources>
+<!--  Login Activity  -->
+    <string name="user_name">닉네임</string>
+    <string name="user_name_hint">닉네임을 입력해주세요.</string>
+    <string name="user_name_error">입력한 닉네임은 사용할 수 없습니다.</string>
+    <string name="user_name_correct">사용 가능한 닉네임입니다.</string>
+    <string name="user_name_tip">한잔에서 사용할 닉네임이며, 추후 변경이 가능합니다.\n한글/영문/특수문자(., -, _)로 구성해주세요.</string>
+    <string name="user_age">나이</string>
+    <string name="user_age_20">20~29</string>
+    <string name="user_age_30">30~39</string>
+    <string name="user_age_40">40~49</string>
+    <string name="user_age_50">50~59</string>
+    <string name="user_age_60over">60세 이상</string>
+    <string name="go_to_SBTI">술BTI 검사하러 가기!</string>
+<!--  Main Activity  -->
     <string name="app_name">HanZan</string>
     <string name="home_search_hint">지금 당장 먹고 싶은 술을 검색!</string>
     <string name="click_more">클릭하여 더보기</string>
     <string name="home_like_alcohol_guide">회원님이 좋아하시는 술과 비슷해요.</string>
     <string name="map_search_hint">가게 이름을 입력해주세요.</string>
-    <string name="set_user_name_hint">닉네임을 입력해주세요.</string>
+
 </resources>
