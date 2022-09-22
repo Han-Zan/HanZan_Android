@@ -44,6 +44,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     private val viewModel by viewModels<MapViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.mapViewModel = viewModel
         initMap()
         initLocationClient()
         initListener()
@@ -113,6 +114,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     }
 
     private fun observe(){
+        binding.lifecycleOwner = this
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.placeInfo.collectLatest {
@@ -120,9 +122,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
                         is PlaceUiState.Success -> state.placeList.also { mapView.removeAllPOIItems() }.forEach { addMarker(it.placeName, it.x, it.y) }
                         is PlaceUiState.Error -> Toast.makeText(context, state.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
-                }
-                viewModel.roadAddress.collectLatest {
-                    binding.mapRoadAddressTv.text = it
                 }
             }
         }
@@ -189,6 +188,9 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
             location?.let {
                 mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(location.latitude, location.longitude), false)
+
+                // 현재 위치 글씨로 초기화
+                viewModel.setCurrentPos()
             }
         }
     }
@@ -285,7 +287,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     }
     override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {
         // 도로명 주소 알아오기
-        p0?.let{ p1?.let { viewModel.getRoadAddress(it.mapPointGeoCoord.longitude.toString(), it.mapPointGeoCoord.latitude.toString()) }}
+        p0?.let{ p1?.let { viewModel.setRoadAddress(it.mapPointGeoCoord.longitude.toString(), it.mapPointGeoCoord.latitude.toString()) }}
     }
 
     override fun onMapViewInitialized(p0: MapView?) {

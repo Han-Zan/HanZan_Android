@@ -18,7 +18,7 @@ class KakaoRepositoryImpl @Inject constructor(
 
     override fun getRoadAddress(
         longitude: String, latitude: String
-    ): Flow<String> = kakaoRemoteDataSource.getRoadAddress(longitude, latitude).map {
-            it.documents[0].address.address_name
+    ): Flow<String> = kakaoRemoteDataSource.getRoadAddress(longitude, latitude).map { res ->
+        res.documents[0].road_address?.let { r -> "${r.region_2depth_name}${r.region_3depth_name} ${r.road_name} ${r.main_building_no}" }!!
     }
 }

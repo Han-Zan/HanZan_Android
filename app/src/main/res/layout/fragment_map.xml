@@ -8,6 +8,9 @@
         <variable
             name="isNearShown"
             type="java.lang.Boolean" />
+        <variable
+            name="mapViewModel"
+            type="com.kud.hanzan.ui.map.MapViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -51,7 +54,7 @@
                     android:id="@+id/map_road_address_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/map_default_address"/>
+                    android:text="@{String.valueOf(mapViewModel.roadAddress)}"/>
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

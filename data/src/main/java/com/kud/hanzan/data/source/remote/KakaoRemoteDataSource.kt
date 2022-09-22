@@ -22,7 +22,8 @@ class KakaoRemoteDataSource @Inject constructor(
     override fun getRoadAddress(
         longitude: String, latitude: String
     ): Flow<RoadAddressResult> = flow {
-        emit(kakaoService.getRoadAddress(longitude, latitude))
+        val res = kakaoService.getRoadAddress(longitude, latitude)
+        res.documents[0].road_address?.let { emit(res) }
     }.flowOn(Dispatchers.IO)
 
 }
