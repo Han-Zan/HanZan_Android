@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="isPickupShown"
+            type="java.lang.Boolean" />
+        <variable
+            name="isNearShown"
+            type="java.lang.Boolean" />
+    </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -62,7 +70,7 @@
                     android:button="@null"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="8dp"
-                    android:text="가까운 순"
+                    android:text='@{isNearShown ? "가까운 순" : "정확도 순"}'
                     android:textStyle="bold" />
 
                 <CheckBox
@@ -70,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/cb_map_category_selector"
-                    android:text="픽업 가능"
+                    android:text='@{isPickupShown ? "픽업 가능" : "전체"}'
                     android:minHeight="0dp"
                     android:button="@null"
                     android:checked="true"
@@ -108,7 +116,7 @@
             android:id="@+id/map_current_pos_iv"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_current_pos"
+            android:src="@drawable/ic_find_current_pos"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_margin="20dp"/>
