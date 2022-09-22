@@ -1,5 +1,5 @@
 <resources>
-<!--  Login Activity  -->
+<!--    Login Activity-->
     <string name="user_name">닉네임</string>
     <string name="user_name_hint">닉네임을 입력해주세요.</string>
     <string name="user_name_error">입력한 닉네임은 사용할 수 없습니다.</string>
@@ -11,8 +11,15 @@
     <string name="user_age_40">40~49</string>
     <string name="user_age_50">50~59</string>
     <string name="user_age_60over">60세 이상</string>
-    <string name="go_to_SBTI">술BTI 검사하러 가기!</string>
-<!--  Main Activity  -->
+    <string name="navigate_to_sbti_tip">술BTI 검사하러 가기!</string>
+<!--    SBTI Activity-->
+    <string name="sbti">술BTI 검사</string>
+    <string name="sbti_tip1">총 검사 시간은 5분 내외입니다.</string>
+    <string name="sbti_tip2">검사 결과를 토대로 좋아하실만한 품목을 추천해드려요.</string>
+    <string name="sbti_tip3">솔직하게 답변해주세요.</string>
+    <string name="sbti_tip4">재미로만 즐겨주세요.</string>
+    <string name="navigate_to_sbti">시작!</string>
+<!--    Main Activity-->
     <string name="app_name">HanZan</string>
     <string name="home_search_hint">지금 당장 먹고 싶은 술을 검색!</string>
     <string name="click_more">클릭하여 더보기</string>

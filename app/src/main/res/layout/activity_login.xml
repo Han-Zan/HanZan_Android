@@ -28,20 +28,20 @@
             android:src="@drawable/user_dummy_icon"
             android:background="@drawable/bg_profile_background"/>
         
-        <de.hdodenhof.circleimageview.CircleImageView
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/login_profile_btn"
             android:layout_width="35dp"
             android:layout_height="35dp"
             app:layout_constraintEnd_toEndOf="@id/login_user_profile_IV"
             app:layout_constraintBottom_toBottomOf="@id/login_user_profile_IV"
-            android:src="@drawable/bg_profile_change_button"/>
+            android:background="@drawable/bg_profile_change_button" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/user_name"
             app:layout_constraintBottom_toTopOf="@id/login_user_name_ET"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintStart_toStartOf="@id/login_user_name_ET"
             android:layout_marginStart="4dp"
             android:textSize="18sp"
@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:text="@string/user_age"
             app:layout_constraintBottom_toTopOf="@id/login_user_age_LL"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintStart_toStartOf="@id/login_user_age_LL"
             android:layout_marginStart="24dp"
             android:textSize="18sp"
@@ -110,7 +110,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="440dp"
+            android:layout_marginTop="400dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -125,6 +125,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
                     android:layout_marginBottom="4dp"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="20dp"
                     android:background="@drawable/cb_login_user_age_small"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
@@ -142,6 +144,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
                     android:layout_marginBottom="4dp"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="20dp"
                     android:background="@drawable/cb_login_user_age_small"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
@@ -159,6 +163,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
                     android:layout_marginBottom="4dp"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="20dp"
                     android:background="@drawable/cb_login_user_age_small"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
@@ -183,7 +189,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="20dp"
                     android:background="@drawable/cb_login_user_age_small"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
@@ -200,7 +208,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="4dp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="20dp"
                     android:background="@drawable/cb_login_user_age_medium"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
@@ -215,23 +225,24 @@
             </LinearLayout>
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/login_next_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
             android:paddingVertical="10dp"
             android:paddingHorizontal="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="120dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:backgroundTint="@color/color_main"
-            android:text="@string/go_to_SBTI"
+            android:background="@drawable/bg_yellow_button"
+            android:text="@string/navigate_to_sbti_tip"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary"
-            visibleInvisible="@{isNameChecked &amp;&amp; isAgeChecked}"
-            />
+            visibleInvisible="@{isNameChecked &amp;&amp; isAgeChecked}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
