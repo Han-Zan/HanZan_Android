@@ -62,9 +62,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         binding.kakaoMapView.addView(mapView)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         checkPermission()
-        mapView.setMapViewEventListener {
-
-        }
+        mapView.setMapViewEventListener(this)
         // 마커 추가
 //        val marker = MapPOIItem()
 //        marker.apply {
@@ -122,6 +120,9 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
                         is PlaceUiState.Success -> state.placeList.also { mapView.removeAllPOIItems() }.forEach { addMarker(it.placeName, it.x, it.y) }
                         is PlaceUiState.Error -> Toast.makeText(context, state.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
+                }
+                viewModel.roadAddress.collectLatest {
+                    binding.mapRoadAddressTv.text = it
                 }
             }
         }
@@ -283,7 +284,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 
     }
     override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {
-        p1?.let { p1.mapPointScreenLocation. }
+        // 도로명 주소 알아오기
+        p0?.let{ p1?.let { viewModel.getRoadAddress(it.mapPointGeoCoord.longitude.toString(), it.mapPointGeoCoord.latitude.toString()) }}
     }
 
     override fun onMapViewInitialized(p0: MapView?) {
