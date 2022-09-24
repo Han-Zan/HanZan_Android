@@ -7,7 +7,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sbti_tips_layout"
         android:layout_width="match_parent"
-        android:layout_height="660dp">
+        android:layout_height="660dp"
+        android:background="@drawable/bg_sbti">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"

@@ -1,1135 +1,1147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    tools:context=".ui.sbti.SbtiFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:paddingHorizontal="20dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginTop="290dp"
-            android:layout_marginBottom="20dp"/>
-
-        <!-- SBTI Question 1 -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
+        <ScrollView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
-            android:text="@string/sbti_question_1"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="270dp"
+                android:orientation="vertical"
                 android:gravity="center_horizontal">
 
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_1_1_CB"
-                    android:layout_width="wrap_content"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
+
+                <!-- SBTI Question 1 -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_small"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_1_1"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    android:layout_marginVertical="20dp"
                     android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_1_2_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_medium"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_1_2"
-                    android:textColor="@color/text_primary"
+                    android:text="@string/sbti_question_1"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginVertical="20dp"/>
-
-        <!-- SBTI Question 2 -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
-            android:text="@string/sbti_question_2"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_2_1_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_extrabig"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_2_1"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_2_2_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_extrabig"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_2_2"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginVertical="20dp"/>
-
-        <!-- SBTI Question 3 -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
-            android:text="@string/sbti_question_3"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_3_1_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_extrabig"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_3_1"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_3_2_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_extrabig"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_3_2"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginVertical="20dp"/>
-
-        <!-- SBTI Question 4 -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
-            android:text="@string/sbti_question_4"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_4_1_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_big"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_4_1"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_4_2_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_extrabig"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_4_2"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginVertical="20dp"/>
-
-        <!-- SBTI Question 5 -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
-            android:text="@string/sbti_question_5"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_5_1_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_big"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_5_1"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_5_2_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_big"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_5_2"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginVertical="20dp"/>
-
-        <!-- SBTI Question 6 -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
-            android:text="@string/sbti_question_6"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
+                    android:textStyle="bold"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginVertical="20dp"
                     android:gravity="center_horizontal">
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/sbti_answer_6_1_CB"
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:paddingVertical="10dp"
-                        android:paddingHorizontal="20dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:background="@drawable/cb_glass_circular"
-                        android:button="@null"
-                        tools:ignore="TouchTargetSizeCheck"/>
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/sbti_answer_6_1"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_1_1_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_small"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_1_1"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_1_2_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_medium"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_1_2"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_6_2_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
 
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_6_3_CB"
-                    android:layout_width="wrap_content"
+                <!-- SBTI Question 2 -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_6_4_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="@string/sbti_question_2"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginVertical="20dp"
                     android:gravity="center_horizontal">
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/sbti_answer_6_5_CB"
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:paddingVertical="10dp"
-                        android:paddingHorizontal="20dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:background="@drawable/cb_glass_circular"
-                        android:button="@null"
-                        tools:ignore="TouchTargetSizeCheck"/>
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_2_1_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_extrabig"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_2_1"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/sbti_answer_6_5"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_2_2_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_extrabig"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_2_2"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginVertical="20dp"/>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
 
-        <!-- SBTI Question 7 -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
-            android:text="@string/sbti_question_7"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_7_1_CB"
-                    android:layout_width="wrap_content"
+                <!-- SBTI Question 3 -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_small"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_7_1"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    android:layout_marginVertical="20dp"
                     android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_7_2_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_small"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_7_2"
-                    android:textColor="@color/text_primary"
+                    android:text="@string/sbti_question_3"
                     android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_7_3_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_small"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_7_3"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_7_4_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_small"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_7_4"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_7_5_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_big"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_7_5"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginVertical="20dp"/>
-
-        <!-- SBTI Question 8 -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
-            android:text="@string/sbti_question_8"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_8_1_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_medium"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_8_1"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_8_2_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_medium"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_8_2"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_8_3_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="4dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_big"
-                    android:button="@null"
-                    android:text="@string/sbti_answer_8_3"
-                    android:textColor="@color/text_primary"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    tools:ignore="TouchTargetSizeCheck"/>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginVertical="20dp"/>
-
-        <!-- SBTI Question 9 -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
-            android:text="@string/sbti_question_9"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
+                    android:textStyle="bold"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginVertical="20dp"
                     android:gravity="center_horizontal">
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/sbti_answer_9_1_CB"
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:paddingVertical="10dp"
-                        android:paddingHorizontal="20dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:background="@drawable/cb_glass_circular"
-                        android:button="@null"
-                        tools:ignore="TouchTargetSizeCheck"/>
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_3_1_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_extrabig"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_3_1"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/sbti_answer_9_1"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_3_2_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_extrabig"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_3_2"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_9_2_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
 
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_9_3_CB"
-                    android:layout_width="wrap_content"
+                <!-- SBTI Question 4 -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_9_4_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="@string/sbti_question_4"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:layout_marginVertical="20dp"
                     android:gravity="center_horizontal">
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/sbti_answer_9_5_CB"
-                        android:layout_width="wrap_content"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:paddingVertical="10dp"
-                        android:paddingHorizontal="20dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:background="@drawable/cb_glass_circular"
-                        android:button="@null"
-                        tools:ignore="TouchTargetSizeCheck"/>
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_4_1_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_big"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_4_1"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/sbti_answer_9_5"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_4_2_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_extrabig"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_4_2"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
+
+                <!-- SBTI Question 5 -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="@string/sbti_question_5"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center_horizontal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_5_1_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_big"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_5_1"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_5_2_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_big"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_5_2"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
+
+                <!-- SBTI Question 6 -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="@string/sbti_question_6"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center_horizontal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/sbti_answer_6_1_CB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:paddingVertical="10dp"
+                                android:paddingHorizontal="20dp"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/cb_glass_circular"
+                                android:button="@null"
+                                tools:ignore="TouchTargetSizeCheck"/>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="@string/sbti_answer_6_1"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:gravity="center"/>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_6_2_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_6_3_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_6_4_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/sbti_answer_6_5_CB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:paddingVertical="10dp"
+                                android:paddingHorizontal="20dp"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/cb_glass_circular"
+                                android:button="@null"
+                                tools:ignore="TouchTargetSizeCheck"/>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="@string/sbti_answer_6_5"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:gravity="center"/>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
+
+                <!-- SBTI Question 7 -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="@string/sbti_question_7"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center_horizontal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_7_1_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_small"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_7_1"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_7_2_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_small"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_7_2"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_7_3_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_small"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_7_3"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_7_4_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_small"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_7_4"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_7_5_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_big"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_7_5"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
+
+                <!-- SBTI Question 8 -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="@string/sbti_question_8"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center_horizontal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_8_1_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_medium"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_8_1"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_8_2_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_medium"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_8_2"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_8_3_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="4dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_big"
+                            android:button="@null"
+                            android:text="@string/sbti_answer_8_3"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            tools:ignore="TouchTargetSizeCheck"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
+
+                <!-- SBTI Question 9 -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="@string/sbti_question_9"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center_horizontal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/sbti_answer_9_1_CB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:paddingVertical="10dp"
+                                android:paddingHorizontal="20dp"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/cb_glass_circular"
+                                android:button="@null"
+                                tools:ignore="TouchTargetSizeCheck"/>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="@string/sbti_answer_9_1"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:gravity="center"/>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_9_2_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_9_3_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_9_4_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/sbti_answer_9_5_CB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:paddingVertical="10dp"
+                                android:paddingHorizontal="20dp"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/cb_glass_circular"
+                                android:button="@null"
+                                tools:ignore="TouchTargetSizeCheck"/>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="@string/sbti_answer_9_5"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:gravity="center"/>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
+
+                <!-- SBTI Question 10 -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="@string/sbti_question_10"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center_horizontal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/sbti_answer_10_1_CB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:paddingVertical="10dp"
+                                android:paddingHorizontal="20dp"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/cb_glass_circular"
+                                android:button="@null"
+                                tools:ignore="TouchTargetSizeCheck"/>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="@string/sbti_answer_10_1"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:gravity="center"/>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_10_2_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_10_3_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_10_4_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/sbti_answer_10_5_CB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:paddingVertical="10dp"
+                                android:paddingHorizontal="20dp"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/cb_glass_circular"
+                                android:button="@null"
+                                tools:ignore="TouchTargetSizeCheck"/>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="@string/sbti_answer_10_5"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:gravity="center"/>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
+
+                <!-- SBTI Question 11 -->
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center"
+                    android:text="@string/sbti_question_11"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="20dp"
+                    android:gravity="center_horizontal">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginVertical="4dp"
+                        android:gravity="center_horizontal">
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/sbti_answer_11_1_CB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:paddingVertical="10dp"
+                                android:paddingHorizontal="20dp"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/cb_glass_circular"
+                                android:button="@null"
+                                tools:ignore="TouchTargetSizeCheck"/>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="@string/sbti_answer_11_1"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:gravity="center"/>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_11_2_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_11_3_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/sbti_answer_11_4_CB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="10dp"
+                            android:paddingVertical="10dp"
+                            android:paddingHorizontal="20dp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:background="@drawable/cb_glass_circular"
+                            android:button="@null"
+                            tools:ignore="TouchTargetSizeCheck"/>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal">
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/sbti_answer_11_5_CB"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="10dp"
+                                android:paddingVertical="10dp"
+                                android:paddingHorizontal="20dp"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/cb_glass_circular"
+                                android:button="@null"
+                                tools:ignore="TouchTargetSizeCheck"/>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:text="@string/sbti_answer_11_5"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:gravity="center"/>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/text_secondary"
+                    android:layout_marginVertical="20dp"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginVertical="20dp"/>
-
-        <!-- SBTI Question 10 -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
-            android:text="@string/sbti_question_10"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
-
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/sbti_answer_10_1_CB"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:paddingVertical="10dp"
-                        android:paddingHorizontal="20dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:background="@drawable/cb_glass_circular"
-                        android:button="@null"
-                        tools:ignore="TouchTargetSizeCheck"/>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/sbti_answer_10_1"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_10_2_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_10_3_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_10_4_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
-
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/sbti_answer_10_5_CB"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:paddingVertical="10dp"
-                        android:paddingHorizontal="20dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:background="@drawable/cb_glass_circular"
-                        android:button="@null"
-                        tools:ignore="TouchTargetSizeCheck"/>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/sbti_answer_10_5"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginVertical="20dp"/>
-
-        <!-- SBTI Question 11 -->
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp"
-            android:gravity="center"
-            android:text="@string/sbti_question_11"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginVertical="20dp"
-            android:gravity="center_horizontal">
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginVertical="4dp"
-                android:gravity="center_horizontal">
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
-
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/sbti_answer_11_1_CB"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:paddingVertical="10dp"
-                        android:paddingHorizontal="20dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:background="@drawable/cb_glass_circular"
-                        android:button="@null"
-                        tools:ignore="TouchTargetSizeCheck"/>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/sbti_answer_11_1"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_11_2_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_11_3_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/sbti_answer_11_4_CB"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingHorizontal="20dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:background="@drawable/cb_glass_circular"
-                    android:button="@null"
-                    tools:ignore="TouchTargetSizeCheck"/>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
-
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/sbti_answer_11_5_CB"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="10dp"
-                        android:paddingVertical="10dp"
-                        android:paddingHorizontal="20dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:background="@drawable/cb_glass_circular"
-                        android:button="@null"
-                        tools:ignore="TouchTargetSizeCheck"/>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@string/sbti_answer_11_5"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="center"/>
-                </androidx.appcompat.widget.LinearLayoutCompat>
-            </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/text_secondary"
-            android:layout_marginVertical="20dp"/>
-    </androidx.appcompat.widget.LinearLayoutCompat>
-</ScrollView>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

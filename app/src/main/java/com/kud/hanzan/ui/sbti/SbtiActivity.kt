@@ -1,11 +1,8 @@
 package com.kud.hanzan.ui.sbti
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.commit
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivitySbtiBinding
-import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.utils.base.BaseActivity
 
 class SbtiActivity : BaseActivity<ActivitySbtiBinding>(R.layout.activity_sbti) {
@@ -15,12 +12,27 @@ class SbtiActivity : BaseActivity<ActivitySbtiBinding>(R.layout.activity_sbti) {
         setFragment()
     }
 
-    fun setFragment() {
+    private fun setFragment() {
         val sbtiTipsFragment: SbtiTipsFragment = SbtiTipsFragment()
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.sbti_tips_FL, sbtiTipsFragment)
+        transaction.add(R.id.sbti_FL, sbtiTipsFragment)
         transaction.commit()
     }
+
+    fun startSbti() {
+        val sbtiFragment: SbtiFragment = SbtiFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.sbti_FL, sbtiFragment)
+        transaction.commit()
+    }
+
+    fun setProgressBar() {
+        val sbtiProgressBarFragment: SbtiProgressBarFragment = SbtiProgressBarFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.sbti_PB, sbtiProgressBarFragment)
+        transaction.commit()
+    }
+
     override fun initView() {
     }
 }
