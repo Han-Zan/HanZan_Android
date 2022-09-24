@@ -22,7 +22,7 @@ class MapViewModel @Inject constructor(
     val placeInfo : StateFlow<PlaceUiState>
         get() = _placeInfo
 
-    private var _roadAddress = MutableStateFlow<String>("현재 위치")
+    private var _roadAddress = MutableStateFlow<String>("중구 태평로1가")
     val roadAddress : StateFlow<String>
         get() = _roadAddress
 
@@ -51,9 +51,6 @@ class MapViewModel @Inject constructor(
         }
     }
 
-    fun setCurrentPos() {
-        _roadAddress.value = "현재 위치"
-    }
 }
 
 sealed class PlaceUiState {

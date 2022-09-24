@@ -5,16 +5,15 @@ data class RoadAddressResult(
 )
 
 data class Document(
-    val road_address: RoadAddress?
+    val address: Address?
 )
 
-data class RoadAddress(
+data class Address(
     val address_name: String,
     val region_1depth_name: String,
     val region_2depth_name: String,
     val region_3depth_name: String,
-    val road_name: String,
     val mountain_yn: String,
-    val main_building_no: String,
-    val sub_building_no: String
+    val main_address_no: String,
+    val sub_address_no: String
 )

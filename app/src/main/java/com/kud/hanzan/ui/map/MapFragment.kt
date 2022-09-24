@@ -42,6 +42,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     }
 
     private val viewModel by viewModels<MapViewModel>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mapViewModel = viewModel
@@ -57,7 +58,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         binding.isNearShown = binding.mapPickupNearCb.isChecked
     }
 
-    // Todo : 현재 위치 찾으려 할 때 권한 항상 check
     private fun initMap(){
         mapView = MapView(activity)
         binding.kakaoMapView.addView(mapView)
@@ -87,8 +87,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     // Todo : 삭제 버튼 눌렀을 때 핀 제거 추가해보기
     private fun initListener(){
         with(binding){
-            mapCurrentPosIv.setOnClickListener {
-                setCurrentLocation() }
+//            mapCurrentPosIv.setOnClickListener {
+//                setCurrentLocation() }
             // 체크박스 리스너
             mapPickupAvailCb.setOnClickListener {
                 isPickupShown = !isPickupShown!!
@@ -189,8 +189,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
             location?.let {
                 mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(location.latitude, location.longitude), false)
 
-                // 현재 위치 글씨로 초기화
-                viewModel.setCurrentPos()
+                viewModel.setRoadAddress(location.longitude.toString(), location.latitude.toString())
             }
         }
     }

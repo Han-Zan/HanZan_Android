@@ -80,4 +80,6 @@ dependencies {
 
     //Fused Location Provider
     implementation 'com.google.android.gms:play-services-location:17.1.0'
+
+    implementation 'com.github.hannesa2:AndroidSlidingUpPanel:4.2.1'
 }
