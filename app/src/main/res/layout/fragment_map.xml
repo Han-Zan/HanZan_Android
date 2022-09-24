@@ -14,11 +14,14 @@
             type="com.kud.hanzan.ui.map.MapViewModel"/>
     </data>
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/map_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
+        app:umanoPanelHeight="0dp"
+        app:umanoShadowHeight="0dp"
+        app:umanoOverlay="true"
         app:umanoDragView="@id/map_bottom_layout"
-        app:umanoPanelHeight="30dp"
         app:umanoFadeColor="@android:color/transparent">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -127,34 +130,68 @@
                 app:layout_constraintTop_toBottomOf="@id/map_setting_layout"
                 app:layout_constraintVertical_bias="0.0"
                 tools:layout_editor_absoluteX="0dp" />
+
+            <ImageView
+                android:id="@+id/map_current_pos_iv"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="20dp"
+                app:srcCompat="@drawable/ic_find_current_pos"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/map_list_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="목록보기"
+                app:backgroundTint="@color/white"
+                app:backgroundTintMode="src_over"
+                app:icon="@drawable/ic_category"
+                app:iconTint="@color/black"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/map_current_pos_iv"
+                app:layout_constraintTop_toTopOf="@id/map_current_pos_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="20dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--        <ImageView-->
-<!--            android:id="@+id/map_current_pos_iv"-->
-<!--            android:layout_width="50dp"-->
-<!--            android:layout_height="50dp"-->
-<!--            app:srcCompat="@drawable/ic_find_current_pos"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:layout_margin="20dp"/>-->
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/map_bottom_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_map_bottom_sheet"
-            app:behavior_hideable="true"
-            app:behavior_peekHeight="300dp"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+            android:background="@drawable/bg_map_bottom_sheet">
             <ImageView
                 android:id="@+id/map_bottom_slide_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:src="@drawable/ic_bottom_slide"/>
+                android:src="@drawable/ic_bottom_slide"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/map_map_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:text="지도보기"
+                app:backgroundTint="@color/white"
+                app:backgroundTintMode="src_over"
+                app:icon="@drawable/ic_map"
+                app:iconTint="@color/black"
+                app:iconGravity="textStart"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="20dp"/>
+<!--            <Button-->
+<!--                android:id="@+id/map_bottom_slide_btn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:text="아래로 내리기 테스트"/>-->
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 </layout>

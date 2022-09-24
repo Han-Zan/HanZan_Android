@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -16,6 +17,7 @@ import com.google.android.gms.location.*
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.FragmentMapBinding
 import com.kud.hanzan.utils.base.BaseFragment
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -54,6 +56,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 
     override fun onResume() {
         super.onResume()
+        binding.mapBottomLayout.maxHeight = (binding.kakaoMapView.height * 1.02).toInt()
+
         binding.isPickupShown = binding.mapPickupNearCb.isChecked
         binding.isNearShown = binding.mapPickupNearCb.isChecked
     }
@@ -62,6 +66,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         mapView = MapView(activity)
         binding.kakaoMapView.addView(mapView)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        binding.mapLayout.panelHeight = 700
         checkPermission()
         mapView.setMapViewEventListener(this)
         // 마커 추가
@@ -87,8 +92,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     // Todo : 삭제 버튼 눌렀을 때 핀 제거 추가해보기
     private fun initListener(){
         with(binding){
-//            mapCurrentPosIv.setOnClickListener {
-//                setCurrentLocation() }
+            mapCurrentPosIv.setOnClickListener {
+                setCurrentLocation() }
             // 체크박스 리스너
             mapPickupAvailCb.setOnClickListener {
                 isPickupShown = !isPickupShown!!
@@ -110,6 +115,11 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
                     return false
                 }
             })
+
+            mapLayout.addPanelSlideListener(PanelEventListener())
+            // 패널 닫기
+            mapListFab.setOnClickListener { mapLayout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED }
+            mapMapFab.setOnClickListener { mapLayout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED }
         }
     }
 
@@ -272,6 +282,35 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
 
+    // Todo : 터치 잠금 추가할지 고민
+    inner class PanelEventListener : SlidingUpPanelLayout.PanelSlideListener{
+        // 패널 슬라이드 중일때
+        override fun onPanelSlide(panel: View?, slideOffset: Float) {
+            Log.e("TAG", slideOffset.toString())
+        }
+
+        // 패널 상태 변했을 때
+        override fun onPanelStateChanged(
+            panel: View?,
+            previousState: SlidingUpPanelLayout.PanelState?,
+            newState: SlidingUpPanelLayout.PanelState?
+        ) {
+            when (newState) {
+                SlidingUpPanelLayout.PanelState.EXPANDED, SlidingUpPanelLayout.PanelState.COLLAPSED -> {
+                    binding.mapListFab.visibility = View.VISIBLE
+                    binding.mapLayout.panelHeight = 0
+                    binding.mapBottomSlideIv.visibility = View.INVISIBLE
+                }
+                SlidingUpPanelLayout.PanelState.DRAGGING -> {
+                    if (binding.mapLayout.panelHeight > 0)
+                        binding.mapLayout.panelHeight = 0
+                    binding.mapBottomSlideIv.visibility = View.VISIBLE
+                }
+                else -> binding.mapBottomSlideIv.visibility = View.VISIBLE
+            }
+        }
+
+    }
     class CustomBalloonAdapter(): CalloutBalloonAdapter{
         // 마커 클릭시 나오는 말풍선
         override fun getCalloutBalloon(p0: MapPOIItem?): View {
