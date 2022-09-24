@@ -56,7 +56,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 
     override fun onResume() {
         super.onResume()
-        binding.mapBottomLayout.maxHeight = (binding.kakaoMapView.height * 1.02).toInt()
+        binding.mapBottomLayout.maxHeight = (binding.kakaoMapView.height * 1.025).toInt()
 
         binding.isPickupShown = binding.mapPickupNearCb.isChecked
         binding.isNearShown = binding.mapPickupNearCb.isChecked
@@ -286,7 +286,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     inner class PanelEventListener : SlidingUpPanelLayout.PanelSlideListener{
         // 패널 슬라이드 중일때
         override fun onPanelSlide(panel: View?, slideOffset: Float) {
-            Log.e("TAG", slideOffset.toString())
         }
 
         // 패널 상태 변했을 때
@@ -295,16 +294,13 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
             previousState: SlidingUpPanelLayout.PanelState?,
             newState: SlidingUpPanelLayout.PanelState?
         ) {
+            if (previousState == SlidingUpPanelLayout.PanelState.DRAGGING && newState == SlidingUpPanelLayout.PanelState.COLLAPSED)
+                binding.mapBottomLayout.maxHeight = (binding.kakaoMapView.height * 1.023).toInt()
             when (newState) {
                 SlidingUpPanelLayout.PanelState.EXPANDED, SlidingUpPanelLayout.PanelState.COLLAPSED -> {
                     binding.mapListFab.visibility = View.VISIBLE
                     binding.mapLayout.panelHeight = 0
                     binding.mapBottomSlideIv.visibility = View.INVISIBLE
-                }
-                SlidingUpPanelLayout.PanelState.DRAGGING -> {
-                    if (binding.mapLayout.panelHeight > 0)
-                        binding.mapLayout.panelHeight = 0
-                    binding.mapBottomSlideIv.visibility = View.VISIBLE
                 }
                 else -> binding.mapBottomSlideIv.visibility = View.VISIBLE
             }
