@@ -8,14 +8,18 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.kud.hanzan.R
+import com.kud.hanzan.adapter.MapStoreRVAdapter
 import com.kud.hanzan.databinding.FragmentMapBinding
+import com.kud.hanzan.domain.model.Store
 import com.kud.hanzan.utils.base.BaseFragment
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,21 +52,23 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mapViewModel = viewModel
-        initMap()
+        initView()
         initLocationClient()
         initListener()
         observe()
+        setRVData()
     }
 
     override fun onResume() {
         super.onResume()
-        binding.mapBottomLayout.maxHeight = (binding.kakaoMapView.height * 1.025).toInt()
+        binding.mapBottomLayout.maxHeight = (binding.kakaoMapView.height * 0.96).toInt()
 
         binding.isPickupShown = binding.mapPickupNearCb.isChecked
         binding.isNearShown = binding.mapPickupNearCb.isChecked
     }
 
-    private fun initMap(){
+    private fun initView(){
+        // 맵뷰 초기화
         mapView = MapView(activity)
         binding.kakaoMapView.addView(mapView)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -85,9 +91,26 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 //            markerType = MapPOIItem.MarkerType.RedPin
 //        }
 //        mapView.addPOIItem(marker)
+        // 리사이클러뷰 이닛
+        binding.mapBottomStoreRv.apply {
+            adapter = MapStoreRVAdapter()
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        }
     }
 
-
+    // 임시 데이터
+    // Todo : 검색결과로 변경
+    private fun setRVData(){
+        val tempList = ArrayList<Store>()
+        tempList.apply {
+            add(Store("밀짚모자", "420m", "도보 3분"))
+            add(Store("장독대", "850m", "도보 15분"))
+            add(Store("제일주당", "300m", "도보 3분"))
+            add(Store("맥주창고", "700m", "도보 13분"))
+            add(Store("호랑이 술상", "400m", "도보 5분"))
+        }
+        (binding.mapBottomStoreRv.adapter as MapStoreRVAdapter).setData(tempList)
+    }
 
     // Todo : 삭제 버튼 눌렀을 때 핀 제거 추가해보기
     private fun initListener(){
@@ -295,14 +318,15 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
             newState: SlidingUpPanelLayout.PanelState?
         ) {
             if (previousState == SlidingUpPanelLayout.PanelState.DRAGGING && newState == SlidingUpPanelLayout.PanelState.COLLAPSED)
-                binding.mapBottomLayout.maxHeight = (binding.kakaoMapView.height * 1.023).toInt()
+                binding.mapBottomLayout.maxHeight = (binding.kakaoMapView.height * 0.963).toInt()
             when (newState) {
                 SlidingUpPanelLayout.PanelState.EXPANDED, SlidingUpPanelLayout.PanelState.COLLAPSED -> {
-                    binding.mapListFab.visibility = View.VISIBLE
                     binding.mapLayout.panelHeight = 0
-                    binding.mapBottomSlideIv.visibility = View.INVISIBLE
+//                    binding.mapBottomSlideIv.visibility = View.INVISIBLE
                 }
-                else -> binding.mapBottomSlideIv.visibility = View.VISIBLE
+                else -> {
+//                    binding.mapBottomSlideIv.visibility = View.VISIBLE
+                }
             }
         }
 
