@@ -1,8 +1,72 @@
 <resources>
+    <!--    Login Activity-->
+    <string name="user_name">닉네임</string>
+    <string name="user_name_hint">닉네임을 입력해주세요.</string>
+    <string name="user_name_error">입력한 닉네임은 사용할 수 없습니다.</string>
+    <string name="user_name_correct">사용 가능한 닉네임입니다.</string>
+    <string name="user_name_tip">한잔에서 사용할 닉네임이며, 추후 변경이 가능합니다.\n한글/영문/특수문자(., -, _)로 구성해주세요.</string>
+    <string name="user_age">나이</string>
+    <string name="user_age_20">20~29</string>
+    <string name="user_age_30">30~39</string>
+    <string name="user_age_40">40~49</string>
+    <string name="user_age_50">50~59</string>
+    <string name="user_age_60over">60세 이상</string>
+    <string name="navigate_to_sbti_tip">술BTI 검사하러 가기!</string>
+    <!--    SBTI Activity-->
+    <string name="sbti">술BTI 검사</string>
+    <string name="sbti_tip1">총 검사 시간은 5분 내외입니다.</string>
+    <string name="sbti_tip2">검사 결과를 토대로 좋아하실만한 품목을 추천해드려요.</string>
+    <string name="sbti_tip3">솔직하게 답변해주세요.</string>
+    <string name="sbti_tip4">재미로만 즐겨주세요.</string>
+    <string name="navigate_to_sbti">시작!</string>
+    <string name="sbti_question_1">술집에 갔을 때 가장 먼저 보는 것은?</string>
+    <string name="sbti_answer_1_1">술 리스트</string>
+    <string name="sbti_answer_1_2">안주 리스트</string>
+    <string name="sbti_question_2">오늘 편의점에 갔더니 못 보던 새로운 술이 나왔다.\n당신의 선택은?</string>
+    <string name="sbti_answer_2_1">무슨 상관이야.. 늘 먹던 걸로 먹자.</string>
+    <string name="sbti_answer_2_2">궁금하니까 한 번 먹어봐야지!</string>
+    <string name="sbti_question_3">오늘은 불타는 금요일!\n한잔 시원하게 하자는 친구와 함께 하는 곳은?</string>
+    <string name="sbti_answer_3_1">조용하고 아늑한 단골 술집</string>
+    <string name="sbti_answer_3_2">활기차고 에너지 넘치는 유명 술집</string>
+    <string name="sbti_question_4">오늘은 정말로 기분이 안 좋다.\n친구가 한잔 하자며 나오라고 한다면?</string>
+    <string name="sbti_answer_4_1">오늘은 집에서 쉴래..</string>
+    <string name="sbti_answer_4_2">아, 화나니까 술이나 적셔!!</string>
+    <string name="sbti_question_5">술이 먹고 싶은데 같이 마실 사람이 없다.\n당신은 어떻게 할 것인가?</string>
+    <string name="sbti_answer_5_1">집에서 혼자 마시지 뭐.</string>
+    <string name="sbti_answer_5_2">술은 다음에 마셔야겠다.</string>
+    <string name="sbti_question_6">평소에 술을 마시는 곳은 주로 어디인가요?</string>
+    <string name="sbti_answer_6_1">집</string>
+    <string name="sbti_answer_6_5">술집</string>
+    <string name="sbti_question_7">좋아하는 주종은 무엇인가요?</string>
+    <string name="sbti_answer_7_1">소주</string>
+    <string name="sbti_answer_7_2">맥주</string>
+    <string name="sbti_answer_7_3">양주</string>
+    <string name="sbti_answer_7_4">와인</string>
+    <string name="sbti_answer_7_5">술이면 다 OK!</string>
+    <string name="sbti_question_8">술을 먹을 때 가장 중요한 것은 무엇인가요?</string>
+    <string name="sbti_answer_8_1">술과 안주의 맛</string>
+    <string name="sbti_answer_8_2">술집의 분위기</string>
+    <string name="sbti_answer_8_3">같이 먹는 친구들</string>
+    <string name="sbti_question_9">술은?</string>
+    <string name="sbti_answer_9_1">취하려고\n마신다.</string>
+    <string name="sbti_answer_9_5">맛으로\n먹는다.</string>
+    <string name="sbti_question_10">술이 없는 삶은 어떤 삶인가요?</string>
+    <string name="sbti_answer_10_1">있을 수\n없다.</string>
+    <string name="sbti_answer_10_5">상관\n없다.</string>
+    <string name="sbti_question_11">술의 맛은 어떤가요?</string>
+    <string name="sbti_answer_11_1">달다.</string>
+    <string name="sbti_answer_11_5">쓰다.</string>
+    <!--    Main Activity-->
     <string name="app_name">HanZan</string>
     <string name="home_search_hint">지금 당장 먹고 싶은 술을 검색!</string>
     <string name="click_more">클릭하여 더보기</string>
     <string name="home_like_alcohol_guide">회원님이 좋아하시는 술과 비슷해요.</string>
     <string name="map_search_hint">가게 이름을 입력해주세요.</string>
+<<<<<<< HEAD
     <string name="map_default_address">중구 세종대로 110</string>
+=======
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+>>>>>>> f782082199196357cba889a8f00cbaf3e4c4617a
 </resources>
