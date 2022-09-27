@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.core.widget.addTextChangedListener
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityLoginBinding
+import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.ui.sbti.SbtiActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,6 +64,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         binding.loginNextBtn.setOnClickListener {
             // TODO("DB에 닉네임, 나이정보 POST 하기")
             startActivity(Intent(this, SbtiActivity::class.java))
+        }
+
+        binding.loginSkipBtn.setOnClickListener {
+            // TODO("DB에 닉네임, 나이정보 POST 하기")
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 }

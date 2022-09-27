@@ -246,5 +246,22 @@
             android:textColor="@color/text_primary"
             visibleInvisible="@{isNameChecked &amp;&amp; isAgeChecked}" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_skip_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_yellow_button"
+            android:text="동건이를 위한 스킵버튼"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
