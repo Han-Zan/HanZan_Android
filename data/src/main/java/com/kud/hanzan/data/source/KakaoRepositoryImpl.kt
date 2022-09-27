@@ -15,4 +15,10 @@ class KakaoRepositoryImpl @Inject constructor(
     ): Flow<List<Place>> = kakaoRemoteDataSource.getKeywordPlace(keyword).map {
         it.documents.map { p -> Place(p.place_name, p.category_name, p.x, p.y) }
     }
+
+    override fun getRoadAddress(
+        longitude: String, latitude: String
+    ): Flow<String> = kakaoRemoteDataSource.getRoadAddress(longitude, latitude).map { res ->
+        res.documents[0].address?.let { r -> "${r.region_2depth_name} ${r.region_3depth_name}"}!!
+    }
 }

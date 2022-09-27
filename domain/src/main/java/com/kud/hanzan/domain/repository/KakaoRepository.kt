@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface KakaoRepository {
     fun getKeywordPlace(keyword: String) : Flow<List<Place>>
+    fun getRoadAddress(longitude: String, latitude: String) : Flow<String>
 }

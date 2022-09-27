@@ -77,4 +77,9 @@ dependencies {
     implementation "com.kakao.sdk:v2-user:2.11.0" // 카카오 로그인
     implementation files('libs/libDaumMapAndroid.jar') // 카카오 맵
     implementation "com.kakao.sdk:v2-all:2.11.0" // 카카오 전체 모듈
+
+    //Fused Location Provider
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
+
+    implementation 'com.github.hannesa2:AndroidSlidingUpPanel:4.2.1'
 }

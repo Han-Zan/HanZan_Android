@@ -56,6 +56,7 @@
                     android:text=" 유형입니다."
                     android:textSize="25sp"
                     android:textStyle="bold"
+                    android:textColor="@color/color_f9f9f9"
                     android:fontFamily="@font/font_pretendard_extrabold"
                     app:layout_constraintTop_toTopOf="@id/home_type_tv"
                     app:layout_constraintBottom_toBottomOf="@id/home_type_tv"
