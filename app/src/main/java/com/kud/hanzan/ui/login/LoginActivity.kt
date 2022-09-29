@@ -16,7 +16,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
         fun isCorrectUserName(userName: String): Boolean {
             //TODO("닉네임 조건 결정하고 구현하기")
-            return userName.length == 13
+            return userName.length == 3
         }
         binding.loginUserNameET.addTextChangedListener {
             val status = binding.loginUserNameStatusTV
