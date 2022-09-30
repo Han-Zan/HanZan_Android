@@ -47,7 +47,7 @@
                     android:id="@+id/category_main_rv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="50dp"
+                    android:paddingBottom="60dp"
                     android:background="@color/color_1b1b1b"/>
             </LinearLayout>
             <LinearLayout
@@ -58,7 +58,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/category_sub_rv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    android:layout_marginHorizontal="20dp"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

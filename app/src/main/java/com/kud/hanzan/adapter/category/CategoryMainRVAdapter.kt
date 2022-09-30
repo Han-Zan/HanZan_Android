@@ -8,12 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ItemMainCategoryBinding
 
-class CategoryMainRVAdapter(private val data: List<String>) : RecyclerView.Adapter<CategoryMainRVAdapter.Adapter>() {
+class CategoryMainRVAdapter(data: List<String>) : RecyclerView.Adapter<CategoryMainRVAdapter.ViewHolder>() {
+    private var selectedPos = -1
     private lateinit var binding: ItemMainCategoryBinding
     private val stringList = data as ArrayList<String>
 
     interface CategoryListener{
-        fun onClick()
+        fun onClick(position: Int)
     }
 
     private lateinit var categoryListener: CategoryListener
@@ -22,21 +23,36 @@ class CategoryMainRVAdapter(private val data: List<String>) : RecyclerView.Adapt
         categoryListener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Adapter {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_main_category, parent, false )
-        return Adapter(binding)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: Adapter, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        if (selectedPos != -1 && position != selectedPos){
+            holder.setChecked(false)
+        }
+
         holder.bind(stringList[position])
-        holder.itemView.setOnClickListener { categoryListener.onClick() }
+        holder.itemView.setOnClickListener {
+            holder.setChecked(true)
+            var beforePos = selectedPos
+            selectedPos = holder.adapterPosition
+            categoryListener.onClick(position)
+
+            notifyItemChanged(beforePos)
+        }
     }
 
     override fun getItemCount(): Int = stringList.size
 
-    inner class Adapter(val binding: ItemMainCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemMainCategoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(type: String){
             binding.type = type
+            binding.isChecked = false
+        }
+        fun setChecked(checked: Boolean){
+            binding.isChecked = checked
         }
     }
 

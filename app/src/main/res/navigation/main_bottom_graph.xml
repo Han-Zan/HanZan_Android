@@ -25,7 +25,11 @@
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.kud.hanzan.ui.category.CategoryFragment"
-        android:label="CategoryFragment" />
+        android:label="CategoryFragment" >
+        <action
+            android:id="@+id/action_categoryFragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.kud.hanzan.ui.profile.ProfileFragment"
