@@ -67,7 +67,6 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         }
 
         binding.loginSkipBtn.setOnClickListener {
-            // TODO("DB에 닉네임, 나이정보 POST 하기")
             startActivity(Intent(this, MainActivity::class.java))
         }
     }

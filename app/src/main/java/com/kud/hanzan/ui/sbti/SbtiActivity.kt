@@ -1,13 +1,9 @@
 package com.kud.hanzan.ui.sbti
 
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivitySbtiBinding
-import com.kud.hanzan.ui.MainActivity
-import com.kud.hanzan.ui.sbti.SbtiResultActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
@@ -30,11 +26,10 @@ class SbtiActivity : BaseActivity<ActivitySbtiBinding>(R.layout.activity_sbti) {
                 sbtiProgress.visibility = View.VISIBLE
                 initSbtiListener()
             }
-            sbtiNextBtn.setOnClickListener {
-                startActivity(Intent(this@SbtiActivity, SbtiResultActivity::class.java))
-            }
         }
-
+        binding.sbtiNextBtn.setOnClickListener {
+            startActivity(Intent(this, SbtiResultActivity::class.java))
+        }
     }
 
     private fun initSbtiListener(){
