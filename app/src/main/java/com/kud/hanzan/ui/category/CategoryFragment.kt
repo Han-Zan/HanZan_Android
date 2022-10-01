@@ -5,8 +5,11 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.category.CategoryMainRVAdapter
+import com.kud.hanzan.adapter.category.CategoryPopularRVAdapter
 import com.kud.hanzan.adapter.category.CategorySubRVAdapter
 import com.kud.hanzan.databinding.FragmentCategoryBinding
 import com.kud.hanzan.domain.model.Category
@@ -19,6 +22,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
         super.onViewCreated(view, savedInstanceState)
         initView()
         initListener()
+        initData()
     }
 
     private fun initView(){
@@ -51,6 +55,23 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>(R.layout.fragment
             layoutManager = GridLayoutManager(context, 2)
         }
 
+        binding.categoryPopularKeywordRv.apply {
+            adapter = CategoryPopularRVAdapter()
+            layoutManager = FlexboxLayoutManager(context)
+        }
+
+    }
+
+    private fun initData(){
+        val tempList = ArrayList<String>()
+        tempList.apply {
+            add("간술하기 좋은")
+            add("달달한")
+            add("힙한")
+            add("트렌디한")
+            add("연인과 마시기 좋은")
+        }
+        (binding.categoryPopularKeywordRv.adapter as CategoryPopularRVAdapter).setData(tempList)
     }
 
     private fun initListener(){
