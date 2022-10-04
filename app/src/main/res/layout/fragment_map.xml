@@ -65,13 +65,8 @@
                         android:id="@+id/map_road_address_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{String.valueOf(mapViewModel.roadAddress)}"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="5dp"
-                        android:layout_marginHorizontal="5dp"
-                        android:src="@drawable/ic_down"/>
+                        android:text="@{String.valueOf(mapViewModel.roadAddress)}"
+                        android:layout_marginEnd="12dp"/>
 
                     <CheckBox
                         android:id="@+id/map_pickup_near_cb"

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="main_category_name">
+        <item>맥주</item>
+        <item>소주</item>
+        <item>양주</item>
+        <item>와인</item>
+        <item>기타</item>
+    </string-array>
+    <string-array name="sub_category_liquor">
+        <item>전체</item>
+        <item>위스키</item>
+        <item>보드카</item>
+        <item>진</item>
+        <item>리큐르</item>
+        <item>데킬라</item>
+        <item>브랜디</item>
+        <item>럼</item>
+    </string-array>
+</resources>

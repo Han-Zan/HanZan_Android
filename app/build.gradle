@@ -81,5 +81,10 @@ dependencies {
     //Fused Location Provider
     implementation 'com.google.android.gms:play-services-location:17.1.0'
 
+    //SlidiingUpPanel
     implementation 'com.github.hannesa2:AndroidSlidingUpPanel:4.2.1'
+
+    //FlexBox Layout
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
 }
