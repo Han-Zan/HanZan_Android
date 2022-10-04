@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="false"
-        android:drawable="@drawable/bg_white_glass_button_small">
+        android:drawable="@drawable/bg_white_button_test">
     </item>
     <item android:state_checked="true"
-        android:drawable="@drawable/bg_yellow_glass_button_small"/>
+        android:drawable="@drawable/bg_yellow_button_test"/>
 </selector>

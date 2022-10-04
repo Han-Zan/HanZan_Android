@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="type"
+            type="java.lang.String" />
+        <variable
+            name="isChecked"
+            type="java.lang.Boolean" />
+    </data>
+<com.google.android.material.checkbox.MaterialCheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_main_category_cb"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:textSize="17sp"
+    android:clickable="@{!isChecked}"
+    android:checked="@{isChecked}"
+    android:button="@null"
+    android:text="@{type}"
+    android:paddingVertical="10dp"
+    android:textColor="@drawable/color_category_tv"
+    android:background="@drawable/color_category_btn">
+</com.google.android.material.checkbox.MaterialCheckBox>
+</layout>
