@@ -13,7 +13,7 @@
             android:id="@+id/category_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="카테고리"
+            android:text="@string/category_title"
             android:textSize="25sp"
             android:textStyle="bold"
             android:fontFamily="@font/font_pretendard_extrabold"

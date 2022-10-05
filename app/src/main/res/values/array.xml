@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="main_category_name">
-        <item>맥주</item>
         <item>소주</item>
+        <item>맥주</item>
         <item>양주</item>
         <item>와인</item>
         <item>기타</item>

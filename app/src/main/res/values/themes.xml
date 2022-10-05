@@ -27,4 +27,8 @@
         <item name="cornerSizeTopLeft">20dp</item>
         <item name="cornerSizeTopRight">20dp</item>
     </style>
+    <style name="customTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
