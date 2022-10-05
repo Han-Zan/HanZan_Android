@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="likeViewModel"
+            type="com.kud.hanzan.ui.like.LikeViewModel" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,6 +12,8 @@
         android:id="@+id/like_keyword_sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:overScrollMode="never"
         app:layout_constraintTop_toTopOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,7 +31,8 @@
                 android:paddingVertical="8dp"
                 android:text="전체"
                 android:fontFamily="@font/font_pretendard_semibold"
-                android:checked="true"
+                android:checked="@{likeViewModel.isAllSelected()}"
+                android:clickable="@{likeViewModel.isAllSelected() ? false : true}"
                 android:background="@drawable/cb_map_category_selector"/>
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/like_keyword_type01_cb"
@@ -52,10 +60,101 @@
                 android:text="맥주"
                 android:fontFamily="@font/font_pretendard_semibold"
                 android:background="@drawable/cb_map_category_selector"/>
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/like_keyword_type03_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:gravity="center"
+                android:minHeight="0dp"
+                android:layout_marginStart="5dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="8dp"
+                android:text="양주"
+                android:fontFamily="@font/font_pretendard_semibold"
+                android:background="@drawable/cb_map_category_selector"/>
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/like_keyword_type04_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:gravity="center"
+                android:minHeight="0dp"
+                android:layout_marginStart="5dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="8dp"
+                android:text="와인"
+                android:fontFamily="@font/font_pretendard_semibold"
+                android:background="@drawable/cb_map_category_selector"/>
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/like_keyword_type05_cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:gravity="center"
+                android:minHeight="0dp"
+                android:layout_marginStart="5dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="8dp"
+                android:text="기타"
+                android:fontFamily="@font/font_pretendard_semibold"
+                android:background="@drawable/cb_map_category_selector"/>
         </LinearLayout>
-
-
     </HorizontalScrollView>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/like_keyword_sv"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/like_keyword_sv">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="테스트테스트"
+                android:textSize="30sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="테스트테스트"
+                android:layout_marginTop="100dp"
+                android:textSize="30sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="테스트테스트"
+                android:layout_marginTop="100dp"
+                android:textSize="30sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="테스트테스트"
+                android:layout_marginTop="100dp"
+                android:textSize="30sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="테스트테스트"
+                android:layout_marginTop="100dp"
+                android:textSize="30sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="테스트테스트"
+                android:layout_marginTop="100dp"
+                android:textSize="30sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="테스트테스트"
+                android:layout_marginTop="100dp"
+                android:textSize="30sp"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
