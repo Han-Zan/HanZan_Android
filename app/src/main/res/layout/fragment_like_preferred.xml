@@ -12,14 +12,14 @@
         android:id="@+id/like_keyword_sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
         android:overScrollMode="never"
         app:layout_constraintTop_toTopOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/like_keyword_total_cb"
                 android:layout_width="wrap_content"
@@ -111,47 +111,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/like_keyword_sv">
-            <TextView
+            <Button
+                android:id="@+id/like_preferred_sort_btn"
+                style="@style/Widget.Material3.Button.TextButton.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="테스트테스트"
-                android:textSize="30sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="테스트테스트"
-                android:layout_marginTop="100dp"
-                android:textSize="30sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="테스트테스트"
-                android:layout_marginTop="100dp"
-                android:textSize="30sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="테스트테스트"
-                android:layout_marginTop="100dp"
-                android:textSize="30sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="테스트테스트"
-                android:layout_marginTop="100dp"
-                android:textSize="30sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="테스트테스트"
-                android:layout_marginTop="100dp"
-                android:textSize="30sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="테스트테스트"
-                android:layout_marginTop="100dp"
-                android:textSize="30sp"/>
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="0dp"
+                android:text="@string/like_preferred_sort_default"
+                android:textSize="15sp"
+                android:textColor="@color/color_white"
+                app:icon="@drawable/ic_sort"
+                app:iconTint="@color/color_white"
+                app:iconGravity="end"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

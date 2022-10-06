@@ -69,6 +69,7 @@
 
     <!--    Like Fragment-->
     <string name="like_title">찜한 아이템</string>
+    <string name="like_preferred_sort_default">최근 찜한 순</string>
 
     <!--    Main Activity-->
     <string name="app_name">한잔</string>

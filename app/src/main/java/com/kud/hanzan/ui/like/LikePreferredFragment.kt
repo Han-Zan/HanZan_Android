@@ -2,6 +2,8 @@ package com.kud.hanzan.ui.like
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
+import androidx.appcompat.widget.ListPopupWindow
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.kud.hanzan.R
@@ -43,6 +45,25 @@ class LikePreferredFragment : BaseFragment<FragmentLikePreferredBinding>(R.layou
             }
             likeKeywordType05Cb.setOnClickListener {
                 if (viewModel.isAllSelected.get() == true) viewModel.setAllUnSelected()
+            }
+
+            // popup menu
+            val listPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)
+            listPopupWindow.apply {
+                anchorView = likePreferredSortBtn
+                val items = listOf("최근 찜한 순", "상품 이름 순")
+                val adapter = ArrayAdapter(requireContext(), R.layout.list_popup_like_sort, items)
+                setAdapter(adapter)
+                setOnItemClickListener { adapterView, view, position, id ->
+                    likePreferredSortBtn.text = items[position]
+                    // 팝업 닫기
+                    dismiss()
+                }
+            }
+
+
+            likePreferredSortBtn.setOnClickListener {
+                listPopupWindow.show()
             }
         }
     }
