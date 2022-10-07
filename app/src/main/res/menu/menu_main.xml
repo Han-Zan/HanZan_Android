@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.kud.hanzan.ui.MainActivity">
     <item
-        android:id="@+id/categoryFragment"
-        android:title="카테고리"
-        android:icon="@drawable/ic_category"
+        android:id="@+id/homeFragment"
+        android:title="홈"
+        android:icon="@drawable/ic_home"
         app:showAsAction="always"/>
     <item
         android:id="@+id/mapFragment"
@@ -13,19 +13,20 @@
         android:icon="@drawable/ic_map"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/homeFragment"
-        android:title="홈"
-        android:icon="@drawable/ic_home"
-        app:showAsAction="always"/>
+        android:id="@+id/noFragment"
+        android:title="빈공간"
+        android:icon="@null"
+        android:enabled="false"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/likeFragment"
         android:title="라이크"
         android:icon="@drawable/ic_like"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/profileFragment"
-        android:title="프로필"
-        android:icon="@drawable/ic_profile"
+        android:id="@+id/categoryFragment"
+        android:title="카테고리"
+        android:icon="@drawable/ic_category"
         app:showAsAction="always"/>
 
 </menu>
