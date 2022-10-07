@@ -6,8 +6,11 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.widget.ListPopupWindow
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.kud.hanzan.R
+import com.kud.hanzan.adapter.like.LikeAlcoholRVAdapter
 import com.kud.hanzan.databinding.FragmentLikePreferredBinding
+import com.kud.hanzan.domain.model.Alcohol
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,35 +20,14 @@ class LikePreferredFragment : BaseFragment<FragmentLikePreferredBinding>(R.layou
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListener()
+        initView()
+        initData()
     }
 
     private fun initListener(){
         binding.likeViewModel = viewModel
         with(binding){
             lifecycleOwner = this@LikePreferredFragment
-            likeKeywordTotalCb.setOnClickListener {
-                viewModel.setAllSelected()
-                likeKeywordType01Cb.isChecked = false
-                likeKeywordType02Cb.isChecked = false
-                likeKeywordType03Cb.isChecked = false
-                likeKeywordType04Cb.isChecked = false
-                likeKeywordType05Cb.isChecked = false
-            }
-            likeKeywordType01Cb.setOnClickListener {
-                if (viewModel.isAllSelected.get() == true) viewModel.setAllUnSelected()
-            }
-            likeKeywordType02Cb.setOnClickListener {
-                if (viewModel.isAllSelected.get() == true) viewModel.setAllUnSelected()
-            }
-            likeKeywordType03Cb.setOnClickListener {
-                if (viewModel.isAllSelected.get() == true) viewModel.setAllUnSelected()
-            }
-            likeKeywordType04Cb.setOnClickListener {
-                if (viewModel.isAllSelected.get() == true) viewModel.setAllUnSelected()
-            }
-            likeKeywordType05Cb.setOnClickListener {
-                if (viewModel.isAllSelected.get() == true) viewModel.setAllUnSelected()
-            }
 
             // popup menu
             val listPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)
@@ -66,5 +48,35 @@ class LikePreferredFragment : BaseFragment<FragmentLikePreferredBinding>(R.layou
                 listPopupWindow.show()
             }
         }
+    }
+
+    private fun initView(){
+        binding.likePreferredRv.apply {
+            adapter = LikeAlcoholRVAdapter()
+            layoutManager = GridLayoutManager(context, 3)
+        }
+    }
+
+    private fun initData(){
+        val tempList = listOf(Alcohol("고든", "양주", 3, 4.9,  R.drawable.godons, "태그"),
+            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.soju1, "깔끔"),
+            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.wine1, "산미"),
+            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.soju1, "깔끔"),
+            Alcohol("고든", "양주", 3, 4.9,  R.drawable.godons, "태그"),
+            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.wine1, "산미"),
+            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.soju1, "깔끔"),
+            Alcohol("고든", "양주", 3, 4.9,  R.drawable.godons, "태그"),
+            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.wine1, "산미"),
+            Alcohol("고든", "양주", 3, 4.9,  R.drawable.godons, "태그"),
+            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.soju1, "깔끔"),
+            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.wine1, "산미"),
+            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.soju1, "깔끔"),
+            Alcohol("고든", "양주", 3, 4.9,  R.drawable.godons, "태그"),
+            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.wine1, "산미"),
+            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.soju1, "깔끔"),
+            Alcohol("고든", "양주", 3, 4.9,  R.drawable.godons, "태그"),
+            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.wine1, "산미")
+        )
+        (binding.likePreferredRv.adapter as LikeAlcoholRVAdapter).setData(tempList)
     }
 }

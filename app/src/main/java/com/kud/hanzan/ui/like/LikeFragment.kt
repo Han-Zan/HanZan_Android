@@ -12,7 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LikeFragment : BaseFragment<FragmentLikeBinding>(R.layout.fragment_like) {
-    private val tabInfo = listOf("내가 찜한 상품", "최근 본 상품")
+    private val tabInfo = listOf("내가 찜한 술", "내가 찜한 조합")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
