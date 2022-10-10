@@ -4,6 +4,9 @@ buildscript {
         def nav_version = "2.5.1"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
     }
+    repositories {
+        google()
+    }
 }
 plugins {
     id 'com.android.application' version '7.2.1' apply false
