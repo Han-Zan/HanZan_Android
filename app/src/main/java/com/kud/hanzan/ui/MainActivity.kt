@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityMainBinding
+import com.kud.hanzan.notification.MyFirebaseMessagingService
 import com.kud.hanzan.ui.camera.CameraActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +28,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     }
 
     override fun initView() {
+        startService(Intent(applicationContext, MyFirebaseMessagingService::class.java).also {
+            MyFirebaseMessagingService().getToken()
+        })
         initBottomNav()
         initListener()
     }

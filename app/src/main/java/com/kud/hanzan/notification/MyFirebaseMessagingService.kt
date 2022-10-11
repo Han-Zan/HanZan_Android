@@ -10,6 +10,8 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.TaskStackBuilder
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.kud.hanzan.R
@@ -41,8 +43,21 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 sendNotification(t, b)
             }
         }
-
     }
+
+    fun getToken() : String? {
+        var token: String? = null
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener{ task->
+            if (!task.isSuccessful){
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            token = task.result
+            Log.d(TAG, "FCM Token : $token")
+        })
+        return token
+    }
+
     private fun sendNotification(title: String, body:String){
         // 알림 클릭시 해당 액티비티로 오게
         val resultIntent = Intent(this, MainActivity::class.java)
@@ -56,7 +71,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setAutoCancel(true)
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setSmallIcon(R.mipmap.ic_launcher_round)
             .setSound(defaultSound)
             .setContentText(body)
             .setContentTitle(title)

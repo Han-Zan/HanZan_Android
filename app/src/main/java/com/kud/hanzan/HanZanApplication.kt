@@ -25,6 +25,5 @@ class HanZanApplication : Application() {
         // hashkey 얻기
         val keyHash = Utility.getKeyHash(this)
         Log.e("keyHash", keyHash)
-        startService(Intent(applicationContext, MyFirebaseMessagingService::class.java))
     }
 }
