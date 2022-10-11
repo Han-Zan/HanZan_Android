@@ -1,14 +1,31 @@
 package com.kud.hanzan.ui.search
 
+import android.content.ContentValues
+import android.util.Log
+import com.kakao.sdk.user.UserApiClient
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivitySearchBinding
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_search){
-    override fun initView() {
-
+class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_search) {
+    private fun kakaoDelete() {
+        // 연결 끊기
+        UserApiClient.instance.unlink { error ->
+            if (error != null) {
+                Log.e(ContentValues.TAG, "연결 끊기 실패", error)
+            }
+            else {
+                Log.i(ContentValues.TAG, "연결 끊기 성공. SDK에서 토큰 삭제 됨")
+            }
+        }
     }
 
+    override fun initView() {
+        binding.kakaoLogoutBtn.setOnClickListener {
+            kakaoDelete()
+            finishAffinity()
+        }
+    }
 }
