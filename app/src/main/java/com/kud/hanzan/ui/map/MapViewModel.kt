@@ -1,13 +1,11 @@
 package com.kud.hanzan.ui.map
 
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kud.hanzan.R
 import com.kud.hanzan.domain.model.Place
-import com.kud.hanzan.domain.usecase.GetKeywordPlaceUseCase
-import com.kud.hanzan.domain.usecase.GetRoadAddressUseCase
+import com.kud.hanzan.domain.usecase.kakao.GetKeywordPlaceUseCase
+import com.kud.hanzan.domain.usecase.kakao.GetRoadAddressUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch

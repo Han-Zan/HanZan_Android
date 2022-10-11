@@ -1,9 +1,8 @@
-package com.kud.hanzan.data.source.remote
+package com.kud.hanzan.data.source.kakao
 
 import com.kud.hanzan.data.entity.place.PlaceKeywordResult
 import com.kud.hanzan.data.entity.place.RoadAddressResult
 import com.kud.hanzan.data.remote.KakaoService
-import com.kud.hanzan.data.source.KakaoDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

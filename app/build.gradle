@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -48,6 +49,7 @@ android {
 dependencies {
     implementation project(":data")
     implementation project(":domain")
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.2'
 
     def lifecycle_version = "2.5.0-rc02"
     // ViewModel
@@ -114,4 +116,8 @@ dependencies {
     implementation 'com.google.mlkit:text-recognition:16.0.0-beta6'
     // To recognize Korean script
     implementation 'com.google.mlkit:text-recognition-korean:16.0.0-beta6'
+
+    // implement firebase bom
+    implementation platform('com.google.firebase:firebase-bom:30.4.1')
+    implementation "com.google.firebase:firebase-messaging"
 }

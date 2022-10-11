@@ -10,12 +10,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityMainBinding
+import com.kud.hanzan.notification.MyFirebaseMessagingService
 import com.kud.hanzan.ui.camera.CameraActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
+    private var backKeyPressedTime: Long = 0
+
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(
@@ -25,6 +28,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     }
 
     override fun initView() {
+        startService(Intent(applicationContext, MyFirebaseMessagingService::class.java).also {
+            MyFirebaseMessagingService().getToken()
+        })
         initBottomNav()
         initListener()
     }
@@ -69,4 +75,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+            // 뒤로가기 두 번 누르면 종료
+            finish()
+        } else{
+            backKeyPressedTime = System.currentTimeMillis()
+            Toast.makeText(this, "뒤로 가기 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

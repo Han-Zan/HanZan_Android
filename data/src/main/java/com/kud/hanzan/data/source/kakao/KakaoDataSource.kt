@@ -1,4 +1,4 @@
-package com.kud.hanzan.data.source
+package com.kud.hanzan.data.source.kakao
 
 import com.kud.hanzan.data.entity.place.PlaceKeywordResult
 import com.kud.hanzan.data.entity.place.RoadAddressResult

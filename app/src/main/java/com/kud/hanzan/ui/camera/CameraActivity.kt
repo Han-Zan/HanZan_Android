@@ -1,6 +1,10 @@
 package com.kud.hanzan.ui.camera
 
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
 import android.util.Log
 import android.view.ScaleGestureDetector
 import android.widget.Toast
@@ -11,6 +15,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.Text
+import com.google.mlkit.vision.text.Text.TextBlock
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.TextRecognizer
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
@@ -18,6 +24,8 @@ import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityCameraBinding
 import com.kud.hanzan.utils.base.BaseActivity
+import com.kud.hanzan.vision.GraphicOverlay
+import com.kud.hanzan.vision.TextRecognitionGraphic
 import com.kud.hanzan.vision.TextRecognitionProcessor
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,6 +47,7 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>(R.layout.activity_cam
     override fun initView() {
         startCamera()
         initListener()
+        sampleGraphicOverlay()
     }
 
     private fun startCamera(){
@@ -79,7 +88,7 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>(R.layout.activity_cam
                         var text = ""
                         val resultText = visionText.textBlocks
                         for (element in resultText){
-                            text += element.text
+                            text += element.text + "\n"
                         }
                         Log.e("camera", text)
                     }
@@ -115,6 +124,11 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>(R.layout.activity_cam
             }
             return@setOnTouchListener true
         }
+    }
+
+    private fun sampleGraphicOverlay(){
+//        binding.cameraOverlay.add(TextRecognitionGraphic( binding.cameraOverlay, "test" as TextBlock, Rect()))
+//        binding.cameraOverlay.postInvalidate()
     }
 
 
