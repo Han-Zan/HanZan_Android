@@ -1,4 +1,4 @@
-package com.kud.hanzan.domain.usecase
+package com.kud.hanzan.domain.usecase.kakao
 
 import com.kud.hanzan.domain.repository.KakaoRepository
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.kud.hanzan.domain.usecase
+package com.kud.hanzan.domain.usecase.kakao
 
 import android.util.Log
 import com.kud.hanzan.domain.repository.KakaoRepository

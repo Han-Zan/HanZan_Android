@@ -1,7 +1,5 @@
-package com.kud.hanzan.data.source
+package com.kud.hanzan.data.source.kakao
 
-import android.util.Log
-import com.kud.hanzan.data.source.remote.KakaoRemoteDataSource
 import com.kud.hanzan.domain.model.Place
 import com.kud.hanzan.domain.repository.KakaoRepository
 import kotlinx.coroutines.flow.*

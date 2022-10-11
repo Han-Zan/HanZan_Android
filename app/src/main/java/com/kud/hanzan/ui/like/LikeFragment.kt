@@ -3,6 +3,7 @@ package com.kud.hanzan.ui.like
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.like.LikeVPAdapter
@@ -12,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LikeFragment : BaseFragment<FragmentLikeBinding>(R.layout.fragment_like) {
+    private val viewModel by viewModels<LikeViewModel>()
     private val tabInfo = listOf("내가 찜한 술", "내가 찜한 조합")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

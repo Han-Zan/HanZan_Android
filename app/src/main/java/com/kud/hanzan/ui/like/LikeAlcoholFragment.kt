@@ -4,19 +4,18 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.widget.ListPopupWindow
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.like.LikeAlcoholRVAdapter
-import com.kud.hanzan.databinding.FragmentLikePreferredBinding
+import com.kud.hanzan.databinding.FragmentLikeAlcoholBinding
 import com.kud.hanzan.domain.model.Alcohol
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LikePreferredFragment : BaseFragment<FragmentLikePreferredBinding>(R.layout.fragment_like_preferred) {
-    private val viewModel by activityViewModels<LikeViewModel>()
+class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fragment_like_alcohol) {
+    private val viewModel by viewModels<LikeViewModel> (ownerProducer = {requireParentFragment()})
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListener()
@@ -27,7 +26,7 @@ class LikePreferredFragment : BaseFragment<FragmentLikePreferredBinding>(R.layou
     private fun initListener(){
         binding.likeViewModel = viewModel
         with(binding){
-            lifecycleOwner = this@LikePreferredFragment
+            lifecycleOwner = this@LikeAlcoholFragment
 
             // popup menu
             val listPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)

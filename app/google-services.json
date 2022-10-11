@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "703230226202",
+    "project_id": "hanzan-42099",
+    "storage_bucket": "hanzan-42099.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:703230226202:android:595224916a5fca4ffac6a3",
+        "android_client_info": {
+          "package_name": "com.kud.hanzan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "703230226202-l75pvj4b1adqij5pmnish5qia4td4p2d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCWiIrp682pNE4hP5GLgDUnJqc--rSVeQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "703230226202-l75pvj4b1adqij5pmnish5qia4td4p2d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
