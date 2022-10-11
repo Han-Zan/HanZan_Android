@@ -11,6 +11,11 @@ class SbtiActivity : BaseActivity<ActivitySbtiBinding>(R.layout.activity_sbti) {
     // 각 문제들의 답 ([0]은 더미)
     var answer = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
+    fun sbtiType(): String {
+        // TODO("술BTI 결과 계산하기")
+        return "고독한 미식가"
+    }
+
     override fun initView() {
         binding.sbtiTipsSUL.isTouchEnabled = false
         initListener()
@@ -28,7 +33,14 @@ class SbtiActivity : BaseActivity<ActivitySbtiBinding>(R.layout.activity_sbti) {
             }
         }
         binding.sbtiNextBtn.setOnClickListener {
-            startActivity(Intent(this, SbtiResultActivity::class.java))
+            startActivity(Intent(this, SbtiResultActivity::class.java).apply {
+                putExtra("user_nickname", intent.getStringExtra("user_nickname"))
+                putExtra("user_profile", intent.getStringExtra("user_profile"))
+                putExtra("user_gender", intent.getStringExtra("user_gender"))
+                putExtra("user_age", intent.getIntExtra("user_age", 0))
+                putExtra("user_type", sbtiType())
+            })
+            finishAffinity()
         }
     }
 
