@@ -29,14 +29,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/user_dummy_icon"
             android:background="@drawable/bg_profile_background"/>
-        
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/login_profile_btn"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            app:layout_constraintEnd_toEndOf="@id/login_user_profile_IV"
-            app:layout_constraintBottom_toBottomOf="@id/login_user_profile_IV"
-            android:background="@drawable/bg_profile_change_button" />
 
         <TextView
             android:layout_width="wrap_content"
