@@ -91,6 +91,7 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>(R.layout.activity_cam
                             text += element.text + "\n"
                         }
                         Log.e("camera", text)
+
                     }
 
             }
