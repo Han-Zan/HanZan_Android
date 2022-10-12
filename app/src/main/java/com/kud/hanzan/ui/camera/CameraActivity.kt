@@ -94,6 +94,7 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>(R.layout.activity_cam
                     }
 
             }
+            /* Todo : 토글 버튼 선택된거에 따라 nlp 인식 범위 어디로 할지 */
         }
     }
 

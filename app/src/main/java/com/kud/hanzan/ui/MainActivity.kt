@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -12,6 +13,7 @@ import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityMainBinding
 import com.kud.hanzan.notification.MyFirebaseMessagingService
 import com.kud.hanzan.ui.camera.CameraActivity
+import com.kud.hanzan.ui.home.HomeFragment
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,9 +30,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     }
 
     override fun initView() {
-        startService(Intent(applicationContext, MyFirebaseMessagingService::class.java).also {
-            MyFirebaseMessagingService().getToken()
-        })
+//        startService(Intent(applicationContext, MyFirebaseMessagingService::class.java).also {
+//            MyFirebaseMessagingService().getToken()
+//        })
         initBottomNav()
         initListener()
     }
@@ -75,13 +77,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
+    private fun getForegroundFragment() : Fragment?{
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container)
+        return navHostFragment?.childFragmentManager?.fragments?.get(0)
+    }
+
     override fun onBackPressed() {
-        if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-            // 뒤로가기 두 번 누르면 종료
-            finish()
+        if (getForegroundFragment() is HomeFragment){
+            if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
+                // 뒤로가기 두 번 누르면 종료
+                finish()
+            } else{
+                backKeyPressedTime = System.currentTimeMillis()
+                Toast.makeText(this, "뒤로 가기 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            }
         } else{
-            backKeyPressedTime = System.currentTimeMillis()
-            Toast.makeText(this, "뒤로 가기 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+            super.onBackPressed()
         }
+
     }
 }

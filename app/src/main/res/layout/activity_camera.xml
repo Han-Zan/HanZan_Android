@@ -19,6 +19,33 @@
             android:id="@+id/camera_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/camera_mode_toggle_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
+            android:layout_marginBottom="12dp"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            app:checkedButton="@id/camera_mode_alcohol_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <Button
+                android:id="@+id/camera_mode_alcohol_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_alcohol"
+                app:iconTint="@color/white"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"/>
+            <Button
+                android:id="@+id/camera_mode_food_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:icon="@drawable/ic_food"
+                app:iconTint="@color/white"
+                style="@style/Widget.App.Button.OutlinedButton.IconOnly"/>
+        </com.google.android.material.button.MaterialButtonToggleGroup>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
