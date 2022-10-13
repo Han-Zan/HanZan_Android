@@ -37,7 +37,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:drawablePadding="8dp"
                 android:paddingStart="8dp"
-                android:drawableStart="@drawable/cb_heart_selector"/>
+                android:drawableStart="@drawable/selector_heart"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
     <TextView

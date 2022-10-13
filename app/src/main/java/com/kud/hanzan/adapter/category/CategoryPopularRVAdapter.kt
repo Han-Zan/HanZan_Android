@@ -30,7 +30,7 @@ class CategoryPopularRVAdapter : RecyclerView.Adapter<CategoryPopularRVAdapter.V
         fun bind(keyword: String, position: Int){
             binding.keyword = keyword
             if (position == 0)
-                binding.itemKeywordBtn.setBackgroundResource(R.drawable.bg_yellow_button_test)
+                binding.itemKeywordBtn.setBackgroundResource(R.drawable.bg_plate_yellow_glass)
         }
     }
 }

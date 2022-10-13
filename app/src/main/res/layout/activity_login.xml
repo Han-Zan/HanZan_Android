@@ -16,7 +16,7 @@
         android:id="@+id/login_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_main"
+        android:background="@drawable/bg_main_background"
         tools:context=".ui.login.LoginActivity">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -27,8 +27,8 @@
             android:layout_marginTop="70dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/user_dummy_icon"
-            android:background="@drawable/bg_profile_background"/>
+            android:src="@drawable/src_user_dummy_icon"
+            android:background="@drawable/bg_plate_circle_white_glass"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="240dp"
             android:autofillHints="no"
-            android:background="@drawable/bg_white_text_field"
+            android:background="@drawable/bg_text_field_white"
             android:hint="@string/user_name_hint"
             android:inputType="textPersonName"
             android:maxLength="13"
@@ -121,7 +121,7 @@
                     android:layout_marginBottom="4dp"
                     android:paddingVertical="10dp"
                     android:paddingHorizontal="20dp"
-                    android:background="@drawable/cb_glass_small"
+                    android:background="@drawable/selector_glass"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:text="@string/user_age_20"
@@ -140,7 +140,7 @@
                     android:layout_marginBottom="4dp"
                     android:paddingVertical="10dp"
                     android:paddingHorizontal="20dp"
-                    android:background="@drawable/cb_glass_small"
+                    android:background="@drawable/selector_glass"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:text="@string/user_age_30"
@@ -159,7 +159,7 @@
                     android:layout_marginBottom="4dp"
                     android:paddingVertical="10dp"
                     android:paddingHorizontal="20dp"
-                    android:background="@drawable/cb_glass_small"
+                    android:background="@drawable/selector_glass"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:text="@string/user_age_40"
@@ -186,7 +186,7 @@
                     android:layout_marginTop="4dp"
                     android:paddingVertical="10dp"
                     android:paddingHorizontal="20dp"
-                    android:background="@drawable/cb_glass_small"
+                    android:background="@drawable/selector_glass"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:text="@string/user_age_50"
@@ -205,7 +205,7 @@
                     android:layout_marginTop="4dp"
                     android:paddingVertical="10dp"
                     android:paddingHorizontal="20dp"
-                    android:background="@drawable/cb_glass_medium"
+                    android:background="@drawable/selector_glass"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
                     android:text="@string/user_age_60over"
@@ -231,7 +231,7 @@
             android:layout_marginBottom="120dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/bg_yellow_button"
+            android:background="@drawable/bg_plate_yellow"
             android:text="@string/navigate_to_sbti_tip"
             android:textSize="18sp"
             android:textStyle="bold"

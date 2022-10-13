@@ -59,14 +59,14 @@
                 android:stepSize="0.5"
                 android:numStars="5"
                 android:isIndicator="true"
-                android:progressTint="@color/color_hanzan"
-                android:progressBackgroundTint="@color/color_d4d4d4"/>
+                android:progressTint="@color/color_main"
+                android:progressBackgroundTint="@color/text_secondary"/>
             <TextView
                 android:id="@+id/item_home_alcohol_rating_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10dp"
-                android:textColor="@color/color_858585"
+                android:textColor="@color/text_hint"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/font_pretendard_regular"
                 android:text='@{Double.toString(alcohol.rating)}'
@@ -94,11 +94,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/click_more"
                 android:textSize="12dp"
-                android:textColor="@color/color_858585"/>
+                android:textColor="@color/text_hint"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/color_858585"/>
+                android:background="@color/text_hint"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

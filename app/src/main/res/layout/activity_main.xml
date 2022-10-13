@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/bg_main"
+    android:background="@drawable/bg_main_background"
     tools:context=".ui.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -25,14 +25,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:contentInsetStart="0dp"
-        app:backgroundTint="@color/color_1b1b1b"
+        app:backgroundTint="@color/color_text_field"
         style="@style/Widget.Material3.BottomAppBar"
         android:layout_gravity="bottom"
-        android:background="@color/color_1b1b1b"
+        android:background="@color/color_text_field"
         app:fabAlignmentMode="center"
         app:fabCradleVerticalOffset="0dp"
         app:fabCradleRoundedCornerRadius="10dp"
-        app:itemIconTint="@drawable/bottom_icon_selector">
+        app:itemIconTint="@drawable/selector_navigation_icon">
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/main_bottom_nav"
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             app:menu="@menu/menu_main"
             style="@style/Widget.MaterialComponents.BottomNavigationView"
             app:labelVisibilityMode="unlabeled"
-            app:itemIconTint="@drawable/bottom_icon_selector"/>
+            app:itemIconTint="@drawable/selector_navigation_icon"/>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -49,7 +49,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         style="@style/Widget.MaterialComponents.FloatingActionButton"
-        app:backgroundTint="@color/color_hanzan"
+        app:backgroundTint="@color/color_main"
         app:layout_anchor="@id/main_bottom_appbar"
         app:fabCustomSize="70dp"
         app:maxImageSize="50dp"
