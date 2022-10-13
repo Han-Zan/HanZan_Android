@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="item"
+            type="java.lang.String" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingVertical="12dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="12dp"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/bg_white_button_test">
+    <TextView
+        android:id="@+id/item_camera_result_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@{item, default = 아이템}"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="0dp"
+        app:icon="@android:drawable/ic_delete"
+        app:iconTint="@color/white"
+        app:iconSize="20dp"
+        android:padding="0dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toTopOf="@id/item_camera_result_tv"
+        app:layout_constraintBottom_toBottomOf="@id/item_camera_result_tv"
+        app:layout_constraintStart_toEndOf="@id/item_camera_result_tv"
+        style="@style/Widget.Material3.Button.IconButton"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

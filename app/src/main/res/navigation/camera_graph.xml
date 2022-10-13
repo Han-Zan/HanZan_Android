@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/camera_graph"
+    app:startDestination="@id/cameraFragment">
+
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.kud.hanzan.ui.camera.CameraFragment"
+        android:label="CameraFragment" >
+        <action
+            android:id="@+id/action_cameraFragment_to_cameraResultFragment"
+            app:destination="@id/cameraResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraResultFragment"
+        android:name="com.kud.hanzan.ui.camera.CameraResultFragment"
+        android:label="CameraResultFragment" >
+        <action
+            android:id="@+id/action_cameraResultFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+    </fragment>
+</navigation>

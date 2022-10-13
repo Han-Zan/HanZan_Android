@@ -38,7 +38,7 @@
         android:id="@+id/mapFragment"
         android:name="com.kud.hanzan.ui.map.MapFragment"
         android:label="MapFragment" />
-<!--    <activity-->
+    <!--    <activity-->
 <!--        android:id="@+id/mainActivity"-->
 <!--        android:name="com.kud.hanzan.ui.MainActivity"-->
 <!--        android:label="MainActivity" >-->

@@ -13,6 +13,7 @@ import com.kud.hanzan.domain.model.Alcohol
 import com.kud.hanzan.domain.model.User
 import com.kud.hanzan.utils.base.BaseFragment
 import com.kud.hanzan.vision.findSimilarity
+import com.kud.hanzan.vision.getTrimmedString
 import dagger.hilt.android.AndroidEntryPoint
 import org.jetbrains.annotations.TestOnly
 
@@ -68,6 +69,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     @TestOnly
     private fun test(){
-        Log.e("home", findSimilarity("1. Dom Perignon Brut", "Veuve Clicquot").toString())
+        val str = getTrimmedString("1. Dom Perignon Brut")
+        Log.e("home", findSimilarity(str, "Dom Perignon Brut").toString())
     }
 }

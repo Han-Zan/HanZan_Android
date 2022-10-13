@@ -4,10 +4,21 @@ import android.util.Log
 import kotlin.math.max
 import kotlin.math.min
 
-fun getLevenshteinDistance(xOrigin: String, y: String): Int {
-    var x = xOrigin.trim()
-    x = x.replace("[^a-zA-Z가-힣]".toRegex(), "")
-    Log.e("home lhs trim", x.toString())
+fun getTrimmedString(str: String) : String{
+    // 영어, 한국어, 공백 제외 전부 제거
+    val s = str.replace("[^a-zA-Z가-힣\\s]".toRegex(), "")
+            // 나라 이름 제거
+        .replace("France|French|Italy|Italia|Spain|프랑스|이태리|이탈리아".toRegex(), "")
+        .replace("Champagne|샴페인|".toRegex(), "")
+            // 중복 공백 제거
+        .replace("\\s+".toRegex(), " ")
+            // 맨앞 맨뒤 공백 제거
+        .replace("^\\s+|\\s+$".toRegex(), "")
+    Log.e("camera trim", s)
+    return s
+}
+
+fun getLevenshteinDistance(x: String, y: String): Int {
     val m = x.length
     val n = y.length
     val T = Array(m + 1) { IntArray(n + 1) }
