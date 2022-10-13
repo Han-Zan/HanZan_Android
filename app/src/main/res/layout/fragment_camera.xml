@@ -13,10 +13,12 @@
             android:id="@+id/camera_preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        <com.kud.hanzan.vision.GraphicOverlay
-            android:id="@+id/camera_overlay"
+        <FrameLayout
+            android:id="@+id/camera_shutter_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="@color/color_1E1E1E"
+            android:visibility="gone"/>
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/camera_mode_toggle_btn"
             android:layout_width="wrap_content"

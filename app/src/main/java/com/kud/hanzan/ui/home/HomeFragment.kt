@@ -32,7 +32,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         binding.user = User(1, "이동건", "고독한 미식가")
         initListener()
         initData()
-        test()
     }
 
     private fun initListener(){

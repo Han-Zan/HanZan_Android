@@ -22,9 +22,18 @@ class CameraResultItemRVAdapter : RecyclerView.Adapter<CameraResultItemRVAdapter
 
     override fun getItemCount(): Int = itemList.size
 
+    fun setData(data: List<String>){
+        itemList.clear()
+        itemList.addAll(data)
+        notifyDataSetChanged()
+    }
+
     inner class ViewHolder(val binding : ItemCameraResultBinding) :  RecyclerView.ViewHolder(binding.root){
         fun bind(item: String){
+            binding.item = item
+            binding.itemCameraResultRemoveBtn.setOnClickListener {
 
+            }
         }
     }
 }

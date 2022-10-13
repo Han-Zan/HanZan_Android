@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.ScaleGestureDetector
 import android.view.View
-import androidx.camera.core.Camera
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.Preview
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.video.OutputFileOptions
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -25,6 +27,12 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
     private val cameraProviderFuture by lazy{
         ProcessCameraProvider.getInstance(requireContext())
     }
+    private val imageCapture by lazy {
+        ImageCapture.Builder()
+            .setTargetRotation(view?.display?.rotation!!)
+            .build()
+    }
+
     private var camera: Camera? = null
 
     private lateinit var preview : Preview
@@ -34,10 +42,15 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
         TextRecognition.getClient(KoreanTextRecognizerOptions.Builder().build())
     }
 
+    // Camera Shutter Animation
+    private lateinit var cameraAnimationListener: Animation.AnimationListener
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         startCamera()
         initListener()
+        setAnimationListener()
         sampleGraphicOverlay()
     }
 
@@ -59,7 +72,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                 cameraProvider.unbindAll()
                 // Bind use cases to camera
                 camera = cameraProvider.bindToLifecycle(
-                    this, cameraSelector, preview)
+                    this, cameraSelector, imageCapture, preview)
 
             } catch(exc: Exception) {
                 Log.e("Camera", "Use case binding failed", exc)
@@ -75,24 +88,63 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
             }
             cameraCaptureBtn.setOnClickListener {
                 // Todo : 첫 글자 알아내기 -> 첫 글자에 따른 집단 -> 집단 각각 아이템에 대한 유사도 분석 -> 유사도 80 넘은 것 중 가장 높은걸로 판단
-                val result = recognizer.process(InputImage.fromBitmap(cameraPreview.bitmap!!, 0))
-                    .addOnSuccessListener { visionText ->
-                        var text = ""
-                        val resultText = visionText.textBlocks
-                        for (element in resultText) {
-                            val trimStr = getTrimmedString(element.text)
-                            text += trimStr + "\n"
-                            if (findSimilarity(trimStr, "Ferrari Perle") > 0.5){
-                                Log.e("camera test result success", findSimilarity(trimStr, "Ferrari Perle").toString())
-                            }
-                        }
-                        Log.e("camera result", text)
-                        val action = CameraFragmentDirections.actionCameraFragmentToCameraResultFragment()
-                        findNavController().navigate(action)
-                    }
+                takePicture()
+
 
             }
             /* Todo : 토글 버튼 선택된거에 따라 nlp 인식 범위 어디로 할지 */
+        }
+    }
+
+    private fun takePicture(){
+        imageCapture.takePicture(
+            ContextCompat.getMainExecutor(requireContext()),
+            object: ImageCapture.OnImageCapturedCallback(){
+                override fun onCaptureSuccess(image: ImageProxy) {
+                    val animation =
+                        AnimationUtils.loadAnimation(context, R.anim.camera_shutter)
+                    animation.setAnimationListener(cameraAnimationListener)
+                    binding.cameraShutterFrame.apply {
+                        setAnimation(animation)
+                        visibility = View.VISIBLE
+                        startAnimation(animation)
+                    }
+
+                    recognizer.process(InputImage.fromBitmap(binding.cameraPreview.bitmap!!, 0))
+                        .addOnSuccessListener { visionText ->
+                            var text = ""
+                            val resultText = visionText.textBlocks
+                            for (element in resultText) {
+                                val trimStr = getTrimmedString(element.text)
+                                text += trimStr + "\n"
+                                if (findSimilarity(trimStr, "Ferrari Perle") > 0.5){
+                                    Log.e("camera test result success", findSimilarity(trimStr, "Ferrari Perle").toString())
+                                }
+                            }
+                            Log.e("camera result", text)
+                        }
+                }
+                override fun onError(exception: ImageCaptureException) {
+                    Log.e("camera","촬영에 실패 했습니다",exception)
+                }
+            }
+        )
+    }
+
+    private fun setAnimationListener(){
+        cameraAnimationListener = object : Animation.AnimationListener{
+            override fun onAnimationStart(p0: Animation?) {
+            }
+
+            override fun onAnimationEnd(p0: Animation?) {
+                binding.cameraShutterFrame.visibility = View.GONE
+                val action = CameraFragmentDirections.actionCameraFragmentToCameraResultFragment()
+                findNavController().navigate(action)
+            }
+
+            override fun onAnimationRepeat(p0: Animation?) {
+            }
+
         }
     }
 
