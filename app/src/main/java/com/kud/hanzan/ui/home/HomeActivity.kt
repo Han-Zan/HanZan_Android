@@ -9,7 +9,9 @@ import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityHomeBinding
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.utils.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     private var backKeyPressedTime: Long = 0
 

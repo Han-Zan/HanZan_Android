@@ -1,5 +1,6 @@
 package com.kud.hanzan.ui.camera
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.ScaleGestureDetector
@@ -11,6 +12,7 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.video.OutputFileOptions
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.common.InputImage
@@ -18,11 +20,14 @@ import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.FragmentCameraBinding
+import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.utils.base.BaseFragment
 import com.kud.hanzan.vision.findSimilarity
 import com.kud.hanzan.vision.getTrimmedString
+import dagger.hilt.android.AndroidEntryPoint
 
-class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_camera), View.OnClickListener {
+@AndroidEntryPoint
+class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_camera){
     private lateinit var cameraSelector : CameraSelector
     private val cameraProviderFuture by lazy{
         ProcessCameraProvider.getInstance(requireContext())
@@ -49,8 +54,8 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         startCamera()
-        initListener()
         setAnimationListener()
+        initListener()
         sampleGraphicOverlay()
     }
 
@@ -81,15 +86,29 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
+    private fun Fragment.setNavigationResult(key: String = "camera") {
+        findNavController().previousBackStackEntry?.savedStateHandle?.set(key, key)
+    }
+
     private fun initListener(){
+        activity?.let {
+            if (it is MainActivity){
+                it.setListener(object : MainActivity.CameraListener{
+                    override fun onCameraClick() {
+                        takePicture()
+                    }
+                })
+                setNavigationResult()
+            }
+        }
         with(binding){
 //            cameraTurnBtn.setOnClickListener {
 //                turnCamera(cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
 //            }
 //            cameraCaptureBtn.setOnClickListener {
-//                // Todo : 첫 글자 알아내기 -> 첫 글자에 따른 집단 -> 집단 각각 아이템에 대한 유사도 분석 -> 유사도 80 넘은 것 중 가장 높은걸로 판단
 //                takePicture()
-//
+//            }
+
 //
 //            }
 //            /* Todo : 토글 버튼 선택된거에 따라 nlp 인식 범위 어디로 할지 */
@@ -102,7 +121,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
             object: ImageCapture.OnImageCapturedCallback(){
                 override fun onCaptureSuccess(image: ImageProxy) {
                     val animation =
-                        AnimationUtils.loadAnimation(context, R.anim.camera_shutter)
+                        AnimationUtils.loadAnimation(requireContext(), R.anim.camera_shutter)
                     animation.setAnimationListener(cameraAnimationListener)
                     binding.cameraShutterFrame.apply {
                         setAnimation(animation)
@@ -122,6 +141,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                                 }
                             }
                             Log.e("camera result", text)
+                            image.close()
                         }
                 }
                 override fun onError(exception: ImageCaptureException) {
@@ -181,11 +201,4 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
 //        binding.cameraOverlay.add(TextRecognitionGraphic( binding.cameraOverlay, "test" as TextBlock, Rect()))
 //        binding.cameraOverlay.postInvalidate()
     }
-
-    override fun onClick(view: View?) {
-        when(view?.id){
-            R.id.main_camera_fab -> takePicture()
-        }
-    }
-
 }

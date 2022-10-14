@@ -13,8 +13,8 @@
         android:icon="@drawable/ic_map"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/noFragment"
-        android:title="빈공간"
+        android:id="@+id/cameraFragment"
+        android:title="카메라"
         android:icon="@null"
         android:enabled="false"
         app:showAsAction="never"/>
