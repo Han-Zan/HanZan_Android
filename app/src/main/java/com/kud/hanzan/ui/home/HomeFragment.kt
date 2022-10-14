@@ -50,15 +50,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private fun initData(){
         // 임시
         (binding.homeTypeAlcoholRv.adapter as HomeAlcoholRVAdapter)
-            .setData(listOf(Alcohol("고든", "양주", 3, 4.9,  R.drawable.godons, "태그"),
-                Alcohol("참이슬", "소주", 1, 4.5, R.drawable.soju1, "깔끔"),
-                Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.wine1, "산미")
+            .setData(listOf(Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
+                Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
+                Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미")
             ))
 
         (binding.homeLikeAlcoholRv.adapter as HomeAlcoholRVAdapter)
-            .setData(listOf(Alcohol("참이슬", "소주", 1, 4.5, R.drawable.soju1, "깔끔"),
-                Alcohol("고든", "양주", 3, 4.9,  R.drawable.godons, "태그"),
-                Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.wine1, "산미")
+            .setData(listOf(Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
+                Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
+                Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미")
             ))
     }
 }

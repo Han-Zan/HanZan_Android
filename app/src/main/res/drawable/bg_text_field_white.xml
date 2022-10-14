@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="#35000000" />
+            <corners android:radius="10dp" />
+        </shape>
+    </item>
+    <item  android:bottom="2dp" android:right="2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/color_white" />
+            <corners android:radius="10dp"/>
+        </shape>
+    </item>
+</layer-list>
+
+    <!--
+        검색바는 이거 복붙해서 씁시다.
+        EditText는 알아서 아래 속성보고 적절하게!
+        <LinearLayout
+            android:id="@+id/"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_text_field_white">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_home_search"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:layout_marginStart="12dp"
+                android:textColor="@color/text_hint"
+                android:text=""/>
+        </LinearLayout>
+    -->

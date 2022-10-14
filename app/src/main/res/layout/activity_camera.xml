@@ -41,7 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/bg_yellow_button_test"/>
+            android:background="@drawable/bg_plate_yellow_glass"/>
         <Button
             android:id="@+id/camera_turn_btn"
             android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             android:paddingVertical="12dp"
             android:paddingStart="12dp"
             android:paddingEnd="15dp"
-            android:backgroundTint="@color/color_1b1b1b"
+            android:backgroundTint="@color/color_text_field"
             app:iconTint="@color/white"
             app:iconGravity="end"
             app:layout_constraintEnd_toEndOf="parent"

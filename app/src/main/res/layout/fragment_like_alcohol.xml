@@ -34,7 +34,7 @@
                 android:checked="true"
                 android:textSize="15sp"
                 android:fontFamily="@font/font_pretendard_semibold"
-                android:background="@drawable/cb_map_category_selector"/>
+                android:background="@drawable/selector_glass"/>
             <RadioButton
                 android:id="@+id/like_keyword_type_01_rb"
                 android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                 android:text="소주"
                 android:textSize="15sp"
                 android:fontFamily="@font/font_pretendard_semibold"
-                android:background="@drawable/cb_map_category_selector"/>
+                android:background="@drawable/selector_glass"/>
             <RadioButton
                 android:id="@+id/like_keyword_type_02_rb"
                 android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
                 android:text="맥주"
                 android:textSize="15sp"
                 android:fontFamily="@font/font_pretendard_semibold"
-                android:background="@drawable/cb_map_category_selector"/>
+                android:background="@drawable/selector_glass"/>
             <RadioButton
                 android:id="@+id/like_keyword_type_03_rb"
                 android:layout_width="wrap_content"
@@ -73,7 +73,7 @@
                 android:text="양주"
                 android:textSize="15sp"
                 android:fontFamily="@font/font_pretendard_semibold"
-                android:background="@drawable/cb_map_category_selector"/>
+                android:background="@drawable/selector_glass"/>
             <RadioButton
                 android:id="@+id/like_keyword_type_04_rb"
                 android:layout_width="wrap_content"
@@ -86,7 +86,7 @@
                 android:text="와인"
                 android:textSize="15sp"
                 android:fontFamily="@font/font_pretendard_semibold"
-                android:background="@drawable/cb_map_category_selector"/>
+                android:background="@drawable/selector_glass"/>
             <RadioButton
                 android:id="@+id/like_keyword_type_05_rb"
                 android:layout_width="wrap_content"
@@ -99,7 +99,7 @@
                 android:text="기타"
                 android:textSize="15sp"
                 android:fontFamily="@font/font_pretendard_semibold"
-                android:background="@drawable/cb_map_category_selector"/>
+                android:background="@drawable/selector_glass"/>
         </RadioGroup>
     </HorizontalScrollView>
     <androidx.core.widget.NestedScrollView

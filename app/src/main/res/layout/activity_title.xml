@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.title.TitleActivity"
-        android:background="@drawable/bg_main">
+        android:background="@drawable/bg_main_background">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -30,7 +30,7 @@
             android:layout_marginBottom="100dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:src="@drawable/kakao_login_large_wide"
+            android:src="@drawable/src_kakao_login_large_wide"
             android:background="@android:color/transparent"
             android:visibility="gone"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

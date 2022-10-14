@@ -19,7 +19,7 @@
     android:button="@null"
     android:text="@{type}"
     android:paddingVertical="10dp"
-    android:textColor="@drawable/color_category_tv"
-    android:background="@drawable/color_category_btn">
+    android:textColor="@drawable/selector_category_text"
+    android:background="@drawable/selector_category_button">
 </com.google.android.material.checkbox.MaterialCheckBox>
 </layout>
