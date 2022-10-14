@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LikeFragment : BaseFragment<FragmentLikeBinding>(R.layout.fragment_like) {
     private val viewModel by viewModels<LikeViewModel>()
-    private val tabInfo = listOf("내가 찜한 술", "내가 찜한 조합")
+    private val tabInfo = listOf("내가 찜한 조합", "내가 찜한 술")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -23,6 +23,7 @@ class LikeFragment : BaseFragment<FragmentLikeBinding>(R.layout.fragment_like) {
     private fun initView(){
         with(binding){
             likeTabVp.adapter = LikeVPAdapter(this@LikeFragment)
+            likeTabVp.isUserInputEnabled = false
             TabLayoutMediator(likeTabTb, likeTabVp){
                 tab, position -> tab.text = tabInfo[position]
             }.attach()

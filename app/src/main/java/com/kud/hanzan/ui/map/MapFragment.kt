@@ -34,6 +34,7 @@ import net.daum.mf.map.api.CalloutBalloonAdapter
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
+import org.jetbrains.annotations.TestOnly
 
 
 @AndroidEntryPoint
@@ -110,6 +111,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 
     // 임시 데이터
     // Todo : 검색결과로 변경
+    @TestOnly
     private fun setRVData(){
         val tempList = ArrayList<Store>()
         tempList.apply {
