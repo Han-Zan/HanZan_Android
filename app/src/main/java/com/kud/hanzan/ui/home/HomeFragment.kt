@@ -1,6 +1,7 @@
 package com.kud.hanzan.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +12,10 @@ import com.kud.hanzan.databinding.FragmentHomeBinding
 import com.kud.hanzan.domain.model.Alcohol
 import com.kud.hanzan.domain.model.User
 import com.kud.hanzan.utils.base.BaseFragment
+import com.kud.hanzan.vision.findSimilarity
+import com.kud.hanzan.vision.getTrimmedString
 import dagger.hilt.android.AndroidEntryPoint
+import org.jetbrains.annotations.TestOnly
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
@@ -60,5 +64,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
                 Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
                 Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미")
             ))
+    }
+
+    @TestOnly
+    private fun test(){
+        val str = getTrimmedString("1. Dom Perignon Brut")
+        Log.e("home", findSimilarity(str, "Dom Perignon Brut").toString())
     }
 }

@@ -3,5 +3,5 @@
     <font
         android:font="@font/pretendard_extrabold"
         android:fontStyle="normal"
-        android:fontWeight="800"/>
+        android:fontWeight="1000"/>
 </font-family>
