@@ -1,13 +1,16 @@
 package com.kud.hanzan.ui.map
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
@@ -16,6 +19,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.MapStoreRVAdapter
 import com.kud.hanzan.databinding.FragmentMapBinding
@@ -36,6 +41,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
     private lateinit var mapView: MapView
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
 
     companion object{
@@ -61,7 +68,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 
     override fun onResume() {
         super.onResume()
-        binding.mapBottomLayout.maxHeight = (binding.kakaoMapView.height * 0.96).toInt()
 
         binding.isPickupShown = binding.mapPickupNearCb.isChecked
         binding.isNearShown = binding.mapPickupNearCb.isChecked
@@ -72,9 +78,13 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         mapView = MapView(activity)
         binding.kakaoMapView.addView(mapView)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        binding.mapLayout.panelHeight = 700
         checkPermission()
         mapView.setMapViewEventListener(this)
+
+        // bottomSheetBehavior 초기화
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.mapBottomLayout)
+        bottomSheetBehavior.peekHeight = (resources.displayMetrics.heightPixels * 0.47).toInt()
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         // 마커 추가
 //        val marker = MapPOIItem()
 //        marker.apply {
@@ -139,10 +149,23 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
                 }
             })
 
-            mapLayout.addPanelSlideListener(PanelEventListener())
-            // 패널 닫기
-            mapListFab.setOnClickListener { mapLayout.panelState = SlidingUpPanelLayout.PanelState.EXPANDED }
-            mapMapFab.setOnClickListener { mapLayout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED }
+            bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetCallback(){
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    //TODO("Not yet implemented")
+                }
+
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                    //TODO("Not yet implemented")
+                }
+
+            })
+
+            mapListFab.setOnClickListener {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+            mapMapFab.setOnClickListener {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            }
         }
     }
 
@@ -305,32 +328,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
 
-    // Todo : 터치 잠금 추가할지 고민
-    inner class PanelEventListener : SlidingUpPanelLayout.PanelSlideListener{
-        // 패널 슬라이드 중일때
-        override fun onPanelSlide(panel: View?, slideOffset: Float) {
-        }
-
-        // 패널 상태 변했을 때
-        override fun onPanelStateChanged(
-            panel: View?,
-            previousState: SlidingUpPanelLayout.PanelState?,
-            newState: SlidingUpPanelLayout.PanelState?
-        ) {
-            if (previousState == SlidingUpPanelLayout.PanelState.DRAGGING && newState == SlidingUpPanelLayout.PanelState.COLLAPSED)
-                binding.mapBottomLayout.maxHeight = (binding.kakaoMapView.height * 0.963).toInt()
-            when (newState) {
-                SlidingUpPanelLayout.PanelState.EXPANDED, SlidingUpPanelLayout.PanelState.COLLAPSED -> {
-                    binding.mapLayout.panelHeight = 0
-//                    binding.mapBottomSlideIv.visibility = View.INVISIBLE
-                }
-                else -> {
-//                    binding.mapBottomSlideIv.visibility = View.VISIBLE
-                }
-            }
-        }
-
-    }
     class CustomBalloonAdapter(): CalloutBalloonAdapter{
         // 마커 클릭시 나오는 말풍선
         override fun getCalloutBalloon(p0: MapPOIItem?): View {
