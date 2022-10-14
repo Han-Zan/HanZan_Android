@@ -19,7 +19,7 @@
     android:minWidth="0dp"
     android:paddingHorizontal="20dp"
     android:paddingVertical="8dp"
-    android:background="@drawable/bg_white_button_test">
+    android:background="@drawable/bg_plate_white_glass">
 </androidx.appcompat.widget.AppCompatButton>
 
 </layout>

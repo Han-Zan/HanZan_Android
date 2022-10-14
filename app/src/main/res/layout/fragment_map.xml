@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:layout_marginHorizontal="20dp"
-                android:background="@drawable/bg_home_search"
+                android:background="@drawable/bg_text_field_black"
                 app:iconifiedByDefault="false"
                 app:queryBackground="@null"
                 app:queryHint="@string/map_search_hint"
@@ -65,7 +65,7 @@
                         android:id="@+id/map_pickup_near_cb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/cb_map_category_selector"
+                        android:background="@drawable/selector_glass"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
                         android:checked="true"
@@ -80,7 +80,7 @@
                         android:id="@+id/map_pickup_avail_cb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/cb_map_category_selector"
+                        android:background="@drawable/selector_glass"
                         android:text='@{isPickupShown ? "픽업 가능" : "전체"}'
                         android:minHeight="0dp"
                         android:button="@null"
@@ -147,11 +147,15 @@
             android:id="@+id/map_bottom_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+<<<<<<< HEAD
             android:background="@drawable/bg_map_bottom_sheet"
             app:behavior_hideable="true"
             app:behavior_peekHeight="360dp"
             app:behavior_halfExpandedRatio="0.5"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+=======
+            android:background="@drawable/bg_panel_from_bottom_black">
+>>>>>>> ace0f354c3971399f67ad1f59a3c8020f18f66ad
 
             <ImageView
                 android:id="@+id/map_bottom_slide_iv"

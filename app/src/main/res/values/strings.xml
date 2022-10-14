@@ -12,6 +12,7 @@
     <string name="user_age_50">50~59</string>
     <string name="user_age_60over">60세 이상</string>
     <string name="navigate_to_sbti_tip">술BTI 검사하러 가기!</string>
+
     <!--    SBTI Activity-->
     <string name="sbti">술BTI 검사</string>
     <string name="sbti_tip1">총 검사 시간은 5분 내외입니다.</string>
@@ -57,6 +58,7 @@
     <string name="sbti_answer_11_1">달다.</string>
     <string name="sbti_answer_11_5">쓰다.</string>
     <string name="navigate_to_sbti_result">결과 확인하기!</string>
+
     <!--    SBTI Result Activity-->
     <string name="sbti_type_lonely_gourmet">고독한 미식가</string>
     <string name="sbti_brief_lonely_gourmet">"약간 영화 명대사 느낌으로 두 줄 정도 간략하게 이 유형을 선택하는 부분"</string>
@@ -79,10 +81,11 @@
     <string name="map_search_hint">가게 이름을 입력해주세요.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-<!--    Notification Channel-->
+    <!--    Notification Channel-->
     <string name="default_notification_channel_id">default channel</string>
     <string name="default_notification_channel_name">default channel name</string>
 
+<<<<<<< HEAD
 <!--    Camera Result-->
     <string name="camera_result_title">사진 분석</string>
     <string name="camera_result_next">궁합 분석하기</string>
@@ -90,4 +93,11 @@
     <string name="camera_result_alcohol_list">술 리스트</string>
     <string name="camera_result_manual">직접 입력하기</string>
     <string name="camera_result_again">다시 찍기</string>
+=======
+    <!--    Button Content Description-->
+    <string name="white_glass">white glass</string>
+    <string name="yellow_glass">yellow glass</string>
+    <string name="white_glass_button">white glass button</string>
+    <string name="yellow_glass_button">yellow glass button</string>
+>>>>>>> ace0f354c3971399f67ad1f59a3c8020f18f66ad
 </resources>

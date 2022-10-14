@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+<<<<<<< HEAD
     <color name="color_1b1b1b">#1B1B1B</color>
     <color name="color_f9f9f9">#F9F9F9</color>
     <color name="color_858585">#858585</color>
@@ -9,6 +10,8 @@
     <color name="color_hanzan">#FFAA11</color>
     <color name="color_1E1E1E">#1E1E1E</color>
 
+=======
+>>>>>>> ace0f354c3971399f67ad1f59a3c8020f18f66ad
 <!--  Text Colors  -->
     <color name="text_primary">#FFFFFF</color>
     <color name="text_secondary">#D4D4D4</color>

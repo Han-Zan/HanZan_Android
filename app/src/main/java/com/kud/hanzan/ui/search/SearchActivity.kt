@@ -22,9 +22,21 @@ class SearchActivity : BaseActivity<ActivitySearchBinding>(R.layout.activity_sea
         }
     }
 
+    private fun kakaoLogout() {
+        // 로그아웃
+        UserApiClient.instance.logout { error ->
+            if (error != null) {
+                Log.e(ContentValues.TAG, "로그아웃 실패. SDK에서 토큰 삭제됨", error)
+            }
+            else {
+                Log.i(ContentValues.TAG, "로그아웃 성공. SDK에서 토큰 삭제됨")
+            }
+        }
+    }
+
     override fun initView() {
         binding.kakaoLogoutBtn.setOnClickListener {
-            kakaoDelete()
+            kakaoLogout()
             finishAffinity()
         }
     }

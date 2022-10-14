@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners
+        android:radius="20dp"/>
+    <stroke
+        android:width="2dp"
+        android:color="#73FFAA11"/>
+    <gradient
+        android:type="linear"
+        android:angle="135"
+        android:startColor="#14FFAA11"
+        android:endColor="#33FFAA11" />
+</shape>
+
+    <!--
+    사용할라면 이거 복붙합시다.
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="16dp"
+        android:background="@drawable/bg_yellow_glass_button"
+        android:text=""
+        android:textSize="15sp"
+        android:textColor="@color/text_primary"
+        android:textStyle="bold"
+        android:contentDescription="@string/yellow_glass_button"/>
+    -->

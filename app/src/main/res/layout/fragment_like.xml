@@ -32,7 +32,7 @@
             android:background="@null"
             app:tabTextAppearance="@style/customTabText"
             app:tabRippleColor="@android:color/transparent"
-            app:tabIndicatorColor="@color/color_hanzan"
+            app:tabIndicatorColor="@color/color_main"
             app:tabTextColor="@color/text_unselected"
             app:tabSelectedTextColor="@color/white"
             app:tabIndicatorFullWidth="true"/>
