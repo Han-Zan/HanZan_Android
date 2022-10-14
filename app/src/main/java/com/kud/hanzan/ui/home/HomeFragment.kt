@@ -36,7 +36,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private fun initListener(){
         with(binding){
-            homeSearchLayout.setOnClickListener {
+            homeSearch1Layout.setOnClickListener {
                 val action = HomeFragmentDirections.actionHomeFragmentToSearchActivity()
                 findNavController().navigate(action)
             }
