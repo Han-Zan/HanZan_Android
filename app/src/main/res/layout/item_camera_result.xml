@@ -13,7 +13,7 @@
     android:paddingEnd="8dp"
     android:layout_marginBottom="10dp"
     android:layout_marginEnd="10dp"
-    android:background="@drawable/bg_white_button_test">
+    android:background="@drawable/bg_plate_white_glass">
     <TextView
         android:id="@+id/item_camera_result_tv"
         android:layout_width="wrap_content"
