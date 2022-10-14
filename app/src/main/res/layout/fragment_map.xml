@@ -147,15 +147,11 @@
             android:id="@+id/map_bottom_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-<<<<<<< HEAD
-            android:background="@drawable/bg_map_bottom_sheet"
+            android:background="@drawable/bg_panel_from_bottom_black"
             app:behavior_hideable="true"
             app:behavior_peekHeight="360dp"
             app:behavior_halfExpandedRatio="0.5"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-=======
-            android:background="@drawable/bg_panel_from_bottom_black">
->>>>>>> ace0f354c3971399f67ad1f59a3c8020f18f66ad
 
             <ImageView
                 android:id="@+id/map_bottom_slide_iv"

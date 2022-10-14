@@ -68,7 +68,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/bg_yellow_button_test"/>
+            android:background="@drawable/bg_plate_yellow_glass"/>
         <Button
             android:id="@+id/camera_turn_btn"
             android:layout_width="wrap_content"
