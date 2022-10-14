@@ -22,7 +22,7 @@ import com.kud.hanzan.utils.base.BaseFragment
 import com.kud.hanzan.vision.findSimilarity
 import com.kud.hanzan.vision.getTrimmedString
 
-class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_camera) {
+class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_camera), View.OnClickListener {
     private lateinit var cameraSelector : CameraSelector
     private val cameraProviderFuture by lazy{
         ProcessCameraProvider.getInstance(requireContext())
@@ -83,20 +83,20 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
 
     private fun initListener(){
         with(binding){
-            cameraTurnBtn.setOnClickListener {
-                turnCamera(cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
-            }
-            cameraCaptureBtn.setOnClickListener {
-                // Todo : 첫 글자 알아내기 -> 첫 글자에 따른 집단 -> 집단 각각 아이템에 대한 유사도 분석 -> 유사도 80 넘은 것 중 가장 높은걸로 판단
-                takePicture()
-
-
-            }
-            /* Todo : 토글 버튼 선택된거에 따라 nlp 인식 범위 어디로 할지 */
+//            cameraTurnBtn.setOnClickListener {
+//                turnCamera(cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
+//            }
+//            cameraCaptureBtn.setOnClickListener {
+//                // Todo : 첫 글자 알아내기 -> 첫 글자에 따른 집단 -> 집단 각각 아이템에 대한 유사도 분석 -> 유사도 80 넘은 것 중 가장 높은걸로 판단
+//                takePicture()
+//
+//
+//            }
+//            /* Todo : 토글 버튼 선택된거에 따라 nlp 인식 범위 어디로 할지 */
         }
     }
 
-    private fun takePicture(){
+    fun takePicture(){
         imageCapture.takePicture(
             ContextCompat.getMainExecutor(requireContext()),
             object: ImageCapture.OnImageCapturedCallback(){
@@ -138,7 +138,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
 
             override fun onAnimationEnd(p0: Animation?) {
                 binding.cameraShutterFrame.visibility = View.GONE
-                val action = CameraFragmentDirections.actionCameraFragmentToCameraResultFragment()
+                val action = CameraFragmentDirections.actionCameraFragmentToCameraResultActivity()
                 findNavController().navigate(action)
             }
 
@@ -180,6 +180,12 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
     private fun sampleGraphicOverlay(){
 //        binding.cameraOverlay.add(TextRecognitionGraphic( binding.cameraOverlay, "test" as TextBlock, Rect()))
 //        binding.cameraOverlay.postInvalidate()
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id){
+            R.id.main_camera_fab -> takePicture()
+        }
     }
 
 }

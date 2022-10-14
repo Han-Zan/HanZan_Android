@@ -38,6 +38,22 @@
         android:id="@+id/mapFragment"
         android:name="com.kud.hanzan.ui.map.MapFragment"
         android:label="MapFragment" />
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.kud.hanzan.ui.camera.CameraFragment"
+        android:label="CameraFragment" >
+        <action
+            android:id="@+id/action_cameraFragment_to_cameraResultActivity"
+            app:destination="@id/cameraResultActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/cameraResultActivity"
+        android:name="com.kud.hanzan.ui.camera.CameraResultActivity"
+        android:label="CameraResultActivity" >
+        <action
+            android:id="@+id/action_cameraResultActivity_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+    </fragment>
     <!--    <activity-->
 <!--        android:id="@+id/mainActivity"-->
 <!--        android:name="com.kud.hanzan.ui.MainActivity"-->
