@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/homeFragment"
+    >
 
     <fragment
         android:id="@+id/homeFragment"
@@ -41,7 +42,7 @@
     <fragment
         android:id="@+id/cameraFragment"
         android:name="com.kud.hanzan.ui.camera.CameraFragment"
-        android:label="CameraFragment" >
+        android:label="CameraFragment">
         <action
             android:id="@+id/action_cameraFragment_to_cameraResultActivity"
             app:destination="@id/cameraResultActivity" />

@@ -91,17 +91,18 @@ class TitleActivity : BaseActivity<ActivityTitleBinding>(R.layout.activity_title
 
     override fun initView() {
         // 사용자 정보 요청 (기본)
-        UserApiClient.instance.me { user, error ->
-            // TODO("사용자 데이터가 있을지 검사하고 있으면 넘어가기")
-            if (user != null) {
-                startActivity(Intent(this, HomeActivity::class.java))
-                finishAffinity()
-            } else {
-                binding.titleKakaoLoginBtn.visibility = View.VISIBLE
-            }
-        }
-        binding.titleKakaoLoginBtn.setOnClickListener{
-            kakaoLogin()
-        }
+        startActivity(Intent(this, HomeActivity::class.java))
+//
+//        UserApiClient.instance.me { user, error ->
+//            // TODO("사용자 데이터가 있을지 검사하고 있으면 넘어가기")
+//            if (user != null) {
+//                finishAffinity()
+//            } else {
+//                binding.titleKakaoLoginBtn.visibility = View.VISIBLE
+//            }
+//        }
+//        binding.titleKakaoLoginBtn.setOnClickListener{
+//            kakaoLogin()
+//        }
     }
 }

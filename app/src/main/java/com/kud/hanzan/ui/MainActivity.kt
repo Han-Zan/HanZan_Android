@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityMainBinding
+import com.kud.hanzan.ui.camera.CameraFragment
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.jetbrains.annotations.TestOnly
@@ -29,14 +30,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         initFab()
     }
 
-    private lateinit var cameraListener : CameraListener
+    private var cameraListener : CameraListener? = null
 
     interface CameraListener{
         fun onCameraClick()
     }
 
     fun setListener(listener: CameraListener){
+        cameraListener = null
         cameraListener = listener
+    }
+
+    fun fabCameraListener(){
+        binding.mainCameraFab.setOnClickListener(null)
+        binding.mainCameraFab.setOnClickListener {
+            cameraListener?.onCameraClick()
+        }
     }
 
     private fun initBottomNav(){
@@ -54,18 +63,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
                 }
             }
         }
-        navController?.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("camera")?.observe(this){
-            // Todo : 카메라 화면 왔다갔다하면 오류나는 현상 해결해보기
-            // Todo : listener에 따른 처리 해야할듯?
-            binding.mainCameraFab.setOnClickListener(null)
-            binding.mainCameraFab.setOnClickListener {
-                cameraListener.onCameraClick()
-            }
-            Log.e("mainCamera", it.toString())
-        }
     }
 
-    @TestOnly
     private fun setFabStyle(cameraOn: Boolean){
         binding.mainCameraFab.apply {
             if (cameraOn){
@@ -81,18 +80,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     private fun initFab(){
         binding.mainCameraFab.setOnClickListener(null)
         binding.mainCameraFab.setOnClickListener {
+            navController?.popBackStack()
             navController?.navigate(R.id.cameraFragment)
         }
     }
 
-//    private fun getForegroundFragment() : Fragment?{
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container)
-//        return navHostFragment?.childFragmentManager?.fragments?.get(0)
-//    }
+    private fun getForegroundFragment() : Fragment?{
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container)
+        return navHostFragment?.childFragmentManager?.fragments?.get(0)
+    }
 
     private fun initScreen(){
-        if (intent.hasExtra("camera"))
+        if (intent.hasExtra("camera")){
+            navController?.popBackStack()
             navController?.navigate(R.id.cameraFragment)
+        }
         else if(intent.hasExtra("place")){
             navController?.navigate(R.id.mapFragment)
         } else if(intent.hasExtra("like")){
@@ -100,4 +102,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         }
     }
 
+    override fun onBackPressed() {
+        if (getForegroundFragment() is CameraFragment){
+            finish()
+        } else{
+            super.onBackPressed()
+        }
+    }
 }

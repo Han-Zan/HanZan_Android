@@ -25,9 +25,11 @@ import com.kud.hanzan.utils.base.BaseFragment
 import com.kud.hanzan.vision.findSimilarity
 import com.kud.hanzan.vision.getTrimmedString
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_camera){
+    private var checker = false
     private lateinit var cameraSelector : CameraSelector
     private val cameraProviderFuture by lazy{
         ProcessCameraProvider.getInstance(requireContext())
@@ -53,60 +55,62 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        startCamera()
+//        startCamera()
         setAnimationListener()
         initListener()
         sampleGraphicOverlay()
     }
 
     private fun startCamera(){
-        cameraProviderFuture.addListener({
-            // Camera의 lifecycle 을 lifecycleowner에 bind 하기 위해 사용
-            val cameraProvider = cameraProviderFuture.get()
+        if (camera == null){
+            cameraProviderFuture.addListener({
+                // Camera의 lifecycle 을 lifecycleowner에 bind 하기 위해 사용
+                val cameraProvider = cameraProviderFuture.get()
 
-            preview = Preview.Builder()
-                .build()
-                .also {
-                    it.setSurfaceProvider(binding.cameraPreview.surfaceProvider)
+                preview = Preview.Builder()
+                    .build()
+                    .also {
+                        it.setSurfaceProvider(binding.cameraPreview.surfaceProvider)
+                    }
+                cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+                setUpPinchToZoom()
+
+                try {
+                    // Unbind use cases before rebinding
+                    cameraProvider.unbindAll()
+                    // Bind use cases to camera
+                    camera = cameraProvider.bindToLifecycle(
+                        requireActivity(), cameraSelector, imageCapture, preview)
+
+                } catch(exc: Exception) {
+                    Log.e("Camera", "Use case binding failed", exc)
                 }
-            cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-            setUpPinchToZoom()
 
-            try {
-                // Unbind use cases before rebinding
-                cameraProvider.unbindAll()
-                // Bind use cases to camera
-                camera = cameraProvider.bindToLifecycle(
-                    this, cameraSelector, imageCapture, preview)
-
-            } catch(exc: Exception) {
-                Log.e("Camera", "Use case binding failed", exc)
-            }
-
-        }, ContextCompat.getMainExecutor(requireContext()))
+            }, ContextCompat.getMainExecutor(requireContext()))
+        }
     }
 
-    private fun Fragment.setNavigationResult(key: String = "camera") {
-        findNavController().previousBackStackEntry?.savedStateHandle?.set(key, key)
+    override fun onResume() {
+        super.onResume()
+        startCamera()
+        Log.e("cameraFragment", "onResume")
     }
 
     private fun initListener(){
         activity?.let {
             if (it is MainActivity){
+                Log.e("cameraFragment", "onResume")
                 it.setListener(object : MainActivity.CameraListener{
                     override fun onCameraClick() {
                         takePicture()
                     }
                 })
-                setNavigationResult()
+                it.fabCameraListener()
             }
         }
         with(binding){
 //            cameraTurnBtn.setOnClickListener {
 //                turnCamera(cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
-//            }
-//            cameraCaptureBtn.setOnClickListener {
-//                takePicture()
 //            }
 
 //
