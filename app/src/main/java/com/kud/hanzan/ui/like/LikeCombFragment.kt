@@ -1,7 +1,10 @@
 package com.kud.hanzan.ui.like
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import androidx.appcompat.widget.ListPopupWindow
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +24,7 @@ class LikeCombFragment : BaseFragment<FragmentLikeCombinationBinding>(R.layout.f
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initListener()
         observe()
     }
 
@@ -30,6 +34,39 @@ class LikeCombFragment : BaseFragment<FragmentLikeCombinationBinding>(R.layout.f
         binding.likeCombRv.apply {
             adapter = LikeCombRVAdapter()
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        }
+    }
+
+    private fun initListener(){
+        with(binding){
+            val listAlcoholPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)
+            listAlcoholPopupWindow.apply {
+                anchorView = likeCombSortAlcoholBtn
+                val items = listOf("소주", "맥주", "양주", "와인", "기타")
+                val adapter = ArrayAdapter(requireContext(), R.layout.list_popup_like_sort, items)
+                setAdapter(adapter)
+                setOnItemClickListener { _, _, position, _ ->
+                    likeCombSortAlcoholBtn.text = items[position]
+                    // 팝업 닫기
+                    dismiss()
+                }
+            }
+
+            val listFoodPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)
+            listFoodPopupWindow.apply {
+                anchorView = likeCombSortFoodBtn
+                val items = listOf("고기류", "과일류", "튀김류", "매운 음식", "기타")
+                val adapter = ArrayAdapter(requireContext(), R.layout.list_popup_like_sort, items)
+                setAdapter(adapter)
+                setOnItemClickListener { _, _, position, _ ->
+                    likeCombSortFoodBtn.text = items[position]
+                    // 팝업 닫기
+                    dismiss()
+                }
+            }
+
+            likeCombSortAlcoholBtn.setOnClickListener { listAlcoholPopupWindow.show() }
+            likeCombSortFoodBtn.setOnClickListener { listFoodPopupWindow.show() }
         }
     }
 

@@ -33,6 +33,16 @@ class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fr
         with(binding){
             lifecycleOwner = this@LikeAlcoholFragment
 
+            likeKeywordRg.setOnCheckedChangeListener { _, id ->
+                when(id){
+                    R.id.like_keyword_type_01_rb -> viewModel.setTypeAlcohol(1)
+                    R.id.like_keyword_type_02_rb -> viewModel.setTypeAlcohol(2)
+                    R.id.like_keyword_type_03_rb -> viewModel.setTypeAlcohol(3)
+                    R.id.like_keyword_type_04_rb -> viewModel.setTypeAlcohol(4)
+                    R.id.like_keyword_type_05_rb -> viewModel.setTypeAlcohol(5)
+                    else -> viewModel.setTypeAlcohol(0)
+                }
+            }
             // popup menu
             val listPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)
             listPopupWindow.apply {
@@ -44,16 +54,6 @@ class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fr
                     likePreferredSortBtn.text = items[position]
                     // 팝업 닫기
                     dismiss()
-                }
-            }
-            likeKeywordRg.setOnCheckedChangeListener { _, id ->
-                when(id){
-                    R.id.like_keyword_type_01_rb -> viewModel.setTypeAlcohol(1)
-                    R.id.like_keyword_type_02_rb -> viewModel.setTypeAlcohol(2)
-                    R.id.like_keyword_type_03_rb -> viewModel.setTypeAlcohol(3)
-                    R.id.like_keyword_type_04_rb -> viewModel.setTypeAlcohol(4)
-                    R.id.like_keyword_type_05_rb -> viewModel.setTypeAlcohol(5)
-                    else -> viewModel.setTypeAlcohol(0)
                 }
             }
             likePreferredSortBtn.setOnClickListener {
