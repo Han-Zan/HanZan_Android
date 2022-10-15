@@ -72,6 +72,10 @@
     <!--    Like Fragment-->
     <string name="like_title">찜한 아이템</string>
     <string name="like_preferred_sort_default">최근 찜한 순</string>
+    <string name="like_comb_sort_alcohol">술 스타일</string>
+    <string name="like_comb_sort_food">안주 스타일</string>
+    <string name="like_comb_rank_title">안주 궁합 순위 확인하기</string>
+    <string name="like_comb_rank_hint">요즘 가장 많이 찾는 안주 궁합을 확인해보세요!</string>
 
     <!--    Main Activity-->
     <string name="app_name">한잔</string>

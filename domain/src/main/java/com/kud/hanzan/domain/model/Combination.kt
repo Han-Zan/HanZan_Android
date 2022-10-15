@@ -4,5 +4,6 @@ data class Combination(
     val drinkname: String,
     val foodname: String,
     val id: Long,
-    val rating: Float
+    val rating: Float,
+    val detail: String?
 )

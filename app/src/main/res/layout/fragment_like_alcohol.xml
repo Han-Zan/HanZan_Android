@@ -15,8 +15,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:overScrollMode="never"
+        android:scrollbars="none"
         app:layout_constraintTop_toTopOf="parent">
         <RadioGroup
+            android:id="@+id/like_keyword_rg"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
