@@ -1,10 +1,18 @@
 package com.kud.hanzan.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -13,6 +21,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityMainBinding
 import com.kud.hanzan.ui.camera.CameraFragment
+import com.kud.hanzan.ui.home.HomeActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import org.jetbrains.annotations.TestOnly
@@ -20,13 +29,25 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
+    companion object {
+        private const val REQUEST_CAMERA_PERMISSIONS = 10
+        private val REQUIRED_CAMERA_PERMISSIONS = arrayOf(
+            Manifest.permission.CAMERA
+        )
+
+        private const val REQUEST_PLACE_PERMISSIONS = 20
+        private val REQUIRED_PLACE_PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+    }
+
     private var navController : NavController? = null
     override fun initView() {
 //        startService(Intent(applicationContext, MyFirebaseMessagingService::class.java).also {
 //            MyFirebaseMessagingService().getToken()
 //        })
         initBottomNav()
-        initScreen()
         initFab()
     }
 
@@ -51,11 +72,45 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     private fun initBottomNav(){
         binding.mainBottomNav.background = null
         navController = supportFragmentManager.findFragmentById(R.id.main_fragment_container)?.findNavController()
+
+        if (intent.hasExtra("screen")){
+            val inflater = navController?.navInflater
+            val graph = inflater?.inflate(R.navigation.main_bottom_graph)
+            graph?.setStartDestination(
+                when(intent.getIntExtra("screen", 0)){
+                    0 -> R.id.cameraFragment
+                    1 -> R.id.mapFragment
+                    else -> R.id.likeFragment
+                }
+            )
+            graph?.let { navController?.graph = it }
+        }
+
+
         navController?.let { binding.mainBottomNav.setupWithNavController(it) }
         navController?.addOnDestinationChangedListener { controller, destination, arguments ->
             when(destination.id){
                 R.id.cameraFragment -> {
                     setFabStyle(true)
+                    if (ContextCompat.checkSelfPermission(this@MainActivity, REQUIRED_CAMERA_PERMISSIONS[0]) == PackageManager.PERMISSION_GRANTED){
+                    } else{
+                        requestPermissions(
+                            REQUIRED_CAMERA_PERMISSIONS,
+                            REQUEST_CAMERA_PERMISSIONS
+                        )
+                    }
+                }
+                R.id.mapFragment -> {
+                    setFabStyle(false)
+                    initFab()
+                    if (allPermissionsGranted()){
+                    }
+                    else{
+                        requestPermissions(
+                            REQUIRED_PLACE_PERMISSIONS,
+                            REQUEST_PLACE_PERMISSIONS
+                        )
+                    }
                 }
                 else -> {
                     setFabStyle(false)
@@ -90,23 +145,37 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         return navHostFragment?.childFragmentManager?.fragments?.get(0)
     }
 
-    private fun initScreen(){
-        if (intent.hasExtra("camera")){
-            navController?.popBackStack()
-            navController?.navigate(R.id.cameraFragment)
-        }
-        else if(intent.hasExtra("place")){
-            navController?.navigate(R.id.mapFragment)
-        } else if(intent.hasExtra("like")){
-            navController?.navigate(R.id.likeFragment)
-        }
-    }
-
     override fun onBackPressed() {
         if (getForegroundFragment() is CameraFragment){
             finish()
         } else{
             super.onBackPressed()
         }
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CAMERA_PERMISSIONS){
+            if (ContextCompat.checkSelfPermission(this, REQUIRED_CAMERA_PERMISSIONS[0]) == PackageManager.PERMISSION_GRANTED){
+            } else {
+                Toast.makeText(this, "카메라 권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
+                onBackPressed()
+            }
+        }
+        else if(requestCode == REQUEST_PLACE_PERMISSIONS){
+            if (allPermissionsGranted()){
+            } else{
+                Toast.makeText(this, "지도 권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PLACE_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 }

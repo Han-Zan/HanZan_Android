@@ -6,5 +6,6 @@
         android:enabled="true"
         android:icon="@drawable/ic_search_colored"
         android:title="검색"
-        app:showAsAction="always"/>
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="collapseActionView|ifRoom"/>
 </menu>

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.video.OutputFileOptions
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -55,47 +56,43 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        startCamera()
         setAnimationListener()
         initListener()
         sampleGraphicOverlay()
     }
 
     private fun startCamera(){
-        if (camera == null){
-            cameraProviderFuture.addListener({
-                // Camera의 lifecycle 을 lifecycleowner에 bind 하기 위해 사용
-                val cameraProvider = cameraProviderFuture.get()
+        cameraProviderFuture.addListener({
+            // Camera의 lifecycle 을 lifecycleowner에 bind 하기 위해 사용
+            val cameraProvider = cameraProviderFuture.get()
 
-                preview = Preview.Builder()
-                    .build()
-                    .also {
-                        it.setSurfaceProvider(binding.cameraPreview.surfaceProvider)
-                    }
-                cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-                setUpPinchToZoom()
-
-                try {
-                    // Unbind use cases before rebinding
-                    cameraProvider.unbindAll()
-                    // Bind use cases to camera
-                    camera = cameraProvider.bindToLifecycle(
-                        requireActivity(), cameraSelector, imageCapture, preview)
-
-                } catch(exc: Exception) {
-                    Log.e("Camera", "Use case binding failed", exc)
+            preview = Preview.Builder()
+                .build()
+                .also {
+                    it.setSurfaceProvider(binding.cameraPreview.surfaceProvider)
                 }
+            cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+            setUpPinchToZoom()
 
-            }, ContextCompat.getMainExecutor(requireContext()))
-        }
+            try {
+                // Unbind use cases before rebinding
+                cameraProvider.unbindAll()
+                // Bind use cases to camera
+                camera = cameraProvider.bindToLifecycle(
+                    requireActivity(), cameraSelector, imageCapture, preview
+                )
+
+            } catch (exc: Exception) {
+                Log.e("Camera", "Use case binding failed", exc)
+            }
+
+        }, ContextCompat.getMainExecutor(requireContext()))
     }
 
     override fun onResume() {
         super.onResume()
         startCamera()
-        Log.e("cameraFragment", "onResume")
     }
-
     private fun initListener(){
         activity?.let {
             if (it is MainActivity){
@@ -133,20 +130,23 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                         startAnimation(animation)
                     }
 
-                    recognizer.process(InputImage.fromBitmap(binding.cameraPreview.bitmap!!, 0))
-                        .addOnSuccessListener { visionText ->
-                            var text = ""
-                            val resultText = visionText.textBlocks
-                            for (element in resultText) {
-                                val trimStr = getTrimmedString(element.text)
-                                text += trimStr + "\n"
-                                if (findSimilarity(trimStr, "Ferrari Perle") > 0.5){
-                                    Log.e("camera test result success", findSimilarity(trimStr, "Ferrari Perle").toString())
+                    binding.cameraPreview.bitmap?.let {
+                        recognizer.process(InputImage.fromBitmap(it, 0))
+                            .addOnSuccessListener { visionText ->
+                                var text = ""
+                                val resultText = visionText.textBlocks
+                                for (element in resultText) {
+                                    val trimStr = getTrimmedString(element.text)
+                                    text += trimStr + "\n"
+                                    if (findSimilarity(trimStr, "Ferrari Perle") > 0.5){
+                                        Log.e("camera test result success", findSimilarity(trimStr, "Ferrari Perle").toString())
+                                    }
                                 }
+                                Log.e("camera result", text)
+                                image.close()
                             }
-                            Log.e("camera result", text)
-                            image.close()
-                        }
+                    }
+
                 }
                 override fun onError(exception: ImageCaptureException) {
                     Log.e("camera","촬영에 실패 했습니다",exception)

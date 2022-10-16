@@ -70,10 +70,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         }
         else if(requestCode == REQUEST_PLACE_PERMISSIONS){
             if (allPermissionsGranted()){
-                startScreen(1)
             } else{
                 Toast.makeText(this, "지도 권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
             }
+            startScreen(1)
         }
     }
 
@@ -84,9 +84,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     private fun startScreen(type: Int){
         startActivity(Intent(this, MainActivity::class.java).apply {
             when(type){
-                0 -> putExtra("camera", true)
-                1 -> putExtra("place", true)
-                2 -> putExtra("like", true)
+                0 -> putExtra("screen", 0)
+                1 -> putExtra("screen", 1)
+                2 -> putExtra("screen", 2)
             }
         })
     }

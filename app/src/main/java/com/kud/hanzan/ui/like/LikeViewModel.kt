@@ -40,7 +40,9 @@ class LikeViewModel @Inject constructor(
                 .catch { _combData.value = listOf(
                     Combination("일반소주", "닭발",  0, 0f, "누구도 부정할 수 없는\n궁극의 그 조합!"),
                     Combination("카스", "치킨", 0, 0f, "치맥 안 먹어본 사람 있어?")
-                ) }
+                ).also {
+                    totalCombData = it
+                } }
                 .collect{
                     _combData.value = it
                     totalCombData = it
@@ -48,7 +50,6 @@ class LikeViewModel @Inject constructor(
         }
     }
 
-    @TestOnly
     fun getAlcohol(userId: Long){
         _alcoholData.value = listOf(Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
             Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
@@ -75,5 +76,15 @@ class LikeViewModel @Inject constructor(
         if (type == 0)
             _alcoholData.value = totalAlcoholData
         else _alcoholData.value = totalAlcoholData.filter { alcohol -> alcohol.typeNum == type }
+    }
+
+    fun search(keyword: String){
+        _alcoholData.value = totalAlcoholData.filter { alcohol -> alcohol.name.contains(keyword) }
+        _combData.value = totalCombData.filter { comb -> comb.drinkname.contains(keyword) }
+    }
+
+    fun searchClose(){
+        _alcoholData.value = totalAlcoholData
+        _combData.value = totalCombData
     }
 }
