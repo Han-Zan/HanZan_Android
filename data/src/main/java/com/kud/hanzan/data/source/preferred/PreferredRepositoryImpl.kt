@@ -1,5 +1,6 @@
 package com.kud.hanzan.data.source.preferred
 
+import com.kud.hanzan.data.entity.preferred.PreferredCombDto
 import com.kud.hanzan.domain.model.Alcohol
 import com.kud.hanzan.domain.model.Combination
 import com.kud.hanzan.domain.repository.PreferredRepository
@@ -19,4 +20,8 @@ class PreferredRepositoryImpl @Inject constructor(
     override fun deletePreferredComb(
         userId: Long, combId: Long
     ): Flow<String> = preferredRemoteDataSource.deletePreferredComb(userId, combId)
+
+    override fun postPreferredComb(
+        userId: Long, combId: Long
+    ): Flow<String> = preferredRemoteDataSource.postPreferredComb(PreferredCombDto(combId, userId))
 }

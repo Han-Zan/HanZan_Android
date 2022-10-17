@@ -37,6 +37,10 @@ class LikeCombFragment : BaseFragment<FragmentLikeCombinationBinding>(R.layout.f
                     override fun onDelete(combId: Long) {
                         viewModel.deleteComb(1, combId)
                     }
+
+                    override fun onPost(combId: Long) {
+                        viewModel.postComb(1, combId)
+                    }
                 })
             }
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

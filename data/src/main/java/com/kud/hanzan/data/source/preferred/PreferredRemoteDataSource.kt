@@ -1,6 +1,7 @@
 package com.kud.hanzan.data.source.preferred
 
 import com.kud.hanzan.data.entity.preferred.CombResult
+import com.kud.hanzan.data.entity.preferred.PreferredCombDto
 import com.kud.hanzan.data.remote.HanzanService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -21,5 +22,11 @@ class PreferredRemoteDataSource @Inject constructor(
         userId: Long, combId: Long
     ): Flow<String> = flow{
         emit(hanzanService.deletePreferredComb(userId, combId))
+    }.flowOn(Dispatchers.IO)
+
+    override fun postPreferredComb(
+        preferredCombDto: PreferredCombDto
+    ): Flow<String> = flow {
+        emit(hanzanService.postPreferredComb(preferredCombDto))
     }.flowOn(Dispatchers.IO)
 }

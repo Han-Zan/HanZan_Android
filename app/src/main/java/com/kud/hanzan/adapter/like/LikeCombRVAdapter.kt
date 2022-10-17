@@ -15,6 +15,7 @@ class LikeCombRVAdapter : RecyclerView.Adapter<LikeCombRVAdapter.ViewHolder>() {
 
     interface LikeListener{
         fun onDelete(combId: Long)
+        fun onPost(combId: Long)
     }
 
     private lateinit var likeListener: LikeListener
@@ -58,6 +59,7 @@ class LikeCombRVAdapter : RecyclerView.Adapter<LikeCombRVAdapter.ViewHolder>() {
             binding.itemLikeCombLikeCb.setOnClickListener {
                 if (!binding.itemLikeCombLikeCb.isChecked)
                     likeListener.onDelete(combination.id)
+                else likeListener.onPost(combination.id)
             }
         }
     }

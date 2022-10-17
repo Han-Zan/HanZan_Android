@@ -7,6 +7,7 @@ import com.kud.hanzan.domain.model.Alcohol
 import com.kud.hanzan.domain.model.Combination
 import com.kud.hanzan.domain.usecase.preferred.DeletePreferredCombUseCase
 import com.kud.hanzan.domain.usecase.preferred.GetPreferredCombUseCase
+import com.kud.hanzan.domain.usecase.preferred.PostPreferredCombUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class LikeViewModel @Inject constructor(
     private val getCombUseCase : GetPreferredCombUseCase,
-    private val deleteCombUseCase: DeletePreferredCombUseCase
+    private val deleteCombUseCase: DeletePreferredCombUseCase,
+    private val postCombUseCase: PostPreferredCombUseCase
 ) : ViewModel() {
     private var _alcoholData = MutableStateFlow<List<Alcohol>>(emptyList())
     val alcoholData : StateFlow<List<Alcohol>>
@@ -83,6 +85,15 @@ class LikeViewModel @Inject constructor(
                 .collect ()
         }
     }
+
+    fun postComb(userId: Long, combId: Long){
+        viewModelScope.launch {
+            postCombUseCase(userId, combId)
+                .catch {  }
+                .collect()
+        }
+    }
+
 
     fun setTypeAlcohol(type: Int){
         if (type == 0){
