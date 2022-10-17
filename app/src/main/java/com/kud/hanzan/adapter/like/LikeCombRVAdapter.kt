@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ItemLikeCombBinding
 import com.kud.hanzan.domain.model.Combination
@@ -11,6 +12,16 @@ import com.kud.hanzan.domain.model.Combination
 class LikeCombRVAdapter : RecyclerView.Adapter<LikeCombRVAdapter.ViewHolder>() {
     private lateinit var binding: ItemLikeCombBinding
     private var combList = ArrayList<Combination>()
+
+    interface LikeListener{
+        fun onDelete(combId: Long)
+    }
+
+    private lateinit var likeListener: LikeListener
+
+    fun setLikeListener(listener: LikeListener){
+        likeListener = listener
+    }
 
     override fun getItemCount(): Int = combList.size
 
@@ -32,6 +43,22 @@ class LikeCombRVAdapter : RecyclerView.Adapter<LikeCombRVAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemLikeCombBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(combination: Combination){
             binding.combination = combination
+            combination.drinkimg?.let{
+                Glide.with(itemView)
+                    .load(it)
+                    .optionalCenterCrop()
+                    .into(binding.itemLikeCombAlcoholIv)
+            }
+            combination.foodimg?.let {
+                Glide.with(itemView)
+                    .load(it)
+                    .optionalCenterCrop()
+                    .into(binding.itemLikeCombFoodIv)
+            }
+            binding.itemLikeCombLikeCb.setOnClickListener {
+                if (!binding.itemLikeCombLikeCb.isChecked)
+                    likeListener.onDelete(combination.id)
+            }
         }
     }
 }

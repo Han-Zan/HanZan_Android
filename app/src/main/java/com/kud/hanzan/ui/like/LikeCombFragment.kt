@@ -32,7 +32,13 @@ class LikeCombFragment : BaseFragment<FragmentLikeCombinationBinding>(R.layout.f
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.likeCombRv.apply {
-            adapter = LikeCombRVAdapter()
+            adapter = LikeCombRVAdapter().apply {
+                setLikeListener(object : LikeCombRVAdapter.LikeListener{
+                    override fun onDelete(combId: Long) {
+                        viewModel.deleteComb(1, combId)
+                    }
+                })
+            }
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
     }

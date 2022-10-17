@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.kud.hanzan.R
 import com.kud.hanzan.domain.model.Alcohol
 import com.kud.hanzan.domain.model.Combination
+import com.kud.hanzan.domain.usecase.preferred.DeletePreferredCombUseCase
 import com.kud.hanzan.domain.usecase.preferred.GetPreferredCombUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LikeViewModel @Inject constructor(
-    private val getCombUseCase : GetPreferredCombUseCase
+    private val getCombUseCase : GetPreferredCombUseCase,
+    private val deleteCombUseCase: DeletePreferredCombUseCase
 ) : ViewModel() {
     private var _alcoholData = MutableStateFlow<List<Alcohol>>(emptyList())
     val alcoholData : StateFlow<List<Alcohol>>
@@ -29,6 +31,8 @@ class LikeViewModel @Inject constructor(
         get() = _combData
     private var totalCombData = listOf<Combination>()
 
+    private var searchKeyword: String? = null
+
     init {
         getComb(1)
         getAlcohol(1)
@@ -38,8 +42,8 @@ class LikeViewModel @Inject constructor(
         viewModelScope.launch {
             getCombUseCase(userId)
                 .catch { _combData.value = listOf(
-                    Combination("일반소주", "닭발",  0, 0f, "누구도 부정할 수 없는\n궁극의 그 조합!"),
-                    Combination("카스", "치킨", 0, 0f, "치맥 안 먹어본 사람 있어?")
+                    Combination("일반소주", null, "닭발", null,   0, 0f, "누구도 부정할 수 없는\n궁극의 그 조합!"),
+                    Combination("카스", null, "치킨", null, 0, 0f, "치맥 안 먹어본 사람 있어?")
                 ).also {
                     totalCombData = it
                 } }
@@ -72,18 +76,43 @@ class LikeViewModel @Inject constructor(
         ).also { totalAlcoholData = it }
     }
 
+    fun deleteComb(userId: Long, combId: Long){
+        viewModelScope.launch {
+            deleteCombUseCase(userId, combId)
+                .catch {  }
+                .collect ()
+        }
+    }
+
     fun setTypeAlcohol(type: Int){
-        if (type == 0)
-            _alcoholData.value = totalAlcoholData
-        else _alcoholData.value = totalAlcoholData.filter { alcohol -> alcohol.typeNum == type }
+        if (type == 0){
+            if (searchKeyword == null)
+                _alcoholData.value = totalAlcoholData
+            searchKeyword?.let {
+                _alcoholData.value = totalAlcoholData.filter { a ->
+                    a.name.contains(it)
+                }
+            }
+        }
+        else {
+            if (searchKeyword == null)
+                _alcoholData.value = totalAlcoholData.filter { alcohol ->  alcohol.typeNum == type}
+            searchKeyword?.let {
+                _alcoholData.value = totalAlcoholData.filter {
+                    alcohol -> alcohol.typeNum == type && alcohol.name.contains(it)
+                }
+            }
+        }
     }
 
     fun search(keyword: String){
+        searchKeyword = keyword
         _alcoholData.value = totalAlcoholData.filter { alcohol -> alcohol.name.contains(keyword) }
         _combData.value = totalCombData.filter { comb -> comb.drinkname.contains(keyword) }
     }
 
     fun searchClose(){
+        searchKeyword = null
         _alcoholData.value = totalAlcoholData
         _combData.value = totalCombData
     }

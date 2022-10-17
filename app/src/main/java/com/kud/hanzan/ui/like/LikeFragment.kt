@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView.OnCloseListener
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
@@ -53,9 +54,7 @@ class LikeFragment : BaseFragment<FragmentLikeBinding>(R.layout.fragment_like) {
                         }
 
                         override fun onQueryTextChange(newText: String?): Boolean {
-                            if (newText.isNullOrEmpty()){
-                                viewModel.searchClose()
-                            }
+                            viewModel.searchClose()
                             return true
                         }
                     })

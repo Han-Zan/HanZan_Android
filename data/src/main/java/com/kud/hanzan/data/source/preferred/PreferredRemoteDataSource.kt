@@ -14,6 +14,12 @@ class PreferredRemoteDataSource @Inject constructor(
     override fun getPreferredComb(
         userId: Long
     ): Flow<CombResult> = flow {
-        emit(hanzanService.getPreferredAlcohol(userId))
+        emit(hanzanService.getPreferredComb(userId))
+    }.flowOn(Dispatchers.IO)
+
+    override fun deletePreferredComb(
+        userId: Long, combId: Long
+    ): Flow<String> = flow{
+        emit(hanzanService.deletePreferredComb(userId, combId))
     }.flowOn(Dispatchers.IO)
 }
