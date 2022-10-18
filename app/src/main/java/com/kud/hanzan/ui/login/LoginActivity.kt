@@ -4,7 +4,9 @@ import android.content.ContentValues
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.kakao.sdk.user.UserApiClient
 import com.kud.hanzan.R
@@ -45,9 +47,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
     override fun initView() {
         Glide.with(binding.loginUserProfileIV).load(intent.getStringExtra("user_profile")).circleCrop().into(binding.loginUserProfileIV)
-        binding.loginUserNameET.setText(intent.getStringExtra("user_nickname"))
+        binding.loginUserNameET.setText(intent.getStringExtra("user_name"))
         verifyUserName()
-
         binding.loginUserNameET.addTextChangedListener {
             verifyUserName()
         }
@@ -76,10 +77,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
 
         binding.loginNextBtn.setOnClickListener {
             startActivity(Intent(this, SbtiActivity::class.java).apply {
-                putExtra("user_nickname", intent.getStringExtra("user_nickname"))
+                putExtra("user_name", intent.getStringExtra("user_name"))
+                putExtra("user_nickname", binding.loginUserNameET.text.toString())
                 putExtra("user_profile", intent.getStringExtra("user_profile"))
                 putExtra("user_gender", intent.getStringExtra("user_gender"))
                 putExtra("user_age", userAge)
+                putExtra("user_token", intent.getStringExtra("user_token"))
             })
         }
     }

@@ -7,7 +7,7 @@
     <data>
         <variable
             name="user"
-            type="com.kud.hanzan.domain.model.User" />
+            type="com.kud.hanzan.domain.model.UserInfo" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +38,7 @@
                         android:id="@+id/sbti_result_user_name_TV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text='@{user.name + " 님은"}'
+                        android:text='@{user.nickname + " 님은"}'
                         android:textSize="25sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/font_pretendard_extrabold"
@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/font_pretendard_extrabold"
-                        android:text="@{user.type}"
+                        android:text="@{user.sbti}"
                         android:textColor="@color/color_main"
                         android:textSize="25sp"
                         android:textStyle="bold"
