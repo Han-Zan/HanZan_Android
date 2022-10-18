@@ -3,30 +3,30 @@ package com.kud.hanzan.ui.like
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kud.hanzan.R
-import com.kud.hanzan.domain.model.Alcohol
+import com.kud.hanzan.domain.model.LikeAlcohol
 import com.kud.hanzan.domain.model.Combination
-import com.kud.hanzan.domain.usecase.preferred.DeletePreferredCombUseCase
-import com.kud.hanzan.domain.usecase.preferred.GetPreferredCombUseCase
-import com.kud.hanzan.domain.usecase.preferred.PostPreferredCombUseCase
+import com.kud.hanzan.domain.usecase.preferred.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.jetbrains.annotations.TestOnly
 import javax.inject.Inject
 
 @HiltViewModel
 class LikeViewModel @Inject constructor(
     private val getCombUseCase : GetPreferredCombUseCase,
     private val deleteCombUseCase: DeletePreferredCombUseCase,
-    private val postCombUseCase: PostPreferredCombUseCase
+    private val postCombUseCase: PostPreferredCombUseCase,
+    private val getDrinkUseCase: GetPreferredDrinkUseCase,
+    private val deleteDrinkUseCase: DeletePreferredDrinkUseCase,
+    private val postDrinkUseCase: PostPreferredDrinkUseCase
 ) : ViewModel() {
-    private var _alcoholData = MutableStateFlow<List<Alcohol>>(emptyList())
-    val alcoholData : StateFlow<List<Alcohol>>
+    private var _alcoholData = MutableStateFlow<List<LikeAlcohol>>(emptyList())
+    val alcoholData : StateFlow<List<LikeAlcohol>>
         get() = _alcoholData
-    private var totalAlcoholData = listOf<Alcohol>()
+    private var totalAlcoholData = listOf<LikeAlcohol>()
 
     private var _combData = MutableStateFlow<List<Combination>>(emptyList())
     val combData : StateFlow<List<Combination>>
@@ -57,25 +57,14 @@ class LikeViewModel @Inject constructor(
     }
 
     fun getAlcohol(userId: Long){
-        _alcoholData.value = listOf(Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미"),
-            Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미")
-        ).also { totalAlcoholData = it }
+        viewModelScope.launch {
+            getDrinkUseCase(userId)
+                .catch { _alcoholData.value = emptyList() }
+                .collect{
+                    _alcoholData.value = it
+                    totalAlcoholData = it
+                }
+        }
     }
 
     fun deleteComb(userId: Long, combId: Long){
@@ -86,9 +75,25 @@ class LikeViewModel @Inject constructor(
         }
     }
 
+    fun deleteDrink(userId: Long, drinkId: Long){
+        viewModelScope.launch {
+            deleteDrinkUseCase(userId, drinkId)
+                .catch {  }
+                .collect()
+        }
+    }
+
     fun postComb(userId: Long, combId: Long){
         viewModelScope.launch {
             postCombUseCase(userId, combId)
+                .catch {  }
+                .collect()
+        }
+    }
+
+    fun postDrink(userId: Long, drinkId: Long){
+        viewModelScope.launch {
+            postDrinkUseCase(userId, drinkId)
                 .catch {  }
                 .collect()
         }
@@ -107,10 +112,10 @@ class LikeViewModel @Inject constructor(
         }
         else {
             if (searchKeyword == null)
-                _alcoholData.value = totalAlcoholData.filter { alcohol ->  alcohol.typeNum == type}
+                _alcoholData.value = totalAlcoholData.filter { alcohol ->  alcohol.category == type}
             searchKeyword?.let {
                 _alcoholData.value = totalAlcoholData.filter {
-                    alcohol -> alcohol.typeNum == type && alcohol.name.contains(it)
+                    alcohol -> alcohol.category == type && alcohol.name.contains(it)
                 }
             }
         }

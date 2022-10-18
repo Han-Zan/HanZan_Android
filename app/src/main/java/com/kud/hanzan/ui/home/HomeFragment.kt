@@ -9,7 +9,7 @@ import com.google.android.material.transition.MaterialFadeThrough
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.HomeAlcoholRVAdapter
 import com.kud.hanzan.databinding.FragmentHomeBinding
-import com.kud.hanzan.domain.model.Alcohol
+import com.kud.hanzan.domain.model.LikeAlcohol
 import com.kud.hanzan.domain.model.User
 import com.kud.hanzan.utils.base.BaseFragment
 import com.kud.hanzan.vision.findSimilarity
@@ -31,7 +31,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         // 임시 데이터
         binding.user = User(1, "이동건", "고독한 미식가")
         initListener()
-        initData()
     }
 
     private fun initListener(){
@@ -51,20 +50,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         }
     }
 
-    private fun initData(){
-        // 임시
-        (binding.homeTypeAlcoholRv.adapter as HomeAlcoholRVAdapter)
-            .setData(listOf(Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-                Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-                Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미")
-            ))
-
-        (binding.homeLikeAlcoholRv.adapter as HomeAlcoholRVAdapter)
-            .setData(listOf(Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-                Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-                Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미")
-            ))
-    }
+//    private fun initData(){
+//        // 임시
+//        (binding.homeTypeAlcoholRv.adapter as HomeAlcoholRVAdapter)
+//            .setData(listOf(LikeAlcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
+//                LikeAlcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
+//                LikeAlcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미")
+//            ))
+//
+//        (binding.homeLikeAlcoholRv.adapter as HomeAlcoholRVAdapter)
+//            .setData(listOf(LikeAlcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
+//                LikeAlcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
+//                LikeAlcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미")
+//            ))
+//    }
 
     @TestOnly
     private fun test(){

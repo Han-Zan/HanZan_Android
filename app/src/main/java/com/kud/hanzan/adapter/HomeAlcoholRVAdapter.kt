@@ -1,6 +1,5 @@
 package com.kud.hanzan.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +7,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ItemHomeAlcoholBinding
-import com.kud.hanzan.domain.model.Alcohol
+import com.kud.hanzan.domain.model.LikeAlcohol
 
 class HomeAlcoholRVAdapter : RecyclerView.Adapter<HomeAlcoholRVAdapter.ViewHolder>() {
     private lateinit var binding: ItemHomeAlcoholBinding
-    private var alcoholList = ArrayList<Alcohol>()
+    private var alcoholList = ArrayList<LikeAlcohol>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_home_alcohol, parent, false)
@@ -25,7 +24,7 @@ class HomeAlcoholRVAdapter : RecyclerView.Adapter<HomeAlcoholRVAdapter.ViewHolde
 
     override fun getItemCount(): Int = alcoholList.size
 
-    fun setData(data: List<Alcohol>){
+    fun setData(data: List<LikeAlcohol>){
         alcoholList.clear()
         alcoholList.addAll(data)
         notifyDataSetChanged()
@@ -33,10 +32,10 @@ class HomeAlcoholRVAdapter : RecyclerView.Adapter<HomeAlcoholRVAdapter.ViewHolde
 
     inner class ViewHolder(val binding: ItemHomeAlcoholBinding) : RecyclerView.ViewHolder(binding.root) {
         private var isClicked = false
-        fun bind(alcohol: Alcohol){
+        fun bind(alcohol: LikeAlcohol){
             binding.alcohol = alcohol
             binding.itemHomeAlcoholLayout.apply {
-                when(alcohol.typeNum){
+                when(alcohol.category){
                     1 -> setBackgroundResource(R.drawable.bg_alcohol_type1)
                     2 -> setBackgroundResource(R.drawable.bg_alcohol_type2)
                     3 -> setBackgroundResource(R.drawable.bg_alcohol_type3)
@@ -51,7 +50,6 @@ class HomeAlcoholRVAdapter : RecyclerView.Adapter<HomeAlcoholRVAdapter.ViewHolde
                     binding.itemHomeAlcoholIv.alpha = if (isClicked) 0.5F else 1F
                 }
             }
-            alcohol.imgRes?.let { binding.itemHomeAlcoholIv.setImageResource(it) }
         }
     }
 

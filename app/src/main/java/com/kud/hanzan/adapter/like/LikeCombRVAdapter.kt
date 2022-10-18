@@ -47,13 +47,13 @@ class LikeCombRVAdapter : RecyclerView.Adapter<LikeCombRVAdapter.ViewHolder>() {
             combination.drinkimg?.let{
                 Glide.with(itemView)
                     .load(it)
-                    .optionalCenterCrop()
+                    .fitCenter()
                     .into(binding.itemLikeCombAlcoholIv)
             }
             combination.foodimg?.let {
                 Glide.with(itemView)
                     .load(it)
-                    .optionalCenterCrop()
+                    .fitCenter()
                     .into(binding.itemLikeCombFoodIv)
             }
             binding.itemLikeCombLikeCb.setOnClickListener {

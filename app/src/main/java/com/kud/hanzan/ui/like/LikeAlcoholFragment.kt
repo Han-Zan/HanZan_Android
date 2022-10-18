@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.like.LikeAlcoholRVAdapter
 import com.kud.hanzan.databinding.FragmentLikeAlcoholBinding
-import com.kud.hanzan.domain.model.Alcohol
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -64,7 +63,18 @@ class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fr
 
     private fun initView(){
         binding.likePreferredRv.apply {
-            adapter = LikeAlcoholRVAdapter()
+            adapter = LikeAlcoholRVAdapter().apply {
+                setListener(object : LikeAlcoholRVAdapter.Listener{
+                    override fun onDelete(drinkId: Long) {
+                        viewModel.deleteDrink(1, drinkId)
+                    }
+
+                    override fun onPost(drinkId: Long) {
+                        viewModel.postDrink(1, drinkId)
+                    }
+
+                })
+            }
             layoutManager = GridLayoutManager(context, 3)
         }
     }
