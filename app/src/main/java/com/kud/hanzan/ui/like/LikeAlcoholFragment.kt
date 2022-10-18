@@ -52,6 +52,7 @@ class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fr
                 setOnItemClickListener { adapterView, view, position, id ->
                     likePreferredSortBtn.text = items[position]
                     // 팝업 닫기
+                    viewModel.setAlcoholSort(position == 0)
                     dismiss()
                 }
             }

@@ -44,7 +44,10 @@ class LikeAlcoholRVAdapter : RecyclerView.Adapter<LikeAlcoholRVAdapter.ViewHolde
     inner class ViewHolder(val binding: ItemLikeAlcoholBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(alcohol: LikeAlcohol){
             binding.alcohol = alcohol
-            alcohol.imgRes?.let {
+            binding.itemLikeAlcoholLikeCb.isChecked = alcohol.like
+            if (alcohol.imgRes == null)
+                binding.itemLikeAlcoholIv.setImageDrawable(null)
+            else alcohol.imgRes?.let {
                 Glide.with(itemView)
                     .load(it)
                     .fitCenter()
@@ -55,6 +58,7 @@ class LikeAlcoholRVAdapter : RecyclerView.Adapter<LikeAlcoholRVAdapter.ViewHolde
                     Log.e("okhttp delete test", alcohol.id.toString())
                 }
                 else likeListener.onPost(alcohol.id)
+                alcohol.like = binding.itemLikeAlcoholLikeCb.isChecked
             }
         }
     }

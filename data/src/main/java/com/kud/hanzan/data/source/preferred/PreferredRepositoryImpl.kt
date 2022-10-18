@@ -30,7 +30,7 @@ class PreferredRepositoryImpl @Inject constructor(
     override fun getPreferredAlcohol(
         userId: Long
     ): Flow<List<LikeAlcohol>> = preferredRemoteDataSource.getPreferredAlcohol(userId).map {
-        it.map { drink -> LikeAlcohol(drink.id, drink.name, drink.category, drink.rating, drink.img, drink.tag) }
+        it.reversed().map { drink -> LikeAlcohol(drink.id, drink.name, drink.category, drink.rating, drink.img, drink.tag) }
     }
 
     override fun deletePreferredAlcohol(

@@ -34,6 +34,7 @@ class LikeViewModel @Inject constructor(
     private var totalCombData = listOf<Combination>()
 
     private var searchKeyword: String? = null
+    private var type = 0
 
     init {
         getComb(1)
@@ -101,10 +102,11 @@ class LikeViewModel @Inject constructor(
 
 
     fun setTypeAlcohol(type: Int){
+        this.type = type
         if (type == 0){
             if (searchKeyword == null)
                 _alcoholData.value = totalAlcoholData
-            searchKeyword?.let {
+            else searchKeyword?.let {
                 _alcoholData.value = totalAlcoholData.filter { a ->
                     a.name.contains(it)
                 }
@@ -113,12 +115,24 @@ class LikeViewModel @Inject constructor(
         else {
             if (searchKeyword == null)
                 _alcoholData.value = totalAlcoholData.filter { alcohol ->  alcohol.category == type}
-            searchKeyword?.let {
+            else searchKeyword?.let {
                 _alcoholData.value = totalAlcoholData.filter {
                     alcohol -> alcohol.category == type && alcohol.name.contains(it)
                 }
             }
         }
+    }
+
+    fun setAlcoholSort(sort: Boolean){
+        totalAlcoholData = if (sort)
+            totalAlcoholData.sortedBy { likeAlcohol -> -likeAlcohol.id}
+        else
+            totalAlcoholData.sortedBy { likeAlcohol -> likeAlcohol.name}
+
+        if (type == 0)
+            _alcoholData.value = totalAlcoholData
+        else
+            _alcoholData.value = totalAlcoholData.filter { likeAlcohol -> likeAlcohol.category == type }
     }
 
     fun search(keyword: String){
@@ -129,7 +143,7 @@ class LikeViewModel @Inject constructor(
 
     fun searchClose(){
         searchKeyword = null
-        _alcoholData.value = totalAlcoholData
+        _alcoholData.value = if (type == 0) totalAlcoholData else totalAlcoholData.filter { alcohol -> alcohol.category == type }
         _combData.value = totalCombData
     }
 }

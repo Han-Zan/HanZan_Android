@@ -54,7 +54,8 @@ class LikeFragment : BaseFragment<FragmentLikeBinding>(R.layout.fragment_like) {
                         }
 
                         override fun onQueryTextChange(newText: String?): Boolean {
-                            viewModel.searchClose()
+                            if (newText.isNullOrEmpty())
+                                viewModel.searchClose()
                             return true
                         }
                     })

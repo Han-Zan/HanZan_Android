@@ -6,5 +6,6 @@ data class LikeAlcohol(
     val category: Int,
     val rating: Float,
     val imgRes: String?,
-    val tag: String
+    val tag: String,
+    var like: Boolean = true
 )
