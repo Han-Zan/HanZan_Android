@@ -2,9 +2,12 @@ package com.kud.hanzan.di
 
 import com.kud.hanzan.data.source.kakao.KakaoRepositoryImpl
 import com.kud.hanzan.data.source.kakao.KakaoRemoteDataSource
+import com.kud.hanzan.data.source.login.LoginDataSource
+import com.kud.hanzan.data.source.login.LoginRepositoryImpl
 import com.kud.hanzan.data.source.preferred.PreferredRemoteDataSource
 import com.kud.hanzan.data.source.preferred.PreferredRepositoryImpl
 import com.kud.hanzan.domain.repository.KakaoRepository
+import com.kud.hanzan.domain.repository.LoginRepository
 import com.kud.hanzan.domain.repository.PreferredRepository
 import dagger.Module
 import dagger.Provides
@@ -25,5 +28,11 @@ object RepositoryModule {
     @Provides
     fun providesPreferredRepository(preferredRemoteDataSource: PreferredRemoteDataSource) : PreferredRepository{
         return PreferredRepositoryImpl(preferredRemoteDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun providesLoginRepository(loginDataSource: LoginDataSource) : LoginRepository{
+        return LoginRepositoryImpl(loginDataSource)
     }
 }

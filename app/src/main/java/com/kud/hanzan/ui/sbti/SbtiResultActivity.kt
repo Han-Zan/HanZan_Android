@@ -4,25 +4,49 @@ import android.content.ContentValues
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.kakao.sdk.user.UserApiClient
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivitySbtiResultBinding
 import com.kud.hanzan.domain.model.User
+import com.kud.hanzan.domain.model.UserInfo
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.utils.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SbtiResultActivity : BaseActivity<ActivitySbtiResultBinding>(R.layout.activity_sbti_result) {
+    private val viewModel by viewModels<SbtiResultViewModel>()
+    val userInfo : UserInfo = UserInfo(true, "nickname_error", "image_error", "sbti_error", "token_error", -1, "name_error")
+
     override fun initView() {
-        binding.user = intent.getStringExtra("user_type")?.let {
-            User(1, "이동건", it)
-        } ?: run {
-            User(1, "이동건", "잘못된 타입")
+        observe()
+        with(userInfo) {
+            male = intent.getStringExtra("user_gender") == "MALE"
+            nickname = intent.getStringExtra("user_nickname")?:"nickname_error"
+            profileimage = intent.getStringExtra("user_profile")?:"image_error"
+            sbti = intent.getStringExtra("user_type")?:"sbti_error"
+            token = intent.getStringExtra("user_token")?:"token_error"
+            userage = intent.getIntExtra("user_age", 0)
+            username = intent.getStringExtra("user_name")?:"name_error"
         }
+        viewModel.login(userInfo)
+
+        binding.user = userInfo
 
         binding.sbtiResultNextBtn.setOnClickListener {
             // TODO("DB에 닉네임, 나이정보 POST 하기")
             startActivity(Intent(this, MainActivity::class.java))
             finishAffinity()
+        }
+    }
+
+    private var userIdx : Long = 0
+    private fun observe(){
+        viewModel.userIdxLiveData.observe( this) {
+            userIdx = it
+            Log.e("shit", userIdx.toString())
         }
     }
 

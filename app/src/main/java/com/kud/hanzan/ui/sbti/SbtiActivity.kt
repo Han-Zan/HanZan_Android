@@ -34,9 +34,11 @@ class SbtiActivity : BaseActivity<ActivitySbtiBinding>(R.layout.activity_sbti) {
         }
         binding.sbtiNextBtn.setOnClickListener {
             startActivity(Intent(this, SbtiResultActivity::class.java).apply {
+                putExtra("user_name", intent.getStringExtra("user_name"))
                 putExtra("user_nickname", intent.getStringExtra("user_nickname"))
                 putExtra("user_profile", intent.getStringExtra("user_profile"))
                 putExtra("user_gender", intent.getStringExtra("user_gender"))
+                putExtra("user_token", intent.getStringExtra("user_token"))
                 putExtra("user_age", intent.getIntExtra("user_age", 0))
                 putExtra("user_type", sbtiType())
             })

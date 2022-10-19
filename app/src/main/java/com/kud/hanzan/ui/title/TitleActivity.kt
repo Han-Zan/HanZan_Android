@@ -21,9 +21,10 @@ class TitleActivity : BaseActivity<ActivityTitleBinding>(R.layout.activity_title
         UserApiClient.instance.me { user, error ->
             if (user != null) {
                 startActivity(Intent(this, LoginActivity::class.java).apply {
-                    putExtra("user_nickname", user.kakaoAccount?.profile?.nickname)
+                    putExtra("user_name", user.kakaoAccount?.profile?.nickname)
                     putExtra("user_profile", user.kakaoAccount?.profile?.thumbnailImageUrl)
-                    putExtra("user_gender", user.kakaoAccount?.gender)
+                    putExtra("user_gender", user.kakaoAccount?.gender.toString())
+                    putExtra("user_token", _token)
                 })
                 finishAffinity()
             }
@@ -32,11 +33,13 @@ class TitleActivity : BaseActivity<ActivityTitleBinding>(R.layout.activity_title
 
     // 카카오계정으로 로그인 공통 callback 구성
     // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
+    private var _token : String = ""
     val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+            _token = token.accessToken.toString()
             startLogin()
         }
     }
