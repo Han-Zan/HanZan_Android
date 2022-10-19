@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="20dp"
+        android:overScrollMode="never"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/like_basic_layout"
@@ -15,6 +16,7 @@
         android:layout_height="wrap_content"
         android:background="@null">
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/like_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingEnd="20dp"
@@ -22,7 +24,7 @@
             app:titleTextAppearance="@style/customToolbarTitle"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
             app:title="@string/like_title"
-            app:menu="@menu/menu_default"/>
+            app:menu="@menu/toolbar_search"/>
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/like_tab_tb"
             app:layout_scrollFlags="scroll|enterAlways"

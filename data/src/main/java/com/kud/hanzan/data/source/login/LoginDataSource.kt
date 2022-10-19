@@ -1,5 +1,6 @@
 package com.kud.hanzan.data.source.login
 
+import android.util.Log
 import com.kud.hanzan.data.remote.HanzanService
 import com.kud.hanzan.domain.model.UserInfo
 import kotlinx.coroutines.Dispatchers
@@ -10,14 +11,16 @@ class LoginDataSource @Inject constructor(
     private val hanzanService: HanzanService
 ){
     suspend fun postUserInfo(userInfo: UserInfo): Long {
-        return withContext(Dispatchers.IO) {
-            val res = hanzanService.postUserInfo(userInfo)
-            if (res.isSuccessful) {
-                return@withContext res.body()!!
-            } else {
-                return@withContext 0
+        var res : Long = 0
+        withContext(Dispatchers.IO) {
+            runCatching {
+                hanzanService.postUserInfo(userInfo)
+            }.onSuccess {
+                res = it.body() ?: 0
+            }.onFailure {
+
             }
         }
-
+        return res
     }
 }

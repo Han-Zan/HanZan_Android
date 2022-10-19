@@ -5,13 +5,17 @@ import android.view.View
 import android.widget.ArrayAdapter
 import androidx.appcompat.widget.ListPopupWindow
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.like.LikeAlcoholRVAdapter
 import com.kud.hanzan.databinding.FragmentLikeAlcoholBinding
-import com.kud.hanzan.domain.model.Alcohol
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fragment_like_alcohol) {
@@ -20,7 +24,7 @@ class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fr
         super.onViewCreated(view, savedInstanceState)
         initListener()
         initView()
-        initData()
+        observe()
     }
 
     private fun initListener(){
@@ -28,6 +32,16 @@ class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fr
         with(binding){
             lifecycleOwner = this@LikeAlcoholFragment
 
+            likeKeywordRg.setOnCheckedChangeListener { _, id ->
+                when(id){
+                    R.id.like_keyword_type_01_rb -> viewModel.setTypeAlcohol(1)
+                    R.id.like_keyword_type_02_rb -> viewModel.setTypeAlcohol(2)
+                    R.id.like_keyword_type_03_rb -> viewModel.setTypeAlcohol(3)
+                    R.id.like_keyword_type_04_rb -> viewModel.setTypeAlcohol(4)
+                    R.id.like_keyword_type_05_rb -> viewModel.setTypeAlcohol(5)
+                    else -> viewModel.setTypeAlcohol(0)
+                }
+            }
             // popup menu
             val listPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)
             listPopupWindow.apply {
@@ -38,11 +52,10 @@ class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fr
                 setOnItemClickListener { adapterView, view, position, id ->
                     likePreferredSortBtn.text = items[position]
                     // 팝업 닫기
+                    viewModel.setAlcoholSort(position == 0)
                     dismiss()
                 }
             }
-
-
             likePreferredSortBtn.setOnClickListener {
                 listPopupWindow.show()
             }
@@ -51,31 +64,29 @@ class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fr
 
     private fun initView(){
         binding.likePreferredRv.apply {
-            adapter = LikeAlcoholRVAdapter()
+            adapter = LikeAlcoholRVAdapter().apply {
+                setListener(object : LikeAlcoholRVAdapter.Listener{
+                    override fun onDelete(drinkId: Long) {
+                        viewModel.deleteDrink(1, drinkId)
+                    }
+
+                    override fun onPost(drinkId: Long) {
+                        viewModel.postDrink(1, drinkId)
+                    }
+
+                })
+            }
             layoutManager = GridLayoutManager(context, 3)
         }
     }
 
-    private fun initData(){
-        val tempList = listOf(Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미"),
-            Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미"),
-            Alcohol("참이슬", "소주", 1, 4.5, R.drawable.src_soju, "깔끔"),
-            Alcohol("고든", "양주", 3, 4.9,  R.drawable.src_godons, "태그"),
-            Alcohol("모스카토 다스티", "와인", 4, 4.2,  R.drawable.src_wine, "산미")
-        )
-        (binding.likePreferredRv.adapter as LikeAlcoholRVAdapter).setData(tempList)
+    private fun observe(){
+        lifecycleScope.launch{
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                viewModel.alcoholData.collectLatest {
+                    (binding.likePreferredRv.adapter as LikeAlcoholRVAdapter).setData(it)
+                }
+            }
+        }
     }
 }

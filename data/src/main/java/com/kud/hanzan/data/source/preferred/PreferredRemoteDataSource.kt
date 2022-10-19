@@ -1,6 +1,10 @@
 package com.kud.hanzan.data.source.preferred
 
+import com.kud.hanzan.data.entity.Drink
 import com.kud.hanzan.data.entity.preferred.CombResult
+import com.kud.hanzan.data.entity.preferred.DrinkResult
+import com.kud.hanzan.data.entity.preferred.PreferredCombDto
+import com.kud.hanzan.data.entity.preferred.PreferredDrinkDto
 import com.kud.hanzan.data.remote.HanzanService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +18,36 @@ class PreferredRemoteDataSource @Inject constructor(
     override fun getPreferredComb(
         userId: Long
     ): Flow<CombResult> = flow {
+        emit(hanzanService.getPreferredComb(userId))
+    }.flowOn(Dispatchers.IO)
+
+    override fun deletePreferredComb(
+        userId: Long, combId: Long
+    ): Flow<String> = flow{
+        emit(hanzanService.deletePreferredComb(userId, combId))
+    }.flowOn(Dispatchers.IO)
+
+    override fun postPreferredComb(
+        preferredCombDto: PreferredCombDto
+    ): Flow<String> = flow {
+        emit(hanzanService.postPreferredComb(preferredCombDto))
+    }.flowOn(Dispatchers.IO)
+
+    override fun getPreferredAlcohol(
+        userId: Long
+    ): Flow<List<Drink>> = flow {
         emit(hanzanService.getPreferredAlcohol(userId))
+    }.flowOn(Dispatchers.IO)
+
+    override fun deletePreferredAlcohol(
+        userId: Long, drinkId: Long
+    ): Flow<String> = flow {
+        emit(hanzanService.deletePreferredAlcohol(drinkId, userId))
+    }.flowOn(Dispatchers.IO)
+
+    override fun postPreferredAlcohol(
+        preferredDrinkDto: PreferredDrinkDto
+    ): Flow<DrinkResult> = flow {
+        emit(hanzanService.postPreferredAlcohol(preferredDrinkDto))
     }.flowOn(Dispatchers.IO)
 }

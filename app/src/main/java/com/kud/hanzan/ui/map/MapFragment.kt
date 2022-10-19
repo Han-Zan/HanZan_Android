@@ -218,7 +218,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            Toast.makeText(requireContext(), "권한을 허용해주세요", Toast.LENGTH_SHORT).show()
             return
         }
         val locationRequest = LocationRequest.create()?.apply {
@@ -241,6 +240,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
+            Toast.makeText(context, "앱 설정에서 권한을 허용해주세요", Toast.LENGTH_SHORT).show()
             return
         }
         fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
@@ -253,58 +253,22 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     }
 
     private fun checkPermission(){
-        val rejectedPermissions = ArrayList<String>()
+        var checker = false
         for (permission in requestPermissions){
             if (ActivityCompat.checkSelfPermission(requireActivity(), permission) != PackageManager.PERMISSION_GRANTED){
                 // 권한 없다면 거절된 리스트에 추가
-                rejectedPermissions.add(permission)
+                checker = true
+                break
             }
         }
         // 거절된 게 있다면 다시 물어보기
-        if (rejectedPermissions.isNotEmpty()){
-            val array = arrayOfNulls<String>(rejectedPermissions.size)
-            ActivityCompat.requestPermissions(requireActivity(), rejectedPermissions.toArray(array), multiplePermissionCode)
+        if (checker){
         } else{
             mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
             setCurrentLocation()
         }
 //        locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
 //            Manifest.permission.ACCESS_COARSE_LOCATION))
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        when(requestCode){
-            multiplePermissionCode -> {
-                if ((grantResults.isNotEmpty()) && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
-                    if (ActivityCompat.checkSelfPermission(
-                            requireContext(),
-                            Manifest.permission.ACCESS_FINE_LOCATION
-                        ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                            requireContext(),
-                            Manifest.permission.ACCESS_COARSE_LOCATION
-                        ) != PackageManager.PERMISSION_GRANTED
-                    ) {
-                        return
-                    }
-                    fusedLocationProviderClient.lastLocation.addOnSuccessListener { location ->
-                        location?.let {
-                            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(location.latitude, location.longitude), false)
-                        }
-                    }
-                } else{
-                    Toast.makeText(requireContext(), "권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
-                }
-                return
-            }
-            else -> {
-                Toast.makeText(requireContext(), "권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     private fun addMarker(name: String,x: String, y: String){

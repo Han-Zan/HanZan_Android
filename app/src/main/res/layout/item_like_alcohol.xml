@@ -3,7 +3,7 @@
     <data>
         <variable
             name="alcohol"
-            type="com.kud.hanzan.domain.model.Alcohol" />
+            type="com.kud.hanzan.domain.model.LikeAlcohol" />
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"

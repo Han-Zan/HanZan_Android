@@ -1,80 +1,143 @@
 package com.kud.hanzan.ui
 
-import android.content.Intent
+import android.Manifest
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityMainBinding
-import com.kud.hanzan.notification.MyFirebaseMessagingService
-import com.kud.hanzan.ui.camera.CameraActivity
-import com.kud.hanzan.ui.home.HomeFragment
+import com.kud.hanzan.ui.camera.CameraFragment
+import com.kud.hanzan.ui.home.HomeActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import org.jetbrains.annotations.TestOnly
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
-    private var backKeyPressedTime: Long = 0
-
     companion object {
-        private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(
-            android.Manifest.permission.CAMERA,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        private const val REQUEST_CAMERA_PERMISSIONS = 10
+        private val REQUIRED_CAMERA_PERMISSIONS = arrayOf(
+            Manifest.permission.CAMERA
+        )
+
+        private const val REQUEST_PLACE_PERMISSIONS = 20
+        private val REQUIRED_PLACE_PERMISSIONS = arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
         )
     }
 
+    private var navController : NavController? = null
     override fun initView() {
 //        startService(Intent(applicationContext, MyFirebaseMessagingService::class.java).also {
 //            MyFirebaseMessagingService().getToken()
 //        })
         initBottomNav()
-        initListener()
+        initFab()
+    }
+
+    private var cameraListener : CameraListener? = null
+
+    interface CameraListener{
+        fun onCameraClick()
+    }
+
+    fun setListener(listener: CameraListener){
+        cameraListener = null
+        cameraListener = listener
+    }
+
+    fun fabCameraListener(){
+        binding.mainCameraFab.setOnClickListener(null)
+        binding.mainCameraFab.setOnClickListener {
+            cameraListener?.onCameraClick()
+        }
     }
 
     private fun initBottomNav(){
         binding.mainBottomNav.background = null
-        val navController = supportFragmentManager.findFragmentById(R.id.main_fragment_container)?.findNavController()
+        navController = supportFragmentManager.findFragmentById(R.id.main_fragment_container)?.findNavController()
+
+        if (intent.hasExtra("screen")){
+            val inflater = navController?.navInflater
+            val graph = inflater?.inflate(R.navigation.main_bottom_graph)
+            graph?.setStartDestination(
+                when(intent.getIntExtra("screen", 0)){
+                    0 -> R.id.cameraFragment
+                    1 -> R.id.mapFragment
+                    else -> R.id.likeFragment
+                }
+            )
+            graph?.let { navController?.graph = it }
+        }
+
+
         navController?.let { binding.mainBottomNav.setupWithNavController(it) }
+        navController?.addOnDestinationChangedListener { controller, destination, arguments ->
+            when(destination.id){
+                R.id.cameraFragment -> {
+                    setFabStyle(true)
+                    if (ContextCompat.checkSelfPermission(this@MainActivity, REQUIRED_CAMERA_PERMISSIONS[0]) == PackageManager.PERMISSION_GRANTED){
+                    } else{
+                        requestPermissions(
+                            REQUIRED_CAMERA_PERMISSIONS,
+                            REQUEST_CAMERA_PERMISSIONS
+                        )
+                    }
+                }
+                R.id.mapFragment -> {
+                    setFabStyle(false)
+                    initFab()
+                    if (allPermissionsGranted()){
+                    }
+                    else{
+                        requestPermissions(
+                            REQUIRED_PLACE_PERMISSIONS,
+                            REQUEST_PLACE_PERMISSIONS
+                        )
+                    }
+                }
+                else -> {
+                    setFabStyle(false)
+                    initFab()
+                }
+            }
+        }
     }
 
-    private fun initListener(){
-        binding.mainCameraFab.setOnClickListener {
-            if (allPermissionsGranted()){
-                startActivity(Intent(this, CameraActivity::class.java))
+    private fun setFabStyle(cameraOn: Boolean){
+        binding.mainCameraFab.apply {
+            if (cameraOn){
+                backgroundTintList = ColorStateList.valueOf(Color.WHITE)
+                imageTintList = resources.getColorStateList(R.color.color_hanzan, null)
             } else{
-                ActivityCompat.requestPermissions(
-                    this,
-                    REQUIRED_PERMISSIONS,
-                    REQUEST_CODE_PERMISSIONS
-                )
+                backgroundTintList = resources.getColorStateList(R.color.color_hanzan, null)
+                imageTintList = ColorStateList.valueOf(Color.WHITE)
             }
         }
-    }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == REQUEST_CODE_PERMISSIONS){
-            if (allPermissionsGranted()){
-                startActivity(Intent(this, CameraActivity::class.java))
-            } else {
-                Toast.makeText(this, "카메라 권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
-                finish()
-            }
+    }
+    private fun initFab(){
+        binding.mainCameraFab.setOnClickListener(null)
+        binding.mainCameraFab.setOnClickListener {
+            navController?.popBackStack()
+            navController?.navigate(R.id.cameraFragment)
         }
-    }
-
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun getForegroundFragment() : Fragment?{
@@ -83,17 +146,36 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
     }
 
     override fun onBackPressed() {
-        if (getForegroundFragment() is HomeFragment){
-            if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
-                // 뒤로가기 두 번 누르면 종료
-                finish()
-            } else{
-                backKeyPressedTime = System.currentTimeMillis()
-                Toast.makeText(this, "뒤로 가기 한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
-            }
+        if (getForegroundFragment() is CameraFragment){
+            finish()
         } else{
             super.onBackPressed()
         }
+    }
 
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CAMERA_PERMISSIONS){
+            if (ContextCompat.checkSelfPermission(this, REQUIRED_CAMERA_PERMISSIONS[0]) == PackageManager.PERMISSION_GRANTED){
+            } else {
+                Toast.makeText(this, "카메라 권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
+                onBackPressed()
+            }
+        }
+        else if(requestCode == REQUEST_PLACE_PERMISSIONS){
+            if (allPermissionsGranted()){
+            } else{
+                Toast.makeText(this, "지도 권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PLACE_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 }

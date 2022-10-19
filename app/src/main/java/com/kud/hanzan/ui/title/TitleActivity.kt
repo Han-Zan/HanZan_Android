@@ -11,6 +11,7 @@ import com.kakao.sdk.user.UserApiClient
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityTitleBinding
 import com.kud.hanzan.ui.MainActivity
+import com.kud.hanzan.ui.home.HomeActivity
 import com.kud.hanzan.ui.login.LoginActivity
 import com.kud.hanzan.ui.sbti.SbtiActivity
 import com.kud.hanzan.utils.base.BaseActivity
@@ -93,11 +94,12 @@ class TitleActivity : BaseActivity<ActivityTitleBinding>(R.layout.activity_title
 
     override fun initView() {
         // 사용자 정보 요청 (기본)
+
         UserApiClient.instance.me { user, error ->
             // TODO("사용자 데이터가 있을지 검사하고 있으면 넘어가기")
             if (user != null) {
-                startActivity(Intent(this, MainActivity::class.java))
                 finishAffinity()
+                startActivity(Intent(this, HomeActivity::class.java))
             } else {
                 binding.titleKakaoLoginBtn.visibility = View.VISIBLE
             }

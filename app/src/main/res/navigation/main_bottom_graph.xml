@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/combinationFragment"
+    >
 
     <fragment
         android:id="@+id/homeFragment"
@@ -16,20 +17,17 @@
     <fragment
         android:id="@+id/likeFragment"
         android:name="com.kud.hanzan.ui.like.LikeFragment"
-        android:label="LikeFragment" />
+        android:label="LikeFragment" >
+
+        <action
+            android:id="@+id/action_likeFragment_to_searchActivity"
+            app:destination="@id/searchActivity" />
+    </fragment>
     <activity
         android:id="@+id/searchActivity"
         android:name="com.kud.hanzan.ui.search.SearchActivity"
         android:label="SearchFragment" >
     </activity>
-    <fragment
-        android:id="@+id/categoryFragment"
-        android:name="com.kud.hanzan.ui.category.CategoryFragment"
-        android:label="CategoryFragment" >
-        <action
-            android:id="@+id/action_categoryFragment_to_searchActivity"
-            app:destination="@id/searchActivity" />
-    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.kud.hanzan.ui.profile.ProfileFragment"
@@ -38,6 +36,23 @@
         android:id="@+id/mapFragment"
         android:name="com.kud.hanzan.ui.map.MapFragment"
         android:label="MapFragment" />
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.kud.hanzan.ui.camera.CameraFragment"
+        android:label="CameraFragment">
+        <action
+            android:id="@+id/action_cameraFragment_to_cameraResultActivity"
+            app:destination="@id/cameraResultActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/cameraResultActivity"
+        android:name="com.kud.hanzan.ui.camera.CameraResultActivity"
+        android:label="CameraResultActivity" >
+    </activity>
+    <fragment
+        android:id="@+id/combinationFragment"
+        android:name="com.kud.hanzan.ui.combination.CombinationFragment"
+        android:label="CombinationFragment" />
     <!--    <activity-->
 <!--        android:id="@+id/mainActivity"-->
 <!--        android:name="com.kud.hanzan.ui.MainActivity"-->
