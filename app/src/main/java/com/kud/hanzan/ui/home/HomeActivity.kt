@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityHomeBinding
@@ -13,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
+    private val viewModel by viewModels<HomeViewModel>()
     private var backKeyPressedTime: Long = 0
 
     companion object {
