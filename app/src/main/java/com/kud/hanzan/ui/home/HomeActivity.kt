@@ -32,6 +32,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
     override fun initView() {
         binding.name = "이동건"
+        binding.viewModel = viewModel
         initListener()
     }
 
