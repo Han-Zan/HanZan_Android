@@ -52,7 +52,15 @@
     <fragment
         android:id="@+id/combinationFragment"
         android:name="com.kud.hanzan.ui.combination.CombinationFragment"
-        android:label="CombinationFragment" />
+        android:label="CombinationFragment" >
+        <action
+            android:id="@+id/action_combinationFragment_to_drinkListFragment"
+            app:destination="@id/drinkListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/drinkListFragment"
+        android:name="com.kud.hanzan.ui.combination.DrinkListFragment"
+        android:label="DrinkListFragment" />
     <!--    <activity-->
 <!--        android:id="@+id/mainActivity"-->
 <!--        android:name="com.kud.hanzan.ui.MainActivity"-->

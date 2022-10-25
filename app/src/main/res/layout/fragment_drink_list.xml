@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/like_basic_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@null">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/drink_list_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="20dp"
+            app:navigationIcon="@drawable/ic_previous"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+            app:menu="@menu/toolbar_search">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/drink_list_title"
+                android:textSize="20sp"
+                android:layout_marginStart="20dp"
+                android:textAppearance="@style/customToolbarTitle"
+                android:layout_gravity="center"/>
+        </androidx.appcompat.widget.Toolbar>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/drink_list_tab"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:background="@null"
+            app:tabTextAppearance="@style/customTabText"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabIndicatorColor="@color/color_main"
+            app:tabTextColor="@color/text_unselected"
+            app:tabSelectedTextColor="@color/white"
+            app:tabIndicatorFullWidth="true"/>
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/drink_list_rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:overScrollMode="never"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

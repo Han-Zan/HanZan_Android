@@ -40,20 +40,23 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         with(binding){
             homeCameraCv.setOnClickListener {
                 if (ContextCompat.checkSelfPermission(this@HomeActivity, REQUIRED_CAMERA_PERMISSIONS[0]) == PackageManager.PERMISSION_GRANTED){
-                    startScreen(0)
+                    startScreen(1)
                 } else{
                     requestPermissions(REQUIRED_CAMERA_PERMISSIONS, REQUEST_CAMERA_PERMISSIONS)
                 }
             }
             homePlaceCv.setOnClickListener {
                 if (allPermissionsGranted()){
-                    startScreen(1)
+                    startScreen(2)
                 } else {
                     requestPermissions(REQUIRED_PLACE_PERMISSIONS, REQUEST_PLACE_PERMISSIONS)
                 }
             }
             homeLikeCv.setOnClickListener {
-                startScreen(2)
+                startScreen(3)
+            }
+            homeSearchLayout.setOnClickListener {
+                startScreen(0)
             }
         }
     }
@@ -87,9 +90,9 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     private fun startScreen(type: Int){
         startActivity(Intent(this, MainActivity::class.java).apply {
             when(type){
-                0 -> putExtra("screen", 0)
                 1 -> putExtra("screen", 1)
                 2 -> putExtra("screen", 2)
+                3 -> putExtra("screen", 3)
             }
         })
     }
