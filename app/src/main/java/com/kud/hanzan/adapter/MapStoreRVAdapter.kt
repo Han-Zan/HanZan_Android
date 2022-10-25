@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ItemMapStoreBinding
-import com.kud.hanzan.domain.model.Store
+import com.kud.hanzan.domain.model.map.Store
 
 class MapStoreRVAdapter : RecyclerView.Adapter<MapStoreRVAdapter.ViewHolder>() {
     private lateinit var binding: ItemMapStoreBinding
@@ -23,7 +23,8 @@ class MapStoreRVAdapter : RecyclerView.Adapter<MapStoreRVAdapter.ViewHolder>() {
     override fun getItemCount(): Int = storeList.size
 
     fun setData(data: List<Store>){
-        storeList = data as ArrayList<Store> /* = java.util.ArrayList<com.kud.hanzan.domain.model.Store> */
+        storeList.clear()
+        storeList.addAll(data)
         notifyDataSetChanged()
     }
 

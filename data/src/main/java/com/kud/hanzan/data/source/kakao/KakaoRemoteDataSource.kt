@@ -1,5 +1,6 @@
 package com.kud.hanzan.data.source.kakao
 
+import com.kud.hanzan.data.entity.place.CategoryResult
 import com.kud.hanzan.data.entity.place.PlaceKeywordResult
 import com.kud.hanzan.data.entity.place.RoadAddressResult
 import com.kud.hanzan.data.remote.KakaoService
@@ -25,4 +26,12 @@ class KakaoRemoteDataSource @Inject constructor(
         res.documents[0].address?.let { emit(res) }
     }.flowOn(Dispatchers.IO)
 
+    override fun getCategoryPlace(
+        longitude: String,
+        latitude: String,
+        radius: Int,
+        page: Int
+    ): Flow<CategoryResult> = flow {
+        emit(kakaoService.getCategoryPlace(longitude, latitude, radius, page))
+    }.flowOn(Dispatchers.IO)
 }

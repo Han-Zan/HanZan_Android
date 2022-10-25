@@ -3,7 +3,7 @@
     <data>
         <variable
             name="store"
-            type="com.kud.hanzan.domain.model.Store" />
+            type="com.kud.hanzan.domain.model.map.Store" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                         android:id="@+id/item_map_store_distance_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{store.distance}"
+                        android:text='@{store.distance + "m"}'
                         android:textSize="12dp"/>
                     <TextView
                         android:id="@+id/item_map_store_detail_tv"

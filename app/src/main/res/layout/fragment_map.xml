@@ -75,21 +75,34 @@
                         android:paddingVertical="8dp"
                         android:text='@{isNearShown ? "가까운 순" : "정확도 순"}'
                         android:textStyle="bold" />
-
-                    <CheckBox
-                        android:id="@+id/map_pickup_avail_cb"
+                    <Button
+                        android:id="@+id/map_search_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/selector_glass"
-                        android:text='@{isPickupShown ? "픽업 가능" : "전체"}'
                         android:minHeight="0dp"
-                        android:button="@null"
-                        android:checked="true"
+                        android:text="이 지역 재검색"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
                         android:layout_marginStart="10dp"
-                        android:paddingVertical="8dp"
                         android:paddingHorizontal="20dp"
-                        android:gravity="center"
-                        android:textStyle="bold"/>
+                        android:backgroundTint="@color/color_hanzan"
+                        android:paddingVertical="8dp"/>
+
+<!--                    <CheckBox-->
+<!--                        android:id="@+id/map_pickup_avail_cb"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@drawable/selector_glass"-->
+<!--                        android:text='@{isPickupShown ? "픽업 가능" : "전체"}'-->
+<!--                        android:minHeight="0dp"-->
+<!--                        android:button="@null"-->
+<!--                        android:checked="true"-->
+<!--                        android:layout_marginStart="10dp"-->
+<!--                        android:paddingVertical="8dp"-->
+<!--                        android:paddingHorizontal="20dp"-->
+<!--                        android:gravity="center"-->
+<!--                        android:textStyle="bold"/>-->
 
                     <!--                <LinearLayout-->
                     <!--                    android:id="@+id/map_pickup_avail"-->
