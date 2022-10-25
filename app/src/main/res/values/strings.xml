@@ -100,6 +100,7 @@
     <string name="default_notification_channel_id">default channel</string>
     <string name="default_notification_channel_name">default channel name</string>
 
+    <string name="camera_guide_hint">메뉴판을 촬영해주세요!</string>
 <!--    Camera Result-->
     <string name="camera_result_title">사진 분석</string>
     <string name="camera_result_next">궁합 분석하기</string>

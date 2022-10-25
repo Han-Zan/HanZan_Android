@@ -160,8 +160,17 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
                 launch {
                     viewModel.placeSearchInfo.collectLatest { state ->
                         when (state) {
-                            is PlaceUiState.Success -> state.placeList.also { mapView.removeAllPOIItems() }
-                                .forEach { addMarker(it.placeName, it.x, it.y) }
+                            // Todo : 검색 결과 없을 때 대비
+                            is PlaceUiState.Success -> {
+                                if (state.placeList.isNotEmpty()) {
+                                    mapView.removeAllPOIItems()
+                                    //bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                                    mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(state.placeList[0].y.toDouble(), state.placeList[0].x.toDouble()), true)
+                                    state.placeList.also { mapView.removeAllPOIItems() }
+                                        .forEach { addMarker(it.placeName, it.x, it.y) }
+                                }
+
+                            }
                             is PlaceUiState.Error -> Toast.makeText(
                                 context,
                                 state.exception.toString(),
