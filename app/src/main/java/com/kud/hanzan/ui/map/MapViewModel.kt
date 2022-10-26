@@ -57,17 +57,17 @@ class MapViewModel @Inject constructor(
         }
     }
 
-    fun getCategoryPlace(longitude: String, latitude: String){
+    fun getCategoryPlace(longitude: String, latitude: String, currentX: Double, currentY: Double){
         viewModelScope.launch {
             val storeList = ArrayList<Store>()
             for (i in 1..3){
-                categoryPlaceUseCase(longitude, latitude, 10000, i)
+                categoryPlaceUseCase(longitude, latitude, i, currentX, currentY)
                     .catch {  }
                     .collectLatest {
                         storeList.addAll(it)
                     }
             }
-            _placeNearInfo.value = storeList
+            _placeNearInfo.value = storeList.sortedBy { s -> s.distance }
         }
     }
 

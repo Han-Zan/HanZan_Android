@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.PopupMenu
 import androidx.appcompat.widget.ListPopupWindow
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -52,7 +53,7 @@ class LikeCombFragment : BaseFragment<FragmentLikeCombinationBinding>(R.layout.f
             val listAlcoholPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)
             listAlcoholPopupWindow.apply {
                 anchorView = likeCombSortAlcoholBtn
-                val items = listOf("소주", "맥주", "양주", "와인", "기타")
+                val items = listOf(" 소주 ", " 맥주 ", " 양주 ", " 와인 ", " 기타 ")
                 val adapter = ArrayAdapter(requireContext(), R.layout.list_popup_like_sort, items)
                 setAdapter(adapter)
                 setOnItemClickListener { _, _, position, _ ->
@@ -62,10 +63,24 @@ class LikeCombFragment : BaseFragment<FragmentLikeCombinationBinding>(R.layout.f
                 }
             }
 
+            // 임시 팝업 메뉴뉴
+            val popupMenu = PopupMenu(context, likeCombSortAlcoholBtn)
+            popupMenu.menu.apply {
+                add("소주")
+                add("맥주")
+                add("양주")
+                add("와인")
+                add("기타")
+            }
+            popupMenu.setOnMenuItemClickListener {
+                likeCombSortAlcoholBtn.text = it.title
+                true
+            }
+
             val listFoodPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)
             listFoodPopupWindow.apply {
                 anchorView = likeCombSortFoodBtn
-                val items = listOf("고기류", "과일류", "튀김류", "매운 음식", "기타")
+                val items = listOf("고기류", "과일류", "튀김류", "매운 음식", " 기타 ")
                 val adapter = ArrayAdapter(requireContext(), R.layout.list_popup_like_sort, items)
                 setAdapter(adapter)
                 setOnItemClickListener { _, _, position, _ ->

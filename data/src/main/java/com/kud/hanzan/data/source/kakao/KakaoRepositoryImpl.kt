@@ -5,6 +5,7 @@ import com.kud.hanzan.domain.model.map.Store
 import com.kud.hanzan.domain.repository.KakaoRepository
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
+import kotlin.math.*
 
 class KakaoRepositoryImpl @Inject constructor(
     private val kakaoRemoteDataSource: KakaoRemoteDataSource,
@@ -24,10 +25,19 @@ class KakaoRepositoryImpl @Inject constructor(
     override fun getCategoryPlace(
         longitude: String,
         latitude: String,
-        radius: Int,
-        page: Int
-    ): Flow<List<Store>> = kakaoRemoteDataSource.getCategoryPlace(longitude, latitude, radius, page).map {
+        page: Int,
+        currentX: Double,
+        currentY: Double
+    ): Flow<List<Store>> = kakaoRemoteDataSource.getCategoryPlace(longitude, latitude, page).map {
         it.documents.filter { s -> s.category_name.contains("술집") || s.category_name.contains("이탈리안") }
-            .map { s -> Store(s.id.toLong(), s.place_name, s.category_name, s.distance, " ", s.x, s.y) }
+            .map { s -> Store(s.id.toLong(), s.place_name, s.category_name, getDistance(s.x, s.y, currentX, currentY), " ", s.x, s.y) }
+    }
+
+    private fun getDistance(longitude: String, latitude: String, currentX: Double, currentY: Double) : Int{
+        val dLat = Math.toRadians(currentY - latitude.toDouble())
+        val dLon = Math.toRadians(currentX - longitude.toDouble())
+        val a = sin(dLat / 2).pow(2.0) + sin(dLon / 2).pow(2.0) * cos(Math.toRadians(latitude.toDouble())) * cos(Math.toRadians(currentY))
+        val c = 2 * asin(sqrt(a))
+        return (6372.8 * 1000 * c).toInt()
     }
 }

@@ -4,7 +4,7 @@ data class Store(
     val id: Long,
     val name: String,
     val category: String,
-    val distance: String,
+    val distance: Int,
     val detail: String,
     val x: String,
     val y: String

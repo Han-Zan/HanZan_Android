@@ -44,6 +44,10 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     // setCurrentLocation이 처음 호출되었는지 여부 판단
     private var firstCalled = true
 
+    // 현재 위치
+    private var currentX: Double = 0.0
+    private var currentY: Double = 0.0
+
     companion object{
         private const val TAG = "MapFragment"
         private const val multiplePermissionCode = 100
@@ -118,7 +122,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 
             // 버튼 리스너
             mapSearchBtn.setOnClickListener {
-                viewModel.getCategoryPlace(mapView.mapCenterPoint.mapPointGeoCoord.longitude.toString(), mapView.mapCenterPoint.mapPointGeoCoord.latitude.toString())
+                viewModel.getCategoryPlace(mapView.mapCenterPoint.mapPointGeoCoord.longitude.toString(), mapView.mapCenterPoint.mapPointGeoCoord.latitude.toString(),
+                    currentX, currentY)
             }
             // 서치뷰 리스너
             mapSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
@@ -252,12 +257,14 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
             location?.let {
                 mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(location.latitude, location.longitude), false)
 
+                currentX = location.longitude
+                currentY = location.latitude
                 // 지도 상단 주소 지정
                 viewModel.setRoadAddress(location.longitude.toString(), location.latitude.toString())
 
                 if (firstCalled){
                     // 현재 주소 주위 카테고리 검색 결과 데이터
-                    viewModel.getCategoryPlace(it.longitude.toString(), it.latitude.toString())
+                    viewModel.getCategoryPlace(it.longitude.toString(), it.latitude.toString(), location.longitude, location.latitude)
                     firstCalled = false
                 }
             }

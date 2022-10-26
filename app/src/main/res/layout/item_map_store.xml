@@ -71,7 +71,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginEnd="16dp"
-                    android:text="픽업 15~17분"
+                    android:text='@{"도보 " + String.valueOf(Integer.valueOf(store.distance) / 50) + "분"}'
                     android:textSize="12dp"
                     android:background="@drawable/bg_plate_white_glass"/>
             </androidx.constraintlayout.widget.ConstraintLayout>

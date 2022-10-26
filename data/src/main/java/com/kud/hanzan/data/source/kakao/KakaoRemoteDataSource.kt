@@ -29,9 +29,8 @@ class KakaoRemoteDataSource @Inject constructor(
     override fun getCategoryPlace(
         longitude: String,
         latitude: String,
-        radius: Int,
         page: Int
     ): Flow<CategoryResult> = flow {
-        emit(kakaoService.getCategoryPlace(longitude, latitude, radius, page))
+        emit(kakaoService.getCategoryPlace(longitude, latitude, page))
     }.flowOn(Dispatchers.IO)
 }

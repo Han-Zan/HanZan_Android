@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetCategoryPlaceUseCase @Inject constructor(
     private val repository: KakaoRepository
 ) {
-    operator fun invoke(longitude: String, latitude: String, radius: Int, page: Int) = repository.getCategoryPlace(longitude, latitude, radius, page)
+    operator fun invoke(longitude: String, latitude: String, page: Int, currentX: Double, currentY: Double) = repository.getCategoryPlace(longitude, latitude, page, currentX, currentY)
 }

@@ -13,6 +13,6 @@ interface KakaoService {
     @GET("/v2/local/geo/coord2address")
     suspend fun getRoadAddress(@Query("x") longitude: String, @Query("y") latitude: String) : RoadAddressResult
 
-    @GET("v2/local/search/category.json?category_group_code=FD6&sort=distance")
-    suspend fun getCategoryPlace(@Query("x") longitude: String, @Query("y") latitude: String, @Query("radius") radius: Int, @Query("page") page: Int) : CategoryResult
+    @GET("v2/local/search/category.json?category_group_code=FD6&radius=10000&sort=distance&")
+    suspend fun getCategoryPlace(@Query("x") longitude: String, @Query("y") latitude: String, @Query("page") page: Int) : CategoryResult
 }

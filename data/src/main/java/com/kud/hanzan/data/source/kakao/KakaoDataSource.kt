@@ -8,5 +8,5 @@ import kotlinx.coroutines.flow.Flow
 interface KakaoDataSource {
     fun getKeywordPlace(keyword: String) : Flow<PlaceKeywordResult>
     fun getRoadAddress(longitude: String, latitude: String) : Flow<RoadAddressResult>
-    fun getCategoryPlace(longitude: String, latitude: String, radius: Int, page: Int) : Flow<CategoryResult>
+    fun getCategoryPlace(longitude: String, latitude: String,page: Int) : Flow<CategoryResult>
 }
