@@ -80,12 +80,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:minHeight="0dp"
+                        style="@style/Widget.Material3.Button.TextButton.Icon"
+                        app:icon="@drawable/ic_camera_turn"
+                        app:iconTint="@color/white"
                         android:text="이 지역 재검색"
                         android:textColor="@color/white"
                         android:textStyle="bold"
                         android:textSize="16sp"
                         android:layout_marginStart="10dp"
-                        android:paddingHorizontal="20dp"
+                        android:paddingEnd="20dp"
+                        android:paddingStart="16dp"
                         android:backgroundTint="@color/color_hanzan"
                         android:paddingVertical="8dp"/>
 

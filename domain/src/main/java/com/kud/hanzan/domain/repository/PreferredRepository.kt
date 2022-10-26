@@ -1,7 +1,7 @@
 package com.kud.hanzan.domain.repository
 
 import com.kud.hanzan.domain.model.Combination
-import com.kud.hanzan.domain.model.LikeAlcohol
+import com.kud.hanzan.domain.model.Drink
 import kotlinx.coroutines.flow.Flow
 
 interface PreferredRepository {
@@ -9,7 +9,7 @@ interface PreferredRepository {
     fun deletePreferredComb(userId: Long, combId: Long) : Flow<String>
     fun postPreferredComb(userId: Long, combId: Long) : Flow<String>
 
-    fun getPreferredAlcohol(userId: Long) : Flow<List<LikeAlcohol>>
+    fun getPreferredAlcohol(userId: Long) : Flow<List<Drink>>
     fun deletePreferredAlcohol(userId: Long, drinkId: Long) : Flow<String>
     fun postPreferredAlcohol(userId: Long, drinkId: Long) : Flow<String>
 }

@@ -11,12 +11,12 @@ class LoginDataSource @Inject constructor(
     private val hanzanService: HanzanService
 ){
     suspend fun postUserInfo(userInfo: UserInfo): Long {
-        var res : Long = 0
+        var res : Long = 1
         withContext(Dispatchers.IO) {
             runCatching {
                 hanzanService.postUserInfo(userInfo)
             }.onSuccess {
-                res = it.body() ?: 0
+                res = it.body() ?: 1
             }.onFailure {
 
             }

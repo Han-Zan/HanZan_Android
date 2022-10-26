@@ -2,8 +2,7 @@ package com.kud.hanzan.ui.like
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kud.hanzan.R
-import com.kud.hanzan.domain.model.LikeAlcohol
+import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.Combination
 import com.kud.hanzan.domain.usecase.preferred.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,10 +22,10 @@ class LikeViewModel @Inject constructor(
     private val deleteDrinkUseCase: DeletePreferredDrinkUseCase,
     private val postDrinkUseCase: PostPreferredDrinkUseCase
 ) : ViewModel() {
-    private var _alcoholData = MutableStateFlow<List<LikeAlcohol>>(emptyList())
-    val alcoholData : StateFlow<List<LikeAlcohol>>
+    private var _alcoholData = MutableStateFlow<List<Drink>>(emptyList())
+    val alcoholData : StateFlow<List<Drink>>
         get() = _alcoholData
-    private var totalAlcoholData = listOf<LikeAlcohol>()
+    private var totalAlcoholData = listOf<Drink>()
 
     private var _combData = MutableStateFlow<List<Combination>>(emptyList())
     val combData : StateFlow<List<Combination>>

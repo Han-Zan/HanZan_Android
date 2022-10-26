@@ -2,6 +2,7 @@ package com.kud.hanzan.utils
 
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -24,7 +25,7 @@ object CustomBinder {
 
     @JvmStatic
     @BindingAdapter("app:imageUrl","app:placeholder")
-    fun loadImage(imageView: CircleImageView, url: String?, placeholder: Drawable){
+    fun loadImage(imageView: ImageView, url: String?, placeholder: Drawable){
         Glide.with(imageView.context)
             .load(url)
             .placeholder(placeholder)

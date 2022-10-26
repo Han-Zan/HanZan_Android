@@ -1,6 +1,6 @@
 package com.kud.hanzan.data.entity
 
-data class Drink(
+data class DrinkInfo(
     val aroma: String,
     val bitter: Int,
     val category: Int,

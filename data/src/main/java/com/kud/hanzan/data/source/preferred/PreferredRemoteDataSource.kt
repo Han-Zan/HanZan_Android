@@ -1,6 +1,6 @@
 package com.kud.hanzan.data.source.preferred
 
-import com.kud.hanzan.data.entity.Drink
+import com.kud.hanzan.data.entity.DrinkInfo
 import com.kud.hanzan.data.entity.preferred.CombResult
 import com.kud.hanzan.data.entity.preferred.DrinkResult
 import com.kud.hanzan.data.entity.preferred.PreferredCombDto
@@ -24,7 +24,7 @@ class PreferredRemoteDataSource @Inject constructor(
     override fun deletePreferredComb(
         userId: Long, combId: Long
     ): Flow<String> = flow{
-        emit(hanzanService.deletePreferredComb(userId, combId))
+        emit(hanzanService.deletePreferredComb(combId, userId))
     }.flowOn(Dispatchers.IO)
 
     override fun postPreferredComb(
@@ -35,7 +35,7 @@ class PreferredRemoteDataSource @Inject constructor(
 
     override fun getPreferredAlcohol(
         userId: Long
-    ): Flow<List<Drink>> = flow {
+    ): Flow<List<DrinkInfo>> = flow {
         emit(hanzanService.getPreferredAlcohol(userId))
     }.flowOn(Dispatchers.IO)
 

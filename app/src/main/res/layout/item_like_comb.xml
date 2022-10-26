@@ -30,6 +30,8 @@
                 android:id="@+id/item_like_comb_alcohol_iv"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
+                app:imageUrl="@{combination.drinkimg}"
+                app:placeholder="@{@android:color/transparent}"
                 android:background="@drawable/bg_like_comb"/>
             <View
                 android:layout_width="12dp"
@@ -39,6 +41,8 @@
                 android:id="@+id/item_like_comb_food_iv"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
+                app:imageUrl="@{combination.foodimg}"
+                app:placeholder="@{@android:color/transparent}"
                 android:background="@drawable/bg_like_comb"/>
         </LinearLayout>
         <LinearLayout
@@ -81,7 +85,7 @@
                 android:layout_height="36dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:button="@null"
-                android:checked="true"
+                android:checked="@{combination.like}"
                 android:drawableStart="@drawable/selector_heart"
                 android:paddingStart="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -89,10 +93,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="TouchTargetSizeCheck" />
             <TextView
+                android:id="@+id/item_like_comb_count_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
-                android:text="24"
+                android:text='@{String.valueOf(combination.count), default=111}'
                 android:textColor="@color/text_hint"
                 android:textSize="10sp"
                 android:layout_marginBottom="8dp"

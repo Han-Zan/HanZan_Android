@@ -7,11 +7,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ItemHomeAlcoholBinding
-import com.kud.hanzan.domain.model.LikeAlcohol
+import com.kud.hanzan.domain.model.Drink
 
 class HomeAlcoholRVAdapter : RecyclerView.Adapter<HomeAlcoholRVAdapter.ViewHolder>() {
     private lateinit var binding: ItemHomeAlcoholBinding
-    private var alcoholList = ArrayList<LikeAlcohol>()
+    private var alcoholList = ArrayList<Drink>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_home_alcohol, parent, false)
@@ -24,7 +24,7 @@ class HomeAlcoholRVAdapter : RecyclerView.Adapter<HomeAlcoholRVAdapter.ViewHolde
 
     override fun getItemCount(): Int = alcoholList.size
 
-    fun setData(data: List<LikeAlcohol>){
+    fun setData(data: List<Drink>){
         alcoholList.clear()
         alcoholList.addAll(data)
         notifyDataSetChanged()
@@ -32,7 +32,7 @@ class HomeAlcoholRVAdapter : RecyclerView.Adapter<HomeAlcoholRVAdapter.ViewHolde
 
     inner class ViewHolder(val binding: ItemHomeAlcoholBinding) : RecyclerView.ViewHolder(binding.root) {
         private var isClicked = false
-        fun bind(alcohol: LikeAlcohol){
+        fun bind(alcohol: Drink){
             binding.alcohol = alcohol
             binding.itemHomeAlcoholLayout.apply {
                 when(alcohol.category){

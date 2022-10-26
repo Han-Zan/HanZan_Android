@@ -44,22 +44,17 @@ class LikeCombRVAdapter : RecyclerView.Adapter<LikeCombRVAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemLikeCombBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(combination: Combination){
             binding.combination = combination
-            combination.drinkimg?.let{
-                Glide.with(itemView)
-                    .load(it)
-                    .fitCenter()
-                    .into(binding.itemLikeCombAlcoholIv)
-            }
-            combination.foodimg?.let {
-                Glide.with(itemView)
-                    .load(it)
-                    .fitCenter()
-                    .into(binding.itemLikeCombFoodIv)
-            }
             binding.itemLikeCombLikeCb.setOnClickListener {
-                if (!binding.itemLikeCombLikeCb.isChecked)
+                if (!binding.itemLikeCombLikeCb.isChecked){
                     likeListener.onDelete(combination.id)
-                else likeListener.onPost(combination.id)
+                    combination.count -= 1
+                }
+                else {
+                    likeListener.onPost(combination.id)
+                    combination.count += 1
+                }
+                combination.like = binding.itemLikeCombLikeCb.isChecked
+                binding.itemLikeCombCountTv.text = combination.count.toString()
             }
         }
     }

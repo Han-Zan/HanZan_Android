@@ -1,11 +1,14 @@
 package com.kud.hanzan.di
 
+import com.kud.hanzan.data.source.combination.CombinationRemoteDataSource
+import com.kud.hanzan.data.source.combination.CombinationRepositoryImpl
 import com.kud.hanzan.data.source.kakao.KakaoRepositoryImpl
 import com.kud.hanzan.data.source.kakao.KakaoRemoteDataSource
 import com.kud.hanzan.data.source.login.LoginDataSource
 import com.kud.hanzan.data.source.login.LoginRepositoryImpl
 import com.kud.hanzan.data.source.preferred.PreferredRemoteDataSource
 import com.kud.hanzan.data.source.preferred.PreferredRepositoryImpl
+import com.kud.hanzan.domain.repository.CombinationRepository
 import com.kud.hanzan.domain.repository.KakaoRepository
 import com.kud.hanzan.domain.repository.LoginRepository
 import com.kud.hanzan.domain.repository.PreferredRepository
@@ -34,5 +37,11 @@ object RepositoryModule {
     @Provides
     fun providesLoginRepository(loginDataSource: LoginDataSource) : LoginRepository{
         return LoginRepositoryImpl(loginDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun providesCombinationRepository(combinationRemoteDataSource: CombinationRemoteDataSource) : CombinationRepository{
+        return CombinationRepositoryImpl(combinationRemoteDataSource)
     }
 }
