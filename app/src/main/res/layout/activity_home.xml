@@ -4,6 +4,9 @@
         <variable
             name="name"
             type="java.lang.String" />
+        <variable
+            name="viewModel"
+            type="com.kud.hanzan.ui.home.HomeViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/home_main_layout"
@@ -203,9 +206,195 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         android:text="@string/home_comb_button_text"
-                        android:textSize="16sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/font_pretendard_extrabold"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginBottom="20dp">
+                        <LinearLayout
+                            android:id="@+id/home_comb_rank_1_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1"
+                                android:textSize="16sp"
+                                android:layout_marginStart="10dp"
+                                android:fontFamily="@font/font_pretendard_semibold"/>
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/home_comb_rank_1_drink_iv"
+                                android:layout_marginStart="12dp"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:imageUrl="@{viewModel.rankCombData.get(0).drinkimg}"
+                                app:placeholder="@{@drawable/drink_image_test1}"
+                                android:background="@drawable/bg_like_comb"/>
+                            <View
+                                android:layout_width="12dp"
+                                android:layout_height="2dp"
+                                android:background="@color/text_unselected"/>
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/home_comb_rank_1_food_iv"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:imageUrl="@{viewModel.rankCombData.get(0).foodimg}"
+                                app:placeholder="@{@drawable/food_image_test1}"
+                                android:background="@drawable/bg_like_comb"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/home_comb_rank_1_tv"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text='@{viewModel.rankCombData.get(0).drinkname + " - " + viewModel.rankCombData.get(0).foodname, default="주류 - 음식"}'
+                                    android:maxLines="1"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/font_pretendard_semibold"
+                                    android:textSize="16sp"/>
+                                <com.google.android.material.checkbox.MaterialCheckBox
+                                    android:id="@+id/home_comb_rank_1_cb"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:button="@null"
+                                    android:checked='@{viewModel.rankCombData.get(0).checked, default=true}'
+                                    android:drawableStart="@drawable/selector_heart"
+                                    android:paddingStart="8dp" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/home_comb_rank_2_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2"
+                                android:textSize="16sp"
+                                android:layout_marginStart="10dp"
+                                android:fontFamily="@font/font_pretendard_semibold"/>
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/home_comb_rank_2_alcohol_iv"
+                                android:layout_marginStart="12dp"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:imageUrl="@{viewModel.rankCombData.get(1).drinkimg}"
+                                app:placeholder="@{@drawable/drink_image_test2}"
+                                android:background="@drawable/bg_like_comb"/>
+                            <View
+                                android:layout_width="12dp"
+                                android:layout_height="2dp"
+                                android:background="@color/text_unselected"/>
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/home_comb_rank_2_food_iv"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:imageUrl="@{viewModel.rankCombData.get(1).foodimg}"
+                                app:placeholder="@{@drawable/food_image_test2}"
+                                android:background="@drawable/bg_like_comb"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/home_comb_rank_2_tv"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text='@{viewModel.rankCombData.get(1).drinkname + " - " + viewModel.rankCombData.get(1).foodname, default="주류 - 음식"}'
+                                    android:maxLines="1"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/font_pretendard_semibold"
+                                    android:textSize="16sp"/>
+                                <com.google.android.material.checkbox.MaterialCheckBox
+                                    android:id="@+id/home_comb_rank_2_cb"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:button="@null"
+                                    android:checked='@{viewModel.rankCombData.get(1).checked, default=true}'
+                                    android:drawableStart="@drawable/selector_heart"
+                                    android:paddingStart="8dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3"
+                                android:textSize="16sp"
+                                android:layout_marginStart="10dp"
+                                android:fontFamily="@font/font_pretendard_semibold"/>
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/home_comb_rank_3_alcohol_iv"
+                                android:layout_marginStart="12dp"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:imageUrl="@{viewModel.rankCombData.get(2).drinkimg}"
+                                app:placeholder="@{@drawable/drink_image_test3}"
+                                android:background="@drawable/bg_like_comb"/>
+                            <View
+                                android:layout_width="12dp"
+                                android:layout_height="2dp"
+                                android:background="@color/text_unselected"/>
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/home_comb_rank_3_food_iv"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:imageUrl="@{viewModel.rankCombData.get(2).foodimg}"
+                                app:placeholder="@{@drawable/food_image_test3}"
+                                android:background="@drawable/bg_like_comb"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <TextView
+                                    android:id="@+id/home_comb_rank_3_tv"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:text='@{viewModel.rankCombData.get(2).drinkname + " - " + viewModel.rankCombData.get(2).foodname, default="주류 - 음식"}'
+                                    android:maxLines="1"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/font_pretendard_semibold"
+                                    android:textSize="16sp"/>
+                                <com.google.android.material.checkbox.MaterialCheckBox
+                                    android:id="@+id/home_comb_rank_3_cb"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:background="?attr/selectableItemBackgroundBorderless"
+                                    android:button="@null"
+                                    android:checked='@{viewModel.rankCombData.get(2).checked, default=true}'
+                                    android:drawableStart="@drawable/selector_heart"
+                                    android:paddingStart="8dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>

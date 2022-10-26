@@ -8,6 +8,30 @@
         android:id="@+id/camera_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:backgroundTint="@android:color/transparent"
+        android:layout_marginVertical="40dp"
+        android:layout_marginHorizontal="30dp"
+        app:cardCornerRadius="50dp"
+        app:strokeColor="@color/color_half_primary"
+        app:strokeWidth="4dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/camera_mode_toggle_btn">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="25sp"
+            android:fontFamily="@font/font_pretendard_extrabold"
+            android:textStyle="bold"
+            android:textColor="@color/color_half_primary"
+            android:gravity="center"
+            android:text="@string/camera_guide_hint"/>
+
+
+    </com.google.android.material.card.MaterialCardView>
     <FrameLayout
         android:id="@+id/camera_shutter_frame"
         android:layout_width="match_parent"
@@ -18,7 +42,6 @@
         android:id="@+id/camera_mode_toggle_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.MaterialButtonToggleGroup"
         android:layout_marginBottom="40dp"
         app:singleSelection="true"
         app:selectionRequired="true"
@@ -30,16 +53,20 @@
             android:id="@+id/camera_mode_alcohol_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/ic_alcohol"
-            app:iconTint="@color/white"
-            style="@style/Widget.App.Button.OutlinedButton.IconOnly"/>
+            android:text="술 인식"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:backgroundTint="@drawable/bg_toggle_tint"
+            style="?attr/materialButtonOutlinedStyle"/>
         <Button
             android:id="@+id/camera_mode_food_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/ic_food"
-            app:iconTint="@color/white"
-            style="@style/Widget.App.Button.OutlinedButton.IconOnly"/>
+            android:text="안주 인식"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:backgroundTint="@drawable/bg_toggle_tint"
+            style="?attr/materialButtonOutlinedStyle"/>
     </com.google.android.material.button.MaterialButtonToggleGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
