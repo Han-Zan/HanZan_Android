@@ -108,6 +108,19 @@
 
     <!--    Profile Fragment-->
     <string name="profile_title">나의 한잔</string>
+    <string name="profile_my_setting_title">내 정보</string>
+    <string name="profile_my_setting1">닉네임 설정</string>
+    <string name="profile_my_setting2">프로필 이미지 변경</string>
+    <string name="profile_my_setting3">술BTI 검사 다시하기</string>
+
+    <string name="profile_app_setting_title">앱 설정</string>
+    <string name="profile_app_setting1">알림 설정</string>
+    <string name="profile_app_setting2">앱 버전</string>
+    <string name="profile_app_setting3">문의하기</string>
+    <string name="profile_app_setting4">공지사항</string>
+    <string name="profile_app_version">1.0.0</string>
+
+    <string name="profile_logout">한잔 로그아웃</string>
 
     <!--    Notification Channel-->
     <string name="default_notification_channel_id">default channel</string>

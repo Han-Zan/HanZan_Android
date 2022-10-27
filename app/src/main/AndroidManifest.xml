@@ -36,7 +36,8 @@
         <activity android:name=".ui.camera.CameraResultActivity"
             android:exported="true"/>
         <activity android:name=".ui.home.HomeActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:theme="@style/Theme.HanZan" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true"

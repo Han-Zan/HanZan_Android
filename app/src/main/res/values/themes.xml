@@ -3,9 +3,13 @@
     <style name="Base.Theme.HanZan" parent="Theme.Material3.Dark.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/color_hanzan</item>
+        <item name="colorPrimaryDark">@android:color/transparent</item>
         <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView</item>
 
-
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowFullscreen">false</item>
         <!-- Font Style -->
         <item name="android:textColor">@color/white</item>
         <item name="fontFamily">@font/font_pretendard_medium</item>

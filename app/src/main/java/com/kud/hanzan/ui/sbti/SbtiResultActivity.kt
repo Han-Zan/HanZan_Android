@@ -12,6 +12,7 @@ import com.kud.hanzan.databinding.ActivitySbtiResultBinding
 import com.kud.hanzan.domain.model.User
 import com.kud.hanzan.domain.model.UserInfo
 import com.kud.hanzan.ui.MainActivity
+import com.kud.hanzan.ui.home.HomeActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,7 +38,7 @@ class SbtiResultActivity : BaseActivity<ActivitySbtiResultBinding>(R.layout.acti
 
         binding.sbtiResultNextBtn.setOnClickListener {
             // TODO("DB에 닉네임, 나이정보 POST 하기")
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, HomeActivity::class.java))
             finishAffinity()
         }
     }
