@@ -80,7 +80,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
                 when(intent.getIntExtra("screen", 0)){
                     1 -> R.id.cameraFragment
                     2 -> R.id.mapFragment
-                    else -> R.id.likeFragment
+                    3 -> R.id.likeFragment
+                    else -> R.id.profileFragment
                 }
             )
             graph?.let { navController?.graph = it }

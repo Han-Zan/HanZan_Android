@@ -71,8 +71,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     override fun onResume() {
         super.onResume()
 
-        binding.isPickupShown = binding.mapPickupNearCb.isChecked
-        binding.isNearShown = binding.mapPickupNearCb.isChecked
+//        binding.isPickupShown = binding.mapPickupNearCb.isChecked
+//        binding.isNearShown = binding.mapPickupNearCb.isChecked
     }
 
     private fun initView(){
@@ -116,14 +116,15 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
             mapCurrentPosIv.setOnClickListener {
                 setCurrentLocation() }
             // 체크박스 리스너
-            mapPickupNearCb.setOnClickListener {
-                isNearShown = !isNearShown!!
-            }
+//            mapPickupNearCb.setOnClickListener {
+//                isNearShown = !isNearShown!!
+//            }
 
             // 버튼 리스너
             mapSearchBtn.setOnClickListener {
                 viewModel.getCategoryPlace(mapView.mapCenterPoint.mapPointGeoCoord.longitude.toString(), mapView.mapCenterPoint.mapPointGeoCoord.latitude.toString(),
                     currentX, currentY)
+                focusChanged = false
             }
             // 서치뷰 리스너
             mapSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
@@ -260,12 +261,13 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
                 currentX = location.longitude
                 currentY = location.latitude
                 // 지도 상단 주소 지정
-                viewModel.setRoadAddress(location.longitude.toString(), location.latitude.toString())
+//                viewModel.setRoadAddress(location.longitude.toString(), location.latitude.toString())
 
                 if (firstCalled){
                     // 현재 주소 주위 카테고리 검색 결과 데이터
                     viewModel.getCategoryPlace(it.longitude.toString(), it.latitude.toString(), location.longitude, location.latitude)
                     firstCalled = false
+                    binding.focusChanged = false
                 }
             }
         }
@@ -329,6 +331,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {
         // 도로명 주소 알아오기
         p0?.let{ p1?.let { viewModel.setRoadAddress(it.mapPointGeoCoord.longitude.toString(), it.mapPointGeoCoord.latitude.toString()) }}
+        binding.focusChanged = true
     }
 
     override fun onMapViewInitialized(p0: MapView?) {

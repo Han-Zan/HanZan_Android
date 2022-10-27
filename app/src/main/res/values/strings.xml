@@ -106,6 +106,9 @@
     <!--    Drink List Fragment-->
     <string name="drink_list_title">술 리스트</string>
 
+    <!--    Profile Fragment-->
+    <string name="profile_title">나의 한잔</string>
+
     <!--    Notification Channel-->
     <string name="default_notification_channel_id">default channel</string>
     <string name="default_notification_channel_name">default channel name</string>

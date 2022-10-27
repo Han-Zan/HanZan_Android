@@ -24,7 +24,7 @@ class MapViewModel @Inject constructor(
     val placeSearchInfo : StateFlow<PlaceUiState>
         get() = _placeSearchInfo
 
-    private var _roadAddress = MutableStateFlow<String>("중구 태평로1가")
+    private var _roadAddress = MutableStateFlow<String>("가게 이름을 입력해주세요.")
     val roadAddress : StateFlow<String>
         get() = _roadAddress
 
