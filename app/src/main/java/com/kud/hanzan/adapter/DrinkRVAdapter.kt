@@ -1,18 +1,17 @@
-package com.kud.hanzan.adapter.like
+package com.kud.hanzan.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.kud.hanzan.R
-import com.kud.hanzan.databinding.ItemLikeAlcoholBinding
-import com.kud.hanzan.domain.model.LikeAlcohol
+import com.kud.hanzan.databinding.ItemDrinkBinding
+import com.kud.hanzan.domain.model.Drink
 
-class LikeAlcoholRVAdapter : RecyclerView.Adapter<LikeAlcoholRVAdapter.ViewHolder>() {
-    private lateinit var binding: ItemLikeAlcoholBinding
-    private var alcoholList = ArrayList<LikeAlcohol>()
+class DrinkRVAdapter : RecyclerView.Adapter<DrinkRVAdapter.ViewHolder>() {
+    private lateinit var binding: ItemDrinkBinding
+    private var alcoholList = ArrayList<Drink>()
 
     interface Listener{
         fun onDelete(drinkId: Long)
@@ -26,7 +25,7 @@ class LikeAlcoholRVAdapter : RecyclerView.Adapter<LikeAlcoholRVAdapter.ViewHolde
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_like_alcohol, parent, false)
+        binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_drink, parent, false)
         return ViewHolder(binding)
     }
 
@@ -36,22 +35,22 @@ class LikeAlcoholRVAdapter : RecyclerView.Adapter<LikeAlcoholRVAdapter.ViewHolde
 
     override fun getItemCount(): Int = alcoholList.size
 
-    fun setData(data: List<LikeAlcohol>){
+    fun setData(data: List<Drink>){
         alcoholList = ArrayList(data)
         notifyDataSetChanged()
     }
 
-    inner class ViewHolder(val binding: ItemLikeAlcoholBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(alcohol: LikeAlcohol){
+    inner class ViewHolder(val binding: ItemDrinkBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(alcohol: Drink){
             binding.alcohol = alcohol
             binding.itemLikeAlcoholLikeCb.isChecked = alcohol.like
-            if (alcohol.imgRes == null)
-                binding.itemLikeAlcoholIv.setImageDrawable(null)
-            else alcohol.imgRes?.let {
-                Glide.with(itemView)
-                    .load(it)
-                    .fitCenter()
-                    .into(binding.itemLikeAlcoholIv)}
+//            if (alcohol.imgRes == null)
+//                binding.itemLikeAlcoholIv.setImageDrawable(null)
+//            else alcohol.imgRes?.let {
+//                Glide.with(itemView)
+//                    .load(it)
+//                    .fitCenter()
+//                    .into(binding.itemLikeAlcoholIv)}
             binding.itemLikeAlcoholLikeCb.setOnClickListener {
                 if (!binding.itemLikeAlcoholLikeCb.isChecked){
                     likeListener.onDelete(alcohol.id)

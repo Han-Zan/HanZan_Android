@@ -7,5 +7,7 @@ data class Combination(
     val foodimg: String?,
     val id: Long,
     val rating: Float,
-    val detail: String?
+    val detail: String?,
+    var like: Boolean = true,
+    var count: Int = 24,
 )

@@ -9,7 +9,6 @@ import com.google.android.material.transition.MaterialFadeThrough
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.HomeAlcoholRVAdapter
 import com.kud.hanzan.databinding.FragmentHomeBinding
-import com.kud.hanzan.domain.model.LikeAlcohol
 import com.kud.hanzan.domain.model.User
 import com.kud.hanzan.utils.base.BaseFragment
 import com.kud.hanzan.vision.findSimilarity

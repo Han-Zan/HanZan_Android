@@ -1,4 +1,4 @@
-package com.kud.hanzan.domain.model
+package com.kud.hanzan.domain.model.map
 
 data class Place(
     val placeName: String,

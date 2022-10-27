@@ -96,11 +96,25 @@
     <string name="map_search_hint">가게 이름을 입력해주세요.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--    Combination Fragment-->
+    <string name="comb_title">궁합 둘러보기</string>
+    <string name="comb_drink_pick">술을 골라주세요!</string>
+    <string name="comb_food_pick">안주를 골라주세요!</string>
+    <string name="comb_drink_pick_btn">술 고르기</string>
+    <string name="comb_food_pick_btn">안주 고르기</string>
+
+    <!--    Drink List Fragment-->
+    <string name="drink_list_title">술 리스트</string>
+
+    <!--    Profile Fragment-->
+    <string name="profile_title">나의 한잔</string>
+
     <!--    Notification Channel-->
     <string name="default_notification_channel_id">default channel</string>
     <string name="default_notification_channel_name">default channel name</string>
 
-<!--    Camera Result-->
+    <string name="camera_guide_hint">메뉴판을 촬영해주세요!</string>
+    <!--    Camera Result-->
     <string name="camera_result_title">사진 분석</string>
     <string name="camera_result_next">궁합 분석하기</string>
     <string name="camera_result_food_list">안주 리스트</string>

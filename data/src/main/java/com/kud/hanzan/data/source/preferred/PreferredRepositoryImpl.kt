@@ -3,7 +3,7 @@ package com.kud.hanzan.data.source.preferred
 import com.kud.hanzan.data.entity.preferred.PreferredCombDto
 import com.kud.hanzan.data.entity.preferred.PreferredDrinkDto
 import com.kud.hanzan.domain.model.Combination
-import com.kud.hanzan.domain.model.LikeAlcohol
+import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.repository.PreferredRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -29,8 +29,8 @@ class PreferredRepositoryImpl @Inject constructor(
 
     override fun getPreferredAlcohol(
         userId: Long
-    ): Flow<List<LikeAlcohol>> = preferredRemoteDataSource.getPreferredAlcohol(userId).map {
-        it.reversed().map { drink -> LikeAlcohol(drink.id, drink.name, drink.category, drink.rating, drink.img, drink.tag) }
+    ): Flow<List<Drink>> = preferredRemoteDataSource.getPreferredAlcohol(userId).map {
+        it.reversed().map { drink -> Drink(drink.id, drink.name, drink.category, drink.rating, drink.img, drink.tag) }
     }
 
     override fun deletePreferredAlcohol(

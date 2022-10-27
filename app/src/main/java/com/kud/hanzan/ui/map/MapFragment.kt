@@ -1,17 +1,14 @@
 package com.kud.hanzan.ui.map
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -24,9 +21,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCa
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.MapStoreRVAdapter
 import com.kud.hanzan.databinding.FragmentMapBinding
-import com.kud.hanzan.domain.model.Store
+import com.kud.hanzan.domain.model.map.Store
 import com.kud.hanzan.utils.base.BaseFragment
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -45,6 +41,12 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
+    // setCurrentLocation이 처음 호출되었는지 여부 판단
+    private var firstCalled = true
+
+    // 현재 위치
+    private var currentX: Double = 0.0
+    private var currentY: Double = 0.0
 
     companion object{
         private const val TAG = "MapFragment"
@@ -64,14 +66,13 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         initLocationClient()
         initListener()
         observe()
-        setRVData()
     }
 
     override fun onResume() {
         super.onResume()
 
-        binding.isPickupShown = binding.mapPickupNearCb.isChecked
-        binding.isNearShown = binding.mapPickupNearCb.isChecked
+//        binding.isPickupShown = binding.mapPickupNearCb.isChecked
+//        binding.isNearShown = binding.mapPickupNearCb.isChecked
     }
 
     private fun initView(){
@@ -84,8 +85,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 
         // bottomSheetBehavior 초기화
         bottomSheetBehavior = BottomSheetBehavior.from(binding.mapBottomLayout)
-        bottomSheetBehavior.peekHeight = (resources.displayMetrics.heightPixels * 0.47).toInt()
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        bottomSheetBehavior.peekHeight = (resources.displayMetrics.heightPixels * 0.3).toInt()
+        bottomSheetBehavior.maxHeight = (resources.displayMetrics.heightPixels * 0.78).toInt()
         // 마커 추가
 //        val marker = MapPOIItem()
 //        marker.apply {
@@ -109,35 +110,22 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         }
     }
 
-    // 임시 데이터
-    // Todo : 검색결과로 변경
-    @TestOnly
-    private fun setRVData(){
-        val tempList = ArrayList<Store>()
-        tempList.apply {
-            add(Store("밀짚모자", "420m", "도보 3분"))
-            add(Store("장독대", "850m", "도보 15분"))
-            add(Store("제일주당", "300m", "도보 3분"))
-            add(Store("맥주창고", "700m", "도보 13분"))
-            add(Store("호랑이 술상", "400m", "도보 5분"))
-        }
-        (binding.mapBottomStoreRv.adapter as MapStoreRVAdapter).setData(tempList)
-    }
-
-    // Todo : 삭제 버튼 눌렀을 때 핀 제거 추가해보기
+    // Todo : 거리 나오는거 현 위치 기반으로 바꿀 수 있는지?
     private fun initListener(){
         with(binding){
             mapCurrentPosIv.setOnClickListener {
                 setCurrentLocation() }
             // 체크박스 리스너
-            mapPickupAvailCb.setOnClickListener {
-                isPickupShown = !isPickupShown!!
-            }
+//            mapPickupNearCb.setOnClickListener {
+//                isNearShown = !isNearShown!!
+//            }
 
-            mapPickupNearCb.setOnClickListener {
-                isNearShown = !isNearShown!!
+            // 버튼 리스너
+            mapSearchBtn.setOnClickListener {
+                viewModel.getCategoryPlace(mapView.mapCenterPoint.mapPointGeoCoord.longitude.toString(), mapView.mapCenterPoint.mapPointGeoCoord.latitude.toString(),
+                    currentX, currentY)
+                focusChanged = false
             }
-
             // 서치뷰 리스너
             mapSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
                 override fun onQueryTextSubmit(query: String?): Boolean {
@@ -175,10 +163,33 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         binding.lifecycleOwner = this
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.placeInfo.collectLatest {
-                    state -> when(state){
-                        is PlaceUiState.Success -> state.placeList.also { mapView.removeAllPOIItems() }.forEach { addMarker(it.placeName, it.x, it.y) }
-                        is PlaceUiState.Error -> Toast.makeText(context, state.exception.toString(), Toast.LENGTH_SHORT).show()
+                launch {
+                    viewModel.placeSearchInfo.collectLatest { state ->
+                        when (state) {
+                            // Todo : 검색 결과 없을 때 대비
+                            is PlaceUiState.Success -> {
+                                if (state.placeList.isNotEmpty()) {
+                                    mapView.removeAllPOIItems()
+                                    //bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                                    mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(state.placeList[0].y.toDouble(), state.placeList[0].x.toDouble()), true)
+                                    state.placeList.also { mapView.removeAllPOIItems() }
+                                        .forEach { addMarker(it.placeName, it.x, it.y) }
+                                }
+
+                            }
+                            is PlaceUiState.Error -> Toast.makeText(
+                                context,
+                                state.exception.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                }
+                launch {
+                    viewModel.placeNearInfo.collectLatest {
+                        mapView.removeAllPOIItems()
+                        it.forEach { s -> addMarker(s.name, s.x, s.y) }
+                        (binding.mapBottomStoreRv.adapter as MapStoreRVAdapter).setData(it)
                     }
                 }
             }
@@ -247,7 +258,17 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
             location?.let {
                 mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(location.latitude, location.longitude), false)
 
-                viewModel.setRoadAddress(location.longitude.toString(), location.latitude.toString())
+                currentX = location.longitude
+                currentY = location.latitude
+                // 지도 상단 주소 지정
+//                viewModel.setRoadAddress(location.longitude.toString(), location.latitude.toString())
+
+                if (firstCalled){
+                    // 현재 주소 주위 카테고리 검색 결과 데이터
+                    viewModel.getCategoryPlace(it.longitude.toString(), it.latitude.toString(), location.longitude, location.latitude)
+                    firstCalled = false
+                    binding.focusChanged = false
+                }
             }
         }
     }
@@ -266,6 +287,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         } else{
             mapView.currentLocationTrackingMode = MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeadingWithoutMapMoving
             setCurrentLocation()
+
         }
 //        locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
 //            Manifest.permission.ACCESS_COARSE_LOCATION))
@@ -309,6 +331,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {
         // 도로명 주소 알아오기
         p0?.let{ p1?.let { viewModel.setRoadAddress(it.mapPointGeoCoord.longitude.toString(), it.mapPointGeoCoord.latitude.toString()) }}
+        binding.focusChanged = true
     }
 
     override fun onMapViewInitialized(p0: MapView?) {

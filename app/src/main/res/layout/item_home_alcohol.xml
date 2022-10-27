@@ -3,7 +3,7 @@
     <data>
         <variable
             name="alcohol"
-            type="com.kud.hanzan.domain.model.LikeAlcohol" />
+            type="com.kud.hanzan.domain.model.Drink" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_home_alcohol_layout"

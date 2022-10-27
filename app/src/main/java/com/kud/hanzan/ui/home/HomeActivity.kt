@@ -3,17 +3,31 @@ package com.kud.hanzan.ui.home
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.kud.hanzan.R
+import com.kud.hanzan.adapter.home.HomeCombRVAdapter
 import com.kud.hanzan.databinding.ActivityHomeBinding
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
+    private val viewModel by viewModels<HomeViewModel>()
     private var backKeyPressedTime: Long = 0
+
+    // 임시
+    private var userIdx : Long = 1
 
     companion object {
         private const val REQUEST_CAMERA_PERMISSIONS = 10
@@ -29,28 +43,71 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     }
 
     override fun initView() {
-        binding.name = "이동건"
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+        // Todo : UserIdx Spf 에서 받아오기
+        viewModel.getData(userIdx)
+        binding.homeCombRv.apply {
+            adapter = HomeCombRVAdapter().apply {
+                setLikeListener(object : HomeCombRVAdapter.LikeListener{
+                    override fun onDelete(combIdx: Long) {
+                        viewModel.deleteCombLike(userIdx, combIdx)
+                    }
+
+                    override fun onPost(combIdx: Long) {
+                        viewModel.postCombLike(userIdx, combIdx)
+                    }
+
+                })
+            }
+            layoutManager = LinearLayoutManager(this@HomeActivity, LinearLayoutManager.VERTICAL, false)
+        }
         initListener()
+        observe()
     }
 
     private fun initListener(){
         with(binding){
             homeCameraCv.setOnClickListener {
                 if (ContextCompat.checkSelfPermission(this@HomeActivity, REQUIRED_CAMERA_PERMISSIONS[0]) == PackageManager.PERMISSION_GRANTED){
-                    startScreen(0)
+                    startScreen(1)
                 } else{
                     requestPermissions(REQUIRED_CAMERA_PERMISSIONS, REQUEST_CAMERA_PERMISSIONS)
                 }
             }
             homePlaceCv.setOnClickListener {
                 if (allPermissionsGranted()){
-                    startScreen(1)
+                    startScreen(2)
                 } else {
                     requestPermissions(REQUIRED_PLACE_PERMISSIONS, REQUEST_PLACE_PERMISSIONS)
                 }
             }
             homeLikeCv.setOnClickListener {
-                startScreen(2)
+                startScreen(3)
+            }
+            homeSearchCv.setOnClickListener {
+                startScreen(0)
+            }
+            homeProfileIb.setOnClickListener {
+                startScreen(4)
+            }
+        }
+    }
+
+    private fun observe(){
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                launch {
+                    viewModel.rankCombData.collect {
+                        (binding.homeCombRv.adapter as HomeCombRVAdapter).setData(it)
+                    }
+                }
+                launch {
+                    viewModel.errorMsg.collectLatest{
+                        if (it.isNotEmpty())
+                            Snackbar.make(binding.root, it, Snackbar.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
@@ -84,9 +141,10 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     private fun startScreen(type: Int){
         startActivity(Intent(this, MainActivity::class.java).apply {
             when(type){
-                0 -> putExtra("screen", 0)
                 1 -> putExtra("screen", 1)
                 2 -> putExtra("screen", 2)
+                3 -> putExtra("screen", 3)
+                4 -> putExtra("screen", 4)
             }
         })
     }

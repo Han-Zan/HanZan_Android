@@ -78,9 +78,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
             val graph = inflater?.inflate(R.navigation.main_bottom_graph)
             graph?.setStartDestination(
                 when(intent.getIntExtra("screen", 0)){
-                    0 -> R.id.cameraFragment
-                    1 -> R.id.mapFragment
-                    else -> R.id.likeFragment
+                    1 -> R.id.cameraFragment
+                    2 -> R.id.mapFragment
+                    3 -> R.id.likeFragment
+                    else -> R.id.profileFragment
                 }
             )
             graph?.let { navController?.graph = it }
