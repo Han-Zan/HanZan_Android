@@ -30,7 +30,7 @@ class KakaoRepositoryImpl @Inject constructor(
         currentY: Double
     ): Flow<List<Store>> = kakaoRemoteDataSource.getCategoryPlace(longitude, latitude, page).map {
         it.documents.filter { s -> s.category_name.contains("술집") || s.category_name.contains("이탈리안") }
-            .map { s -> Store(s.id.toLong(), s.place_name, s.category_name, getDistance(s.x, s.y, currentX, currentY), " ", s.x, s.y) }
+            .map { s -> Store(s.id.toLong(), s.place_name, s.category_name, getDistance(s.x, s.y, currentX, currentY), " ", s.road_address_name, s.phone, s.x, s.y) }
     }
 
     private fun getDistance(longitude: String, latitude: String, currentX: Double, currentY: Double) : Int{
