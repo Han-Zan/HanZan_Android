@@ -1,5 +1,8 @@
 package com.kud.hanzan.ui.map
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
@@ -28,6 +31,15 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
         with(binding){
             storeBasicToolbar.setNavigationOnClickListener {
                 findNavController().popBackStack()
+            }
+            storeKakaoOpenBtn.setOnClickListener {
+                try {
+                    val url = "kakaomap://place?id=${store?.id}"
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                }catch (e: ActivityNotFoundException){
+                    val storeUrl = "market://details?id=net.daum.android.map"
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(storeUrl)))
+                }
             }
         }
     }
