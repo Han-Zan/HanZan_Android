@@ -1,4 +1,4 @@
-package com.kud.hanzan.adapter
+package com.kud.hanzan.adapter.map
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,6 +11,17 @@ import com.kud.hanzan.domain.model.map.Store
 class MapStoreRVAdapter : RecyclerView.Adapter<MapStoreRVAdapter.ViewHolder>() {
     private lateinit var binding: ItemMapStoreBinding
     private var storeList = ArrayList<Store>()
+
+    interface StoreListener{
+        fun onClick(store: Store)
+    }
+
+    private lateinit var storeListener: StoreListener
+
+    fun setStoreListener(listener: StoreListener){
+        storeListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_map_store, parent, false)
         return ViewHolder(binding)
@@ -18,6 +29,7 @@ class MapStoreRVAdapter : RecyclerView.Adapter<MapStoreRVAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(storeList[position])
+        holder.itemView.setOnClickListener { storeListener.onClick(storeList[position]) }
     }
 
     override fun getItemCount(): Int = storeList.size

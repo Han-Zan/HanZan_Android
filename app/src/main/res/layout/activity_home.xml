@@ -5,157 +5,247 @@
             name="viewModel"
             type="com.kud.hanzan.ui.home.HomeViewModel" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/home_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@drawable/bg_main_background">
-    <LinearLayout
-        android:id="@+id/home_basic_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.userName, default=유저}"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="@color/color_hanzan"
-            android:fontFamily="@font/font_pretendard_extrabold"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" 님의 한잔"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:fontFamily="@font/font_pretendard_extrabold"/>
-        <ImageButton
-            android:id="@+id/home_profile_ib"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:padding="10dp"
-            android:foreground="?selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_next_profile"/>
-    </LinearLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/home_search_cv"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:strokeWidth="0dp"
-        app:cardCornerRadius="10dp"
-        android:background="@drawable/bg_text_field_black"
-        app:layout_constraintTop_toBottomOf="@id/home_basic_layout">
+        android:layout_height="match_parent">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/home_basic_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_home_search"/>
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
-                android:layout_marginStart="12dp"
-                android:textColor="@color/text_hint"
-                android:text="@string/home_search_hint"/>
+                android:text="@{viewModel.userName, default=유저}"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_hanzan"
+                android:fontFamily="@font/font_pretendard_extrabold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 님의 한잔"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/font_pretendard_extrabold"/>
+            <ImageButton
+                android:id="@+id/home_profile_ib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:padding="10dp"
+                android:foreground="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_next_profile"/>
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/home_search_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:strokeWidth="0dp"
+            app:cardCornerRadius="10dp"
+            android:background="@drawable/bg_text_field_black"
+            app:layout_constraintTop_toBottomOf="@id/home_basic_layout">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_home_search"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_marginStart="12dp"
+                    android:textColor="@color/text_hint"
+                    android:text="@string/home_search_hint"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:weightSum="53"
-        android:orientation="vertical"
-        android:layout_marginVertical="30dp"
-        android:layout_marginHorizontal="20dp"
-        app:layout_constraintTop_toBottomOf="@id/home_search_cv"
-        app:layout_constraintBottom_toBottomOf="parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/home_search_cv">
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/home_camera_cv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:clickable="true"
-                app:strokeWidth="0dp"
-                app:cardCornerRadius="20dp"
-                app:cardBackgroundColor="@color/color_hanzan">
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:id="@+id/home_camera_button_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/home_camera_button_text"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        android:layout_margin="20dp"
-                        android:fontFamily="@font/font_pretendard_extrabold"
-                        android:textSize="20sp"
-                        android:textFontWeight="1000"
-                        android:textStyle="bold"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="4dp"
-                        android:text="@string/home_camera_button_hint"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/text_hint"
-                        app:layout_constraintTop_toBottomOf="@id/home_camera_button_tv"
-                        app:layout_constraintStart_toStartOf="@id/home_camera_button_tv"/>
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_margin="20dp"
-                        android:src="@drawable/ic_camera"
-                        android:scaleType="fitXY"
-                        android:alpha="0.6"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
+            android:weightSum="53"
+            android:orientation="vertical"
+            android:layout_marginVertical="30dp"
+            android:layout_marginHorizontal="20dp"
+            app:layout_constraintTop_toBottomOf="@id/home_search_cv"
+            app:layout_constraintBottom_toBottomOf="parent">
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:paddingStart="4dp"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="20"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/home_search_cv">
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/home_place_cv"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:id="@+id/home_camera_cv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="5"
-                    android:layout_marginBottom="4dp"
+                    android:clickable="true"
+                    app:strokeWidth="0dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/color_hanzan">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/home_camera_button_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/home_camera_button_text"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_margin="20dp"
+                            android:fontFamily="@font/font_pretendard_extrabold"
+                            android:textSize="20sp"
+                            android:textFontWeight="1000"
+                            android:textStyle="bold"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginTop="4dp"
+                            android:text="@string/home_camera_button_hint"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_hint"
+                            app:layout_constraintTop_toBottomOf="@id/home_camera_button_tv"
+                            app:layout_constraintStart_toStartOf="@id/home_camera_button_tv"/>
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="20dp"
+                            android:src="@drawable/ic_camera"
+                            android:scaleType="fitXY"
+                            android:alpha="0.6"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:paddingStart="4dp"
+                    android:orientation="vertical">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/home_place_cv"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="5"
+                        android:layout_marginBottom="4dp"
+                        android:clickable="true"
+                        app:strokeColor="@color/color_70_606060"
+                        app:strokeWidth="1dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardBackgroundColor="@color/color_half_1b1b1b">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:fontFamily="@font/font_pretendard_extrabold"
+                            android:text="@string/home_place_button_text"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/home_like_cv"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:clickable="true"
+                        app:strokeColor="@color/color_70_606060"
+                        app:strokeWidth="1dp"
+                        app:cardCornerRadius="20dp"
+                        app:cardBackgroundColor="@color/color_half_1b1b1b">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:fontFamily="@font/font_pretendard_extrabold"
+                            android:text="@string/home_like_button_text"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="28"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/home_comb_cb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:clickable="true"
                     app:strokeColor="@color/color_70_606060"
                     app:strokeWidth="1dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="@color/color_half_1b1b1b">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:text="@string/home_comb_button_text"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/font_pretendard_extrabold"/>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/home_comb_rv"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:overScrollMode="never"
+                            android:layout_marginHorizontal="16dp"
+                            android:layout_marginBottom="20dp"/>
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:orientation="horizontal">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/home_sbti_cv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:layout_weight="5"
+                    app:strokeWidth="0dp"
                     app:cardCornerRadius="20dp"
                     app:cardBackgroundColor="@color/color_half_1b1b1b">
                     <TextView
@@ -163,19 +253,19 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         android:fontFamily="@font/font_pretendard_extrabold"
-                        android:text="@string/home_place_button_text"
+                        android:text="@string/home_sbti_button_text"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/home_like_cv"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
+                    android:id="@+id/home_faq_cv"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:clickable="true"
-                    app:strokeColor="@color/color_70_606060"
-                    app:strokeWidth="1dp"
+                    android:layout_weight="3"
+                    android:layout_marginStart="4dp"
+                    app:strokeWidth="0dp"
                     app:cardCornerRadius="20dp"
                     app:cardBackgroundColor="@color/color_half_1b1b1b">
                     <TextView
@@ -183,99 +273,17 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         android:fontFamily="@font/font_pretendard_extrabold"
-                        android:text="@string/home_like_button_text"
+                        android:text="@string/home_faq_button_text"
                         android:textSize="16sp"
                         android:textStyle="bold" />
-
 
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="28"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp">
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/home_comb_cb"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                app:strokeColor="@color/color_70_606060"
-                app:strokeWidth="1dp"
-                app:cardCornerRadius="20dp"
-                app:cardBackgroundColor="@color/color_half_1b1b1b">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="16dp"
-                        android:text="@string/home_comb_button_text"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/font_pretendard_extrabold"/>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/home_comb_rv"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginBottom="20dp"/>
-                </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="5"
-            android:orientation="horizontal">
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/home_sbti_cv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:layout_weight="5"
-                app:strokeWidth="0dp"
-                app:cardCornerRadius="20dp"
-                app:cardBackgroundColor="@color/color_half_1b1b1b">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:fontFamily="@font/font_pretendard_extrabold"
-                    android:text="@string/home_sbti_button_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/home_faq_cv"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:layout_weight="3"
-                android:layout_marginStart="4dp"
-                app:strokeWidth="0dp"
-                app:cardCornerRadius="20dp"
-                app:cardBackgroundColor="@color/color_half_1b1b1b">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:fontFamily="@font/font_pretendard_extrabold"
-                    android:text="@string/home_faq_button_text"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
