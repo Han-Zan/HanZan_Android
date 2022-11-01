@@ -4,42 +4,52 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
+import com.kud.hanzan.HanZanApplication
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityTitleBinding
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.ui.home.HomeActivity
 import com.kud.hanzan.ui.login.LoginActivity
 import com.kud.hanzan.ui.sbti.SbtiActivity
+import com.kud.hanzan.ui.sbti.SbtiResultViewModel
 import com.kud.hanzan.utils.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TitleActivity : BaseActivity<ActivityTitleBinding>(R.layout.activity_title) {
+    private val viewModel by viewModels<TitleViewModel>()
+
+    private lateinit var userName: String
+    private lateinit var userProfile : String
+    private var userId: Long = 0
+    private var userGender: Boolean = true
+
     private fun startLogin() {
         UserApiClient.instance.me { user, error ->
             if (user != null) {
-                startActivity(Intent(this, LoginActivity::class.java).apply {
-                    putExtra("user_name", user.kakaoAccount?.profile?.nickname)
-                    putExtra("user_profile", user.kakaoAccount?.profile?.thumbnailImageUrl)
-                    putExtra("user_gender", user.kakaoAccount?.gender.toString())
-                    putExtra("user_token", _token)
-                })
-                finishAffinity()
+                userName = user.kakaoAccount?.profile?.nickname.toString()
+                userProfile = user.kakaoAccount?.profile?.thumbnailImageUrl.toString()
+                userGender = user.kakaoAccount?.gender.toString() == "MALE"
+                user.id?.let {
+                    userId = it
+                    viewModel.checkUserAccount(it)
+                }
             }
         }
     }
 
     // 카카오계정으로 로그인 공통 callback 구성
     // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
-    private var _token : String = ""
     val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-            _token = token.accessToken.toString()
             startLogin()
         }
     }
@@ -93,19 +103,38 @@ class TitleActivity : BaseActivity<ActivityTitleBinding>(R.layout.activity_title
 //    }
 
     override fun initView() {
-        // 사용자 정보 요청 (기본)
+        observe()
 
-        UserApiClient.instance.me { user, error ->
-            // TODO("사용자 데이터가 있을지 검사하고 있으면 넘어가기")
-            if (user != null) {
+        if (HanZanApplication.spfManager.checkUserToken()) {
+            finishAffinity()
+            startActivity(Intent(this, HomeActivity::class.java))
+        } else {
+            binding.titleKakaoLoginBtn.visibility = View.VISIBLE
+        }
+
+        binding.titleKakaoLoginBtn.setOnClickListener {
+            kakaoLogin()
+        }
+    }
+
+    private fun observe(){
+        viewModel.resLiveData.observe( this) {
+            if (it?.userToken == "error") {
+                startActivity(Intent(this, LoginActivity::class.java).apply {
+                    putExtra("user_name", userName)
+                    putExtra("user_profile", userProfile)
+                    putExtra("user_id", userId)
+                    putExtra("user_gender", userGender)
+                })
+                finishAffinity()
+            } else {
+                if (it != null) {
+                    HanZanApplication.spfManager.setUserToken(it.userToken)
+                    HanZanApplication.spfManager.setUserIdx(it.userIdx)
+                }
                 finishAffinity()
                 startActivity(Intent(this, HomeActivity::class.java))
-            } else {
-                binding.titleKakaoLoginBtn.visibility = View.VISIBLE
             }
-        }
-        binding.titleKakaoLoginBtn.setOnClickListener{
-            kakaoLogin()
         }
     }
 }

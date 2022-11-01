@@ -1,12 +1,14 @@
 package com.kud.hanzan.ui.sbti
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.kakao.sdk.user.UserApiClient
+import com.kud.hanzan.HanZanApplication
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivitySbtiResultBinding
 import com.kud.hanzan.domain.model.User
@@ -19,35 +21,35 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SbtiResultActivity : BaseActivity<ActivitySbtiResultBinding>(R.layout.activity_sbti_result) {
     private val viewModel by viewModels<SbtiResultViewModel>()
-    val userInfo : UserInfo = UserInfo(true, "nickname_error", "image_error", "sbti_error", "token_error", -1, "name_error")
+    private val userInfo : UserInfo = UserInfo("name_error", "nickname_error",-1, "sbti_error", "image_error", -1, true)
 
     override fun initView() {
         observe()
         with(userInfo) {
-            male = intent.getStringExtra("user_gender") == "MALE"
-            nickname = intent.getStringExtra("user_nickname")?:"nickname_error"
-            profileimage = intent.getStringExtra("user_profile")?:"image_error"
-            sbti = intent.getStringExtra("user_type")?:"sbti_error"
-            token = intent.getStringExtra("user_token")?:"token_error"
-            userage = intent.getIntExtra("user_age", 0)
             username = intent.getStringExtra("user_name")?:"name_error"
+            nickname = intent.getStringExtra("user_nickname")?:"nickname_error"
+            userage = intent.getIntExtra("user_age", 0)
+            sbti = intent.getStringExtra("user_type")?:"sbti_error"
+            profileimage = intent.getStringExtra("user_profile")?:"image_error"
+            kakaoId = intent.getLongExtra("user_id", 0)
+            male = intent.getBooleanExtra("user_gender", true)
         }
         viewModel.login(userInfo)
 
         binding.user = userInfo
 
         binding.sbtiResultNextBtn.setOnClickListener {
-            // TODO("DB에 닉네임, 나이정보 POST 하기")
             startActivity(Intent(this, HomeActivity::class.java))
             finishAffinity()
         }
     }
 
-    private var userIdx : Long = 0
     private fun observe(){
-        viewModel.userIdxLiveData.observe( this) {
-            userIdx = it
-            Log.e("shit", userIdx.toString())
+        viewModel.resLiveData.observe( this) {
+            if (it != null) {
+                HanZanApplication.spfManager.setUserToken(it.userToken)
+                HanZanApplication.spfManager.setUserIdx(it.userIdx)
+            }
         }
     }
 

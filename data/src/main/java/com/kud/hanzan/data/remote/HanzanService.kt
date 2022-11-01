@@ -7,6 +7,7 @@ import com.kud.hanzan.data.entity.preferred.PreferredCombDto
 import com.kud.hanzan.data.entity.preferred.PreferredDrinkDto
 import com.kud.hanzan.domain.model.HomeData
 import com.kud.hanzan.domain.model.UserInfo
+import com.kud.hanzan.domain.model.UserResponseDto
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -35,7 +36,9 @@ interface HanzanService {
     @GET("/api/home/all")
     suspend fun getHomeData(@Query("uid") userId: Long) : HomeData
 
-    // 로그인
-    @POST("/userinfo/authrole")
-    suspend fun postUserInfo(@Body userInfo: UserInfo) : Response<Long>
+    // 로그인 & 회원가입
+    @POST("/auth/login")
+    suspend fun postUserInfo(@Body userInfo: UserInfo) : Response<UserResponseDto?>
+    @POST("/auth/signCheck")
+    suspend fun checkUserAccount(@Query("kakao_id") userId: Long) : Response<UserResponseDto?>
 }

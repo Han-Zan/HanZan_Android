@@ -16,6 +16,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     }
 
     private fun initView(){
-        binding.userInfo = UserInfo(true, "사용자", null, "고독한 미식가형", " ", 20, "이동건")
+        binding.userInfo = UserInfo("이동건", "사용자", 20,  "고독한 미식가형", " ",0, true)
     }
 }

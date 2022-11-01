@@ -79,10 +79,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             startActivity(Intent(this, SbtiActivity::class.java).apply {
                 putExtra("user_name", intent.getStringExtra("user_name"))
                 putExtra("user_nickname", binding.loginUserNameET.text.toString())
-                putExtra("user_profile", intent.getStringExtra("user_profile"))
-                putExtra("user_gender", intent.getStringExtra("user_gender"))
                 putExtra("user_age", userAge)
-                putExtra("user_token", intent.getStringExtra("user_token"))
+
+                putExtra("user_profile", intent.getStringExtra("user_profile"))
+                putExtra("user_id", intent.getLongExtra("user_id", -1))
+                putExtra("user_gender", intent.getBooleanExtra("user_gender", true))
             })
         }
     }
