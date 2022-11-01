@@ -1,6 +1,7 @@
 package com.kud.hanzan.ui.home
 
 import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.util.Log
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.kud.hanzan.HanZanApplication
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.home.HomeCombRVAdapter
 import com.kud.hanzan.databinding.ActivityHomeBinding
