@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -14,12 +13,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.kud.hanzan.R
-import com.kud.hanzan.adapter.MapStoreRVAdapter
+import com.kud.hanzan.adapter.map.MapStoreRVAdapter
 import com.kud.hanzan.databinding.FragmentMapBinding
 import com.kud.hanzan.domain.model.map.Store
 import com.kud.hanzan.utils.base.BaseFragment
@@ -30,7 +30,6 @@ import net.daum.mf.map.api.CalloutBalloonAdapter
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
-import org.jetbrains.annotations.TestOnly
 
 
 @AndroidEntryPoint
@@ -105,7 +104,14 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 //        mapView.addPOIItem(marker)
         // 리사이클러뷰 이닛
         binding.mapBottomStoreRv.apply {
-            adapter = MapStoreRVAdapter()
+            adapter = MapStoreRVAdapter().apply {
+                setStoreListener(object : MapStoreRVAdapter.StoreListener{
+                    override fun onClick(store: Store) {
+                        val action = MapFragmentDirections.actionMapFragmentToStoreFragment(store)
+                        findNavController().navigate(action)
+                    }
+                })
+            }
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }

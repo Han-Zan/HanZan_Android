@@ -35,6 +35,7 @@ interface HanzanService {
     @GET("/api/home/all")
     suspend fun getHomeData(@Query("uid") userId: Long) : HomeData
 
+    // 로그인
     @POST("/userinfo/authrole")
     suspend fun postUserInfo(@Body userInfo: UserInfo) : Response<Long>
 }

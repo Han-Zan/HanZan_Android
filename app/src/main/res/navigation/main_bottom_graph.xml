@@ -35,7 +35,12 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.kud.hanzan.ui.map.MapFragment"
-        android:label="MapFragment" />
+        android:label="MapFragment" >
+        <action
+            android:id="@+id/action_mapFragment_to_storeFragment"
+            app:destination="@id/storeFragment" >
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/cameraFragment"
         android:name="com.kud.hanzan.ui.camera.CameraFragment"
@@ -61,6 +66,14 @@
         android:id="@+id/drinkListFragment"
         android:name="com.kud.hanzan.ui.combination.DrinkListFragment"
         android:label="DrinkListFragment" />
+    <fragment
+        android:id="@+id/storeFragment"
+        android:name="com.kud.hanzan.ui.map.StoreFragment"
+        android:label="StoreFragment" >
+        <argument
+            android:name="store"
+            app:argType="com.kud.hanzan.domain.model.map.Store"/>
+    </fragment>
     <!--    <activity-->
 <!--        android:id="@+id/mainActivity"-->
 <!--        android:name="com.kud.hanzan.ui.MainActivity"-->

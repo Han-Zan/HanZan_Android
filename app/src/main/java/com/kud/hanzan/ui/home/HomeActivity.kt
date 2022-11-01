@@ -120,17 +120,17 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == REQUEST_CAMERA_PERMISSIONS){
             if (ContextCompat.checkSelfPermission(this, REQUIRED_CAMERA_PERMISSIONS[0]) == PackageManager.PERMISSION_GRANTED){
-                startScreen(0)
+                startScreen(1)
             } else {
                 Toast.makeText(this, "카메라 권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
             }
         }
         else if(requestCode == REQUEST_PLACE_PERMISSIONS){
             if (allPermissionsGranted()){
+                startScreen(2)
             } else{
                 Toast.makeText(this, "지도 권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
             }
-            startScreen(1)
         }
     }
 
