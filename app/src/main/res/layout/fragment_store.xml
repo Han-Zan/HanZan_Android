@@ -175,6 +175,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="@color/text_hint"
+                    android:fontFamily="@font/font_pretendard_semibold"                android:textFontWeight="650"
+                    android:textSize="18sp"
                     android:text="@string/store_menu_no_image_alert" />
 
                 <Button
@@ -193,14 +196,38 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:orientation="vertical"
             android:layout_marginHorizontal="40dp">
-
-        </LinearLayout>
+            <TextView
+                android:id="@+id/store_comb_title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/store_menu_comb_name"
+                android:fontFamily="@font/font_pretendard_semibold"
+                android:textFontWeight="650"
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:layout_constraintTop_toBottomOf="@id/store_comb_title_tv"
+                visibleGone="@{!store.combList.empty}"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:text="@string/store_menu_no_comb_alert"
+                android:textColor="@color/text_hint"
+                android:textSize="18sp"
+                android:fontFamily="@font/font_pretendard_semibold"                android:textFontWeight="650"
+                visibleGone="@{store.combList.empty}"
+                app:layout_constraintTop_toBottomOf="@id/store_comb_title_tv"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <Button
             android:id="@+id/store_kakao_open_btn"
             android:layout_width="wrap_content"
@@ -209,6 +236,7 @@
             android:minHeight="0dp"
             android:paddingHorizontal="20dp"
             android:paddingVertical="8dp"
+            android:layout_marginTop="60dp"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
