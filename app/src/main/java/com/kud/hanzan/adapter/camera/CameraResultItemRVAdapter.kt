@@ -11,6 +11,16 @@ class CameraResultItemRVAdapter : RecyclerView.Adapter<CameraResultItemRVAdapter
     private var itemList = ArrayList<String>()
     private lateinit var binding: ItemCameraResultBinding
 
+    interface ItemListener{
+        fun onDelete(item: String, position: Int)
+    }
+
+    private lateinit var itemListener: ItemListener
+
+    fun setCustomListener(listener: ItemListener){
+        itemListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_camera_result, parent, false)
         return ViewHolder(binding)
@@ -28,10 +38,16 @@ class CameraResultItemRVAdapter : RecyclerView.Adapter<CameraResultItemRVAdapter
         notifyDataSetChanged()
     }
 
+    fun removeItem(position: Int){
+        itemList.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     inner class ViewHolder(val binding : ItemCameraResultBinding) :  RecyclerView.ViewHolder(binding.root){
         fun bind(item: String){
             binding.item = item
             binding.itemCameraResultRemoveBtn.setOnClickListener {
+                itemListener.onDelete(item, adapterPosition)
 
             }
         }

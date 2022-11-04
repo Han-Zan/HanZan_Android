@@ -1,32 +1,27 @@
-package com.kud.hanzan.ui.map
+package com.kud.hanzan.ui.dialog
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.ImageDecoder
 import android.graphics.drawable.ColorDrawable
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.*
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.kud.hanzan.R
-import com.kud.hanzan.databinding.DialogImageSelectBinding
+import com.kud.hanzan.databinding.DialogConfirmBinding
 
-class ImageSelectDialog(private val imgUri: Uri) : DialogFragment() {
-    private lateinit var binding: DialogImageSelectBinding
+class ConfirmDialog(private val title: String, private val content: String) : DialogFragment() {
+    private lateinit var binding : DialogConfirmBinding
 
-    interface ImageSelectListener {
+    interface DialogConfirmListener {
         fun onConfirm()
     }
 
-    private lateinit var imageSelectListener: ImageSelectListener
+    private lateinit var dialogListener: DialogConfirmListener
 
-    fun setCustomListener(listener: ImageSelectListener){
-        imageSelectListener = listener
+    fun setCustomListener(listener: DialogConfirmListener){
+        dialogListener = listener
     }
 
     override fun onResume() {
@@ -51,8 +46,10 @@ class ImageSelectDialog(private val imgUri: Uri) : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_image_select, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_confirm, container, false)
+
         isCancelable = false
+
         // 모서리 직각 제거
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -61,26 +58,11 @@ class ImageSelectDialog(private val imgUri: Uri) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        with(binding){
-            setImgFromUri()
-            dialogImageCancelBtn.setOnClickListener { dismiss() }
-            dialogImageUploadBtn.setOnClickListener { imageSelectListener.onConfirm() }
-        }
-    }
 
-    private fun setImgFromUri(){
-        val bitmap: Bitmap
-        if (Build.VERSION.SDK_INT < 28) {
-            bitmap = MediaStore.Images.Media.getBitmap(
-                requireActivity().contentResolver,
-                imgUri
-            )
-            binding.dialogImageUploadIv.setImageBitmap(bitmap)
-        } else {
-            val source =
-                ImageDecoder.createSource(requireActivity().contentResolver, imgUri)
-            bitmap = ImageDecoder.decodeBitmap(source)
-            binding.dialogImageUploadIv.setImageBitmap(bitmap)
-        }
+        binding.title = title
+        binding.content = content
+
+        binding.confirmDialogCancelBtn.setOnClickListener { dismiss() }
+        binding.confirmDialogConfirmBtn.setOnClickListener { dialogListener.onConfirm() }
     }
 }

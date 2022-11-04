@@ -4,22 +4,19 @@ import android.Manifest
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.FragmentStoreBinding
 import com.kud.hanzan.domain.model.map.StoreDetail
-import com.kud.hanzan.ui.home.HomeActivity
+import com.kud.hanzan.ui.dialog.ImageSelectDialog
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
