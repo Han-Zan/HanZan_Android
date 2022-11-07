@@ -49,9 +49,9 @@
                 android:layout_margin="20dp"
                 android:overScrollMode="never"
                 app:layout_constraintTop_toBottomOf="@id/camera_result_item_food_title_tv"
-                app:layout_constraintBottom_toTopOf="@id/camera_alcohol_button_layout"/>
+                app:layout_constraintBottom_toTopOf="@id/camera_food_button_layout"/>
             <LinearLayout
-                android:id="@+id/camera_alcohol_button_layout"
+                android:id="@+id/camera_food_button_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -59,19 +59,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
                 <Button
-                    android:id="@+id/camera_alcohol_manual_btn"
+                    android:id="@+id/camera_food_manual_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/camera_result_manual"
                     android:textColor="@color/black"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="8dp"
                     android:backgroundTint="@color/white" />
                 <Button
-                    android:id="@+id/camera_alcohol_again_btn"
+                    android:id="@+id/camera_food_again_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/camera_result_again"
                     android:textColor="@color/black"
                     android:layout_marginStart="12dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="8dp"
                     android:backgroundTint="@color/white" />
             </LinearLayout>
 
@@ -102,9 +108,9 @@
                 android:layout_margin="20dp"
                 android:overScrollMode="never"
                 app:layout_constraintTop_toBottomOf="@id/camera_result_item_alcohol_title_tv"
-                app:layout_constraintBottom_toTopOf="@id/camera_food_button_layout"/>
+                app:layout_constraintBottom_toTopOf="@id/camera_alcohol_button_layout"/>
             <LinearLayout
-                android:id="@+id/camera_food_button_layout"
+                android:id="@+id/camera_alcohol_button_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -112,19 +118,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
                 <Button
-                    android:id="@+id/camera_food_manual_btn"
+                    android:id="@+id/camera_alcohol_manual_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/camera_result_manual"
                     android:textColor="@color/black"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="8dp"
                     android:backgroundTint="@color/white" />
                 <Button
-                    android:id="@+id/camera_food_again_btn"
+                    android:id="@+id/camera_alcohol_again_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/camera_result_again"
                     android:textColor="@color/black"
                     android:layout_marginStart="12dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="8dp"
                     android:backgroundTint="@color/white" />
             </LinearLayout>
 

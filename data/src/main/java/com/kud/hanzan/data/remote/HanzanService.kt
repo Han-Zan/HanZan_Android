@@ -5,6 +5,7 @@ import com.kud.hanzan.data.entity.preferred.CombResult
 import com.kud.hanzan.data.entity.preferred.DrinkResult
 import com.kud.hanzan.data.entity.preferred.PreferredCombDto
 import com.kud.hanzan.data.entity.preferred.PreferredDrinkDto
+import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.HomeData
 import com.kud.hanzan.domain.model.UserInfo
 import com.kud.hanzan.domain.model.UserResponseDto
@@ -30,15 +31,9 @@ interface HanzanService {
 
     // 술 리스트 화면
     @GET("/product/all")
-    suspend fun getDrinkList() : List<DrinkInfo>
+    suspend fun getDrinkList() : List<Drink>
 
     // 홈 화면
     @GET("/api/home/all")
     suspend fun getHomeData(@Query("uid") userId: Long) : HomeData
-
-    // 로그인 & 회원가입
-    @POST("/auth/login")
-    suspend fun postUserInfo(@Body userInfo: UserInfo) : Response<UserResponseDto?>
-    @POST("/auth/signCheck")
-    suspend fun checkUserAccount(@Query("kakao_id") userId: Long) : Response<UserResponseDto?>
 }

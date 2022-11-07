@@ -7,4 +7,5 @@ data class StoreDetail(
     val phone: String?,
     val rating: Double,
     val imgList: List<String>,
+    val combList: List<String>
 )

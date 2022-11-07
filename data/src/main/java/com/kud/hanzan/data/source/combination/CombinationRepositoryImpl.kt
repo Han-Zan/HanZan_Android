@@ -10,7 +10,5 @@ class CombinationRepositoryImpl @Inject constructor(
     private val combinationRemoteDataSource: CombinationRemoteDataSource
 ) : CombinationRepository{
     override fun getDrinkList()
-    : Flow<List<Drink>> = combinationRemoteDataSource.getDrinkList().map {
-        it.map { drink -> Drink(drink.id, drink.name, drink.category, drink.rating, drink.img, drink.tag) }
-    }
+    : Flow<List<Drink>> = combinationRemoteDataSource.getDrinkList()
 }

@@ -23,7 +23,7 @@
             android:background="@color/white">
             <ImageView
                 android:id="@+id/item_like_alcohol_iv"
-                app:imageUrl="@{alcohol.imgRes}"
+                app:imageUrl="@{alcohol.img}"
                 app:placeholder="@{@color/color_white}"
                 android:layout_marginVertical="12dp"
                 android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                 android:id="@+id/item_like_alcohol_like_cb"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:checked="true"
+                android:checked="@{alcohol.prefer, default=true}"
                 android:button="@null"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 app:layout_constraintTop_toTopOf="parent"

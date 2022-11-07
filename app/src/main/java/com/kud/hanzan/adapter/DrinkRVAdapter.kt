@@ -43,7 +43,7 @@ class DrinkRVAdapter : RecyclerView.Adapter<DrinkRVAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemDrinkBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(alcohol: Drink){
             binding.alcohol = alcohol
-            binding.itemLikeAlcoholLikeCb.isChecked = alcohol.like
+            binding.itemLikeAlcoholLikeCb.isChecked = alcohol.isPrefer
 //            if (alcohol.imgRes == null)
 //                binding.itemLikeAlcoholIv.setImageDrawable(null)
 //            else alcohol.imgRes?.let {
@@ -57,7 +57,7 @@ class DrinkRVAdapter : RecyclerView.Adapter<DrinkRVAdapter.ViewHolder>() {
                     Log.e("okhttp delete test", alcohol.id.toString())
                 }
                 else likeListener.onPost(alcohol.id)
-                alcohol.like = binding.itemLikeAlcoholLikeCb.isChecked
+                alcohol.isPrefer = binding.itemLikeAlcoholLikeCb.isChecked
             }
         }
     }

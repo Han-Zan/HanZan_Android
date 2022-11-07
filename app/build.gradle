@@ -120,4 +120,9 @@ dependencies {
     // implement firebase bom
     implementation platform('com.google.firebase:firebase-bom:30.4.1')
     implementation "com.google.firebase:firebase-messaging"
+
+    // upload s3
+    implementation 'com.amazonaws:aws-android-sdk-mobile-client:2.13.5'
+    implementation 'com.amazonaws:aws-android-sdk-cognito:2.13.5'
+    implementation 'com.amazonaws:aws-android-sdk-s3:2.13.5'
 }

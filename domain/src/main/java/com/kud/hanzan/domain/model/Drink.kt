@@ -5,7 +5,7 @@ data class Drink(
     val name: String,
     val category: Int,
     val rating: Float,
-    val imgRes: String?,
+    val img: String?,
     val tag: String,
-    var like: Boolean = true,
+    var isPrefer: Boolean
 )

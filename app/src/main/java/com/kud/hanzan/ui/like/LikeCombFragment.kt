@@ -36,11 +36,11 @@ class LikeCombFragment : BaseFragment<FragmentLikeCombinationBinding>(R.layout.f
             adapter = LikeCombRVAdapter().apply {
                 setLikeListener(object : LikeCombRVAdapter.LikeListener{
                     override fun onDelete(combId: Long) {
-                        viewModel.deleteComb(1, combId)
+                        viewModel.deleteComb(combId)
                     }
 
                     override fun onPost(combId: Long) {
-                        viewModel.postComb(1, combId)
+                        viewModel.postComb(combId)
                     }
                 })
             }

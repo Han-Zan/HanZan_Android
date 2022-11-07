@@ -80,7 +80,7 @@
 
     <!--    Main Activity-->
     <string name="app_name">한잔</string>
-<!--    Home Activity-->
+    <!--    Home Activity-->
     <string name="home_search_hint">오늘은 무슨 술과 안주를 드실건가요?</string>
     <string name="home_camera_button_text">메뉴판 촬영</string>
     <string name="home_camera_button_hint">카메라로 메뉴판을 찍어\n최고의 조홥을 확인해보세요!</string>
@@ -105,6 +105,7 @@
     <string name="store_menu_no_image_alert">등록된 이미지가 없어요.\n이미지를 추가해주세요!</string>
     <string name="store_menu_image_upload">사진 등록하기</string>
     <string name="store_menu_kakao_map">카카오맵에서 열기</string>
+    <string name="store_menu_no_comb_alert">본인이 맛있게 먹었던 조합을 선택하여\n최고의 궁합을 등록해주세요!</string>
     <!--    Combination Fragment-->
     <string name="comb_title">궁합 둘러보기</string>
     <string name="comb_drink_pick">술을 골라주세요!</string>
@@ -134,6 +135,10 @@
     <!--    Notification Channel-->
     <string name="default_notification_channel_id">default channel</string>
     <string name="default_notification_channel_name">default channel name</string>
+
+    <!--    Image Select-->
+    <string name="image_select_title">이미지 선택</string>
+    <string name="image_upload_btn">이미지 업로드</string>
 
     <string name="camera_guide_hint">메뉴판을 촬영해주세요!</string>
     <!--    Camera Result-->

@@ -21,6 +21,7 @@ class HanZanApplication : Application() {
     override fun onCreate(){
         spfManager = SharedPreferenceUtil(applicationContext)
         super.onCreate()
+        Log.e("okhttpApp", "homehome")
         application = this
 
         // Kakao SDK 초기화

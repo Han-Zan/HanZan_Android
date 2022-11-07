@@ -67,11 +67,11 @@ class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fr
             adapter = DrinkRVAdapter().apply {
                 setListener(object : DrinkRVAdapter.Listener{
                     override fun onDelete(drinkId: Long) {
-                        viewModel.deleteDrink(1, drinkId)
+                        viewModel.deleteDrink(drinkId)
                     }
 
                     override fun onPost(drinkId: Long) {
-                        viewModel.postDrink(1, drinkId)
+                        viewModel.postDrink(drinkId)
                     }
 
                 })
