@@ -1,6 +1,7 @@
 package com.kud.hanzan.ui.combination
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -8,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.tabs.TabLayout
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.DrinkRVAdapter
 import com.kud.hanzan.databinding.FragmentDrinkListBinding
@@ -33,16 +35,33 @@ class DrinkListFragment : BaseFragment<FragmentDrinkListBinding>(R.layout.fragme
         binding.viewModel = viewModel
         binding.drinkListTab.apply {
             tabInfo.forEach { t -> addTab(this.newTab().setText(t))  }
+            addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    tab?.position?.let {
+                        viewModel.setDrinkListType(it)
+                        Log.e("id position", it.toString())
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    //TODO("Not yet implemented")
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    //TODO("Not yet implemented")
+                }
+
+            })
         }
         binding.drinkListRv.apply {
             adapter = DrinkRVAdapter().apply {
                 setListener(object : DrinkRVAdapter.Listener{
                     override fun onDelete(drinkId: Long) {
-                        //TODO("Not yet implemented")
+                        viewModel.deleteDrink(drinkId)
                     }
 
                     override fun onPost(drinkId: Long) {
-                        //TODO("Not yet implemented")
+                        viewModel.postDrink(drinkId)
                     }
 
                 })

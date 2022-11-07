@@ -43,6 +43,8 @@ class CameraResultItemRVAdapter : RecyclerView.Adapter<CameraResultItemRVAdapter
         notifyItemRemoved(position)
     }
 
+    fun getItemList() = itemList.toArray()
+
     inner class ViewHolder(val binding : ItemCameraResultBinding) :  RecyclerView.ViewHolder(binding.root){
         fun bind(item: String){
             binding.item = item

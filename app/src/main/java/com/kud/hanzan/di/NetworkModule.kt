@@ -2,6 +2,7 @@ package com.kud.hanzan.di
 
 import com.kakao.sdk.network.ApiFactory.loggingInterceptor
 import com.kud.hanzan.HanZanApplication.Companion.spfManager
+import com.kud.hanzan.utils.AuthInterceptor
 import com.kud.hanzan.utils.Utils.BASE_URL
 import com.kud.hanzan.utils.Utils.KAKAO_BASE_URL
 import com.kud.hanzan.utils.Utils.KAKAO_REST_API_KEY
@@ -21,13 +22,20 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
+    // 카카오 API 담당 레트로핏
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class KakaoRetrofit
 
+    // 한잔 서비스 API 담당 레트로핏
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class HanZanRetrofit
+
+    // 한잔 로그인 전용 API 레트로핏
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class HanZanLoginRetrofit
 
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
@@ -36,6 +44,10 @@ object NetworkModule {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class HanZanInterceptor
+
+    @Provides
+    @Singleton
+    fun provideAuthInterceptor(authInterceptor: AuthInterceptor) : Interceptor = authInterceptor
 
     @Provides
     @Singleton
@@ -52,6 +64,17 @@ object NetworkModule {
     @Singleton
     @HanZanRetrofit
     fun provideRetrofit(gsonConverterFactory: GsonConverterFactory, @HanZanRetrofit client: OkHttpClient) : Retrofit{
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(gsonConverterFactory)
+            .client(client)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @HanZanLoginRetrofit
+    fun provideLoginRetrofit(gsonConverterFactory: GsonConverterFactory, @HanZanLoginRetrofit client: OkHttpClient) : Retrofit{
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(gsonConverterFactory)
@@ -78,13 +101,23 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    @HanZanRetrofit
-    fun provideHttpClient(loggingInterceptor: HttpLoggingInterceptor, @HanZanInterceptor headerInterceptor: Interceptor) : OkHttpClient {
+    @HanZanLoginRetrofit
+    fun provideLoginHttpClient(loggingInterceptor: HttpLoggingInterceptor) : OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .apply {
-                if(spfManager.checkUserToken()) addInterceptor(headerInterceptor)
-            }
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    @HanZanRetrofit
+    fun provideHttpClient(loggingInterceptor: HttpLoggingInterceptor, authInterceptor: AuthInterceptor) : OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .addInterceptor(authInterceptor)
+//            .apply {
+//                if(spfManager.checkUserToken()) addInterceptor(headerInterceptor.get())
+//            }
             .build()
     }
 
@@ -107,17 +140,17 @@ object NetworkModule {
         }
     }
 
-    @Provides
-    @Singleton
-    @HanZanInterceptor
-    fun provideHeaderInterceptor(): Interceptor = Interceptor { chain ->
-        chain.run {
-            proceed(
-                request()
-                    .newBuilder()
-                    .addHeader("Authorization", spfManager.getUserToken())
-                    .build()
-            )
-        }
-    }
+//    @Provides
+//    @Singleton
+//    @HanZanInterceptor
+//    fun provideHeaderInterceptor(): Interceptor = Interceptor { chain ->
+//        chain.run {
+//            proceed(
+//                request()
+//                    .newBuilder()
+//                    .addHeader("Authorization", spfManager.getUserToken())
+//                    .build()
+//            )
+//        }
+//    }
 }

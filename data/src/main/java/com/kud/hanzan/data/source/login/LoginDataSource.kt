@@ -3,7 +3,7 @@ package com.kud.hanzan.data.source.login
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.android.material.tabs.TabLayout.TabGravity
-import com.kud.hanzan.data.remote.HanzanService
+import com.kud.hanzan.data.remote.HanzanLoginService
 import com.kud.hanzan.domain.model.UserInfo
 import com.kud.hanzan.domain.model.UserResponseDto
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class LoginDataSource @Inject constructor(
-    private val hanzanService: HanzanService
+    private val hanzanService: HanzanLoginService
 ){
     suspend fun postUserInfo(userInfo: UserInfo): UserResponseDto {
         val userResponseDto : UserResponseDto = UserResponseDto(0, "error0")

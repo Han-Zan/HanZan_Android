@@ -43,7 +43,7 @@ class LikeViewModel @Inject constructor(
         getAlcohol(userIdx)
     }
 
-    fun getComb(userId: Long){
+    private fun getComb(userId: Long){
         viewModelScope.launch {
             getCombUseCase(userId)
                 .catch { _combData.value = listOf(
@@ -59,7 +59,7 @@ class LikeViewModel @Inject constructor(
         }
     }
 
-    fun getAlcohol(userId: Long){
+    private fun getAlcohol(userId: Long){
         viewModelScope.launch {
             getDrinkUseCase(userId)
                 .catch { _alcoholData.value = emptyList() }
@@ -70,33 +70,33 @@ class LikeViewModel @Inject constructor(
         }
     }
 
-    fun deleteComb(userId: Long, combId: Long){
+    fun deleteComb(combId: Long){
         viewModelScope.launch {
-            deleteCombUseCase(userId, combId)
+            deleteCombUseCase(userIdx, combId)
                 .catch {  }
                 .collect ()
         }
     }
 
-    fun deleteDrink(userId: Long, drinkId: Long){
+    fun deleteDrink(drinkId: Long){
         viewModelScope.launch {
-            deleteDrinkUseCase(userId, drinkId)
+            deleteDrinkUseCase(userIdx, drinkId)
                 .catch {  }
                 .collect()
         }
     }
 
-    fun postComb(userId: Long, combId: Long){
+    fun postComb(combId: Long){
         viewModelScope.launch {
-            postCombUseCase(userId, combId)
+            postCombUseCase(userIdx, combId)
                 .catch {  }
                 .collect()
         }
     }
 
-    fun postDrink(userId: Long, drinkId: Long){
+    fun postDrink(drinkId: Long){
         viewModelScope.launch {
-            postDrinkUseCase(userId, drinkId)
+            postDrinkUseCase(userIdx, drinkId)
                 .catch {  }
                 .collect()
         }

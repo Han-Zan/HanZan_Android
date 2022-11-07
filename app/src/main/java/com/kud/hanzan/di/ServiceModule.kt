@@ -1,5 +1,6 @@
 package com.kud.hanzan.di
 
+import com.kud.hanzan.data.remote.HanzanLoginService
 import com.kud.hanzan.data.remote.HanzanService
 import com.kud.hanzan.data.remote.KakaoService
 import dagger.Module
@@ -22,5 +23,11 @@ object ServiceModule {
     @Singleton
     fun provideHanzanService(@NetworkModule.HanZanRetrofit retrofit: Retrofit) : HanzanService{
         return retrofit.create(HanzanService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideHanzanLoginService(@NetworkModule.HanZanLoginRetrofit retrofit: Retrofit) : HanzanLoginService{
+        return retrofit.create(HanzanLoginService::class.java)
     }
 }

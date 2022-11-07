@@ -75,8 +75,10 @@ class CameraResultActivity : BaseActivity<ActivityCameraResultBinding>(R.layout.
             // Todo : 갔다 와서 찍으면 이미지 추가
             cameraAlcoholAgainBtn.setOnClickListener {
                 val intent = Intent(this@CameraResultActivity, MainActivity::class.java)
-                intent.putExtra("alcoholList", arrayOf("소주, 맥주, 양주, 와인"))
-                intent.putExtra("foodList", arrayOf("치킨", "햄버거", "피자"))
+                val alcoholList = (cameraResultItemAlcoholRv.adapter as CameraResultItemRVAdapter).getItemList()
+                val drinkList = (cameraResultItemFoodRv.adapter as CameraResultItemRVAdapter).getItemList()
+                intent.putExtra("alcoholList", alcoholList)
+                intent.putExtra("foodList", drinkList)
                 setResult(RESULT_OK, intent)
                 onBackPressed()
             }
