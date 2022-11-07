@@ -1,5 +1,6 @@
 package com.kud.hanzan.ui.camera
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,8 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.video.OutputFileOptions
@@ -23,8 +26,6 @@ import com.kud.hanzan.R
 import com.kud.hanzan.databinding.FragmentCameraBinding
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.utils.base.BaseFragment
-import com.kud.hanzan.vision.findSimilarity
-import com.kud.hanzan.vision.getTrimmedString
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.random.Random
 
@@ -53,9 +54,20 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
     // Camera Shutter Animation
     private lateinit var cameraAnimationListener: Animation.AnimationListener
 
+    // Todo : 임시
+    private lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { it ->
+            if(it.resultCode == Activity.RESULT_OK){
+                // Todo : 해당 값들 저장하고 onDestroy 할 때 지우기?
+                Log.e("camera again drink", it.data?.getStringArrayExtra("alcoholList")?.contentToString()!!)
+                Log.e("camera again food", it.data?.getStringArrayExtra("foodList")?.contentToString()!!)
+            }
+        }
         setAnimationListener()
         initListener()
         sampleGraphicOverlay()
@@ -136,11 +148,11 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                                 var text = ""
                                 val resultText = visionText.textBlocks
                                 for (element in resultText) {
-                                    val trimStr = getTrimmedString(element.text)
-                                    text += trimStr + "\n"
-                                    if (findSimilarity(trimStr, "Ferrari Perle") > 0.5){
-                                        Log.e("camera test result success", findSimilarity(trimStr, "Ferrari Perle").toString())
-                                    }
+//                                    val trimStr = getTrimmedString(element.text)
+                                    text += "$element\n"
+//                                    if (findSimilarity(trimStr, "Ferrari Perle") > 0.5){
+//                                        Log.e("camera test result success", findSimilarity(trimStr, "Ferrari Perle").toString())
+//                                    }
                                 }
                                 Log.e("camera result", text)
                                 image.close()
@@ -162,8 +174,9 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
 
             override fun onAnimationEnd(p0: Animation?) {
                 binding.cameraShutterFrame.visibility = View.GONE
-                val action = CameraFragmentDirections.actionCameraFragmentToCameraResultActivity()
-                findNavController().navigate(action)
+                activityResultLauncher.launch(Intent(requireActivity(), CameraResultActivity::class.java))
+//                val action = CameraFragmentDirections.actionCameraFragmentToCameraResultActivity()
+//                findNavController().navigate(action)
             }
 
             override fun onAnimationRepeat(p0: Animation?) {

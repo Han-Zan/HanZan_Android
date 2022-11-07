@@ -14,9 +14,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.kud.hanzan.HanZanApplication
+import com.kud.hanzan.HanZanApplication.Companion.spfManager
+import com.kud.hanzan.HanZanApplication_HiltComponents
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.home.HomeCombRVAdapter
 import com.kud.hanzan.databinding.ActivityHomeBinding
+import com.kud.hanzan.di.NetworkModule
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +32,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     private var backKeyPressedTime: Long = 0
 
     // 임시
-    private var userIdx : Long = 1
+    private var userIdx : Long = spfManager.getUserIdx()
 
     companion object {
         private const val REQUEST_CAMERA_PERMISSIONS = 10
@@ -47,7 +50,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     override fun initView() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-        // Todo : UserIdx Spf 에서 받아오기
+
         viewModel.getData(userIdx)
         binding.homeCombRv.apply {
             adapter = HomeCombRVAdapter().apply {

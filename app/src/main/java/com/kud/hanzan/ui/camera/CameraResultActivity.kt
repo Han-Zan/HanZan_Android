@@ -1,6 +1,9 @@
 package com.kud.hanzan.ui.camera
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
@@ -10,6 +13,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.camera.CameraResultItemRVAdapter
 import com.kud.hanzan.databinding.ActivityCameraResultBinding
+import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.ui.dialog.ConfirmDialog
 import com.kud.hanzan.utils.base.BaseActivity
 import com.kud.hanzan.utils.base.BaseFragment
@@ -62,8 +66,21 @@ class CameraResultActivity : BaseActivity<ActivityCameraResultBinding>(R.layout.
                 layoutManager = FlexboxLayoutManager(context)
             }
         }
-
+        initListener()
         initObserver()
+    }
+
+    private fun initListener(){
+        with(binding){
+            // Todo : 갔다 와서 찍으면 이미지 추가
+            cameraAlcoholAgainBtn.setOnClickListener {
+                val intent = Intent(this@CameraResultActivity, MainActivity::class.java)
+                intent.putExtra("alcoholList", arrayOf("소주, 맥주, 양주, 와인"))
+                intent.putExtra("foodList", arrayOf("치킨", "햄버거", "피자"))
+                setResult(RESULT_OK, intent)
+                onBackPressed()
+            }
+        }
     }
 
     private fun initObserver(){

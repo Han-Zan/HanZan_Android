@@ -2,6 +2,7 @@ package com.kud.hanzan.ui.like
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kud.hanzan.HanZanApplication.Companion.spfManager
 import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.Combination
 import com.kud.hanzan.domain.usecase.preferred.*
@@ -35,9 +36,11 @@ class LikeViewModel @Inject constructor(
     private var searchKeyword: String? = null
     private var type = 0
 
+    private val userIdx = spfManager.getUserIdx()
+
     init {
-        getComb(1)
-        getAlcohol(1)
+        getComb(userIdx)
+        getAlcohol(userIdx)
     }
 
     fun getComb(userId: Long){

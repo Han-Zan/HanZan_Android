@@ -1,6 +1,7 @@
 package com.kud.hanzan.di
 
 import com.kakao.sdk.network.ApiFactory.loggingInterceptor
+import com.kud.hanzan.HanZanApplication.Companion.spfManager
 import com.kud.hanzan.utils.Utils.BASE_URL
 import com.kud.hanzan.utils.Utils.KAKAO_BASE_URL
 import com.kud.hanzan.utils.Utils.KAKAO_REST_API_KEY
@@ -27,6 +28,14 @@ object NetworkModule {
     @Qualifier
     @Retention(AnnotationRetention.BINARY)
     annotation class HanZanRetrofit
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class KakaoInterceptor
+
+    @Qualifier
+    @Retention(AnnotationRetention.BINARY)
+    annotation class HanZanInterceptor
 
     @Provides
     @Singleton
@@ -60,7 +69,7 @@ object NetworkModule {
     @Provides
     @Singleton
     @KakaoRetrofit
-    fun provideKakaoHttpClient(loggingInterceptor: HttpLoggingInterceptor, headerInterceptor: Interceptor) : OkHttpClient {
+    fun provideKakaoHttpClient(loggingInterceptor: HttpLoggingInterceptor, @KakaoInterceptor headerInterceptor: Interceptor) : OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .addInterceptor(headerInterceptor)
@@ -70,9 +79,12 @@ object NetworkModule {
     @Provides
     @Singleton
     @HanZanRetrofit
-    fun provideHttpClient(loggingInterceptor: HttpLoggingInterceptor) : OkHttpClient {
+    fun provideHttpClient(loggingInterceptor: HttpLoggingInterceptor, @HanZanInterceptor headerInterceptor: Interceptor) : OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .apply {
+                if(spfManager.checkUserToken()) addInterceptor(headerInterceptor)
+            }
             .build()
     }
 
@@ -83,7 +95,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideHeaderInterceptor() : Interceptor = Interceptor {
+    @KakaoInterceptor
+    fun provideKakaoHeaderInterceptor() : Interceptor = Interceptor {
             chain -> chain.run{
                 proceed(
                     request()
@@ -91,6 +104,20 @@ object NetworkModule {
                         .addHeader("Authorization", KAKAO_REST_API_KEY)
                         .build()
                 )
+        }
+    }
+
+    @Provides
+    @Singleton
+    @HanZanInterceptor
+    fun provideHeaderInterceptor(): Interceptor = Interceptor { chain ->
+        chain.run {
+            proceed(
+                request()
+                    .newBuilder()
+                    .addHeader("Authorization", spfManager.getUserToken())
+                    .build()
+            )
         }
     }
 }
