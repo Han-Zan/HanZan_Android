@@ -3,6 +3,7 @@ package com.kud.hanzan.ui.combination
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -39,7 +40,6 @@ class DrinkListFragment : BaseFragment<FragmentDrinkListBinding>(R.layout.fragme
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     tab?.position?.let {
                         viewModel.setDrinkListType(it)
-                        Log.e("id position", it.toString())
                     }
                 }
 
@@ -53,6 +53,7 @@ class DrinkListFragment : BaseFragment<FragmentDrinkListBinding>(R.layout.fragme
 
             })
         }
+
         binding.drinkListRv.apply {
             adapter = DrinkRVAdapter().apply {
                 setListener(object : DrinkRVAdapter.Listener{
@@ -67,6 +68,32 @@ class DrinkListFragment : BaseFragment<FragmentDrinkListBinding>(R.layout.fragme
                 })
             }
             layoutManager = GridLayoutManager(requireContext(), 3)
+        }
+
+
+        binding.drinkListToolbar.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.search_menu -> {
+                    val searchView = it.actionView as SearchView
+                    searchView.queryHint = getString(R.string.like_search_hint)
+                    searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+                        override fun onQueryTextSubmit(query: String?): Boolean {
+                            query?.let{
+                                    str -> viewModel.search(str)
+                            }
+                            return true
+                        }
+
+                        override fun onQueryTextChange(newText: String?): Boolean {
+                            if (newText.isNullOrEmpty())
+                                viewModel.searchClose()
+                            return true
+                        }
+                    })
+                    true
+                }
+                else -> false
+            }
         }
     }
 
