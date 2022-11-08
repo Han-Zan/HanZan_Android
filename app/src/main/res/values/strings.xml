@@ -116,6 +116,9 @@
     <!--    Drink List Fragment-->
     <string name="drink_list_title">술 리스트</string>
 
+    <!--    Food Category Fragment-->
+    <string name="food_category_title">안주 카테고리</string>
+
     <!--    Profile Fragment-->
     <string name="profile_title">나의 한잔</string>
     <string name="profile_my_setting_title">내 정보</string>
