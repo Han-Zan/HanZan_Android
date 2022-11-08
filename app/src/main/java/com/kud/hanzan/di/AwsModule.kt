@@ -6,6 +6,7 @@ import com.amazonaws.mobileconnectors.s3.transferutility.TransferUtility
 import com.amazonaws.regions.Region
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.s3.AmazonS3Client
+import com.kud.hanzan.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,5 +34,5 @@ object AwsModule {
 
     @Provides
     @Singleton
-    fun provideAwsCredential() : BasicAWSCredentials = BasicAWSCredentials("AKIAV3NWTKW2VVMCLGH7", "sZDF8T3jYiknljrqx2uil+78Dmu2gKsiWE12wKfD")
+    fun provideAwsCredential() : BasicAWSCredentials = BasicAWSCredentials(BuildConfig.AWS_ACCESS_KEY, BuildConfig.AWS_SECRET_KEY)
 }
