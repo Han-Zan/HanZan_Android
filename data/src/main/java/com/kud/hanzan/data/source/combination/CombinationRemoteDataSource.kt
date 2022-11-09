@@ -12,7 +12,7 @@ import javax.inject.Inject
 class CombinationRemoteDataSource @Inject constructor(
     private val hanzanService: HanzanService
 ) : CombinationDataSource {
-    override fun getDrinkList(): Flow<List<Drink>> = flow {
-        emit(hanzanService.getDrinkList())
+    override fun getDrinkList(userIdx: Long): Flow<List<Drink>> = flow {
+        emit(hanzanService.getDrinkList(userIdx).sortedBy { d -> d.name })
     }.flowOn(Dispatchers.IO)
 }
