@@ -61,11 +61,18 @@
         <action
             android:id="@+id/action_combinationFragment_to_drinkListFragment"
             app:destination="@id/drinkListFragment" />
+        <action
+            android:id="@+id/action_combinationFragment_to_foodCategoryFragment"
+            app:destination="@+id/foodCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/drinkListFragment"
         android:name="com.kud.hanzan.ui.combination.DrinkListFragment"
         android:label="DrinkListFragment" />
+    <fragment
+        android:id="@+id/foodCategoryFragment"
+        android:name="com.kud.hanzan.ui.combination.FoodCategoryFragment"
+        android:label="FoodCategoryFragment"/>
     <fragment
         android:id="@+id/storeFragment"
         android:name="com.kud.hanzan.ui.map.StoreFragment"

@@ -119,6 +119,10 @@
     <!--    Food Category Fragment-->
     <string name="food_category_title">안주 카테고리</string>
 
+    <!--    Food List Fragment-->
+    <string name="food_list_title">안주 리스트</string>
+    <string name="food_list_style">안주 스타일</string>
+
     <!--    Profile Fragment-->
     <string name="profile_title">나의 한잔</string>
     <string name="profile_my_setting_title">내 정보</string>

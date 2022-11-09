@@ -9,12 +9,7 @@ import com.kud.hanzan.utils.base.BaseFragment
 class FoodCategoryFragment : BaseFragment<FragmentFoodCategoryBinding>(R.layout.fragment_food_category) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView()
         initListener()
-    }
-
-    private fun initView() {
-
     }
 
     private fun initListener() {
