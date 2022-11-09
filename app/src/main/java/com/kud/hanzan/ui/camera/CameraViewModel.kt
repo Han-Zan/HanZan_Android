@@ -10,20 +10,30 @@ import javax.inject.Inject
 @HiltViewModel
 class CameraViewModel @Inject constructor(
 ): ViewModel() {
-    private var _alcoholLiveData = MutableLiveData<List<String>>()
-    val alcoholLiveData : LiveData<List<String>>
-        get() = _alcoholLiveData
+    private var _drinkLiveData = MutableLiveData<MutableList<String>>()
+    val drinkLiveData : LiveData<MutableList<String>>
+        get() = _drinkLiveData
 
-    private var _foodLiveData = MutableLiveData<List<String>>()
-    val foodLiveData : LiveData<List<String>>
+    private var _foodLiveData = MutableLiveData<MutableList<String>>()
+    val foodLiveData : LiveData<MutableList<String>>
         get() = _foodLiveData
 
     init {
-        _alcoholLiveData.value = listOf("고든", "참이슬", "샤르도네", "소비뇽 블랑")
-        _foodLiveData.value = listOf("닭발", "치즈", "치킨", "파전", "초콜릿")
+        _drinkLiveData.value = mutableListOf("참이슬", "처음처럼", "진로", "아이셔에 이슬", "비타500에 이슬", "테라", "하이트", "카스")
+        _foodLiveData.value = mutableListOf()
     }
 
+    fun deleteDrinkItem(position: Int){
+        _drinkLiveData.value?.removeAt(position)
+    }
 
-    fun getItemNull() : Boolean = alcoholLiveData.value.isNullOrEmpty() || foodLiveData.value.isNullOrEmpty()
+    fun deleteFoodItem(position: Int){
+        _foodLiveData.value?.removeAt(position)
+    }
+
+    // progress 리턴
+    fun getProgress() : Int = if (_drinkLiveData.value?.isNotEmpty() == true && _foodLiveData.value?.isNotEmpty() == true) 100
+        else if (_drinkLiveData.value?.isEmpty() == true && _foodLiveData.value?.isEmpty() == true) 0
+        else 50
 
 }

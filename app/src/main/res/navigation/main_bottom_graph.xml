@@ -7,14 +7,6 @@
     >
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.kud.hanzan.ui.home.HomeFragment"
-        android:label="HomeFragment" >
-        <action
-            android:id="@+id/action_homeFragment_to_searchActivity"
-            app:destination="@id/searchActivity" />
-    </fragment>
-    <fragment
         android:id="@+id/likeFragment"
         android:name="com.kud.hanzan.ui.like.LikeFragment"
         android:label="LikeFragment" >

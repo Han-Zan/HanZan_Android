@@ -147,7 +147,11 @@
     <string name="camera_result_food_list">안주 리스트</string>
     <string name="camera_result_alcohol_list">술 리스트</string>
     <string name="camera_result_manual">직접 입력하기</string>
-    <string name="camera_result_again">다시 찍기</string>
+    <string name="camera_result_drink_again">술 추가 찍기</string>
+    <string name="camera_result_food_again">안주 추가 찍기</string>
+    <string name="camera_result_no_drink">"직접 추가하기" 또는 "술 추가 찍기" 버튼을 눌러서 술 사진을 찍어주세요!</string>
+    <string name="camera_result_no_food">"직접 추가하기" 또는 "안주 추가 찍기" 버튼을 눌러서 안주 사진을 찍어주세요!</string>
+
     <!--    Button Content Description-->
     <string name="white_glass">white glass</string>
     <string name="yellow_glass">yellow glass</string>
