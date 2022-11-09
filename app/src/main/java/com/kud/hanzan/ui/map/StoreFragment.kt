@@ -61,7 +61,7 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
 
     private fun initView(){
         val store = storeArgs.store
-        binding.store = StoreDetail(store.id, store.name, store.address, store.phone, 4.2, emptyList(), emptyList())
+        binding.store = StoreDetail(store.id.toLong(), store.name, store.address, store.phone, 4.2, emptyList(), emptyList())
 
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { it ->
             if(it.resultCode == Activity.RESULT_OK){

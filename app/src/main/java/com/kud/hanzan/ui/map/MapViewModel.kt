@@ -43,7 +43,11 @@ class MapViewModel @Inject constructor(
                 // 오류 처리 로직
                 .catch { _placeSearchInfo.value = PlaceUiState.Error(it) }
                 .collectLatest{
-                    _placeSearchInfo.value = PlaceUiState.Success(it)
+                    if (it.isEmpty()){
+//                        _placeSearchInfo.value = PlaceUiState.Empty("검색 결과가 없습니다.")
+                    } else {
+                        _placeSearchInfo.value = PlaceUiState.Success(it)
+                    }
                 }
         }
     }
@@ -72,7 +76,7 @@ class MapViewModel @Inject constructor(
                         storeList.addAll(it)
                     }
             }
-            _placeNearInfo.value = storeList.sortedBy { s -> s.distance }
+            _placeNearInfo.value = storeList
         }
     }
 
@@ -84,6 +88,7 @@ class MapViewModel @Inject constructor(
 }
 
 sealed class PlaceUiState {
-    data class Success(val placeList: List<Place>): PlaceUiState()
+    data class Success(val placeList: List<Store>): PlaceUiState()
+//    data class Empty(val str: String) : PlaceUiState()
     data class Error(val exception: Throwable): PlaceUiState()
 }
