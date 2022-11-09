@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.camera.CameraResultItemRVAdapter
 import com.kud.hanzan.databinding.ActivityCameraResultBinding
@@ -21,12 +22,20 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CameraResultActivity : BaseActivity<ActivityCameraResultBinding>(R.layout.activity_camera_result){
+    companion object{
+        private val tabInfo = listOf("술 리스트", "안주 리스트")
+    }
     private val viewModel by viewModels<CameraViewModel>()
 
     override fun initView(){
+        binding.progress = 50
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         with(binding){
+            cameraResultTab.apply {
+                tabInfo.forEach{ t -> newTab().text = t }
+            }
+
             cameraResultItemFoodRv.apply {
                 adapter = CameraResultItemRVAdapter().apply {
                     setCustomListener(object : CameraResultItemRVAdapter.ItemListener{
