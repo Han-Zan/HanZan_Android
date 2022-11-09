@@ -34,6 +34,9 @@ class MapViewModel @Inject constructor(
 
     private var _cacheRoadAddress : String = _roadAddress.value
 
+    var centerX: Double? = null
+    var centerY: Double? = null
+
     fun getKeyWordPlace(keyword: String) {
         viewModelScope.launch {
             keywordUseCase(keyword)
@@ -46,6 +49,8 @@ class MapViewModel @Inject constructor(
     }
 
     fun setRoadAddress(longitude: String, latitude: String){
+        centerX = longitude.toDouble()
+        centerY = latitude.toDouble()
         viewModelScope.launch {
             roadAddressUseCase(longitude, latitude)
                 .catch { _roadAddress.value = _cacheRoadAddress }
@@ -69,6 +74,11 @@ class MapViewModel @Inject constructor(
             }
             _placeNearInfo.value = storeList.sortedBy { s -> s.distance }
         }
+    }
+
+    fun getCurrentPos() : List<Double>? {
+        return if (centerX == null || centerY == null) null
+        else listOf(centerX!!, centerY!!)
     }
 
 }
