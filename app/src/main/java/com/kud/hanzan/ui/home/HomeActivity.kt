@@ -51,6 +51,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        Log.e("okhttpHome", "homehome")
         viewModel.getData(userIdx)
         binding.homeCombRv.apply {
             adapter = HomeCombRVAdapter().apply {

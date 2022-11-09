@@ -9,6 +9,6 @@ import javax.inject.Inject
 class CombinationRepositoryImpl @Inject constructor(
     private val combinationRemoteDataSource: CombinationRemoteDataSource
 ) : CombinationRepository{
-    override fun getDrinkList(userIdx: Long)
-    : Flow<List<Drink>> = combinationRemoteDataSource.getDrinkList(userIdx)
+    override fun getDrinkList()
+    : Flow<List<Drink>> = combinationRemoteDataSource.getDrinkList()
 }
