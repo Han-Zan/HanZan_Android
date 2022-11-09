@@ -7,9 +7,6 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
 android {
     compileSdk 32
 
@@ -21,11 +18,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField "String", "AWS_ACCESS_KEY", properties["aws_access_key"]
-        buildConfigField "String", "AWS_SECRET_KEY", properties["aws_secret_key"]
-        buildConfigField "String", "KAKAO_API_KEY", properties["kakao_api_key"]
-        buildConfigField "String", "KAKAO_REST_API_KEY", properties["kakao_rest_api_key"]
     }
 
     buildTypes {
