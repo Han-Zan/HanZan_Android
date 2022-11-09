@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetDrinkListUseCase @Inject constructor(
     private val repository: CombinationRepository
 ) {
-    operator fun invoke() = repository.getDrinkList()
+    operator fun invoke(userIdx: Long) = repository.getDrinkList(userIdx)
 }
