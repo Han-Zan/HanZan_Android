@@ -1,11 +1,11 @@
 package com.kud.hanzan.di
 
 import com.kakao.sdk.network.ApiFactory.loggingInterceptor
+import com.kud.hanzan.BuildConfig
 import com.kud.hanzan.HanZanApplication.Companion.spfManager
 import com.kud.hanzan.utils.AuthInterceptor
 import com.kud.hanzan.utils.Utils.BASE_URL
 import com.kud.hanzan.utils.Utils.KAKAO_BASE_URL
-import com.kud.hanzan.utils.Utils.KAKAO_REST_API_KEY
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -134,7 +134,7 @@ object NetworkModule {
                 proceed(
                     request()
                         .newBuilder()
-                        .addHeader("Authorization", KAKAO_REST_API_KEY)
+                        .addHeader("Authorization", BuildConfig.KAKAO_REST_API_KEY)
                         .build()
                 )
         }

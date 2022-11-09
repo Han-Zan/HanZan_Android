@@ -21,11 +21,10 @@ class HanZanApplication : Application() {
     override fun onCreate(){
         spfManager = SharedPreferenceUtil(applicationContext)
         super.onCreate()
-        Log.e("okhttpApp", "homehome")
         application = this
 
         // Kakao SDK 초기화
-        KakaoSdk.init(this, "f76c6d489dc7a0a0681987b5cee91ed9")
+        KakaoSdk.init(this, BuildConfig.KAKAO_API_KEY)
         // hashkey 얻기
         val keyHash = Utility.getKeyHash(this)
         Log.e("keyHash", keyHash)
