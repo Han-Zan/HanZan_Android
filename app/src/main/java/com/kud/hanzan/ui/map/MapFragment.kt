@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -38,6 +37,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
     private lateinit var mapView: MapView
+
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     // setCurrentLocation이 처음 호출되었는지 여부 판단
@@ -67,20 +67,20 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         observe()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+//        binding.isPickupShown = binding.mapPickupNearCb.isChecked
+//        binding.isNearShown = binding.mapPickupNearCb.isChecked
+    }
+
     private fun initView(){
         // 맵뷰 초기화
         mapView = MapView(activity)
         binding.kakaoMapView.addView(mapView)
-
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        checkPermission()
         mapView.setMapViewEventListener(this)
-
-        // Todo : 돌아 왔을 때 기존 포커스로 돌아오기
-        val currentPos = viewModel.getCurrentPos()
-        if (currentPos == null) checkPermission()
-        else viewModel.getCurrentPos()?.let {
-            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(it[1], it[0]), false)
-        }
 
         // bottomSheetBehavior 초기화
         bottomSheetBehavior = BottomSheetBehavior.from(binding.mapBottomLayout)
@@ -336,9 +336,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     }
     override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {
         // 도로명 주소 알아오기
-        p0?.let{ p1?.let {
-            viewModel.setRoadAddress(it.mapPointGeoCoord.longitude.toString(), it.mapPointGeoCoord.latitude.toString())
-        }}
+        p0?.let{ p1?.let { viewModel.setRoadAddress(it.mapPointGeoCoord.longitude.toString(), it.mapPointGeoCoord.latitude.toString()) }}
         binding.focusChanged = true
     }
 
