@@ -5,13 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.combination.FoodListFragment">
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.kud.hanzan.ui.combination.FoodListViewModel" />
-    </data>
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="viewModel"-->
+<!--            type="com.kud.hanzan.ui.combination.FoodListViewModel" />-->
+<!--    </data>-->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -40,51 +40,33 @@
                     android:textAppearance="@style/customToolbarTitle"
                     android:layout_gravity="center"/>
             </androidx.appcompat.widget.Toolbar>
+
+            <Button
+                android:id="@+id/food_list_style_btn"
+                style="@style/Widget.Material3.Button.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/bg_plate_white_glass"
+                android:clickable="true"
+                android:minHeight="0dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="6dp"
+                android:text="@string/food_list_style"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null"
+                app:icon="@drawable/ic_down"
+                app:iconGravity="textEnd"
+                app:iconPadding="4dp"
+                app:iconTint="@color/white" />
         </com.google.android.material.appbar.AppBarLayout>
-
-        <Button
-            android:id="@+id/food_list_style_btn"
-            style="@style/Widget.Material3.Button.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/like_basic_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/bg_plate_white_glass"
-            android:clickable="true"
-            android:minHeight="0dp"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="6dp"
-            android:text="@string/food_list_style"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:backgroundTint="@null"
-            app:icon="@drawable/ic_down"
-            app:iconGravity="textEnd"
-            app:iconPadding="4dp"
-            app:iconTint="@color/white" />
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/food_list_circular_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:indeterminate="true"
-            visibleGone="@{viewModel.isLoading()}"
-            android:layout_gravity="center"/>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/food_list_style_btn"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="8dp"
             android:overScrollMode="never"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" >
@@ -101,8 +83,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="10dp"
                     android:overScrollMode="never"
-                    visibleInvisible="@{!viewModel.isLoading()}" />
+                    android:nestedScrollingEnabled="false"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

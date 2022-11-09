@@ -51,28 +51,12 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/food_category_beef_btn"
+                    android:id="@+id/food_category_meat_btn"
                     android:background="@null"
                     android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_beef"
+                    android:src="@drawable/ic_food_meat"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1" />
-
-                <ImageButton
-                    android:id="@+id/food_category_pork_btn"
-                    android:background="@null"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_pork"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
-
-                <ImageButton
-                    android:id="@+id/food_category_chicken_btn"
-                    android:background="@null"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_chicken"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
 
                 <ImageButton
                     android:id="@+id/food_category_fish_btn"
@@ -91,18 +75,18 @@
                     android:layout_rowWeight="1"/>
 
                 <ImageButton
-                    android:id="@+id/food_category_pasta_btn"
+                    android:id="@+id/food_category_soup_btn"
                     android:background="@null"
                     android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_pasta"
+                    android:src="@drawable/ic_food_soup"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"/>
 
                 <ImageButton
-                    android:id="@+id/food_category_spicy_btn"
+                    android:id="@+id/food_category_dry_btn"
                     android:background="@null"
                     android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_spicy"
+                    android:src="@drawable/ic_food_dry"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"/>
 
@@ -115,18 +99,18 @@
                     android:layout_rowWeight="1"/>
 
                 <ImageButton
-                    android:id="@+id/food_category_salad_btn"
-                    android:background="@null"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_salad"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
-
-                <ImageButton
                     android:id="@+id/food_category_dessert_btn"
                     android:background="@null"
                     android:layout_margin="4dp"
                     android:src="@drawable/ic_food_dessert"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"/>
+
+                <ImageButton
+                    android:id="@+id/food_category_etc_btn"
+                    android:background="@null"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/ic_food_etc"
                     android:layout_columnWeight="1"
                     android:layout_rowWeight="1"/>
             </GridLayout>

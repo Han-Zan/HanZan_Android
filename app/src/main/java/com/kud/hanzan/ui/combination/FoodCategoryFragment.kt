@@ -2,6 +2,7 @@ package com.kud.hanzan.ui.combination
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.FragmentFoodCategoryBinding
 import com.kud.hanzan.utils.base.BaseFragment
@@ -14,14 +15,9 @@ class FoodCategoryFragment : BaseFragment<FragmentFoodCategoryBinding>(R.layout.
 
     private fun initListener() {
         with(binding) {
-            foodCategoryBeefBtn.setOnClickListener {
-
-            }
-            foodCategoryPorkBtn.setOnClickListener {
-
-            }
-            foodCategoryChickenBtn.setOnClickListener {
-
+            foodCategoryMeatBtn.setOnClickListener {
+                val action = FoodCategoryFragmentDirections.actionFoodCategoryFragmentToFoodListFragment()
+                findNavController().navigate(action)
             }
             foodCategoryFishBtn.setOnClickListener {
 
@@ -29,23 +25,21 @@ class FoodCategoryFragment : BaseFragment<FragmentFoodCategoryBinding>(R.layout.
             foodCategoryFriesBtn.setOnClickListener {
 
             }
-            foodCategoryPastaBtn.setOnClickListener {
+            foodCategorySoupBtn.setOnClickListener {
 
             }
-            foodCategorySpicyBtn.setOnClickListener {
+            foodCategoryDryBtn.setOnClickListener {
 
             }
             foodCategoryFruitBtn.setOnClickListener {
 
             }
-            foodCategorySaladBtn.setOnClickListener {
+            foodCategoryDessertBtn.setOnClickListener {
 
             }
-            foodCategoryDessertBtn.setOnClickListener {
+            foodCategoryEtcBtn.setOnClickListener {
 
             }
         }
     }
-
-
 }

@@ -72,7 +72,19 @@
     <fragment
         android:id="@+id/foodCategoryFragment"
         android:name="com.kud.hanzan.ui.combination.FoodCategoryFragment"
-        android:label="FoodCategoryFragment"/>
+        android:label="FoodCategoryFragment">
+        <action
+            android:id="@+id/action_foodCategoryFragment_to_foodListFragment"
+            app:destination="@+id/foodListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/foodListFragment"
+        android:name="com.kud.hanzan.ui.combination.FoodListFragment"
+        android:label="FoodListFragment">
+<!--        <argument-->
+<!--            android:name="style"-->
+<!--            app:argType="kava.lang.Int"/>-->
+    </fragment>
     <fragment
         android:id="@+id/storeFragment"
         android:name="com.kud.hanzan.ui.map.StoreFragment"

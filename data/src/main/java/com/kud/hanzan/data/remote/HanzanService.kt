@@ -5,10 +5,7 @@ import com.kud.hanzan.data.entity.preferred.CombResult
 import com.kud.hanzan.data.entity.preferred.DrinkResult
 import com.kud.hanzan.data.entity.preferred.PreferredCombDto
 import com.kud.hanzan.data.entity.preferred.PreferredDrinkDto
-import com.kud.hanzan.domain.model.Drink
-import com.kud.hanzan.domain.model.HomeData
-import com.kud.hanzan.domain.model.UserInfo
-import com.kud.hanzan.domain.model.UserResponseDto
+import com.kud.hanzan.domain.model.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -32,6 +29,10 @@ interface HanzanService {
     // 술 리스트 화면
     @GET("/product/all")
     suspend fun getDrinkList(@Query("userId") userId: Long) : List<Drink>
+
+    // 안주 리스트 화면
+    @GET("/food/all")
+    suspend fun getAllFood() : List<Food>
 
     // 홈 화면
     @GET("/api/home/all")
