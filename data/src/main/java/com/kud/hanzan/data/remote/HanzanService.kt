@@ -31,7 +31,7 @@ interface HanzanService {
 
     // 술 리스트 화면
     @GET("/product/all")
-    suspend fun getDrinkList(@Query("userId") userId: Long) : List<Drink>
+    suspend fun getDrinkList() : List<Drink>
 
     // 홈 화면
     @GET("/api/home/all")
