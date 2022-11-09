@@ -1,5 +1,6 @@
 package com.kud.hanzan.ui.combination
 
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,18 +29,21 @@ class DrinkListViewModel @Inject constructor(
 
     var isLoading : ObservableField<Boolean> = ObservableField<Boolean>()
 
+    private val userIdx = HanZanApplication.spfManager.getUserIdx()
+
     init {
         isLoading.set(true)
-        getDrinkList()
+        getDrinkList(userIdx)
     }
 
     private var totalDrinkData = listOf<Drink>()
 
-    private val userIdx = HanZanApplication.spfManager.getUserIdx()
+    private var category = 0
+    private var keyword: String? = null
 
-    private fun getDrinkList(){
+    private fun getDrinkList(userIdx: Long){
         viewModelScope.launch {
-            getDrinkListUseCase()
+            getDrinkListUseCase(userIdx)
                 .catch {
                     _drinkList.value = emptyList()
                     isLoading.set(false)
@@ -69,6 +73,31 @@ class DrinkListViewModel @Inject constructor(
     }
 
     fun setDrinkListType(type: Int){
-        _drinkList.value = if (type == 0) totalDrinkData else totalDrinkData.filter { drink -> drink.category == type }
+        category = type
+        if (type == 0) {
+            if (keyword == null)
+                _drinkList.value = totalDrinkData
+            else keyword?.let {
+                _drinkList.value = totalDrinkData.filter { d -> d.name.contains(it) }
+            }
+        } else {
+            if (keyword == null)
+                _drinkList.value = totalDrinkData.filter { d -> d.category == type }
+            else keyword?.let{
+                _drinkList.value = totalDrinkData.filter { d ->
+                    d.category == type && d.name.contains(it)
+                }
+            }
+        }
+    }
+
+    fun search(keyword: String){
+        this.keyword = keyword
+        _drinkList.value = totalDrinkData.filter { drink -> drink.name.contains(keyword) }
+    }
+
+    fun searchClose(){
+        keyword = null
+        _drinkList.value = if (category == 0) totalDrinkData else totalDrinkData.filter { alcohol -> alcohol.category == category }
     }
 }
