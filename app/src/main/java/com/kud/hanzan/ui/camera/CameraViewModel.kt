@@ -36,4 +36,13 @@ class CameraViewModel @Inject constructor(
         else if (_drinkLiveData.value?.isEmpty() == true && _foodLiveData.value?.isEmpty() == true) 0
         else 50
 
+    // set drinkLiveData
+    fun setDrinkData(array: Array<String>){
+        _drinkLiveData.value = array.toMutableList()
+    }
+
+    // set foodLiveData
+    fun setFoodData(array: Array<String>){
+        _foodLiveData.value = array.toMutableList()
+    }
 }

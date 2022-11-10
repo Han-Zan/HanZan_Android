@@ -41,6 +41,14 @@ class CameraResultActivity : BaseActivity<ActivityCameraResultBinding>(R.layout.
             }
         }
         initListener()
+        initData()
+    }
+
+    private fun initData(){
+        if (intent.hasExtra("drinkList"))
+            viewModel.setDrinkData(intent.getStringArrayExtra("drinkList") ?: emptyArray())
+        if (intent.hasExtra("foodList"))
+            viewModel.setFoodData(intent.getStringArrayExtra("foodList") ?: emptyArray())
     }
 
     private fun initListener(){

@@ -1,6 +1,9 @@
 package com.kud.hanzan.ui.camera
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -10,6 +13,7 @@ import com.kud.hanzan.R
 import com.kud.hanzan.adapter.camera.CameraResultItemRVAdapter
 import com.kud.hanzan.adapter.camera.CameraResultVPAdapter
 import com.kud.hanzan.databinding.FragmentCameraDrinkBinding
+import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.ui.dialog.ConfirmDialog
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +25,7 @@ class CameraDrinkFragment : BaseFragment<FragmentCameraDrinkBinding>(R.layout.fr
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initListener()
         observe()
     }
 
@@ -46,6 +51,23 @@ class CameraDrinkFragment : BaseFragment<FragmentCameraDrinkBinding>(R.layout.fr
                     })
                 }
                 layoutManager = FlexboxLayoutManager(requireContext())
+            }
+        }
+    }
+
+    private fun initListener(){
+        with(binding){
+            cameraDrinkAgainBtn.setOnClickListener {
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                intent.apply {
+                    putExtra("drinkList", viewModel.drinkLiveData.value?.toTypedArray())
+                    putExtra("foodList", viewModel.foodLiveData.value?.toTypedArray())
+                    putExtra("drinkMode", true)
+                }
+                requireActivity().apply {
+                    setResult(RESULT_OK, intent)
+                    onBackPressed()
+                }
             }
         }
     }
