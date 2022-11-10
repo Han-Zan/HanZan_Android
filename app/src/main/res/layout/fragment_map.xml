@@ -134,65 +134,20 @@
                 visibleInvisible="@{focusChanged}"
                 app:layout_constraintTop_toBottomOf="@id/map_current_pos_iv"
                 app:layout_constraintEnd_toEndOf="parent"/>
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/map_list_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:text="목록보기"
-                app:backgroundTint="@color/white"
-                app:backgroundTintMode="src_over"
-                app:icon="@drawable/ic_category"
-                app:iconTint="@color/black"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_margin="20dp"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/map_bottom_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_panel_from_bottom_black"
-            app:behavior_hideable="true"
-            app:behavior_peekHeight="360dp"
-            app:behavior_halfExpandedRatio="0.5"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
-
-            <ImageView
-                android:id="@+id/map_bottom_slide_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:src="@drawable/ic_bottom_slide"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/map_bottom_store_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="40dp"
-                android:paddingTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/map_bottom_slide_iv" />
-
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/map_map_fab"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_margin="20dp"
-                android:text="지도보기"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                app:backgroundTint="@color/white"
-                app:backgroundTintMode="src_over"
-                app:icon="@drawable/ic_map"
-                app:iconGravity="textStart"
-                app:iconTint="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+<!--            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton-->
+<!--                android:id="@+id/map_list_fab"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="45dp"-->
+<!--                android:text="목록보기"-->
+<!--                app:backgroundTint="@color/white"-->
+<!--                app:backgroundTintMode="src_over"-->
+<!--                app:icon="@drawable/ic_category"-->
+<!--                app:iconTint="@color/black"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="16dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:layout_margin="20dp"/>-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

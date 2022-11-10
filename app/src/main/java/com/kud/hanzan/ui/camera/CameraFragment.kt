@@ -17,6 +17,7 @@ import androidx.camera.view.video.OutputFileOptions
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.common.InputImage
@@ -31,7 +32,10 @@ import kotlin.random.Random
 
 @AndroidEntryPoint
 class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_camera){
-    private var checker = false
+    private val viewModel by viewModels<CameraViewModel>()
+    // 텍스트 인식 결과
+    private var cameraItemList = mutableListOf<String>()
+
     private lateinit var cameraSelector : CameraSelector
     private val cameraProviderFuture by lazy{
         ProcessCameraProvider.getInstance(requireContext())
@@ -57,6 +61,11 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
     // Todo : 임시
     private lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
 
+    // 촬영 결과 화면을 다녀온 경우
+    private var drinkList = ArrayList<String>()
+    private var foodList = ArrayList<String>()
+    // toggle button mode
+    private var drinkMode = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,13 +73,20 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { it ->
             if(it.resultCode == Activity.RESULT_OK){
                 // Todo : 해당 값들 저장하고 onDestroy 할 때 지우기?
-                Log.e("camera again drink", it.data?.getStringArrayExtra("alcoholList")?.contentToString()!!)
-                Log.e("camera again food", it.data?.getStringArrayExtra("foodList")?.contentToString()!!)
+                drinkList.clear()
+                drinkList.addAll(it.data?.getStringArrayExtra("drinkList")?: emptyArray())
+
+                foodList.clear()
+                foodList.addAll(it.data?.getStringArrayExtra("foodList")?: emptyArray())
+
+                drinkMode = it.data?.getBooleanExtra("drinkMode", true) ?: true
+                if (drinkMode) binding.cameraModeToggleBtn.check(R.id.camera_mode_drink_btn)
+                else binding.cameraModeToggleBtn.check(R.id.camera_mode_food_btn)
             }
         }
         setAnimationListener()
         initListener()
-        sampleGraphicOverlay()
+        observe()
     }
 
     private fun startCamera(){
@@ -105,10 +121,10 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
         super.onResume()
         startCamera()
     }
+
     private fun initListener(){
         activity?.let {
             if (it is MainActivity){
-                Log.e("cameraFragment", "onResume")
                 it.setListener(object : MainActivity.CameraListener{
                     override fun onCameraClick() {
                         takePicture()
@@ -117,14 +133,14 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                 it.fabCameraListener()
             }
         }
-        with(binding){
-//            cameraTurnBtn.setOnClickListener {
-//                turnCamera(cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
-//            }
 
-//
-//            }
-//            /* Todo : 토글 버튼 선택된거에 따라 nlp 인식 범위 어디로 할지 */
+        binding.cameraModeToggleBtn.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked){
+                when(checkedId){
+                    R.id.camera_mode_drink_btn -> drinkMode = true
+                    R.id.camera_mode_food_btn -> drinkMode = false
+                }
+            }
         }
     }
 
@@ -145,17 +161,22 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                     binding.cameraPreview.bitmap?.let {
                         recognizer.process(InputImage.fromBitmap(it, 0))
                             .addOnSuccessListener { visionText ->
-                                var text = ""
+                                cameraItemList.clear()
                                 val resultText = visionText.textBlocks
-                                for (element in resultText) {
-//                                    val trimStr = getTrimmedString(element.text)
-                                    text += "$element\n"
-//                                    if (findSimilarity(trimStr, "Ferrari Perle") > 0.5){
-//                                        Log.e("camera test result success", findSimilarity(trimStr, "Ferrari Perle").toString())
-//                                    }
+                                resultText.forEach { e ->
+                                    if(e.text.length >= 2) cameraItemList.add(e.text)
                                 }
-                                Log.e("camera result", text)
+                                Log.e("camera ocr result", cameraItemList.toString())
                                 image.close()
+                                if (drinkMode){
+                                    // Todo : 술 리스트로 넘기기
+                                    viewModel.postCameraDrink(cameraItemList)
+                                } else {
+                                    // Todo : 음식 리스트로 넘기기
+                                    foodList.add("닭발")
+//                    putExtra("foodList", foodList.toTypedArray())
+                                    foodList.clear()
+                                }
                             }
                     }
 
@@ -167,6 +188,19 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
         )
     }
 
+    private fun observe(){
+        viewModel.cameraDrinkData.observe(viewLifecycleOwner){ d ->
+            activityResultLauncher.launch(Intent(requireActivity(), CameraResultActivity::class.java).apply{
+                drinkList.addAll(d)
+                Log.e("camera ocr server", d.toString())
+                putExtra("drinkList",drinkList.toTypedArray())
+                putExtra("foodList",foodList.toTypedArray())
+            })
+            drinkList.clear()
+            foodList.clear()
+        }
+    }
+
     private fun setAnimationListener(){
         cameraAnimationListener = object : Animation.AnimationListener{
             override fun onAnimationStart(p0: Animation?) {
@@ -174,25 +208,11 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
 
             override fun onAnimationEnd(p0: Animation?) {
                 binding.cameraShutterFrame.visibility = View.GONE
-                activityResultLauncher.launch(Intent(requireActivity(), CameraResultActivity::class.java))
-//                val action = CameraFragmentDirections.actionCameraFragmentToCameraResultActivity()
-//                findNavController().navigate(action)
             }
 
             override fun onAnimationRepeat(p0: Animation?) {
             }
 
-        }
-    }
-
-    private fun turnCamera(backCamera: Boolean){
-        val cameraProvider = cameraProviderFuture.get()
-        try {
-            cameraProvider.unbindAll()
-            cameraSelector = if (backCamera) CameraSelector.DEFAULT_FRONT_CAMERA else CameraSelector.DEFAULT_BACK_CAMERA
-            cameraProvider.bindToLifecycle(this, cameraSelector, preview)
-        } catch(exc: Exception) {
-            Log.e("Camera", "Use case binding failed", exc)
         }
     }
 
@@ -212,10 +232,5 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
             }
             return@setOnTouchListener true
         }
-    }
-
-    private fun sampleGraphicOverlay(){
-//        binding.cameraOverlay.add(TextRecognitionGraphic( binding.cameraOverlay, "test" as TextBlock, Rect()))
-//        binding.cameraOverlay.postInvalidate()
     }
 }

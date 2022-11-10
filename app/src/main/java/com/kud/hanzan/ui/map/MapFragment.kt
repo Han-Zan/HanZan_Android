@@ -1,15 +1,19 @@
 package com.kud.hanzan.ui.map
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -20,8 +24,8 @@ import com.google.android.gms.location.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.kud.hanzan.R
-import com.kud.hanzan.adapter.map.MapStoreRVAdapter
 import com.kud.hanzan.databinding.FragmentMapBinding
+import com.kud.hanzan.databinding.ItemCustomBalloonBinding
 import com.kud.hanzan.domain.model.map.Store
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,11 +38,10 @@ import net.daum.mf.map.api.MapView
 
 
 @AndroidEntryPoint
-class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), MapView.MapViewEventListener {
+class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), MapView.MapViewEventListener, MapView.POIItemEventListener {
     private lateinit var fusedLocationProviderClient : FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
     private lateinit var mapView: MapView
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
 
     // setCurrentLocation이 처음 호출되었는지 여부 판단
     private var firstCalled = true
@@ -76,47 +79,14 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         mapView.setMapViewEventListener(this)
 
         // Todo : 돌아 왔을 때 기존 포커스로 돌아오기
+        // Todo : restore Marker
         val currentPos = viewModel.getCurrentPos()
         if (currentPos == null) checkPermission()
         else viewModel.getCurrentPos()?.let {
             mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(it[1], it[0]), false)
         }
-
-        // bottomSheetBehavior 초기화
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.mapBottomLayout)
-        bottomSheetBehavior.peekHeight = (resources.displayMetrics.heightPixels * 0.3).toInt()
-        bottomSheetBehavior.maxHeight = (resources.displayMetrics.heightPixels * 0.78).toInt()
-        // 마커 추가
-//        val marker = MapPOIItem()
-//        marker.apply {
-//            itemName = "밀짚모자이크"
-//            mapPoint = MapPoint.mapPointWithGeoCoord(37.5044517, 126.9505820)
-////            커스텀 이미지로 가능, 비트맵 이미지만, 벡터 X
-////            markerType = MapPOIItem.MarkerType.CustomImage
-////            customImageResourceId = R.drawable.비트맵이미지
-////            selectedMarkerType = MapPOIItem.MarkerType.CustomImage
-////            customSelectedImageResourceId = R.drawable.marker_red
-////            isCustomImageAutoscale = false
-////            setCustomImageAnchor(0.5f, 1.0f)
-//            //블루핀, 옐로우핀, 레드핀도 가능
-//            markerType = MapPOIItem.MarkerType.RedPin
-//        }
-//        mapView.addPOIItem(marker)
-        // 리사이클러뷰 이닛
-        binding.mapBottomStoreRv.apply {
-            adapter = MapStoreRVAdapter().apply {
-                setStoreListener(object : MapStoreRVAdapter.StoreListener{
-                    override fun onClick(store: Store) {
-                        val action = MapFragmentDirections.actionMapFragmentToStoreFragment(store)
-                        findNavController().navigate(action)
-                    }
-                })
-            }
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        }
     }
 
-    // Todo : 거리 나오는거 현 위치 기반으로 바꿀 수 있는지?
     private fun initListener(){
         with(binding){
             mapCurrentPosIv.setOnClickListener {
@@ -125,7 +95,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 //            mapPickupNearCb.setOnClickListener {
 //                isNearShown = !isNearShown!!
 //            }
-
+            mapView.setPOIItemEventListener(this@MapFragment)
             // 버튼 리스너
             mapSearchBtn.setOnClickListener {
                 viewModel.getCategoryPlace(mapView.mapCenterPoint.mapPointGeoCoord.longitude.toString(), mapView.mapCenterPoint.mapPointGeoCoord.latitude.toString(),
@@ -144,58 +114,54 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
                     return false
                 }
             })
-
-            bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetCallback(){
-                override fun onStateChanged(bottomSheet: View, newState: Int) {
-                    //TODO("Not yet implemented")
-                }
-
-                override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                    //TODO("Not yet implemented")
-                }
-
-            })
-
-            mapListFab.setOnClickListener {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            }
-            mapMapFab.setOnClickListener {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            }
         }
     }
 
     private fun observe(){
         binding.lifecycleOwner = this
+        viewModel.placeSearchInfo.observe(viewLifecycleOwner){
+            if (it is PlaceUiState.Success){
+                if (it.placeList.isNotEmpty()) {
+                    mapView.removeAllPOIItems()
+                    //bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    mapView.setMapCenterPoint(
+                        MapPoint.mapPointWithGeoCoord(
+                            it.placeList[0].y.toDouble(),
+                            it.placeList[0].x.toDouble()
+                        ), true
+                    )
+                    it.placeList.also { mapView.removeAllPOIItems() }
+                        .forEach { p -> addMarker(p.name, p.x, p.y, p) }
+                }
+            }
+        }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 launch {
-                    viewModel.placeSearchInfo.collectLatest { state ->
-                        when (state) {
-                            // Todo : 검색 결과 없을 때 대비
-                            is PlaceUiState.Success -> {
-                                if (state.placeList.isNotEmpty()) {
-                                    mapView.removeAllPOIItems()
-                                    //bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                                    mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(state.placeList[0].y.toDouble(), state.placeList[0].x.toDouble()), true)
-                                    state.placeList.also { mapView.removeAllPOIItems() }
-                                        .forEach { addMarker(it.placeName, it.x, it.y) }
-                                }
-
-                            }
-                            is PlaceUiState.Error -> Toast.makeText(
-                                context,
-                                state.exception.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
+//                    viewModel.placeSearchInfo.collectLatest { state ->
+//                        when (state) {
+//                            // Todo : 검색 결과 없을 때 대비
+//                            is PlaceUiState.Success -> {
+//                                if (state.placeList.isNotEmpty()) {
+//                                    mapView.removeAllPOIItems()
+//                                    //bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//                                    mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(state.placeList[0].y.toDouble(), state.placeList[0].x.toDouble()), true)
+//                                    state.placeList.also { mapView.removeAllPOIItems() }
+//                                        .forEach { addMarker(it.name, it.x, it.y, it) }
+//                                }
+//                            }
+//                            is PlaceUiState.Error -> Toast.makeText(
+//                                context,
+//                                state.exception.toString(),
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+//                    }
                 }
                 launch {
                     viewModel.placeNearInfo.collectLatest {
                         mapView.removeAllPOIItems()
-                        it.forEach { s -> addMarker(s.name, s.x, s.y) }
-                        (binding.mapBottomStoreRv.adapter as MapStoreRVAdapter).setData(it)
+                        it.forEach { s -> addMarker(s.name, s.x, s.y, s) }
                     }
                 }
             }
@@ -264,8 +230,12 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
             location?.let {
                 mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(location.latitude, location.longitude), false)
 
+
                 currentX = location.longitude
                 currentY = location.latitude
+
+                viewModel.centerX = currentX
+                viewModel.centerY = currentY
                 // 지도 상단 주소 지정
 //                viewModel.setRoadAddress(location.longitude.toString(), location.latitude.toString())
 
@@ -299,9 +269,10 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 //            Manifest.permission.ACCESS_COARSE_LOCATION))
     }
 
-    private fun addMarker(name: String,x: String, y: String){
+    private fun addMarker(name: String,x: String, y: String, store: Store){
         val marker = MapPOIItem()
         marker.apply {
+            userObject = store
             itemName = name
             mapPoint = MapPoint.mapPointWithGeoCoord(y.toDouble(), x.toDouble())
 //            커스텀 이미지로 가능, 비트맵 이미지만, 벡터 X
@@ -321,19 +292,22 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         super.onStop()
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
-
-    class CustomBalloonAdapter(): CalloutBalloonAdapter{
-        // 마커 클릭시 나오는 말풍선
-        override fun getCalloutBalloon(p0: MapPOIItem?): View {
-            TODO("Not yet implemented")
-        }
-
-        // 말풍선 클릭시 event
-        override fun getPressedCalloutBalloon(p0: MapPOIItem?): View {
-            TODO("Not yet implemented")
-        }
-
-    }
+//
+//    class CustomBalloonAdapter(private val context: Context): CalloutBalloonAdapter{
+//        private var balloonBinding: ItemCustomBalloonBinding = ItemCustomBalloonBinding.inflate(LayoutInflater.from(context))
+//
+//        override fun getCalloutBalloon(p0: MapPOIItem?): View {
+//            balloonBinding.name = (p0?.userObject as Store).name
+//            balloonBinding.address = (p0?.userObject as Store).address
+//            return balloonBinding.root
+//        }
+//
+//        // 말풍선 클릭시 event
+//        override fun getPressedCalloutBalloon(p0: MapPOIItem?): View? {
+//            return null
+//        }
+//
+//    }
     override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {
         // 도로명 주소 알아오기
         p0?.let{ p1?.let {
@@ -345,8 +319,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     override fun onMapViewInitialized(p0: MapView?) {
 
     }
-
-
 
     override fun onMapViewZoomLevelChanged(p0: MapView?, p1: Int) {
 
@@ -374,5 +346,24 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 
     override fun onMapViewMoveFinished(p0: MapView?, p1: MapPoint?) {
 
+    }
+
+    override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
+    }
+
+    override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {
+        val action = MapFragmentDirections.actionMapFragmentToStoreFragment(p1?.userObject as Store)
+        findNavController().navigate(action)
+    }
+
+    override fun onCalloutBalloonOfPOIItemTouched(
+        p0: MapView?,
+        p1: MapPOIItem?,
+        p2: MapPOIItem.CalloutBalloonButtonType?
+    ) {
+
+    }
+
+    override fun onDraggablePOIItemMoved(p0: MapView?, p1: MapPOIItem?, p2: MapPoint?) {
     }
 }

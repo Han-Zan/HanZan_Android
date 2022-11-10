@@ -12,8 +12,8 @@ class KakaoRepositoryImpl @Inject constructor(
 ): KakaoRepository {
     override fun getKeywordPlace(
         keyword: String
-    ): Flow<List<Place>> = kakaoRemoteDataSource.getKeywordPlace(keyword).map {
-        it.documents.map { p -> Place(p.place_name, p.category_name, p.x, p.y) }
+    ): Flow<List<Store>> = kakaoRemoteDataSource.getKeywordPlace(keyword).map {
+        it.documents.map { p -> Store(p.id, p.place_name,  p.category_name, "", p.address_name,p.phone, p.x, p.y) }
     }
 
     override fun getRoadAddress(
@@ -30,14 +30,14 @@ class KakaoRepositoryImpl @Inject constructor(
         currentY: Double
     ): Flow<List<Store>> = kakaoRemoteDataSource.getCategoryPlace(longitude, latitude, page).map {
         it.documents.filter { s -> s.category_name.contains("술집") || s.category_name.contains("이탈리안") }
-            .map { s -> Store(s.id.toLong(), s.place_name, s.category_name, getDistance(s.x, s.y, currentX, currentY), " ", s.road_address_name, s.phone, s.x, s.y) }
+            .map { s -> Store(s.id, s.place_name, s.category_name, " ", s.road_address_name, s.phone, s.x, s.y) }
     }
 
-    private fun getDistance(longitude: String, latitude: String, currentX: Double, currentY: Double) : Int{
-        val dLat = Math.toRadians(currentY - latitude.toDouble())
-        val dLon = Math.toRadians(currentX - longitude.toDouble())
-        val a = sin(dLat / 2).pow(2.0) + sin(dLon / 2).pow(2.0) * cos(Math.toRadians(latitude.toDouble())) * cos(Math.toRadians(currentY))
-        val c = 2 * asin(sqrt(a))
-        return (6372.8 * 1000 * c).toInt()
-    }
+//    private fun getDistance(longitude: String, latitude: String, currentX: Double, currentY: Double) : Int{
+//        val dLat = Math.toRadians(currentY - latitude.toDouble())
+//        val dLon = Math.toRadians(currentX - longitude.toDouble())
+//        val a = sin(dLat / 2).pow(2.0) + sin(dLon / 2).pow(2.0) * cos(Math.toRadians(latitude.toDouble())) * cos(Math.toRadians(currentY))
+//        val c = 2 * asin(sqrt(a))
+//        return (6372.8 * 1000 * c).toInt()
+//    }
 }

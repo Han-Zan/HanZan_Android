@@ -2,6 +2,8 @@ package com.kud.hanzan.ui.map
 
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kud.hanzan.domain.model.map.Place
@@ -20,8 +22,8 @@ class MapViewModel @Inject constructor(
     private val roadAddressUseCase: GetRoadAddressUseCase,
     private val categoryPlaceUseCase: GetCategoryPlaceUseCase
 ) : ViewModel() {
-    private var _placeSearchInfo = MutableStateFlow<PlaceUiState>(PlaceUiState.Success(emptyList()))
-    val placeSearchInfo : StateFlow<PlaceUiState>
+    private var _placeSearchInfo = MutableLiveData<PlaceUiState>(PlaceUiState.Success(emptyList()))
+    val placeSearchInfo : LiveData<PlaceUiState>
         get() = _placeSearchInfo
 
     private var _roadAddress = MutableStateFlow<String>("가게 이름을 입력해주세요.")
@@ -43,7 +45,12 @@ class MapViewModel @Inject constructor(
                 // 오류 처리 로직
                 .catch { _placeSearchInfo.value = PlaceUiState.Error(it) }
                 .collectLatest{
-                    _placeSearchInfo.value = PlaceUiState.Success(it)
+                    if (it.isEmpty()){
+                        // Todo : Empty 한 경우 로직 처리
+//                        _placeSearchInfo.value = PlaceUiState.Empty("검색 결과가 없습니다.")
+                    } else {
+                        _placeSearchInfo.value = PlaceUiState.Success(it)
+                    }
                 }
         }
     }
@@ -72,7 +79,7 @@ class MapViewModel @Inject constructor(
                         storeList.addAll(it)
                     }
             }
-            _placeNearInfo.value = storeList.sortedBy { s -> s.distance }
+            _placeNearInfo.value = storeList
         }
     }
 
@@ -84,6 +91,7 @@ class MapViewModel @Inject constructor(
 }
 
 sealed class PlaceUiState {
-    data class Success(val placeList: List<Place>): PlaceUiState()
+    data class Success(val placeList: List<Store>): PlaceUiState()
+//    data class Empty(val str: String) : PlaceUiState()
     data class Error(val exception: Throwable): PlaceUiState()
 }

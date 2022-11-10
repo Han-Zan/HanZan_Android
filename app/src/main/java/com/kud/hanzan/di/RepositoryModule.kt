@@ -1,5 +1,7 @@
 package com.kud.hanzan.di
 
+import com.kud.hanzan.data.source.camera.CameraRemoteDataSource
+import com.kud.hanzan.data.source.camera.CameraRepositoryImpl
 import com.kud.hanzan.data.source.combination.CombinationRemoteDataSource
 import com.kud.hanzan.data.source.combination.CombinationRepositoryImpl
 import com.kud.hanzan.data.source.home.HomeRemoteDataSource
@@ -50,6 +52,12 @@ object RepositoryModule {
     @Provides
     fun providesHomeRepository(homeRemoteDataSource: HomeRemoteDataSource) : HomeRepository{
         return HomeRepositoryImpl(homeRemoteDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun providesCameraRepository(cameraRemoteDataSource: CameraRemoteDataSource) : CameraRepository {
+        return CameraRepositoryImpl(cameraRemoteDataSource)
     }
 
     @Singleton

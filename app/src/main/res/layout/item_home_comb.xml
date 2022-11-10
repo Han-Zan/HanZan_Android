@@ -28,7 +28,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:imageUrl="@{combination.drink_img}"
-            app:placeholder="@{@drawable/drink_image_test1}"
+            app:placeholder="@{@drawable/bg_like_comb}"
             android:background="@drawable/bg_like_comb"/>
         <View
             android:layout_width="12dp"
@@ -39,7 +39,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:imageUrl="@{combination.food_img}"
-            app:placeholder="@{@drawable/food_image_test1}"
+            app:placeholder="@{@drawable/bg_like_comb}"
             android:background="@drawable/bg_like_comb"/>
         <LinearLayout
             android:layout_width="match_parent"

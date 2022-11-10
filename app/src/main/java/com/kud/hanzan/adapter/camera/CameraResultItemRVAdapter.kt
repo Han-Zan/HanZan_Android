@@ -8,7 +8,7 @@ import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ItemCameraResultBinding
 
 class CameraResultItemRVAdapter : RecyclerView.Adapter<CameraResultItemRVAdapter.ViewHolder>() {
-    private var itemList = ArrayList<String>()
+    private var itemList = mutableListOf<String>()
     private lateinit var binding: ItemCameraResultBinding
 
     interface ItemListener{
@@ -42,8 +42,6 @@ class CameraResultItemRVAdapter : RecyclerView.Adapter<CameraResultItemRVAdapter
         itemList.removeAt(position)
         notifyItemRemoved(position)
     }
-
-    fun getItemList(): Array<String> = itemList.toArray(arrayOfNulls<String>(itemList.size))
 
     inner class ViewHolder(val binding : ItemCameraResultBinding) :  RecyclerView.ViewHolder(binding.root){
         fun bind(item: String){
