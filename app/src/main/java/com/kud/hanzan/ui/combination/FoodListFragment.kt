@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.PopupMenu
 import androidx.appcompat.widget.ListPopupWindow
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kud.hanzan.R
@@ -69,6 +70,10 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
             }
 
             foodListStyleBtn.setOnClickListener { listAlcoholPopupWindow.show() }
+
+            foodListToolbar.setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
         }
     }
 

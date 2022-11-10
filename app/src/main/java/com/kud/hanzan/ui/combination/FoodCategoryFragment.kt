@@ -20,25 +20,36 @@ class FoodCategoryFragment : BaseFragment<FragmentFoodCategoryBinding>(R.layout.
                 findNavController().navigate(action)
             }
             foodCategoryFishBtn.setOnClickListener {
-
+                val action = FoodCategoryFragmentDirections.actionFoodCategoryFragmentToFoodListFragment()
+                findNavController().navigate(action)
             }
             foodCategoryFriesBtn.setOnClickListener {
-
+                val action = FoodCategoryFragmentDirections.actionFoodCategoryFragmentToFoodListFragment()
+                findNavController().navigate(action)
             }
             foodCategorySoupBtn.setOnClickListener {
-
+                val action = FoodCategoryFragmentDirections.actionFoodCategoryFragmentToFoodListFragment()
+                findNavController().navigate(action)
             }
             foodCategoryDryBtn.setOnClickListener {
-
+                val action = FoodCategoryFragmentDirections.actionFoodCategoryFragmentToFoodListFragment()
+                findNavController().navigate(action)
             }
             foodCategoryFruitBtn.setOnClickListener {
-
+                val action = FoodCategoryFragmentDirections.actionFoodCategoryFragmentToFoodListFragment()
+                findNavController().navigate(action)
             }
             foodCategoryDessertBtn.setOnClickListener {
-
+                val action = FoodCategoryFragmentDirections.actionFoodCategoryFragmentToFoodListFragment()
+                findNavController().navigate(action)
             }
             foodCategoryEtcBtn.setOnClickListener {
+                val action = FoodCategoryFragmentDirections.actionFoodCategoryFragmentToFoodListFragment()
+                findNavController().navigate(action)
+            }
 
+            foodCategoryToolbar.setNavigationOnClickListener {
+                findNavController().popBackStack()
             }
         }
     }
