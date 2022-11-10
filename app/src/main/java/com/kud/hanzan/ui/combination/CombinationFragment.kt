@@ -21,6 +21,10 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
                 val action = CombinationFragmentDirections.actionCombinationFragmentToDrinkListFragment()
                 findNavController().navigate(action)
             }
+            combinationFoodBtn.setOnClickListener {
+                val action = CombinationFragmentDirections.actionCombinationFragmentToFoodCategoryFragment()
+                findNavController().navigate(action)
+            }
         }
     }
 }

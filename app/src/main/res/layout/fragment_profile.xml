@@ -2,10 +2,11 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="userInfo"
-            type="com.kud.hanzan.domain.model.UserInfo" />
+            name="user"
+            type="com.kud.hanzan.domain.model.User" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_1b1b1b">
@@ -39,7 +40,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:background="@drawable/bg_plate_circle_white_glass"
-                    app:imageUrl="@{userInfo.profileimage}"
+                    app:imageUrl="@{user.profileimage}"
                     app:placeholder="@{@drawable/profile_test}"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -52,7 +53,7 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:maxLines="1"
-                        android:text="@{userInfo.nickname, default=사용자}"/>
+                        android:text="@{user.nickname, default=사용자}"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -62,7 +63,7 @@
                         android:maxLines="1"
                         android:layout_marginTop="4dp"
                         android:textColor="@color/text_hint"
-                        android:text="@{userInfo.sbti, default=고독한미식가}"/>
+                        android:text="@{user.sbti, default=고독한미식가}"/>
                 </LinearLayout>
             </LinearLayout>
             <com.google.android.material.divider.MaterialDivider
@@ -142,10 +143,11 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/profile_app_setting4"/>
             <Button
+                android:id="@+id/profile_user_delete_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minHeight="0dp"
-                android:text="한잔 로그아웃"
+                android:text="한잔 탈퇴하기"
                 android:layout_marginTop="40dp"
                 android:textColor="@color/white"
                 android:textSize="18sp"
