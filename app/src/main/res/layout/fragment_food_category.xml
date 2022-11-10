@@ -21,8 +21,7 @@
                 android:layout_height="wrap_content"
                 android:paddingEnd="20dp"
                 app:navigationIcon="@drawable/ic_previous"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-                app:menu="@menu/toolbar_search">
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -43,77 +42,100 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-            <GridLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:columnCount="2"
-                android:rowCount="5"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp"
+                android:gravity="center_horizontal">
 
-                <ImageButton
-                    android:id="@+id/food_category_meat_btn"
-                    android:background="@null"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_meat"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="8dp">
 
-                <ImageButton
-                    android:id="@+id/food_category_fish_btn"
-                    android:background="@null"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_fish"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    <ImageButton
+                        android:id="@+id/food_category_meat_btn"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:background="@null"
+                        android:layout_marginVertical="8dp"
+                        android:src="@drawable/ic_food_meat"
+                        android:layout_rowWeight="1" />
 
-                <ImageButton
-                    android:id="@+id/food_category_fries_btn"
-                    android:background="@null"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_fries"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    <ImageButton
+                        android:id="@+id/food_category_fries_btn"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:background="@null"
+                        android:layout_marginVertical="8dp"
+                        android:src="@drawable/ic_food_fries"
+                        android:layout_rowWeight="1"/>
 
-                <ImageButton
-                    android:id="@+id/food_category_soup_btn"
-                    android:background="@null"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_soup"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    <ImageButton
+                        android:id="@+id/food_category_dry_btn"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:background="@null"
+                        android:layout_marginVertical="8dp"
+                        android:src="@drawable/ic_food_dry"
+                        android:layout_rowWeight="1"/>
 
-                <ImageButton
-                    android:id="@+id/food_category_dry_btn"
-                    android:background="@null"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_dry"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    <ImageButton
+                        android:id="@+id/food_category_dessert_btn"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:background="@null"
+                        android:layout_marginVertical="8dp"
+                        android:src="@drawable/ic_food_dessert"
+                        android:layout_rowWeight="1"/>
+                </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/food_category_fruit_btn"
-                    android:background="@null"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_fruit"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="8dp">
 
-                <ImageButton
-                    android:id="@+id/food_category_dessert_btn"
-                    android:background="@null"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_dessert"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
+                    <ImageButton
+                        android:id="@+id/food_category_fish_btn"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:background="@null"
+                        android:layout_marginVertical="8dp"
+                        android:src="@drawable/ic_food_fish"
+                        android:layout_rowWeight="1"/>
 
-                <ImageButton
-                    android:id="@+id/food_category_etc_btn"
-                    android:background="@null"
-                    android:layout_margin="4dp"
-                    android:src="@drawable/ic_food_etc"
-                    android:layout_columnWeight="1"
-                    android:layout_rowWeight="1"/>
-            </GridLayout>
+                    <ImageButton
+                        android:id="@+id/food_category_soup_btn"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:background="@null"
+                        android:layout_marginVertical="8dp"
+                        android:src="@drawable/ic_food_soup"
+                        android:layout_columnWeight="1"
+                        android:layout_rowWeight="1"/>
+
+                    <ImageButton
+                        android:id="@+id/food_category_fruit_btn"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:background="@null"
+                        android:layout_marginVertical="8dp"
+                        android:src="@drawable/ic_food_fruit"
+                        android:layout_rowWeight="1"/>
+
+                    <ImageButton
+                        android:id="@+id/food_category_etc_btn"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:background="@null"
+                        android:layout_marginVertical="8dp"
+                        android:src="@drawable/ic_food_etc"
+                        android:layout_rowWeight="1"/>
+                </LinearLayout>
+            </LinearLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

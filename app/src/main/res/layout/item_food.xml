@@ -20,7 +20,10 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_food_civ"
             android:layout_width="48dp"
-            android:layout_height="48dp" />
+            android:layout_height="48dp"
+            app:imageUrl="@{food.img}"
+            app:placeholder="@{@drawable/food_image_test1}"
+            android:background="@drawable/bg_like_comb"/>
 
         <TextView
             android:id="@+id/item_food_tv"
