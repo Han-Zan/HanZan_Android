@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.camera.CameraResultItemRVAdapter
-import com.kud.hanzan.adapter.camera.CameraResultVPAdapter
 import com.kud.hanzan.databinding.FragmentCameraDrinkBinding
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.ui.dialog.ConfirmDialog
@@ -20,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CameraDrinkFragment : BaseFragment<FragmentCameraDrinkBinding>(R.layout.fragment_camera_drink) {
-    private val viewModel by activityViewModels<CameraViewModel>()
+    private val viewModel by activityViewModels<CameraResultViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -75,6 +73,7 @@ class CameraDrinkFragment : BaseFragment<FragmentCameraDrinkBinding>(R.layout.fr
     private fun observe(){
         viewModel.drinkLiveData.observe(viewLifecycleOwner) {
             (binding.cameraDrinkRv.adapter as CameraResultItemRVAdapter).setData(it)
+            Log.e("camera ocr data", it.toString())
         }
     }
 }

@@ -17,6 +17,7 @@ import androidx.camera.view.video.OutputFileOptions
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.mlkit.vision.common.InputImage
@@ -31,7 +32,10 @@ import kotlin.random.Random
 
 @AndroidEntryPoint
 class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_camera){
-    private var checker = false
+    private val viewModel by viewModels<CameraViewModel>()
+    // 텍스트 인식 결과
+    private var cameraItemList = mutableListOf<String>()
+
     private lateinit var cameraSelector : CameraSelector
     private val cameraProviderFuture by lazy{
         ProcessCameraProvider.getInstance(requireContext())
@@ -58,8 +62,8 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
     private lateinit var activityResultLauncher : ActivityResultLauncher<Intent>
 
     // 촬영 결과 화면을 다녀온 경우
-    private val drinkList = ArrayList<String>()
-    private val foodList = ArrayList<String>()
+    private var drinkList = ArrayList<String>()
+    private var foodList = ArrayList<String>()
     // toggle button mode
     private var drinkMode = true
 
@@ -82,6 +86,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
         }
         setAnimationListener()
         initListener()
+        observe()
     }
 
     private fun startCamera(){
@@ -156,13 +161,22 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                     binding.cameraPreview.bitmap?.let {
                         recognizer.process(InputImage.fromBitmap(it, 0))
                             .addOnSuccessListener { visionText ->
-                                var text = ""
+                                cameraItemList.clear()
                                 val resultText = visionText.textBlocks
-                                for (element in resultText) {
-                                    text += "$element\n"
+                                resultText.forEach { e ->
+                                    cameraItemList.add(e.text)
                                 }
-                                Log.e("camera result", text)
+                                Log.e("camera ocr result", cameraItemList.toString())
                                 image.close()
+                                if (drinkMode){
+                                    // Todo : 술 리스트로 넘기기
+                                    viewModel.postCameraDrink(cameraItemList)
+                                } else {
+                                    // Todo : 음식 리스트로 넘기기
+                                    foodList.add("닭발")
+//                    putExtra("foodList", foodList.toTypedArray())
+                                    foodList.clear()
+                                }
                             }
                     }
 
@@ -174,6 +188,19 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
         )
     }
 
+    private fun observe(){
+        viewModel.cameraDrinkData.observe(viewLifecycleOwner){ d ->
+            activityResultLauncher.launch(Intent(requireActivity(), CameraResultActivity::class.java).apply{
+                drinkList.addAll(d)
+                Log.e("camera ocr server", d.toString())
+                putExtra("drinkList",drinkList.toTypedArray())
+                putExtra("foodList",foodList.toTypedArray())
+            })
+            drinkList.clear()
+            foodList.clear()
+        }
+    }
+
     private fun setAnimationListener(){
         cameraAnimationListener = object : Animation.AnimationListener{
             override fun onAnimationStart(p0: Animation?) {
@@ -181,18 +208,6 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
 
             override fun onAnimationEnd(p0: Animation?) {
                 binding.cameraShutterFrame.visibility = View.GONE
-                activityResultLauncher.launch(Intent(requireActivity(), CameraResultActivity::class.java).apply {
-                    // Todo : 카메라 결과 넘기기
-                    if (drinkMode){
-                        // Todo : 술 리스트로 넘기기
-                        drinkList.clear()
-                    } else {
-                        // Todo : 음식 리스트로 넘기기
-                        foodList.add("닭발")
-                        putExtra("foodList", foodList.toTypedArray())
-                        foodList.clear()
-                    }
-                })
             }
 
             override fun onAnimationRepeat(p0: Animation?) {

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="cameraViewModel"
-            type="com.kud.hanzan.ui.camera.CameraViewModel" />
+            type="com.kud.hanzan.ui.camera.CameraResultViewModel" />
     </data>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"

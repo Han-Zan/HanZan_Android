@@ -1,48 +1,35 @@
 package com.kud.hanzan.ui.camera
 
-import androidx.databinding.ObservableField
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.kud.hanzan.domain.usecase.camera.PostCameraDrinkUseCase
+import com.kud.hanzan.domain.usecase.camera.PostCameraFoodUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CameraViewModel @Inject constructor(
+    private val postCameraDrinkUseCase: PostCameraDrinkUseCase,
+    private val postCameraFoodUseCase: PostCameraFoodUseCase
 ): ViewModel() {
-    private var _drinkLiveData = MutableLiveData<MutableList<String>>()
-    val drinkLiveData : LiveData<MutableList<String>>
-        get() = _drinkLiveData
+    private var _cameraDrinkData = MutableLiveData<List<String>>()
+    val cameraDrinkData : LiveData<List<String>>
+        get() = _cameraDrinkData
 
-    private var _foodLiveData = MutableLiveData<MutableList<String>>()
-    val foodLiveData : LiveData<MutableList<String>>
-        get() = _foodLiveData
-
-    init {
-        _drinkLiveData.value = mutableListOf("참이슬", "처음처럼", "진로", "아이셔에 이슬", "비타500에 이슬", "테라", "하이트", "카스")
-        _foodLiveData.value = mutableListOf()
-    }
-
-    fun deleteDrinkItem(position: Int){
-        _drinkLiveData.value?.removeAt(position)
-    }
-
-    fun deleteFoodItem(position: Int){
-        _foodLiveData.value?.removeAt(position)
-    }
-
-    // progress 리턴
-    fun getProgress() : Int = if (_drinkLiveData.value?.isNotEmpty() == true && _foodLiveData.value?.isNotEmpty() == true) 100
-        else if (_drinkLiveData.value?.isEmpty() == true && _foodLiveData.value?.isEmpty() == true) 0
-        else 50
-
-    // set drinkLiveData
-    fun setDrinkData(array: Array<String>){
-        _drinkLiveData.value = array.toMutableList()
-    }
-
-    // set foodLiveData
-    fun setFoodData(array: Array<String>){
-        _foodLiveData.value = array.toMutableList()
+    fun postCameraDrink(strList: List<String>){
+        viewModelScope.launch {
+            postCameraDrinkUseCase(strList)
+                .catch { _cameraDrinkData.value = emptyList() }
+                .collectLatest{
+                    _cameraDrinkData.value = it
+                    Log.e("cameraViewModel", it.toString())
+                }
+        }
     }
 }

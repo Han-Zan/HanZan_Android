@@ -119,28 +119,44 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
 
     private fun observe(){
         binding.lifecycleOwner = this
+        viewModel.placeSearchInfo.observe(viewLifecycleOwner){
+            if (it is PlaceUiState.Success){
+                if (it.placeList.isNotEmpty()) {
+                    mapView.removeAllPOIItems()
+                    //bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    mapView.setMapCenterPoint(
+                        MapPoint.mapPointWithGeoCoord(
+                            it.placeList[0].y.toDouble(),
+                            it.placeList[0].x.toDouble()
+                        ), true
+                    )
+                    it.placeList.also { mapView.removeAllPOIItems() }
+                        .forEach { p -> addMarker(p.name, p.x, p.y, p) }
+                }
+            }
+        }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 launch {
-                    viewModel.placeSearchInfo.collectLatest { state ->
-                        when (state) {
-                            // Todo : 검색 결과 없을 때 대비
-                            is PlaceUiState.Success -> {
-                                if (state.placeList.isNotEmpty()) {
-                                    mapView.removeAllPOIItems()
-                                    //bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                                    mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(state.placeList[0].y.toDouble(), state.placeList[0].x.toDouble()), true)
-                                    state.placeList.also { mapView.removeAllPOIItems() }
-                                        .forEach { addMarker(it.name, it.x, it.y, it) }
-                                }
-                            }
-                            is PlaceUiState.Error -> Toast.makeText(
-                                context,
-                                state.exception.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
+//                    viewModel.placeSearchInfo.collectLatest { state ->
+//                        when (state) {
+//                            // Todo : 검색 결과 없을 때 대비
+//                            is PlaceUiState.Success -> {
+//                                if (state.placeList.isNotEmpty()) {
+//                                    mapView.removeAllPOIItems()
+//                                    //bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+//                                    mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(state.placeList[0].y.toDouble(), state.placeList[0].x.toDouble()), true)
+//                                    state.placeList.also { mapView.removeAllPOIItems() }
+//                                        .forEach { addMarker(it.name, it.x, it.y, it) }
+//                                }
+//                            }
+//                            is PlaceUiState.Error -> Toast.makeText(
+//                                context,
+//                                state.exception.toString(),
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+//                    }
                 }
                 launch {
                     viewModel.placeNearInfo.collectLatest {

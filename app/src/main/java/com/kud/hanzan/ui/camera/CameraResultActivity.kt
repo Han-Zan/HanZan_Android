@@ -1,25 +1,11 @@
 package com.kud.hanzan.ui.camera
 
-import android.app.Activity
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.activity.viewModels
-import androidx.fragment.app.findFragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kud.hanzan.R
-import com.kud.hanzan.adapter.camera.CameraResultItemRVAdapter
 import com.kud.hanzan.adapter.camera.CameraResultVPAdapter
 import com.kud.hanzan.databinding.ActivityCameraResultBinding
-import com.kud.hanzan.ui.MainActivity
-import com.kud.hanzan.ui.dialog.ConfirmDialog
 import com.kud.hanzan.utils.base.BaseActivity
-import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,7 +13,7 @@ class CameraResultActivity : BaseActivity<ActivityCameraResultBinding>(R.layout.
     companion object{
         private val tabInfo = listOf("술 리스트", "안주 리스트")
     }
-    private val viewModel by viewModels<CameraViewModel>()
+    private val viewModel by viewModels<CameraResultViewModel>()
 
     override fun initView(){
         with(binding){
