@@ -6,14 +6,72 @@ import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivitySbtiBinding
 import com.kud.hanzan.utils.base.BaseActivity
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import java.util.Collections.max
 
 class SbtiActivity : BaseActivity<ActivitySbtiBinding>(R.layout.activity_sbti) {
     // 각 문제들의 답 ([0]은 더미)
-    var answer = mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    var answer = intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-    fun sbtiType(): String {
-        // TODO("술BTI 결과 계산하기")
-        return "고독한 미식가"
+    private fun sbtiType(): String {
+        var onlyDrink = 0
+        var misik = 0
+        var home = 0
+        var party = 0
+        var challenge = 0
+
+        if (answer[1] == 1) misik += 2
+        else onlyDrink += 2
+
+        if (answer[2] == 1) {
+            misik += 1
+            onlyDrink += 1
+        } else {
+            challenge += 4
+            onlyDrink += 1
+        }
+
+        if (answer[3] == 1) {
+            misik += 1
+            onlyDrink += 1
+        } else party += 2
+
+        if (answer[4] == 1) home += 2
+        else {
+            party += 1
+            onlyDrink += 1
+        }
+
+        if (answer[5] == 1) {
+            home += 2
+            onlyDrink += 1
+        } else party += 1
+
+        if (answer[6] == 1) home += 2
+
+        if (answer[7] == 5) onlyDrink += 2
+
+        if (answer[8] == 2) misik += 2
+        else party += 2
+
+        if (answer[9] == 1) party += 2
+        else if (answer[9] == 2) party += 1
+        else if (answer[9] == 3) challenge += 2
+        else if (answer[9] == 4) misik += 1
+        else misik += 2
+
+        if (answer[10] == 1) party += 2
+        else if (answer[10] == 2) party += 1
+        else if (answer[10] == 3) challenge += 2
+        else if (answer[10] == 4) home += 1
+        else home += 2
+
+        return when (max(listOf(challenge, home, onlyDrink, party, misik))) {
+            challenge -> "도전자"
+            home -> "집돌이/집순이"
+            onlyDrink -> "나는 술이 좋아"
+            party -> "위대한 개츠비"
+            else -> "고독한 미식가"
+        }
     }
 
     override fun initView() {
@@ -320,7 +378,7 @@ class SbtiActivity : BaseActivity<ActivitySbtiBinding>(R.layout.activity_sbti) {
             }
 
             sbtiAnswer111CB.setOnClickListener {
-                if (!sbtiAnswer111CB.isChecked) answer[11] = 0 else answer[10] = 1
+                if (!sbtiAnswer111CB.isChecked) answer[11] = 0 else answer[11] = 1
                 sbtiAnswer112CB.isChecked = false
                 sbtiAnswer113CB.isChecked = false
                 sbtiAnswer114CB.isChecked = false

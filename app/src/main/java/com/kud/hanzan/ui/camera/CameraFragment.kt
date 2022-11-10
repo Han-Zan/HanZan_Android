@@ -164,7 +164,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                                 cameraItemList.clear()
                                 val resultText = visionText.textBlocks
                                 resultText.forEach { e ->
-                                    cameraItemList.add(e.text)
+                                    if(e.text.length >= 2) cameraItemList.add(e.text)
                                 }
                                 Log.e("camera ocr result", cameraItemList.toString())
                                 image.close()

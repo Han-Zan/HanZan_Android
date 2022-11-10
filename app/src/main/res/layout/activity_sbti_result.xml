@@ -38,7 +38,7 @@
                         android:id="@+id/sbti_result_user_name_TV"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text='@{user.nickname + " 님은"}'
+                        android:text='@{user.nickname + " 님은", default="유저 님은"}'
                         android:textSize="25sp"
                         android:textStyle="bold"
                         android:fontFamily="@font/font_pretendard_extrabold"
@@ -51,7 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:fontFamily="@font/font_pretendard_extrabold"
-                        android:text="@{user.sbti}"
+                        android:text='@{user.sbti, default="잘못된"}'
                         android:textColor="@color/color_main"
                         android:textSize="25sp"
                         android:textStyle="bold"
@@ -80,15 +80,16 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/sbti_result_image"
                         android:layout_width="320dp"
                         android:layout_height="320dp"
-                        android:src="@drawable/src_sbti_type_lonely_gourmet"
+                        android:src="@drawable/src_sbti_misik"
                         android:layout_marginBottom="10dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sbti_type_lonely_gourmet"
+                        android:text='@{user.sbti, default="잘못된"}'
                         android:textSize="25sp"
                         android:textStyle="bold"/>
                 </LinearLayout>
@@ -108,19 +109,21 @@
                         android:layout_marginEnd="6dp"/>
 
                     <TextView
+                        android:id="@+id/sbti_result_brief_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sbti_brief_lonely_gourmet"
+                        android:text="@string/sbti_brief_default"
                         android:textSize="16sp"
                         android:textColor="@color/color_main"/>
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/sbti_result_detailed_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="30dp"
                     android:layout_marginTop="30dp"
-                    android:text="@string/sbti_detail_lonely_gourmet"
+                    android:text="@string/sbti_detailed_default"
                     android:textSize="15sp"/>
 
                 <LinearLayout

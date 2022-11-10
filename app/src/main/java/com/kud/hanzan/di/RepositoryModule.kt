@@ -12,6 +12,8 @@ import com.kud.hanzan.data.source.login.LoginDataSource
 import com.kud.hanzan.data.source.login.LoginRepositoryImpl
 import com.kud.hanzan.data.source.preferred.PreferredRemoteDataSource
 import com.kud.hanzan.data.source.preferred.PreferredRepositoryImpl
+import com.kud.hanzan.data.source.profile.ProfileDataSource
+import com.kud.hanzan.data.source.profile.ProfileRepositoryImpl
 import com.kud.hanzan.domain.repository.*
 import dagger.Module
 import dagger.Provides
@@ -54,7 +56,13 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providesCameraRepository(cameraRemoteDataSource: CameraRemoteDataSource) : CameraRepository{
+    fun providesCameraRepository(cameraRemoteDataSource: CameraRemoteDataSource) : CameraRepository {
         return CameraRepositoryImpl(cameraRemoteDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun providesProfileRepository(ProfileDataSource: ProfileDataSource) : ProfileRepository{
+        return ProfileRepositoryImpl(ProfileDataSource)
     }
 }
