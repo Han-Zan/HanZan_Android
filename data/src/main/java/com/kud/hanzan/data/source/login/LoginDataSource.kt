@@ -22,7 +22,7 @@ class LoginDataSource @Inject constructor(
                 userResponseDto.userIdx = it.body()?.userIdx ?: 0
                 userResponseDto.userToken = it.body()?.userToken ?: "error1"
             }.onFailure {
-
+                Log.e(TAG, "Posting User Information Failure")
             }
         }
         return userResponseDto
@@ -34,11 +34,10 @@ class LoginDataSource @Inject constructor(
             runCatching {
                 hanzanService.checkUserAccount(userId)
             }.onSuccess {
-                Log.e(TAG, "Success")
                 userResponseDto.userIdx = it.body()?.userIdx ?: 0
                 userResponseDto.userToken = it.body()?.userToken ?: "error"
             }.onFailure {
-                Log.e(TAG, "Failure")
+                Log.e(TAG, "Checking User Account Failure")
             }
         }
         return userResponseDto

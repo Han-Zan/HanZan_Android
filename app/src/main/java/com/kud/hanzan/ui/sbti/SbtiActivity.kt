@@ -12,7 +12,7 @@ class SbtiActivity : BaseActivity<ActivitySbtiBinding>(R.layout.activity_sbti) {
     // 각 문제들의 답 ([0]은 더미)
     var answer = intArrayOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-    fun sbtiType(): String {
+    private fun sbtiType(): String {
         var onlyDrink = 0
         var misik = 0
         var home = 0
@@ -65,9 +65,7 @@ class SbtiActivity : BaseActivity<ActivitySbtiBinding>(R.layout.activity_sbti) {
         else if (answer[10] == 4) home += 1
         else home += 2
 
-        val maxScore = max(listOf(challenge, home, onlyDrink, party, misik))
-
-        return when (maxScore) {
+        return when (max(listOf(challenge, home, onlyDrink, party, misik))) {
             challenge -> "도전자"
             home -> "집돌이/집순이"
             onlyDrink -> "나는 술이 좋아"
@@ -380,7 +378,7 @@ class SbtiActivity : BaseActivity<ActivitySbtiBinding>(R.layout.activity_sbti) {
             }
 
             sbtiAnswer111CB.setOnClickListener {
-                if (!sbtiAnswer111CB.isChecked) answer[11] = 0 else answer[10] = 1
+                if (!sbtiAnswer111CB.isChecked) answer[11] = 0 else answer[11] = 1
                 sbtiAnswer112CB.isChecked = false
                 sbtiAnswer113CB.isChecked = false
                 sbtiAnswer114CB.isChecked = false

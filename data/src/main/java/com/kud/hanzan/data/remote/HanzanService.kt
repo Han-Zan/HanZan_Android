@@ -10,6 +10,16 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface HanzanService {
+    // 프로필
+    @GET("/userinfo")
+    suspend fun getUser(@Query("Id") userId: Long) : Response<User>
+    @PUT("/userinfo/nickname")
+    suspend fun changeUserNickName(@Query("userIdx") userId: Long, @Query("userName") userName: String) : String
+    @PUT("/userinfo/profile")
+    suspend fun changeUserProfile(@Query("userIdx") userId: Long, @Query("userImg") userImg: String) : String
+    @DELETE("/userinfo")
+    suspend fun deleteUser(@Query("userId") userId: Long) : String
+
     // 좋아요 - 조합
     @GET("/prefcomb")
     suspend fun getPreferredComb(@Query("userId") userId: Long) : CombResult

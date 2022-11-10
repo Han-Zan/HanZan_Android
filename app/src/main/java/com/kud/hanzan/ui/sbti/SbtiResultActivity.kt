@@ -74,23 +74,10 @@ class SbtiResultActivity : BaseActivity<ActivitySbtiResultBinding>(R.layout.acti
         }
     }
 
-    private fun kakaoDelete() {
-        // 연결 끊기
-        UserApiClient.instance.unlink { error ->
-            if (error != null) {
-                Log.e(ContentValues.TAG, "연결 끊기 실패", error)
-            }
-            else {
-                Log.i(ContentValues.TAG, "연결 끊기 성공. SDK에서 토큰 삭제 됨")
-            }
-        }
-    }
-
     private var backKeyPressedTime: Long = 0
     override fun onBackPressed() {
         if (System.currentTimeMillis() <= backKeyPressedTime + 2000) {
             // 뒤로가기 두 번 누르면 종료
-            kakaoDelete()
             finish()
         } else{
             backKeyPressedTime = System.currentTimeMillis()
