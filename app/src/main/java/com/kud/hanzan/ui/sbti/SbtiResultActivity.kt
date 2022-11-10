@@ -21,15 +21,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SbtiResultActivity : BaseActivity<ActivitySbtiResultBinding>(R.layout.activity_sbti_result) {
     private val viewModel by viewModels<SbtiResultViewModel>()
-    private val userInfo : UserInfo = UserInfo("name_error", "nickname_error",-1, "sbti_error", "image_error", -1, true)
+    private val userInfo : UserInfo = UserInfo("유저", "유저",-1, "잘못된", "image_error", -1, true)
 
     override fun initView() {
         observe()
         with(userInfo) {
-            username = intent.getStringExtra("user_name")?:"name_error"
-            nickname = intent.getStringExtra("user_nickname")?:"nickname_error"
+            username = intent.getStringExtra("user_name")?:"유저"
+            nickname = intent.getStringExtra("user_nickname")?:"유저"
             userage = intent.getIntExtra("user_age", 0)
-            sbti = intent.getStringExtra("user_type")?:"sbti_error"
+            sbti = intent.getStringExtra("user_type")?:"잘못된"
             profileimage = intent.getStringExtra("user_profile")?:"image_error"
             kakaoId = intent.getLongExtra("user_id", 0)
             male = intent.getBooleanExtra("user_gender", true)
@@ -37,6 +37,27 @@ class SbtiResultActivity : BaseActivity<ActivitySbtiResultBinding>(R.layout.acti
         viewModel.login(userInfo)
 
         binding.user = userInfo
+        binding.sbtiResultImage.setImageResource( when (userInfo.sbti) {
+            "도전자" -> R.drawable.src_sbti_challenge
+            "집돌이/집순이" -> R.drawable.src_sbti_home
+            "나는 술이 좋아" -> R.drawable.src_sbti_only_drink
+            "위대한 개츠비" -> R.drawable.src_sbti_party
+            else -> R.drawable.src_sbti_misik
+        })
+        binding.sbtiResultBriefInfo.text = resources.getString(when (userInfo.sbti) {
+            "도전자" -> R.string.sbti_brief_challenge
+            "집돌이/집순이" -> R.string.sbti_brief_home
+            "나는 술이 좋아" -> R.string.sbti_brief_only_drink
+            "위대한 개츠비" -> R.string.sbti_brief_party
+            else -> R.string.sbti_brief_misik
+        })
+        binding.sbtiResultDetailedInfo.text = resources.getString(when (userInfo.sbti) {
+            "도전자" -> R.string.sbti_detailed_challenge
+            "집돌이/집순이" -> R.string.sbti_detailed_home
+            "나는 술이 좋아" -> R.string.sbti_detailed_only_drink
+            "위대한 개츠비" -> R.string.sbti_detailed_party
+            else -> R.string.sbti_detailed_misik
+        })
 
         binding.sbtiResultNextBtn.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))
