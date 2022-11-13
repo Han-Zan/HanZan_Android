@@ -60,7 +60,11 @@
     <fragment
         android:id="@+id/drinkListFragment"
         android:name="com.kud.hanzan.ui.combination.DrinkListFragment"
-        android:label="DrinkListFragment" />
+        android:label="DrinkListFragment" >
+        <action
+            android:id="@+id/action_drinkListFragment_to_drinkFragment"
+            app:destination="@id/drinkFragment" />
+    </fragment>
     <fragment
         android:id="@+id/foodCategoryFragment"
         android:name="com.kud.hanzan.ui.combination.FoodCategoryFragment"
@@ -84,6 +88,14 @@
         <argument
             android:name="store"
             app:argType="com.kud.hanzan.domain.model.map.Store"/>
+    </fragment>
+    <fragment
+        android:id="@+id/drinkFragment"
+        android:name="com.kud.hanzan.ui.combination.DrinkFragment"
+        android:label="DrinkFragment" >
+<!--        <argument-->
+<!--            android:name="drink"-->
+<!--            app:argType="com.kud.hanzan.domain.model.Drink"/>-->
     </fragment>
     <!--    <activity-->
 <!--        android:id="@+id/mainActivity"-->
