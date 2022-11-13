@@ -8,13 +8,17 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
 import com.kakao.sdk.user.UserApiClient
 import com.kud.hanzan.HanZanApplication
 import com.kud.hanzan.R
 import com.kud.hanzan.data.remote.HanzanService
+import com.kud.hanzan.databinding.DialogChangeNicknameBinding
 import com.kud.hanzan.databinding.FragmentProfileBinding
 import com.kud.hanzan.domain.model.User
 import com.kud.hanzan.domain.model.UserInfo
+import com.kud.hanzan.ui.dialog.ChangeNicknameDialog
+import com.kud.hanzan.ui.dialog.ConfirmDialog
 import com.kud.hanzan.ui.sbti.SbtiResultViewModel
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
     private val viewModel by viewModels<ProfileViewModel>()
+    private lateinit var changeNicknameBinding: DialogChangeNicknameBinding
 
     private var userId: Long = -1
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,35 +43,55 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
 
     private var pressedTime: Long = 0
     private fun initListener() {
-        binding.profileUserDeleteBtn.setOnClickListener {
-            if (System.currentTimeMillis() <= pressedTime + 2000) {
-                // 뒤로가기 두 번 누르면 종료
-                viewModel.deleteUser(userId)
-            } else{
-                pressedTime = System.currentTimeMillis()
-                Toast.makeText(context, "버튼을 연속으로 두 번 누르면 회원 탈퇴가 정상적으로 이루어집니다.", Toast.LENGTH_SHORT).show()
+        with(binding) {
+            profileUserChangeNicknameBtn.setOnClickListener {
+                ChangeNicknameDialog().apply {
+                    setCustomListener(object: ChangeNicknameDialog.DialogChangeNicknameListener{
+                        override fun onConfirm() {
+                            viewModel.changeUserNickName(userId, changeNicknameBinding.changeNicknameET.text.toString())
+                            dismiss()
+                        }
+                    })
+                }.show(requireActivity().supportFragmentManager, "confirm")
+            }
+            profileUserChangeProfileBtn.setOnClickListener {
+
+            }
+            profileSbtiBtn.setOnClickListener {
+
+            }
+            profileUserDeleteBtn.setOnClickListener {
+                if (System.currentTimeMillis() <= pressedTime + 2000) {
+                    // 뒤로가기 두 번 누르면 종료
+                    viewModel.deleteUser(userId)
+                } else{
+                    pressedTime = System.currentTimeMillis()
+                    Toast.makeText(context, "버튼을 연속으로 두 번 누르면 회원 탈퇴가 정상적으로 이루어집니다.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
     private fun observe() {
-        viewModel.userLiveData.observe(viewLifecycleOwner) {
-            binding.user = User(it.id, it.kakaoId, it.male, it.nickname, it.profileimage, it.sbti, it.userage, it.username)
-            Log.e(TAG, binding.user.toString())
-        }
-        viewModel.resChangeNickNameLiveData.observe(viewLifecycleOwner) {
-            if (it == "Success") Toast.makeText(context, "정상적으로 변경되었습니다.", Toast.LENGTH_SHORT).show()
-            else Toast.makeText(context, "변경에 문제가 발생했습니다. 잠시후에 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
-        }
-        viewModel.resChangeProfileLiveData.observe(viewLifecycleOwner) {
-            if (it == "Success") Toast.makeText(context, "정상적으로 변경되었습니다.", Toast.LENGTH_SHORT).show()
-            else Toast.makeText(context, "변경에 문제가 발생했습니다. 잠시후에 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
-        }
-        viewModel.resDeleteLiveData.observe(viewLifecycleOwner) {
-            Toast.makeText(context, "정상적으로 탈퇴되었습니다.", Toast.LENGTH_SHORT).show()
-            kakaoDelete()
-            HanZanApplication.spfManager.spfClear()
-            activity?.finishAffinity()
+        with(viewModel) {
+            userLiveData.observe(viewLifecycleOwner) {
+                binding.user = User(it.id, it.kakaoId, it.male, it.nickname, it.profileimage, it.sbti, it.userage, it.username)
+                Log.e(TAG, binding.user.toString())
+            }
+            resChangeNickNameLiveData.observe(viewLifecycleOwner) {
+                Toast.makeText(context, "정상적으로 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                viewModel.getUser(userId)
+            }
+            resChangeProfileLiveData.observe(viewLifecycleOwner) {
+                if (it == "Success") Toast.makeText(context, "정상적으로 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                else Toast.makeText(context, "변경에 문제가 발생했습니다. 잠시후에 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+            }
+            resDeleteLiveData.observe(viewLifecycleOwner) {
+                Toast.makeText(context, "정상적으로 탈퇴되었습니다.", Toast.LENGTH_SHORT).show()
+                kakaoDelete()
+                HanZanApplication.spfManager.spfClear()
+                activity?.finishAffinity()
+            }
         }
     }
 
