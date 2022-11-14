@@ -42,8 +42,10 @@ class ProfileDataSource @Inject constructor(
                 hanzanService.changeUserNickName(userId, userName)
             }.onSuccess {
                 putResponse = "Success"
+                Log.e(TAG, "User Nickname Change Success")
             }.onFailure {
                 putResponse = "Failure"
+                Log.e(TAG, "User Nickname Change Failure")
             }
         }
         return putResponse
@@ -56,8 +58,10 @@ class ProfileDataSource @Inject constructor(
                 hanzanService.changeUserProfile(userId, userImg)
             }.onSuccess {
                 putResponse = "Success"
+                Log.e(TAG, "User Profile Image Change Success")
             }.onFailure {
                 putResponse = "Failure"
+                Log.e(TAG, "User Profile Image Change Failure")
             }
         }
         return putResponse
