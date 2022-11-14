@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="title"
+            type="java.lang.String" />
+        <variable
+            name="hint"
+            type="java.lang.String" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,20 +20,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text='닉네임 변경'
+            android:text='@{title, default=제목}'
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginTop="20dp"/>
 
         <EditText
-            android:id="@+id/change_nickname_ET"
+            android:id="@+id/one_edit_text_ET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="12dp"
             android:layout_marginHorizontal="4dp"
-            android:hint="변경할 닉네임을 입력해주세요."/>
+            android:hint='@{hint, default="힌트 텍스트"}'/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +42,7 @@
             android:layout_marginBottom="20dp">
 
             <Button
-                android:id="@+id/change_nickname_cancel_btn"
+                android:id="@+id/one_edit_text_cancel_btn"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -48,7 +57,7 @@
                 android:backgroundTint="@color/white"/>
 
             <Button
-                android:id="@+id/change_nickname_confirm_btn"
+                android:id="@+id/one_edit_text_confirm_btn"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_marginStart="10dp"

@@ -9,18 +9,22 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import com.kud.hanzan.R
-import com.kud.hanzan.databinding.DialogChangeNicknameBinding
+import com.kud.hanzan.databinding.DialogOneEditTextBinding
 
-class ChangeNicknameDialog : DialogFragment() {
-    private lateinit var binding : DialogChangeNicknameBinding
+class OneEditTextDialog(private val title: String, private val hint: String) : DialogFragment() {
+    private lateinit var binding : DialogOneEditTextBinding
 
-    interface DialogChangeNicknameListener {
+    fun getText() : String{
+        return binding.oneEditTextET.text.toString()
+    }
+
+    interface DialogOneEditTextListener {
         fun onConfirm()
     }
 
-    private lateinit var dialogListener: DialogChangeNicknameListener
+    private lateinit var dialogListener: DialogOneEditTextListener
 
-    fun setCustomListener(listener: DialogChangeNicknameListener){
+    fun setCustomListener(listener: DialogOneEditTextListener){
         dialogListener = listener
     }
 
@@ -46,7 +50,10 @@ class ChangeNicknameDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_change_nickname, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_one_edit_text, container, false)
+
+        binding.title = title
+        binding.hint = hint
 
         isCancelable = false
 
@@ -59,7 +66,7 @@ class ChangeNicknameDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.changeNicknameCancelBtn.setOnClickListener { dismiss() }
-        binding.changeNicknameConfirmBtn.setOnClickListener { dialogListener.onConfirm() }
+        binding.oneEditTextCancelBtn.setOnClickListener { dismiss() }
+        binding.oneEditTextConfirmBtn.setOnClickListener { dialogListener.onConfirm() }
     }
 }

@@ -154,6 +154,7 @@
 
     <!--    Image Select-->
     <string name="image_select_title">이미지 선택</string>
+    <string name="image_cancel_btn">취소</string>
     <string name="image_upload_btn">이미지 업로드</string>
 
     <string name="camera_guide_hint">메뉴판을 촬영해주세요!</string>
