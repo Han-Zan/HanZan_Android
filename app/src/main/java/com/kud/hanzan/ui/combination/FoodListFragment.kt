@@ -52,7 +52,7 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
                 }
             }
 
-            // 임시 팝업 메뉴뉴
+            // 임시 팝업 메뉴
             val popupMenu = PopupMenu(context, foodListStyleBtn)
             popupMenu.menu.apply {
                 add("육류")
