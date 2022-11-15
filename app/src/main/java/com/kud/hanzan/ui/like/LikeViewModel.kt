@@ -1,5 +1,6 @@
 package com.kud.hanzan.ui.like
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kud.hanzan.HanZanApplication.Companion.spfManager
@@ -36,6 +37,11 @@ class LikeViewModel @Inject constructor(
     private var searchKeyword: String? = null
     private var type = 0
 
+    // Comb Drink Type
+    private var combDrinkType = 0
+    // 안주는 -1이 전체 선택
+    private var combFoodType = -1
+
     private val userIdx = spfManager.getUserIdx()
 
     init {
@@ -46,12 +52,8 @@ class LikeViewModel @Inject constructor(
     private fun getComb(userId: Long){
         viewModelScope.launch {
             getCombUseCase(userId)
-                .catch { _combData.value = listOf(
-                    Combination("일반소주", null, "닭발", null,   0, 0f, "누구도 부정할 수 없는\n궁극의 그 조합!"),
-                    Combination("카스", null, "치킨", null, 0, 0f, "치맥 안 먹어본 사람 있어?")
-                ).also {
-                    totalCombData = it
-                } }
+                .catch {
+                }
                 .collect{
                     _combData.value = it
                     totalCombData = it
@@ -137,15 +139,91 @@ class LikeViewModel @Inject constructor(
             _alcoholData.value = totalAlcoholData.filter { likeAlcohol -> likeAlcohol.category == type }
     }
 
+    fun setCombDrinkType(drinkType: Int) {
+        if (drinkType == 0){
+            if (combFoodType != -1){
+                searchKeyword?.let {  keyword ->
+                    _combData.value = totalCombData.filter { (combFoodType == it.foodCategory) && (it.foodname.contains(keyword) || it.drinkname.contains(keyword)) }
+                } ?: run {
+                    _combData.value = totalCombData.filter { combFoodType == it.foodCategory }
+                }
+            }
+            else{
+                searchKeyword?.let { keyword ->
+                    _combData.value = totalCombData.filter { (it.foodname.contains(keyword) || it.drinkname.contains(keyword)) }
+                } ?: run {
+                    _combData.value = totalCombData
+                }
+            }
+        } else {
+            if (combFoodType != -1){
+                searchKeyword?.let { keyword ->
+                    _combData.value = totalCombData.filter { (combFoodType == it.foodCategory) && (it.drinkCategory == drinkType) && (it.foodname.contains(keyword) || it.drinkname.contains(keyword)) }
+                } ?: run {
+                    _combData.value = totalCombData.filter { (combFoodType == it.foodCategory) && (it.drinkCategory == drinkType) }
+                }
+            }
+            else{
+                searchKeyword?.let { keyword ->
+                    _combData.value = totalCombData.filter { (it.drinkCategory == drinkType) && (it.foodname.contains(keyword) || it.drinkname.contains(keyword)) }
+                } ?: run {
+                    _combData.value = totalCombData.filter { it.drinkCategory == drinkType }
+                }
+            }
+        }
+        combDrinkType = drinkType
+    }
+
+    fun setCombFoodType(foodType: Int){
+        if (foodType == -1){
+            if (combDrinkType == 0){
+                searchKeyword?.let { keyword ->
+                    _combData.value = totalCombData.filter { it.foodname.contains(keyword) || it.drinkname.contains(keyword) }
+                } ?: run {
+                    _combData.value = totalCombData
+                }
+            }
+            else {
+                searchKeyword?.let { keyword ->
+                    _combData.value = totalCombData.filter { (combDrinkType == it.drinkCategory) && (it.foodname.contains(keyword) || it.drinkname.contains(keyword)) }
+                } ?: run {
+                    _combData.value = totalCombData.filter { combDrinkType == it.drinkCategory }
+                }
+            }
+        } else {
+            if (combDrinkType == 0){
+                searchKeyword?.let { keyword ->
+                    _combData.value = totalCombData.filter { (it.foodCategory == foodType) && (it.foodname.contains(keyword) || it.drinkname.contains(keyword))}
+                } ?: run {
+                    _combData.value = totalCombData.filter { it.foodCategory == foodType }
+                }
+            }
+            else {
+                searchKeyword?.let { keyword ->
+                    _combData.value = totalCombData.filter { (combDrinkType == it.drinkCategory) && (foodType == it.foodCategory) && (it.foodname.contains(keyword) || it.drinkname.contains(keyword)) }
+                } ?: run {
+                    _combData.value = totalCombData.filter { (combDrinkType == it.drinkCategory) && (foodType == it.foodCategory) }
+                }
+            }
+        }
+        combFoodType = foodType
+    }
+
     fun search(keyword: String){
         searchKeyword = keyword
         _alcoholData.value = totalAlcoholData.filter { alcohol -> alcohol.name.contains(keyword) }
-        _combData.value = totalCombData.filter { comb -> comb.drinkname.contains(keyword) }
+        _combData.value = totalCombData.filter { comb -> comb.drinkname.contains(keyword) || comb.foodname.contains(keyword) }
     }
 
     fun searchClose(){
         searchKeyword = null
         _alcoholData.value = if (type == 0) totalAlcoholData else totalAlcoholData.filter { alcohol -> alcohol.category == type }
-        _combData.value = totalCombData
+        _combData.value = if (combDrinkType == 0) {
+            if (combFoodType == -1) totalCombData
+            else totalCombData.filter { comb -> comb.foodCategory == combFoodType }
+        } else {
+            if (combFoodType == -1) totalCombData.filter { comb -> comb.drinkCategory == combDrinkType }
+            else totalCombData.filter { comb -> (comb.drinkCategory == combDrinkType) && (comb.foodCategory == combFoodType) }
+        }
     }
 }

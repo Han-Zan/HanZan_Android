@@ -15,7 +15,7 @@ class PreferredRepositoryImpl @Inject constructor(
     override fun getPreferredComb(
         userId: Long
     ): Flow<List<Combination>> = preferredRemoteDataSource.getPreferredComb(userId).map {
-        it.map { comb -> Combination(comb.drinkname, comb.drinkimg, comb.foodname, comb.foodimg, comb.id, comb.rating, null) }
+        it.map { comb -> comb }
     }
 
     override fun deletePreferredComb(
