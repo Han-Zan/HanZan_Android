@@ -33,5 +33,17 @@
             android:src="@drawable/src_kakao_login_large_wide"
             android:background="@android:color/transparent"
             android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/title_debug_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="20dp"
+            android:text="이세카이로 가는 디버그 버튼"
+            android:textSize="20sp"
+            android:textColor="@color/white"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

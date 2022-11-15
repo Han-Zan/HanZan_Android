@@ -116,6 +116,9 @@ class TitleActivity : BaseActivity<ActivityTitleBinding>(R.layout.activity_title
         binding.titleKakaoLoginBtn.setOnClickListener {
             kakaoLogin()
         }
+        binding.titleDebugBtn.setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
+        }
     }
 
     private fun observe(){

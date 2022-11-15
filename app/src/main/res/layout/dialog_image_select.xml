@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:text="취소"
+            android:text="@string/image_cancel_btn"
             android:textSize="18dp"
             android:textColor="@color/black"
             android:textStyle="bold"

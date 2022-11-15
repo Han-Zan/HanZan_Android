@@ -41,14 +41,14 @@ class ProfileViewModel @Inject constructor(
     fun changeUserNickName(userId: Long, userName: String) {
         viewModelScope.launch {
             val res = repository.changeUserNickName(userId, userName)
-            _resDeleteLiveData.value = res
+            _resChangeNickNameLiveData.value = res
         }
     }
 
     fun changeUserProfile(userId: Long, userImg: String) {
         viewModelScope.launch {
             val res = repository.changeUserProfile(userId, userImg)
-            _resDeleteLiveData.value = res
+            _resChangeProfileLiveData.value = res
         }
     }
 
