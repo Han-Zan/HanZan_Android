@@ -29,20 +29,15 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
 
     private fun initView(){
         combNavArgs.drink?.let {
-            Log.e(TAG, "Args.drink = ${combNavArgs.drink.toString()}")
             viewModel.setDrink(it)
         } ?: run {
-            Log.e(TAG, "viewModel.drink = ${viewModel.drinkLiveData.value.toString()}")
             binding.drink = viewModel.drinkLiveData.value
         }
         combNavArgs.food?.let {
-            Log.e(TAG, "Args.food = ${combNavArgs.food.toString()}")
             viewModel.setFood(it)
         } ?: run {
-            Log.e(TAG, "viewModel.food = ${viewModel.foodLiveData.value.toString()}")
             binding.food = viewModel.foodLiveData.value
         }
-        Log.e(TAG, "-------")
     }
 
     private fun initListener(){

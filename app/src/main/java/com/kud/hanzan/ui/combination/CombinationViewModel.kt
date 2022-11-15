@@ -22,11 +22,9 @@ class CombinationViewModel @Inject constructor(): ViewModel() {
 
     fun setDrink(drink: DrinkDetail) {
         _drinkLiveData.value = drink
-        Log.e(ContentValues.TAG, "drink = ${_drinkLiveData.value.toString()}")
     }
 
     fun setFood(food: Food) {
         _foodLiveData.value = food
-        Log.e(ContentValues.TAG, "food = ${_foodLiveData.value.toString()}")
     }
 }
