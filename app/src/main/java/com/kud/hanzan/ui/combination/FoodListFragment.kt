@@ -1,31 +1,25 @@
 package com.kud.hanzan.ui.combination
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.PopupMenu
 import androidx.appcompat.widget.ListPopupWindow
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kud.hanzan.R
-import com.kud.hanzan.adapter.DrinkRVAdapter
 import com.kud.hanzan.adapter.FoodRVAdapter
 import com.kud.hanzan.databinding.FragmentFoodListBinding
+import com.kud.hanzan.domain.model.Food
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment_food_list) {
     private val viewModel by viewModels<FoodListViewModel>()
-
     private val styleArgs by navArgs<FoodListFragmentArgs>()
-
-    private var style: Int = -1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,11 +28,8 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
     }
 
     private fun initView() {
-        style = styleArgs.style
         viewModel.getAllFood(styleArgs.style)
         observe()
-        binding.foodListRv.adapter = FoodRVAdapter()
-        binding.foodListRv.layoutManager = LinearLayoutManager(context)
     }
 
     private fun initListener() {
@@ -52,15 +43,25 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
                 foodListStyleBtn.text = items[styleArgs.style]
                 setOnItemClickListener { _, _, position, _ ->
                     foodListStyleBtn.text = items[position]
-                    style = position
                     viewModel.chooseFoodType(position)
-                    Log.e(TAG, position.toString())
                     // 팝업 닫기
                     dismiss()
                 }
             }
 
             foodListStyleBtn.setOnClickListener { listAlcoholPopupWindow.show() }
+
+            binding.foodListRv.apply {
+                adapter = FoodRVAdapter().apply {
+                    setListener(object : FoodRVAdapter.Listener{
+                        override fun onSelect(food: Food) {
+                            val action = FoodListFragmentDirections.actionFoodListFragmentToCombinationFragment(food)
+                            findNavController().navigate(action)
+                        }
+                    })
+                }
+                layoutManager = LinearLayoutManager(context)
+            }
 
             foodListToolbar.setNavigationOnClickListener {
                 findNavController().popBackStack()
@@ -69,9 +70,9 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
     }
 
     private fun observe(){
-        viewModel.foodLiveData.observe(viewLifecycleOwner) { foodList ->
-            Log.e("Hello", foodList.toString())
-            (binding.foodListRv.adapter as FoodRVAdapter).setData(foodList)
+        viewModel.foodLiveData.observe(viewLifecycleOwner) {
+            Log.e("Hello", it.toString())
+            (binding.foodListRv.adapter as FoodRVAdapter).setData(it)
         }
     }
 }
