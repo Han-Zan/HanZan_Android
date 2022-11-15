@@ -73,9 +73,9 @@
         android:id="@+id/foodListFragment"
         android:name="com.kud.hanzan.ui.combination.FoodListFragment"
         android:label="FoodListFragment">
-<!--        <argument-->
-<!--            android:name="style"-->
-<!--            app:argType="kava.lang.Int"/>-->
+        <argument
+            android:name="style"
+            app:argType="integer"/>
     </fragment>
     <fragment
         android:id="@+id/storeFragment"

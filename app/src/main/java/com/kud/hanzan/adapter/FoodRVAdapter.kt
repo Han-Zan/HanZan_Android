@@ -34,6 +34,7 @@ class FoodRVAdapter : RecyclerView.Adapter<FoodRVAdapter.ViewHolder>() {
     }
 
     fun setData(data: List<Food>){
+        foodList.clear()
         foodList.addAll(data)
         Log.e("Hello", "Hello")
         Log.e("Hello", foodList.toString())

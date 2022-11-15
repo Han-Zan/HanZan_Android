@@ -18,10 +18,19 @@ class FoodListViewModel @Inject constructor(
     val foodLiveData: LiveData<List<Food>>
         get() = _foodLiveData
 
-    fun getAllFood(){
+    private var _listLiveData = MutableLiveData<List<Food>>()
+    private val listLiveData: LiveData<List<Food>>
+        get() = _listLiveData
+
+    fun getAllFood(style: Int){
         viewModelScope.launch {
             val res = repository.getAllFood()
-            _foodLiveData.value = res
+            _listLiveData.value = res
+            chooseFoodType(style)
         }
+    }
+
+    fun chooseFoodType(style: Int) {
+        _foodLiveData.value = listLiveData.value?.filter { it.foodType == style }
     }
 }

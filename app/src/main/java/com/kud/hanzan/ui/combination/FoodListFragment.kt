@@ -1,5 +1,6 @@
 package com.kud.hanzan.ui.combination
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.PopupMenu
 import androidx.appcompat.widget.ListPopupWindow
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kud.hanzan.R
@@ -21,18 +23,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment_food_list) {
     private val viewModel by viewModels<FoodListViewModel>()
 
-    //private val styleArgs by navArgs<FoodListFragmentArgs>()
+    private val styleArgs by navArgs<FoodListFragmentArgs>()
+
+    private var style: Int = -1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
         initListener()
-        viewModel.getAllFood()
-        observe()
     }
 
     private fun initView() {
-        //val style = styleArgs.style
+        style = styleArgs.style
+        viewModel.getAllFood(styleArgs.style)
+        observe()
         binding.foodListRv.adapter = FoodRVAdapter()
         binding.foodListRv.layoutManager = LinearLayoutManager(context)
     }
@@ -42,31 +46,18 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
             val listAlcoholPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)
             listAlcoholPopupWindow.apply {
                 anchorView = foodListStyleBtn
-                val items = listOf(" 육류 ", " 생선 ", " 튀김 ", " 탕/찌개 ", " 마른 안주 ", " 과일/채소 ", " 디저트 ", " 기타 ")
+                val items = listOf("  육류  ", "  생선  ", "  튀김  ", " 탕/찌개 ", "마른 안주", "과일/채소", " 디저트 ", "  기타  ")
                 val adapter = ArrayAdapter(requireContext(), R.layout.list_popup_like_sort, items)
                 setAdapter(adapter)
+                foodListStyleBtn.text = items[styleArgs.style]
                 setOnItemClickListener { _, _, position, _ ->
                     foodListStyleBtn.text = items[position]
+                    style = position
+                    viewModel.chooseFoodType(position)
+                    Log.e(TAG, position.toString())
                     // 팝업 닫기
                     dismiss()
                 }
-            }
-
-            // 임시 팝업 메뉴
-            val popupMenu = PopupMenu(context, foodListStyleBtn)
-            popupMenu.menu.apply {
-                add("육류")
-                add("생선")
-                add("튀김")
-                add("탕/찌개")
-                add("마른 안주")
-                add("과일/채소")
-                add("디저트")
-                add("기타")
-            }
-            popupMenu.setOnMenuItemClickListener {
-                foodListStyleBtn.text = it.title
-                true
             }
 
             foodListStyleBtn.setOnClickListener { listAlcoholPopupWindow.show() }
@@ -78,9 +69,9 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
     }
 
     private fun observe(){
-        viewModel.foodLiveData.observe(viewLifecycleOwner) {
-            Log.e("Hello", it.toString())
-            (binding.foodListRv.adapter as FoodRVAdapter).setData(it)
+        viewModel.foodLiveData.observe(viewLifecycleOwner) { foodList ->
+            Log.e("Hello", foodList.toString())
+            (binding.foodListRv.adapter as FoodRVAdapter).setData(foodList)
         }
     }
 }
