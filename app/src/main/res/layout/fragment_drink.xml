@@ -5,7 +5,7 @@
     <data>
         <variable
             name="drink"
-            type="com.kud.hanzan.domain.model.Drink" />
+            type="com.kud.hanzan.domain.model.DrinkDetail" />
     </data>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
@@ -34,6 +34,7 @@
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/drink_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -51,6 +52,9 @@
                     android:id="@+id/drink_iv"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
+                    android:paddingVertical="10dp"
+                    app:imageUrl="@{drink.img}"
+                    app:placeholder="@{@drawable/bg_comb_frame}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:background="@drawable/bg_comb_frame"/>
@@ -81,7 +85,7 @@
                             android:id="@+id/like_drink_cb"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
-                            android:checked="true"
+                            android:checked="@{drink.prefer, default=true}"
                             android:button="@null"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             app:layout_constraintTop_toTopOf="parent"
@@ -99,6 +103,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:gravity="center_vertical"
                         android:layout_marginTop="6dp">
                         <RatingBar
                             style="@style/Widget.AppCompat.RatingBar.Small"
@@ -157,7 +162,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
-                        android:text="테스트 테스트"
+                        android:text="@{drink.detailedCategory, default=술종류}"
                         android:layout_weight="4"/>
                 </LinearLayout>
                 <LinearLayout
@@ -179,7 +184,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
-                        android:text="테스트 테스트"
+                        android:text="@{drink.nation, default=국가}"
                         android:layout_weight="4"/>
                 </LinearLayout>
                 <LinearLayout
@@ -201,7 +206,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
-                        android:text="테스트 테스트"
+                        android:text="@{String.valueOf(drink.alcohol), default=17.5}"
                         android:layout_weight="4"/>
                 </LinearLayout>
             </LinearLayout>
@@ -235,7 +240,7 @@
                         android:layout_weight="4"
                         android:orientation="horizontal">
                         <include layout="@layout/item_property_indicator"
-                            bind:property="@{4}"/>
+                            bind:property="@{drink.sweet}"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -257,7 +262,7 @@
                         android:layout_weight="4"
                         android:orientation="horizontal">
                         <include layout="@layout/item_property_indicator"
-                            bind:property="@{3}"/>
+                            bind:property="@{drink.bitter}"/>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -278,7 +283,7 @@
                         android:layout_weight="4"
                         android:orientation="horizontal">
                         <include layout="@layout/item_property_indicator"
-                            bind:property="@{3}"/>
+                            bind:property="@{drink.sour}"/>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -299,7 +304,7 @@
                         android:layout_weight="4"
                         android:orientation="horizontal">
                         <include layout="@layout/item_property_indicator"
-                            bind:property="@{0}"/>
+                            bind:property="@{drink.sparkle}"/>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -320,12 +325,42 @@
                         android:layout_weight="4"
                         android:orientation="horizontal">
                         <include layout="@layout/item_property_indicator"
-                            bind:property="@{1}"/>
+                            bind:property="@{drink.body}"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="50dp"
+                android:layout_marginHorizontal="40dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/font_pretendard_semibold"
+                    android:textSize="18sp"
+                    android:text="@string/drink_combination"/>
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    <Button
+        android:id="@+id/drink_select_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        app:layout_anchor="@id/drink_scroll_view"
+        app:layout_anchorGravity="bottom|end"
+        android:backgroundTint="@color/color_hanzan"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:text="@string/drink_select_btn"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

@@ -29,17 +29,9 @@ class DrinkListFragment : BaseFragment<FragmentDrinkListBinding>(R.layout.fragme
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        testOnly()
         initView()
         initListener()
         observe()
-    }
-
-    @TestOnly
-    private fun testOnly(){
-        // 술 화면으로 그냥 이동
-        val action = DrinkListFragmentDirections.actionDrinkListFragmentToDrinkFragment()
-        findNavController().navigate(action)
     }
 
     private fun initView(){
@@ -67,6 +59,11 @@ class DrinkListFragment : BaseFragment<FragmentDrinkListBinding>(R.layout.fragme
         binding.drinkListRv.apply {
             adapter = DrinkRVAdapter().apply {
                 setListener(object : DrinkRVAdapter.Listener{
+                    override fun onClick(drinkId: Long) {
+                        val action = DrinkListFragmentDirections.actionDrinkListFragmentToDrinkFragment(drinkId)
+                        findNavController().navigate(action)
+                    }
+
                     override fun onDelete(drinkId: Long) {
                         viewModel.deleteDrink(drinkId)
                     }

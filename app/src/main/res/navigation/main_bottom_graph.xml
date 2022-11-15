@@ -93,9 +93,9 @@
         android:id="@+id/drinkFragment"
         android:name="com.kud.hanzan.ui.combination.DrinkFragment"
         android:label="DrinkFragment" >
-<!--        <argument-->
-<!--            android:name="drink"-->
-<!--            app:argType="com.kud.hanzan.domain.model.Drink"/>-->
+        <argument
+            android:name="drinkIdx"
+            app:argType="long"/>
     </fragment>
     <!--    <activity-->
 <!--        android:id="@+id/mainActivity"-->

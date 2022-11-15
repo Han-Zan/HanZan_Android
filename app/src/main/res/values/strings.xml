@@ -137,6 +137,8 @@
     <string name="drink_flavor_info3">신 맛</string>
     <string name="drink_flavor_info4">탄산감</string>
     <string name="drink_flavor_info5">바디감</string>
+    <string name="drink_select_btn">술 고르기</string>
+    <string name="drink_combination">어울리는 안주</string>
 
     <!--    Food Category Fragment-->
     <string name="food_category_title">안주 카테고리</string>
