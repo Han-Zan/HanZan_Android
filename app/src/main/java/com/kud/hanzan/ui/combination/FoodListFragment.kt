@@ -55,8 +55,10 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
                 adapter = FoodRVAdapter().apply {
                     setListener(object : FoodRVAdapter.Listener{
                         override fun onSelect(food: Food) {
-                            val action = FoodListFragmentDirections.actionFoodListFragmentToCombinationFragment(food)
-                            findNavController().navigate(action)
+                            food.let {
+                                val action = FoodListFragmentDirections.actionFoodListFragmentToCombinationFragment(null, it)
+                                findNavController().navigate(action)
+                            }
                         }
                     })
                 }

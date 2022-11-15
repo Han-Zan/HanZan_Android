@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="drink"
+            type="com.kud.hanzan.domain.model.DrinkDetail" />
+        <variable
             name="food"
             type="com.kud.hanzan.domain.model.Food" />
     </data>
@@ -54,6 +57,8 @@
                 android:id="@+id/combination_drink_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:imageUrl="@{drink.img}"
+                app:placeholder="@{@android:color/transparent}"
                 android:background="@drawable/bg_comb_frame"/>
 
             <TextView
@@ -64,7 +69,7 @@
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:text="술을 골라주세요!"/>
+                android:text='@{drink != null ? drink.name : "술을 골라주세요"}'/>
         </LinearLayout>
 
         <LinearLayout

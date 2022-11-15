@@ -124,6 +124,21 @@
 
     <!--    Drink List Fragment-->
     <string name="drink_list_title">술 리스트</string>
+    <!--    Drink Fragment -->
+    <string name="drink_title">술 상세정보</string>
+    <string name="drink_drink_info">술 정보</string>
+    <string name="drink_drink_info1">종류</string>
+    <string name="drink_drink_info2">국가</string>
+    <string name="drink_drink_info3">도수</string>
+
+    <string name="drink_flavor_info">맛 정보</string>
+    <string name="drink_flavor_info1">단 맛</string>
+    <string name="drink_flavor_info2">쓴 맛</string>
+    <string name="drink_flavor_info3">신 맛</string>
+    <string name="drink_flavor_info4">탄산감</string>
+    <string name="drink_flavor_info5">바디감</string>
+    <string name="drink_select_btn">술 고르기</string>
+    <string name="drink_combination">어울리는 안주</string>
 
     <!--    Food Category Fragment-->
     <string name="food_category_title">안주 카테고리</string>

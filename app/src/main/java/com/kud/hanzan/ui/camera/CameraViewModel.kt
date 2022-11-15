@@ -1,16 +1,23 @@
 package com.kud.hanzan.ui.camera
 
+import android.graphics.Bitmap
+import android.util.Base64
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.gms.tasks.Task
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.gson.*
 import com.kud.hanzan.domain.usecase.camera.PostCameraDrinkUseCase
 import com.kud.hanzan.domain.usecase.camera.PostCameraFoodUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel

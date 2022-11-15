@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="property"
+            type="java.lang.Integer" />
+    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="6dp"
+        android:layout_weight="1"
+        android:enabled="@{property > 0 ? true : false}"
+        app:cardCornerRadius="3dp"
+        app:strokeWidth="0dp"
+        app:cardBackgroundColor="@drawable/bg_cardview_check"
+        android:layout_marginEnd="5dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="6dp"
+        android:layout_weight="1"
+        android:enabled="@{property > 1 ? true : false}"
+        app:cardCornerRadius="3dp"
+        app:strokeWidth="0dp"
+        app:cardBackgroundColor="@drawable/bg_cardview_check"
+        android:layout_marginHorizontal="5dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="6dp"
+        android:layout_weight="1"
+        android:enabled="@{property > 2 ? true : false}"
+        app:cardCornerRadius="3dp"
+        app:cardBackgroundColor="@drawable/bg_cardview_check"
+        android:layout_marginHorizontal="5dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="6dp"
+        android:layout_weight="1"
+        android:enabled="@{property > 3 ? true : false}"
+        app:cardCornerRadius="3dp"
+        app:cardBackgroundColor="@drawable/bg_cardview_check"
+        android:layout_marginHorizontal="5dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="6dp"
+        android:layout_weight="1"
+        android:enabled="@{property > 4 ? true : false}"
+        app:cardCornerRadius="3dp"
+        app:cardBackgroundColor="@drawable/bg_cardview_check"
+        android:layout_marginHorizontal="5dp"/>
+</LinearLayout>
+</layout>
