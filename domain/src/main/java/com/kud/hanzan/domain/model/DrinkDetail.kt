@@ -1,5 +1,7 @@
 package com.kud.hanzan.domain.model
 
+import java.io.Serializable
+
 data class DrinkDetail(
     val alcohol: Float,
     val aroma: String,
@@ -19,4 +21,4 @@ data class DrinkDetail(
     val sweet: Int,
     val tag: String,
     val taste: String
-)
+) : Serializable

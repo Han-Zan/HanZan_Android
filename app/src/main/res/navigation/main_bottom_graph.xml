@@ -56,6 +56,11 @@
         <action
             android:id="@+id/action_combinationFragment_to_foodCategoryFragment"
             app:destination="@+id/foodCategoryFragment" />
+        <argument
+            android:name="drink"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.kud.hanzan.domain.model.DrinkDetail"/>
     </fragment>
     <fragment
         android:id="@+id/drinkListFragment"
@@ -96,6 +101,11 @@
         <argument
             android:name="drinkIdx"
             app:argType="long"/>
+        <action
+            android:id="@+id/action_drinkFragment_to_combinationFragment"
+            app:destination="@id/combinationFragment"
+            app:popUpTo="@id/combinationFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <!--    <activity-->
 <!--        android:id="@+id/mainActivity"-->

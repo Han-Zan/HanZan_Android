@@ -2,6 +2,11 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="drink"
+            type="com.kud.hanzan.domain.model.DrinkDetail" />
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -44,6 +49,8 @@
             android:id="@+id/combination_drink_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:imageUrl="@{drink.img}"
+            app:placeholder="@{@android:color/transparent}"
             android:background="@drawable/bg_comb_frame"/>
         <TextView
             android:layout_width="match_parent"
@@ -52,7 +59,7 @@
             android:textSize="15sp"
             android:textStyle="bold"
             android:gravity="center"
-            android:text="@string/comb_drink_pick"/>
+            android:text='@{drink != null ? drink.name : "술을 골라주세요"}'/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="0dp"

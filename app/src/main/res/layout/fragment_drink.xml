@@ -54,7 +54,7 @@
                     android:layout_height="120dp"
                     android:paddingVertical="10dp"
                     app:imageUrl="@{drink.img}"
-                    app:placeholder="@{@drawable/bg_comb_frame}"
+                    app:placeholder="@{@android:color/transparent}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:background="@drawable/bg_comb_frame"/>
@@ -76,7 +76,9 @@
                             android:layout_height="wrap_content"
                             android:text="@{drink.name, default=아이템}"
                             android:textSize="16sp"
+                            android:paddingEnd="8dp"
                             android:paddingVertical="8dp"
+                            app:layout_constraintEnd_toStartOf="@id/like_drink_cb"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
