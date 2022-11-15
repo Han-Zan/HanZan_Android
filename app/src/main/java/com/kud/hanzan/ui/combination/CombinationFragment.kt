@@ -1,16 +1,11 @@
 package com.kud.hanzan.ui.combination
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.kud.hanzan.R
-import com.kud.hanzan.adapter.FoodRVAdapter
 import com.kud.hanzan.databinding.FragmentCombinationBinding
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
