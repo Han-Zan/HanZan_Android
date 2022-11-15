@@ -62,13 +62,6 @@
                 android:textFontWeight="600"
                 android:text='@{combination.drinkname +" - " + combination.foodname, default="일반 소주 - 닭발"}'
                 android:fontFamily="@font/font_pretendard_semibold" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textSize="12sp"
-                android:textColor="@color/text_hint"
-                android:text='@{combination.detail, default="설명설명설명"}'/>
         </LinearLayout>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_like_comb_like_layout"
@@ -85,7 +78,7 @@
                 android:layout_height="36dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:button="@null"
-                android:checked="@{combination.like}"
+                android:checked="@{!combination.like, default=true}"
                 android:drawableStart="@drawable/selector_heart"
                 android:paddingStart="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
-                android:text='@{String.valueOf(combination.count), default=111}'
+                android:text='@{String.valueOf(combination.pnum), default=111}'
                 android:textColor="@color/text_hint"
                 android:textSize="10sp"
                 android:layout_marginBottom="8dp"

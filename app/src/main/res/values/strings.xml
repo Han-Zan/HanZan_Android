@@ -139,6 +139,7 @@
     <string name="drink_flavor_info5">바디감</string>
     <string name="drink_select_btn">술 고르기</string>
     <string name="drink_combination">어울리는 안주</string>
+    <string name="drink_alert_bottom_sheet">해당 술을 궁합 분석에 사용하고자 합니다. 술을 선택하면 궁합화면으로 넘어갑니다.</string>
 
     <!--    Food Category Fragment-->
     <string name="food_category_title">안주 카테고리</string>

@@ -1,10 +1,8 @@
 package com.kud.hanzan.data.entity
 
 data class DrinkInfo(
-    val aroma: String,
     val bitter: Int,
     val category: Int,
-    val finish: String,
     val id: Long,
     val img: String?,
     val name: String,
@@ -14,5 +12,4 @@ data class DrinkInfo(
     val sparkle: Int,
     val sweet: Int,
     val tag: String,
-    val taste: String
 )
