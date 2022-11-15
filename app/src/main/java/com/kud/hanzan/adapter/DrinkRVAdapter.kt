@@ -11,9 +11,10 @@ import com.kud.hanzan.domain.model.Drink
 
 class DrinkRVAdapter : RecyclerView.Adapter<DrinkRVAdapter.ViewHolder>() {
     private lateinit var binding: ItemDrinkBinding
-    private var alcoholList = ArrayList<Drink>()
+    private var alcoholList = mutableListOf<Drink>()
 
     interface Listener{
+        fun onClick(drinkId: Long)
         fun onDelete(drinkId: Long)
         fun onPost(drinkId: Long)
     }
@@ -31,12 +32,14 @@ class DrinkRVAdapter : RecyclerView.Adapter<DrinkRVAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(alcoholList[position])
+        holder.itemView.setOnClickListener { likeListener.onClick(alcoholList[position].id) }
     }
 
     override fun getItemCount(): Int = alcoholList.size
 
     fun setData(data: List<Drink>){
-        alcoholList = ArrayList(data)
+        alcoholList.clear()
+        alcoholList.addAll(data)
         notifyDataSetChanged()
     }
 

@@ -1,10 +1,18 @@
 package com.kud.hanzan.ui.camera
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.ImageFormat
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
+import android.util.Rational
+import android.util.TypedValue
 import android.view.ScaleGestureDetector
+import android.view.Surface
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -18,8 +26,13 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.tasks.Task
+import com.google.firebase.ktx.Firebase
+import com.google.gson.*
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.korean.KoreanTextRecognizerOptions
@@ -28,6 +41,10 @@ import com.kud.hanzan.databinding.FragmentCameraBinding
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
+import java.io.ByteArrayOutputStream
+import java.nio.ByteBuffer
+import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 @AndroidEntryPoint
@@ -67,6 +84,10 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
     // toggle button mode
     private var drinkMode = true
 
+    // Todo : Firebase Functions
+//    private lateinit var firebaseFunctions : FirebaseFunctions
+//    private lateinit var auth: FirebaseAuth
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -84,11 +105,35 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                 else binding.cameraModeToggleBtn.check(R.id.camera_mode_food_btn)
             }
         }
+//        firebaseFunctions = Firebase.functions("asia-northeast3")
+//        firebaseFunctions.useEmulator("10.0.2.2", 5001)
+//
+//        authCheck()
+
         setAnimationListener()
         initListener()
         observe()
     }
 
+    // Todo : 임시 Auth 체크 함수
+//    private fun authCheck(){
+//        auth = Firebase.auth
+//
+//        val currentUser = auth.currentUser
+//        if (currentUser == null){
+//            auth.createUserWithEmailAndPassword("nerw173@gmail.com", "12345678")
+//                .addOnCompleteListener(requireActivity()) { task ->
+//                    if (task.isSuccessful) {
+//                        // Sign in success, update UI with the signed-in user's information
+//                        Log.d("firebaseAuth", "createUserWithEmail:success")
+//                        val user = auth.currentUser
+//                    } else {
+//                        // If sign in fails, display a message to the user.
+//                        Log.w("firebaseAuthFailure", "createUserWithEmail:failure", task.exception)
+//                    }
+//                }
+//        }
+//    }
     private fun startCamera(){
         cameraProviderFuture.addListener({
             // Camera의 lifecycle 을 lifecycleowner에 bind 하기 위해 사용
@@ -105,9 +150,14 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
             try {
                 // Unbind use cases before rebinding
                 cameraProvider.unbindAll()
+
+                val useCaseGroup = UseCaseGroup.Builder()
+                    .addUseCase(preview)
+                    .addUseCase(imageCapture)
+                    .build()
                 // Bind use cases to camera
                 camera = cameraProvider.bindToLifecycle(
-                    requireActivity(), cameraSelector, imageCapture, preview
+                    requireActivity(), cameraSelector, useCaseGroup
                 )
 
             } catch (exc: Exception) {
@@ -157,9 +207,12 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                         visibility = View.VISIBLE
                         startAnimation(animation)
                     }
-
                     binding.cameraPreview.bitmap?.let {
-                        recognizer.process(InputImage.fromBitmap(it, 0))
+                        val targetWidth = binding.cameraCropLayout.width
+                        val targetHeight = binding.cameraCropLayout.height
+
+                        val croppedBitmap = Bitmap.createBitmap(it, dpToPx(30), dpToPx(40), targetWidth, targetHeight )
+                        recognizer.process(InputImage.fromBitmap(croppedBitmap, 0))
                             .addOnSuccessListener { visionText ->
                                 cameraItemList.clear()
                                 val resultText = visionText.textBlocks
@@ -186,6 +239,10 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                 }
             }
         )
+    }
+
+    private fun dpToPx(dp: Int): Int {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), requireContext().resources.displayMetrics).toInt()
     }
 
     private fun observe(){
@@ -233,4 +290,123 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
             return@setOnTouchListener true
         }
     }
+
+//    // Todo : Firebase ML
+//    private fun processTextVision(originBitmap: Bitmap) {
+//        val bitmap = scaleBitmapDown(originBitmap, 640)
+//
+//        // Convert bitmap to base64 encoded string
+//        val byteArrayOutputStream = ByteArrayOutputStream()
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+//        val imageBytes: ByteArray = byteArrayOutputStream.toByteArray()
+//        val base64encoded = Base64.encodeToString(imageBytes, Base64.NO_WRAP)
+//
+//        // Create json request to cloud vision
+//        val request = JsonObject()
+//        // Add image to request
+//        val image = JsonObject()
+//        image.add("content", JsonPrimitive(base64encoded))
+//        request.add("image", image)
+//        //Add features to the request
+//        val feature = JsonObject()
+//        feature.add("type", JsonPrimitive("TEXT_DETECTION"))
+//        // Alternatively, for DOCUMENT_TEXT_DETECTION:
+//        // feature.add("type", JsonPrimitive("DOCUMENT_TEXT_DETECTION"))
+//        val features = JsonArray()
+//        features.add(feature)
+//        request.add("features", features)
+//
+//        // 언어 설정 추가
+//        val imageContext = JsonObject()
+//        val languageHints = JsonArray()
+//        languageHints.add("ko")
+//        imageContext.add("languageHints", languageHints)
+//        request.add("imageContext", imageContext)
+//
+//        annotateImage(request.toString())
+//            .addOnCompleteListener { task ->
+//                if (!task.isSuccessful) {
+//                    // Task failed with an exception
+//                    // ...
+//                    Log.e("firebaseTest", "이미지 인식 실패 ${task.exception}")
+//                } else {
+//                    val annotation =
+//                        task.result!!.asJsonArray[0].asJsonObject["fullTextAnnotation"].asJsonObject
+//                    var pageText = ""
+//                    for (page in annotation["pages"].asJsonArray) {
+//                        for (block in page.asJsonObject["blocks"].asJsonArray) {
+//                            var blockText = ""
+//                            for (para in block.asJsonObject["paragraphs"].asJsonArray) {
+//                                var paraText = ""
+//                                for (word in para.asJsonObject["words"].asJsonArray) {
+//                                    var wordText = ""
+//                                    for (symbol in word.asJsonObject["symbols"].asJsonArray) {
+//                                        wordText += symbol.asJsonObject["text"].asString
+//                                        System.out.format(
+//                                            "Symbol text: %s (confidence: %f)%n",
+//                                            symbol.asJsonObject["text"].asString,
+//                                            symbol.asJsonObject["confidence"].asFloat
+//                                        )
+//                                    }
+//                                    System.out.format(
+//                                        "Word text: %s (confidence: %f)%n%n", wordText,
+//                                        word.asJsonObject["confidence"].asFloat
+//                                    )
+//                                    System.out.format(
+//                                        "Word bounding box: %s%n",
+//                                        word.asJsonObject["boundingBox"]
+//                                    )
+//                                    paraText = String.format("%s%s ", paraText, wordText)
+//                                }
+//                                System.out.format("%nParagraph: %n%s%n", paraText)
+//                                System.out.format(
+//                                    "Paragraph bounding box: %s%n",
+//                                    para.asJsonObject["boundingBox"]
+//                                )
+//                                System.out.format(
+//                                    "Paragraph Confidence: %f%n",
+//                                    para.asJsonObject["confidence"].asFloat
+//                                )
+//                                blockText += paraText
+//                            }
+//                            pageText += blockText
+//                        }
+//                    }
+//                    Log.e("firebaseTest", pageText)
+//                }
+//            }
+//    }
+//
+//    private fun scaleBitmapDown(bitmap: Bitmap, maxDimension: Int): Bitmap {
+//        val originalWidth = bitmap.width
+//        val originalHeight = bitmap.height
+//        var resizedWidth = maxDimension
+//        var resizedHeight = maxDimension
+//        if (originalHeight > originalWidth) {
+//            resizedHeight = maxDimension
+//            resizedWidth =
+//                (resizedHeight * originalWidth.toFloat() / originalHeight.toFloat()).toInt()
+//        } else if (originalWidth > originalHeight) {
+//            resizedWidth = maxDimension
+//            resizedHeight =
+//                (resizedWidth * originalHeight.toFloat() / originalWidth.toFloat()).toInt()
+//        } else if (originalHeight == originalWidth) {
+//            resizedHeight = maxDimension
+//            resizedWidth = maxDimension
+//        }
+//        return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false)
+//    }
+//
+//    private fun annotateImage(requestJson: String): Task<JsonElement> {
+//        return firebaseFunctions
+//            .getHttpsCallable("annotateImage")
+//            .call(requestJson)
+//            .continueWith { task ->
+//                // This continuation runs on either success or failure, but if the task
+//                // has failed then result will throw an Exception which will be
+//                // propagated down.
+//                val result = task.result?.data
+//                JsonParser.parseString(Gson().toJson(result))
+//            }
+//    }
 }

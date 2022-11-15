@@ -56,11 +56,20 @@
         <action
             android:id="@+id/action_combinationFragment_to_foodCategoryFragment"
             app:destination="@+id/foodCategoryFragment" />
+        <argument
+            android:name="drink"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="com.kud.hanzan.domain.model.DrinkDetail"/>
     </fragment>
     <fragment
         android:id="@+id/drinkListFragment"
         android:name="com.kud.hanzan.ui.combination.DrinkListFragment"
-        android:label="DrinkListFragment" />
+        android:label="DrinkListFragment" >
+        <action
+            android:id="@+id/action_drinkListFragment_to_drinkFragment"
+            app:destination="@id/drinkFragment" />
+    </fragment>
     <fragment
         android:id="@+id/foodCategoryFragment"
         android:name="com.kud.hanzan.ui.combination.FoodCategoryFragment"
@@ -84,6 +93,19 @@
         <argument
             android:name="store"
             app:argType="com.kud.hanzan.domain.model.map.Store"/>
+    </fragment>
+    <fragment
+        android:id="@+id/drinkFragment"
+        android:name="com.kud.hanzan.ui.combination.DrinkFragment"
+        android:label="DrinkFragment" >
+        <argument
+            android:name="drinkIdx"
+            app:argType="long"/>
+        <action
+            android:id="@+id/action_drinkFragment_to_combinationFragment"
+            app:destination="@id/combinationFragment"
+            app:popUpTo="@id/combinationFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <!--    <activity-->
 <!--        android:id="@+id/mainActivity"-->

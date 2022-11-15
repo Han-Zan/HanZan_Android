@@ -14,10 +14,12 @@ import com.google.android.material.tabs.TabLayout
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.DrinkRVAdapter
 import com.kud.hanzan.databinding.FragmentDrinkListBinding
+import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.jetbrains.annotations.TestOnly
 
 @AndroidEntryPoint
 class DrinkListFragment : BaseFragment<FragmentDrinkListBinding>(R.layout.fragment_drink_list) {
@@ -57,6 +59,11 @@ class DrinkListFragment : BaseFragment<FragmentDrinkListBinding>(R.layout.fragme
         binding.drinkListRv.apply {
             adapter = DrinkRVAdapter().apply {
                 setListener(object : DrinkRVAdapter.Listener{
+                    override fun onClick(drinkId: Long) {
+                        val action = DrinkListFragmentDirections.actionDrinkListFragmentToDrinkFragment(drinkId)
+                        findNavController().navigate(action)
+                    }
+
                     override fun onDelete(drinkId: Long) {
                         viewModel.deleteDrink(drinkId)
                     }

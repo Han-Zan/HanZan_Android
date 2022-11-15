@@ -66,6 +66,10 @@ class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fr
         binding.likePreferredRv.apply {
             adapter = DrinkRVAdapter().apply {
                 setListener(object : DrinkRVAdapter.Listener{
+                    override fun onClick(drinkId: Long) {
+//                        TODO("Not yet implemented")
+                    }
+
                     override fun onDelete(drinkId: Long) {
                         viewModel.deleteDrink(drinkId)
                     }

@@ -4,6 +4,8 @@ import com.kud.hanzan.data.source.camera.CameraRemoteDataSource
 import com.kud.hanzan.data.source.camera.CameraRepositoryImpl
 import com.kud.hanzan.data.source.combination.CombinationRemoteDataSource
 import com.kud.hanzan.data.source.combination.CombinationRepositoryImpl
+import com.kud.hanzan.data.source.drink.DrinkRemoteDataSource
+import com.kud.hanzan.data.source.drink.DrinkRepositoryImpl
 import com.kud.hanzan.data.source.home.HomeRemoteDataSource
 import com.kud.hanzan.data.source.home.HomeRepositoryImpl
 import com.kud.hanzan.data.source.kakao.KakaoRepositoryImpl
@@ -64,5 +66,11 @@ object RepositoryModule {
     @Provides
     fun providesProfileRepository(ProfileDataSource: ProfileDataSource) : ProfileRepository{
         return ProfileRepositoryImpl(ProfileDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun providesDrinkRepository(drinkRemoteDataSource: DrinkRemoteDataSource) : DrinkRepository{
+        return DrinkRepositoryImpl(drinkRemoteDataSource)
     }
 }
