@@ -51,9 +51,15 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
     private fun observe() {
         viewModel.foodLiveData.observe(viewLifecycleOwner) {
             binding.food = viewModel.foodLiveData.value
+            if (binding.drink != null && binding.food != null) {
+                binding.combinationNextBtn.visibility = View.VISIBLE
+            }
         }
         viewModel.drinkLiveData.observe(viewLifecycleOwner) {
             binding.drink = viewModel.drinkLiveData.value
+            if (binding.drink != null && binding.food != null) {
+                binding.combinationNextBtn.visibility = View.VISIBLE
+            }
         }
     }
 }

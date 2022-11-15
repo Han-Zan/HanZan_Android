@@ -121,6 +121,7 @@
     <string name="comb_food_pick">안주를 골라주세요!</string>
     <string name="comb_drink_pick_btn">술 고르기</string>
     <string name="comb_food_pick_btn">안주 고르기</string>
+    <string name="comb_next_btn">궁합도 계산하기</string>
 
     <!--    Drink List Fragment-->
     <string name="drink_list_title">술 리스트</string>
