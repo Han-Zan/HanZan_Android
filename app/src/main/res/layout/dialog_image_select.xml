@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/image_select_title"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginTop="20dp"/>
     <ImageView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="@string/image_cancel_btn"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:minHeight="0dp"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:text="@string/image_upload_btn"
             android:textColor="@color/white"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:minHeight="0dp"
             android:paddingHorizontal="20dp"
