@@ -1,7 +1,6 @@
 package com.kud.hanzan.ui.combination
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,9 +18,13 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
         initView()
         initListener()
     }
+
     private fun initView(){
         combNavArgs.drink?.let {
             binding.drink = it
+        }
+        combNavArgs.food?.let {
+            binding.food = it
         }
     }
 

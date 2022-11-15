@@ -33,7 +33,7 @@ class DrinkFragment : BaseFragment<FragmentDrinkBinding>(R.layout.fragment_drink
             }
             drinkSelectBtn.setOnClickListener {
                 drink?.let {
-                    val action = DrinkFragmentDirections.actionDrinkFragmentToCombinationFragment(it)
+                    val action = DrinkFragmentDirections.actionDrinkFragmentToCombinationFragment(it, null)
                     findNavController().navigate(action)
                 }
             }

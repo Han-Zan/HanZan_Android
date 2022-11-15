@@ -7,16 +7,28 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ItemFoodBinding
-import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.Food
 
 class FoodRVAdapter : RecyclerView.Adapter<FoodRVAdapter.ViewHolder>() {
     private lateinit var binding: ItemFoodBinding
     private var foodList = ArrayList<Food>()
 
+    interface Listener{
+        fun onSelect(food: Food)
+    }
+
+    private lateinit var foodListener : Listener
+
+    fun setListener(listener: Listener){
+        foodListener = listener
+    }
+
     inner class ViewHolder(val binding: ItemFoodBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(food: Food){
             binding.food = food
+            binding.foodSelectBtn.setOnClickListener {
+                foodListener.onSelect(food)
+            }
         }
     }
 
@@ -34,6 +46,7 @@ class FoodRVAdapter : RecyclerView.Adapter<FoodRVAdapter.ViewHolder>() {
     }
 
     fun setData(data: List<Food>){
+        foodList.clear()
         foodList.addAll(data)
         Log.e("Hello", "Hello")
         Log.e("Hello", foodList.toString())
