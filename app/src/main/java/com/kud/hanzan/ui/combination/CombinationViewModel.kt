@@ -1,5 +1,7 @@
 package com.kud.hanzan.ui.combination
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,10 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.kud.hanzan.domain.model.Comb
 import com.kud.hanzan.domain.model.DrinkDetail
 import com.kud.hanzan.domain.model.Food
+import com.kud.hanzan.domain.model.TempPreferedCombDto
 import com.kud.hanzan.domain.repository.CombinationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,7 +37,7 @@ class CombinationViewModel @Inject constructor(
 
     private var _deletePrefLiveData = MutableLiveData<String>()
     val deletePrefLiveData: LiveData<String>
-        get() = _postPrefLiveData
+        get() = _deletePrefLiveData
 
     fun setDrink(drink: DrinkDetail) {
         _drinkLiveData.value = drink
@@ -55,7 +56,7 @@ class CombinationViewModel @Inject constructor(
 
     fun postCombLike(userId: Long, combIdx: Long){
         viewModelScope.launch {
-            val res = repository.postPreferredComb(CombinationRepository.PreferredCombDto(combIdx, userId))
+            val res = repository.postPreferredComb(TempPreferedCombDto(combIdx, userId))
             _postPrefLiveData.value = res
         }
     }

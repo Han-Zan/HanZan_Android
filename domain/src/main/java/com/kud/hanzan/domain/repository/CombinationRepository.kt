@@ -3,6 +3,7 @@ package com.kud.hanzan.domain.repository
 import com.kud.hanzan.domain.model.Comb
 import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.Food
+import com.kud.hanzan.domain.model.TempPreferedCombDto
 import kotlinx.coroutines.flow.Flow
 
 interface CombinationRepository {
@@ -10,10 +11,5 @@ interface CombinationRepository {
     suspend fun getAllFood() : List<Food>
     suspend fun recommandation(drinkName: String, foodName: String, userId: Long) : Comb
     suspend fun deletePreferredComb(combId: Long, userId: Long) : String
-    suspend fun postPreferredComb(preferredCombDto: PreferredCombDto) : String
-
-    data class PreferredCombDto(
-        val combid: Long,
-        val uid: Long
-    )
+    suspend fun postPreferredComb(preferredCombDto: TempPreferedCombDto) : String
 }

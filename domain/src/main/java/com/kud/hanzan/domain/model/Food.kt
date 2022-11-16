@@ -3,7 +3,7 @@ package com.kud.hanzan.domain.model
 import java.io.Serializable
 
 data class Food(
-    val bestComb: List<DrinkDetail>,
+    val bestComb: List<CombDrink>,
     val dessert: Int,
     val foodType: Int,
     val fruit: Int,
