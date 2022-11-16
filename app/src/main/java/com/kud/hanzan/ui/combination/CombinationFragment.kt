@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.kud.hanzan.HanZanApplication
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.FragmentCombinationBinding
 import com.kud.hanzan.utils.base.BaseFragment
@@ -15,6 +16,7 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
     private val viewModel by activityViewModels<CombinationViewModel>()
     private val combNavArgs by navArgs<CombinationFragmentArgs>()
 
+    private var userId: Long = -1
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -23,6 +25,8 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
     }
 
     private fun initView(){
+        userId = HanZanApplication.spfManager.getUserIdx()
+
         combNavArgs.drink?.let {
             viewModel.setDrink(it)
         } ?: run {
@@ -36,30 +40,45 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
     }
 
     private fun initListener(){
-        with(binding){
+        with(binding) {
             combinationDrinkBtn.setOnClickListener {
-                val action = CombinationFragmentDirections.actionCombinationFragmentToDrinkListFragment()
+                val action =
+                    CombinationFragmentDirections.actionCombinationFragmentToDrinkListFragment()
                 findNavController().navigate(action)
             }
             combinationFoodBtn.setOnClickListener {
-                val action = CombinationFragmentDirections.actionCombinationFragmentToFoodCategoryFragment()
+                val action =
+                    CombinationFragmentDirections.actionCombinationFragmentToFoodCategoryFragment()
                 findNavController().navigate(action)
+            }
+        }
+        binding.combinationNextBtn.setOnClickListener {
+            binding.combinationNextBtn.visibility = View.INVISIBLE
+            binding.drink?.let { drink ->
+                binding.food?.let { food ->
+                    viewModel.recommendation(drink, food, userId)
+                }
             }
         }
     }
 
     private fun observe() {
         viewModel.foodLiveData.observe(viewLifecycleOwner) {
-            binding.food = viewModel.foodLiveData.value
+            binding.food = it
             if (binding.drink != null && binding.food != null) {
                 binding.combinationNextBtn.visibility = View.VISIBLE
             }
         }
         viewModel.drinkLiveData.observe(viewLifecycleOwner) {
-            binding.drink = viewModel.drinkLiveData.value
+            binding.drink = it
             if (binding.drink != null && binding.food != null) {
                 binding.combinationNextBtn.visibility = View.VISIBLE
             }
+        }
+        viewModel.combLiveData.observe(viewLifecycleOwner) {
+            binding.combinationScoreCl.visibility = View.VISIBLE
+            binding.combination = it
+            binding.combinationScore.text = it.score.toString()
         }
     }
 }

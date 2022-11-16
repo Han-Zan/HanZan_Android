@@ -12,6 +12,7 @@ import com.kud.hanzan.domain.usecase.preferred.PostPreferredCombUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.lang.Thread.State
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,6 +29,10 @@ class HomeViewModel @Inject constructor(
     val userName : StateFlow<String>
         get() = _userName
 
+    private var _userSbti = MutableStateFlow<String>("")
+    val userSbti : StateFlow<String>
+        get() = _userSbti
+
     private var _errorMsg = MutableStateFlow<String>("")
     val errorMsg : StateFlow<String>
         get() = _errorMsg
@@ -37,6 +42,7 @@ class HomeViewModel @Inject constructor(
             homeDataUseCase(userIdx)
                 .catch {
                     _userName.value = "이동건"
+                    _userSbti.value = "고독한 미식가"
                     _rankCombData.value = listOf(
                         HomeComb(null, "일반 소주", null,"닭발",  1, true, 4),
                         HomeComb(null, "카스", null, "치킨", 2, false, 3),
@@ -46,6 +52,7 @@ class HomeViewModel @Inject constructor(
                 .collectLatest{
                     _rankCombData.value = it.lists
                     _userName.value = it.name
+                    _userSbti.value = it.sbti
                 }
         }
     }

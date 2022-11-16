@@ -24,6 +24,7 @@ import com.kud.hanzan.adapter.home.HomeCombRVAdapter
 import com.kud.hanzan.databinding.ActivityHomeBinding
 import com.kud.hanzan.di.NetworkModule
 import com.kud.hanzan.ui.MainActivity
+import com.kud.hanzan.ui.sbti.SbtiCheckActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -106,6 +107,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             homeProfileIb.setOnClickListener {
                 startScreen(4)
             }
+        }
+        binding.homeSbtiCv.setOnClickListener {
+            activityResultLauncher.launch(Intent(this, SbtiCheckActivity::class.java).apply {
+                putExtra("user_name", viewModel.userName.value)
+                putExtra("user_sbti", viewModel.userSbti.value)
+            })
         }
     }
 
