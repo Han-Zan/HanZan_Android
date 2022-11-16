@@ -1,7 +1,11 @@
 package com.kud.hanzan.ui.combination
 
+import android.content.ContentValues.TAG
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -26,6 +30,8 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
 
     private fun initView(){
         userId = HanZanApplication.spfManager.getUserIdx()
+
+        isCombPrinted = false
 
         combNavArgs.drink?.let {
             viewModel.setDrink(it)
@@ -54,14 +60,24 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
         }
         binding.combinationNextBtn.setOnClickListener {
             binding.combinationNextBtn.visibility = View.INVISIBLE
+            isCombPrinted = true
             binding.drink?.let { drink ->
                 binding.food?.let { food ->
                     viewModel.recommendation(drink, food, userId)
                 }
             }
         }
+        binding.combinationLikeCb.setOnClickListener {
+            if (binding.combinationLikeCb.isChecked) {
+                viewModel.postCombLike(userId, combIdx)
+            } else {
+                viewModel.deleteCombLike(userId, combIdx)
+            }
+        }
     }
+    private var isCombPrinted = false
 
+    private var combIdx: Long = -1
     private fun observe() {
         viewModel.foodLiveData.observe(viewLifecycleOwner) {
             binding.food = it
@@ -76,9 +92,17 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
             }
         }
         viewModel.combLiveData.observe(viewLifecycleOwner) {
-            binding.combinationScoreCl.visibility = View.VISIBLE
-            binding.combination = it
+            if (isCombPrinted) binding.combinationScoreCl.visibility = View.VISIBLE
+            combIdx = it.combIdx
             binding.combinationScore.text = it.score.toString()
+            binding.combinationLikeCb.isChecked = it.prefer
+            binding.combinationRatingBar.rating = it.rating
+        }
+        viewModel.postPrefLiveData.observe(viewLifecycleOwner) {
+            binding.combinationLikeCb.isChecked = true
+        }
+        viewModel.deletePrefLiveData.observe(viewLifecycleOwner) {
+            binding.combinationLikeCb.isChecked = false
         }
     }
 }

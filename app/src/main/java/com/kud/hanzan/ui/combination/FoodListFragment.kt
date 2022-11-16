@@ -1,5 +1,6 @@
 package com.kud.hanzan.ui.combination
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -56,6 +57,7 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
                     setListener(object : FoodRVAdapter.Listener{
                         override fun onSelect(food: Food) {
                             food.let {
+                                Log.e(TAG, it.toString())
                                 val action = FoodListFragmentDirections.actionFoodListFragmentToCombinationFragment(null, it)
                                 findNavController().navigate(action)
                             }

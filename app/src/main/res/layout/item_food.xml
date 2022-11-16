@@ -22,7 +22,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             app:imageUrl="@{food.img}"
-            app:placeholder="@{@drawable/food_image_test1}"
+            app:placeholder="@{@android:color/transparent}"
             android:background="@drawable/bg_like_comb"/>
 
         <TextView
