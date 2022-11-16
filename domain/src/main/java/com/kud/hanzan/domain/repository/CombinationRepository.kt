@@ -9,4 +9,11 @@ interface CombinationRepository {
     fun getDrinkList(userIdx: Long) : Flow<List<Drink>>
     suspend fun getAllFood() : List<Food>
     suspend fun recommandation(drinkName: String, foodName: String, userId: Long) : Comb
+    suspend fun deletePreferredComb(combId: Long, userId: Long) : String
+    suspend fun postPreferredComb(preferredCombDto: PreferredCombDto) : String
+
+    data class PreferredCombDto(
+        val combid: Long,
+        val uid: Long
+    )
 }

@@ -4,11 +4,11 @@ import com.kud.hanzan.data.entity.DrinkInfo
 import com.kud.hanzan.data.entity.camera.CamPostDto
 import com.kud.hanzan.data.entity.preferred.CombResult
 import com.kud.hanzan.data.entity.preferred.DrinkResult
-import com.kud.hanzan.data.entity.preferred.PreferredCombDto
 import com.kud.hanzan.data.entity.preferred.PreferredDrinkDto
 import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.HomeData
 import com.kud.hanzan.domain.model.*
+import com.kud.hanzan.domain.repository.CombinationRepository
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -29,7 +29,7 @@ interface HanzanService {
     @DELETE("/prefcomb")
     suspend fun deletePreferredComb(@Query("combidx") combId: Long, @Query("userid") userId: Long) : String
     @POST("/prefcomb")
-    suspend fun postPreferredComb(@Body preferredCombDto: PreferredCombDto) : String
+    suspend fun postPreferredComb(@Body preferredCombDto: CombinationRepository.PreferredCombDto) : String
 
     // 좋아요 - 술
     @GET("/preferred")

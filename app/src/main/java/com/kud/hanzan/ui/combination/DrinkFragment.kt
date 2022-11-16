@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.FragmentDrinkBinding
 import com.kud.hanzan.domain.model.Drink
+import com.kud.hanzan.ui.dialog.BottomSheet
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,8 +34,21 @@ class DrinkFragment : BaseFragment<FragmentDrinkBinding>(R.layout.fragment_drink
             }
             drinkSelectBtn.setOnClickListener {
                 drink?.let {
-                    val action = DrinkFragmentDirections.actionDrinkFragmentToCombinationFragment(it, null)
-                    findNavController().navigate(action)
+                    val bottomSheet = BottomSheet(
+                        it.name + " 선택",
+                        resources.getString(R.string.drink_alert_bottom_sheet)
+                    ).apply {
+                        setCustomListener(object : BottomSheet.BottomSheetListener {
+                            override fun onConfirm() {
+                                dismiss()
+
+                                val action = DrinkFragmentDirections.actionDrinkFragmentToCombinationFragment(it, null)
+                                findNavController().navigate(action)
+                            }
+                            }
+                        )
+                    }
+                    bottomSheet.show(requireActivity().supportFragmentManager, "bottomSheet")
                 }
             }
         }

@@ -17,4 +17,8 @@ class CombinationRepositoryImpl @Inject constructor(
     : List<Food> = combinationRemoteDataSource.getAllFood()
     override suspend fun recommandation(drinkName: String, foodName: String, userId: Long)
     : Comb = combinationRemoteDataSource.recommandation(drinkName, foodName, userId)
+    override suspend fun deletePreferredComb(combId: Long, userId: Long)
+    : String = combinationRemoteDataSource.deletePreferredComb(combId, userId)
+    override suspend fun postPreferredComb(preferredCombDto: CombinationRepository.PreferredCombDto)
+    : String = combinationRemoteDataSource.postPreferredComb(preferredCombDto)
 }
