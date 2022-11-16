@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="buttonVisible"
+            type="java.lang.Boolean" />
+    </data>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/bg_main_background">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/rating_basic_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@null">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/rating_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/rating_toolbar_title"
+                    android:textSize="20sp"
+                    android:layout_marginStart="20dp"
+                    android:textAppearance="@style/customToolbarTitle"
+                    android:layout_gravity="center"/>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/rating_horizontal_guideline"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.5"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/rating_vertical_guideline"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/rating_vertical_guideline"
+                app:layout_constraintBottom_toTopOf="@id/rating_horizontal_guideline"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/rating_drink_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:imageUrl="@{null}"
+                    app:placeholder="@{@android:color/transparent}"
+                    android:background="@drawable/bg_comb_frame"/>
+
+                <TextView
+                    android:id="@+id/rating_drink_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="술 고르기"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rating_food_layout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="40dp"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/rating_vertical_guideline"
+                app:layout_constraintBottom_toTopOf="@id/rating_horizontal_guideline"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/rating_food_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_comb_frame"
+                    app:imageUrl="@{null}"
+                    app:placeholder="@{@android:color/transparent}"/>
+
+                <TextView
+                    android:id="@+id/rating_food_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="안주 고르기"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/rating_guide_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="80dp"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/font_pretendard_extrabold"
+                app:layout_constraintTop_toBottomOf="@id/rating_food_layout"
+                android:text="@string/rating_guide_text"/>
+            <RatingBar
+                android:id="@+id/rating_bar"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="false"
+                android:numStars="5"
+                android:progressBackgroundTint="@color/text_secondary"
+                android:progressTint="@color/color_main"
+                android:stepSize="0.5"
+                android:paddingVertical="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rating_guide_tv"/>
+            <Button
+                android:id="@+id/rating_bar_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:minHeight="0dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                visibleGone="@{buttonVisible}"
+                app:layout_constraintTop_toBottomOf="@id/rating_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/rating_button_text"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

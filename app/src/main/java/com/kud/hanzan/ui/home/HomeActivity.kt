@@ -23,6 +23,7 @@ import com.kud.hanzan.R
 import com.kud.hanzan.adapter.home.HomeCombRVAdapter
 import com.kud.hanzan.databinding.ActivityHomeBinding
 import com.kud.hanzan.di.NetworkModule
+import com.kud.hanzan.notification.RatingActivity
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.ui.sbti.SbtiCheckActivity
 import com.kud.hanzan.utils.base.BaseActivity
@@ -106,6 +107,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             }
             homeProfileIb.setOnClickListener {
                 startScreen(4)
+            }
+
+            // 임시
+            homeFaqCv.setOnClickListener {
+                startActivity(Intent(this@HomeActivity, RatingActivity::class.java))
             }
         }
         binding.homeSbtiCv.setOnClickListener {

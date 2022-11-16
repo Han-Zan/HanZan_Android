@@ -1,10 +1,12 @@
 package com.kud.hanzan.ui.dialog
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kud.hanzan.R
@@ -22,6 +24,11 @@ class BottomSheet(private val title: String, private val content: String)
 
     fun setCustomListener(mClickListener: BottomSheetListener){
         customListener = mClickListener
+    }
+
+    // make background transparent
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return BottomSheetDialog(requireContext(),R.style.CustomBottomSheet)
     }
 
     override fun onCreateView(
