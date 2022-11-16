@@ -52,7 +52,7 @@ class HomeViewModel @Inject constructor(
                 .collectLatest{
                     _rankCombData.value = it.lists
                     _userName.value = it.name
-                    _userSbti.value = it.sbti
+                    _userSbti.value = it.sbtiString
                 }
         }
     }
