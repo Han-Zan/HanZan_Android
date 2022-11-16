@@ -39,6 +39,10 @@ interface HanzanService {
     @POST("/preferred")
     suspend fun postPreferredAlcohol(@Body preferredDrinkDto: PreferredDrinkDto) : DrinkResult
 
+    // 조합 둘러보기
+    @GET("/recommands")
+    suspend fun recommandation(@Query("drinkName") drinkName: String, @Query("foodName") foodName: String, @Query("userId") userId: Long) : Comb
+
     // 술 리스트 화면
     @GET("/product/all")
     suspend fun getDrinkList(@Query("userId") userId: Long) : List<Drink>

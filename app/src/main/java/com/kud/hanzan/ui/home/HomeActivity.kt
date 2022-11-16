@@ -4,8 +4,11 @@ import android.Manifest
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
@@ -21,6 +24,7 @@ import com.kud.hanzan.adapter.home.HomeCombRVAdapter
 import com.kud.hanzan.databinding.ActivityHomeBinding
 import com.kud.hanzan.di.NetworkModule
 import com.kud.hanzan.ui.MainActivity
+import com.kud.hanzan.ui.sbti.SbtiCheckActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -29,6 +33,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     private val viewModel by viewModels<HomeViewModel>()
+    private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
     private var backKeyPressedTime: Long = 0
 
     // 임시
@@ -69,6 +74,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
         }
         initListener()
         observe()
+
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == RESULT_OK) {
+                viewModel.getData(userIdx)
+            }
+        }
     }
 
     private fun initListener(){
@@ -96,6 +107,12 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             homeProfileIb.setOnClickListener {
                 startScreen(4)
             }
+        }
+        binding.homeSbtiCv.setOnClickListener {
+            activityResultLauncher.launch(Intent(this, SbtiCheckActivity::class.java).apply {
+                putExtra("user_name", viewModel.userName.value)
+                putExtra("user_sbti", viewModel.userSbti.value)
+            })
         }
     }
 
@@ -144,7 +161,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     }
 
     private fun startScreen(type: Int){
-        startActivity(Intent(this, MainActivity::class.java).apply {
+        activityResultLauncher.launch(Intent(this, MainActivity::class.java).apply {
             when(type){
                 1 -> putExtra("screen", 1)
                 2 -> putExtra("screen", 2)

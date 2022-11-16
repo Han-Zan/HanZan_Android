@@ -1,6 +1,7 @@
 package com.kud.hanzan.ui
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -148,7 +149,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         if (getForegroundFragment() is CameraFragment){
             finish()
         } else{
-            super.onBackPressed()
+            setResult(RESULT_OK, Intent(this, HomeActivity::class.java))
+            if (!isFinishing) finish()
         }
     }
 

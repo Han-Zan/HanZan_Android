@@ -2,10 +2,7 @@ package com.kud.hanzan.data.source.combination
 
 import com.kud.hanzan.data.entity.DrinkInfo
 import com.kud.hanzan.data.remote.HanzanService
-import com.kud.hanzan.domain.model.Drink
-import com.kud.hanzan.domain.model.Food
-import com.kud.hanzan.domain.model.UserInfo
-import com.kud.hanzan.domain.model.UserResponseDto
+import com.kud.hanzan.domain.model.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -32,5 +29,19 @@ class CombinationRemoteDataSource @Inject constructor(
             }
         }
         return foods
+    }
+
+    override suspend fun recommandation(drinkName: String, foodName: String, userId: Long) : Comb {
+        var combination: Comb = Comb(0, true, 0F, 0)
+        withContext(Dispatchers.IO) {
+            runCatching {
+                hanzanService.recommandation(drinkName, foodName, userId)
+            }.onSuccess {
+                combination = it
+            }.onFailure {
+
+            }
+        }
+        return combination
     }
 }

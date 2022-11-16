@@ -1,19 +1,12 @@
 package com.kud.hanzan.ui.sbti
 
-import android.content.ContentValues
-import android.content.ContentValues.TAG
 import android.content.Intent
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import com.kakao.sdk.user.UserApiClient
 import com.kud.hanzan.HanZanApplication
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivitySbtiResultBinding
-import com.kud.hanzan.domain.model.User
 import com.kud.hanzan.domain.model.UserInfo
-import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.ui.home.HomeActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint

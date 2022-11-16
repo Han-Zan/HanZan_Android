@@ -1,5 +1,6 @@
 package com.kud.hanzan.data.source.combination
 
+import com.kud.hanzan.domain.model.Comb
 import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.Food
 import com.kud.hanzan.domain.repository.CombinationRepository
@@ -14,4 +15,6 @@ class CombinationRepositoryImpl @Inject constructor(
     : Flow<List<Drink>> = combinationRemoteDataSource.getDrinkList(userIdx)
     override suspend fun getAllFood()
     : List<Food> = combinationRemoteDataSource.getAllFood()
+    override suspend fun recommandation(drinkName: String, foodName: String, userId: Long)
+    : Comb = combinationRemoteDataSource.recommandation(drinkName, foodName, userId)
 }

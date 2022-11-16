@@ -2,7 +2,8 @@ package com.kud.hanzan.domain.model
 
 data class HomeData(
     val lists: List<HomeComb>,
-    val name: String
+    val name: String,
+    val sbtiString: String
 )
 
 data class HomeComb(
