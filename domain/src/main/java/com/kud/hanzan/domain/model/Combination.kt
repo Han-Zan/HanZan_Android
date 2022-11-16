@@ -1,13 +1,15 @@
 package com.kud.hanzan.domain.model
 
 data class Combination(
-    val drinkname: String,
+    val combScore: Int?,
+    val drinkCategory: Int,
     val drinkimg: String?,
-    val foodname: String,
+    val drinkname: String,
+    val foodCategory: Int,
     val foodimg: String?,
+    val foodname: String,
     val id: Long,
-    val rating: Float,
-    val detail: String?,
-    var like: Boolean = true,
-    var count: Int = 24,
+    var pnum: Int,
+    val rating: Int,
+    var like: Boolean = true
 )

@@ -17,5 +17,5 @@ data class DrinkDetail(
     val sour: Int,
     val sparkle: Int,
     val sweet: Int,
-    val tag: String,
+    val tag: String
 ) : Serializable

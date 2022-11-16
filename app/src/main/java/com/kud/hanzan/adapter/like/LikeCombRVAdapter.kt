@@ -47,14 +47,14 @@ class LikeCombRVAdapter : RecyclerView.Adapter<LikeCombRVAdapter.ViewHolder>() {
             binding.itemLikeCombLikeCb.setOnClickListener {
                 if (!binding.itemLikeCombLikeCb.isChecked){
                     likeListener.onDelete(combination.id)
-                    combination.count -= 1
+                    combination.pnum -= 1
                 }
                 else {
                     likeListener.onPost(combination.id)
-                    combination.count += 1
+                    combination.pnum += 1
                 }
                 combination.like = binding.itemLikeCombLikeCb.isChecked
-                binding.itemLikeCombCountTv.text = combination.count.toString()
+                binding.itemLikeCombCountTv.text = combination.pnum.toString()
             }
         }
     }
