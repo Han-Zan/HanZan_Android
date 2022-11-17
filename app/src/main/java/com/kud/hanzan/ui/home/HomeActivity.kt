@@ -48,11 +48,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     }
 
     override fun initView() {
-        // 홈화면 들렸다 레이팅 화면으로 넘어가기
-        if (intent?.hasExtra("notification") == true){
-            startActivity(Intent(this, RatingActivity::class.java))
-        }
-
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
