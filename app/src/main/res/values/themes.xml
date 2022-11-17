@@ -21,6 +21,8 @@
         <item name="android:windowActivityTransitions">true</item>
 
         <item name="android:popupMenuStyle">@style/CustomPopupMenu</item>
+
+        <item name="bottomSheetStyle">@style/CustomBottomSheet</item>
     </style>
     <style name="CustomSearchView" parent="Widget.AppCompat.SearchView" />
 
@@ -50,5 +52,11 @@
     <style name="CustomPopupMenu" parent="Widget.AppCompat.PopupMenu">
         <item name="android:gravity">center</item>
         <item name="android:minWidth">0dp</item>
+    </style>
+    <style name="CustomBottomSheet" parent="Theme.Design.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/TransparentBottomSheetDialogFragmentChild</item>
+    </style>
+    <style name="TransparentBottomSheetDialogFragmentChild" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>

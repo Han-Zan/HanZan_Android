@@ -1,12 +1,9 @@
 package com.kud.hanzan
 
 import android.app.Application
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.util.Log
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.common.util.Utility
-import com.kud.hanzan.notification.MyFirebaseMessagingService
 import com.kud.hanzan.utils.SharedPreferenceUtil
 import dagger.hilt.android.HiltAndroidApp
 

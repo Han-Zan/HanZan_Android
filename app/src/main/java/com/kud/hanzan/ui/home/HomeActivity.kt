@@ -1,11 +1,8 @@
 package com.kud.hanzan.ui.home
 
 import android.Manifest
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,13 +13,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.kud.hanzan.HanZanApplication
 import com.kud.hanzan.HanZanApplication.Companion.spfManager
-import com.kud.hanzan.HanZanApplication_HiltComponents
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.home.HomeCombRVAdapter
 import com.kud.hanzan.databinding.ActivityHomeBinding
-import com.kud.hanzan.di.NetworkModule
+import com.kud.hanzan.notification.RatingActivity
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.ui.sbti.SbtiCheckActivity
 import com.kud.hanzan.utils.base.BaseActivity
@@ -106,6 +101,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             }
             homeProfileIb.setOnClickListener {
                 startScreen(4)
+            }
+
+            // 임시
+            homeFaqCv.setOnClickListener {
+                startActivity(Intent(this@HomeActivity, RatingActivity::class.java))
             }
         }
         binding.homeSbtiCv.setOnClickListener {

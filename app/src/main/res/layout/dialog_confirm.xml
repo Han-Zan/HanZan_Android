@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text='@{content, default=내용}'
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:minHeight="60dp"
         android:fontFamily="@font/font_pretendard_semibold"
         android:layout_marginVertical="20dp"/>
