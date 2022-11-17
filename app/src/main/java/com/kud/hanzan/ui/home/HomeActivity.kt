@@ -1,11 +1,8 @@
 package com.kud.hanzan.ui.home
 
 import android.Manifest
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,13 +13,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.kud.hanzan.HanZanApplication
 import com.kud.hanzan.HanZanApplication.Companion.spfManager
-import com.kud.hanzan.HanZanApplication_HiltComponents
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.home.HomeCombRVAdapter
 import com.kud.hanzan.databinding.ActivityHomeBinding
-import com.kud.hanzan.di.NetworkModule
 import com.kud.hanzan.notification.RatingActivity
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.ui.sbti.SbtiCheckActivity
@@ -54,6 +48,11 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
     }
 
     override fun initView() {
+        // 홈화면 들렸다 레이팅 화면으로 넘어가기
+        if (intent?.hasExtra("notification") == true){
+            startActivity(Intent(this, RatingActivity::class.java))
+        }
+
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 

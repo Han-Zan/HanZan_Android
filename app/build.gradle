@@ -11,12 +11,12 @@ Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.kud.hanzan"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -136,5 +136,7 @@ dependencies {
     implementation 'com.amazonaws:aws-android-sdk-cognito:2.13.5'
     implementation 'com.amazonaws:aws-android-sdk-s3:2.13.5'
 
-
+    // work
+    implementation "androidx.work:work-runtime:2.7.1" // java
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 }

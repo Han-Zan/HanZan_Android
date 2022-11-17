@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.kud.hanzan">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -22,9 +23,14 @@
         android:theme="@style/Theme.HanZan"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <receiver
+            android:name=".notification.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
         <activity
             android:name=".ui.sbti.SbtiCheckActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.title.TitleActivity"
             android:exported="true">
@@ -74,8 +80,15 @@
                     android:scheme="kakaof76c6d489dc7a0a0681987b5cee91ed9" />
             </intent-filter>
         </activity>
-        <activity android:name=".notification.RatingActivity"
-            android:enabled="true"/>
+        <activity
+            android:name=".notification.RatingActivity"
+            android:exported="false">
+            <intent-filter>
+                <action android:name=".notification.RatingActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
