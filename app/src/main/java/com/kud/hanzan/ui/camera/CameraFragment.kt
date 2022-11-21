@@ -226,9 +226,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                                     viewModel.postCameraDrink(cameraItemList)
                                 } else {
                                     // Todo : 음식 리스트로 넘기기
-                                    foodList.add("닭발")
-//                    putExtra("foodList", foodList.toTypedArray())
-                                    foodList.clear()
+                                    viewModel.postCameraDrink(cameraItemList)
                                 }
                             }
                     }
@@ -252,6 +250,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                 Log.e("camera ocr server", d.toString())
                 putExtra("drinkList",drinkList.toTypedArray())
                 putExtra("foodList",foodList.toTypedArray())
+                putExtra("drinkMode", drinkMode)
             })
             drinkList.clear()
             foodList.clear()

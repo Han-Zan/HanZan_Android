@@ -61,6 +61,10 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
 
     private fun initView(){
         val store = storeArgs.store
+        with(binding){
+            lifecycleOwner = this@StoreFragment
+            storeViewModel = viewModel
+        }
         binding.store = StoreDetail(store.id.toLong(), store.name, store.address, store.phone, 4.2, emptyList(), emptyList())
 
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { it ->
@@ -107,7 +111,7 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
                         imgUri?.let { u ->
                             val file = File(URIPathHelper().getPath(requireContext(), u))
                             Log.e("storeImage Upload", "${file.name}, $file")
-                            viewModel.uploadImage(storeArgs.store.name + file.name, file)
+                            viewModel.uploadImage(storeArgs.store.id + file.name, file)
                         }
                     }
                 })

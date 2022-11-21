@@ -39,6 +39,7 @@ class MapViewModel @Inject constructor(
     var centerX: Double? = null
     var centerY: Double? = null
 
+
     fun getKeyWordPlace(keyword: String) {
         viewModelScope.launch {
             keywordUseCase(keyword)
@@ -87,7 +88,6 @@ class MapViewModel @Inject constructor(
         return if (centerX == null || centerY == null) null
         else listOf(centerX!!, centerY!!)
     }
-
 }
 
 sealed class PlaceUiState {
