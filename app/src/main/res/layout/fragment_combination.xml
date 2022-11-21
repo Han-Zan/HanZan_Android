@@ -133,6 +133,52 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/combination_rank_cv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="100dp"
+            android:layout_marginHorizontal="40dp"
+            android:backgroundTint="@android:color/transparent"
+            android:clickable="true"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_plate_white_glass"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingVertical="20dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_heart_selected" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/font_pretendard_semibold"
+                    android:text="@string/combination_rank_title"
+                    android:textFontWeight="600"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/combination_rank_hint"
+                    android:textColor="@color/text_unselected"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
         <Button
             android:id="@+id/combination_next_btn"
             android:layout_width="wrap_content"

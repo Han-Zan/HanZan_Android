@@ -66,6 +66,10 @@
         <action
             android:id="@+id/action_combinationFragment_to_foodCategoryFragment"
             app:destination="@+id/foodCategoryFragment"/>
+        <action
+            android:id="@+id/action_combinationFragment_to_rankingFragment"
+            app:destination="@id/rankingFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/drinkListFragment"
