@@ -105,9 +105,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             homeCombCb.setOnClickListener {
                 startScreen(5)
             }
-
-            // 임시
-            homeFaqCv.setOnClickListener {
+            homeRatingCv.setOnClickListener {
                 startActivity(Intent(this@HomeActivity, RatingActivity::class.java))
             }
         }
