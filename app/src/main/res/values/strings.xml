@@ -190,6 +190,11 @@
     <string name="rating_dismiss_title">리뷰 화면 종료</string>
     <string name="rating_dismiss_content">해당 화면을 종료하면 리뷰를 남길 수 없습니다. 그래도 종료하시겠습니까?</string>
 
+    <!--    Ranking Activity-->
+    <string name="ranking_toolbar_title">궁합 순위</string>
+    <string name="ranking_sort_drink">술 스타일</string>
+    <string name="ranking_sort_food">안주 스타일</string>
+
     <!--    Notification Channel-->
     <string name="default_notification_channel_id">default channel</string>
     <string name="default_notification_channel_name">default channel name</string>

@@ -9,7 +9,6 @@ import com.kud.hanzan.data.entity.preferred.PreferredDrinkDto
 import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.HomeData
 import com.kud.hanzan.domain.model.*
-import com.kud.hanzan.domain.repository.CombinationRepository
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -63,4 +62,12 @@ interface HanzanService {
     // 카메라 화면
     @POST("/cam")
     suspend fun postCameraList(@Body camPostDto: CamPostDto) : List<String>
+
+    // 궁합 순위 화면
+    @GET("/combination")
+    suspend fun getCombination(@Query("userId") userId: Long, @Query("combID") combId: Long) : CombinationInfo
+    @POST("/combination")
+    suspend fun saveCombination(@Body combinationDto: CombinationDto) : String
+    @GET("/combination/list")
+    suspend fun listAll(@Query("userId") userId: Long) : List<CombinationInfo>
 }

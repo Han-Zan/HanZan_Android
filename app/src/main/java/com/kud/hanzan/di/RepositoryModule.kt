@@ -16,6 +16,8 @@ import com.kud.hanzan.data.source.preferred.PreferredRemoteDataSource
 import com.kud.hanzan.data.source.preferred.PreferredRepositoryImpl
 import com.kud.hanzan.data.source.profile.ProfileDataSource
 import com.kud.hanzan.data.source.profile.ProfileRepositoryImpl
+import com.kud.hanzan.data.source.ranking.RankingDataSource
+import com.kud.hanzan.data.source.ranking.RankingRepositoryImpl
 import com.kud.hanzan.domain.repository.*
 import dagger.Module
 import dagger.Provides
@@ -72,5 +74,11 @@ object RepositoryModule {
     @Provides
     fun providesDrinkRepository(drinkRemoteDataSource: DrinkRemoteDataSource) : DrinkRepository{
         return DrinkRepositoryImpl(drinkRemoteDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun providesRankingRepository(rankingRepository: RankingDataSource) : RankingRepository{
+        return RankingRepositoryImpl(rankingRepository)
     }
 }
