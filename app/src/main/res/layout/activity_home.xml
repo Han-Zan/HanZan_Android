@@ -259,7 +259,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/home_faq_cv"
+                    android:id="@+id/home_rating_cv"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:clickable="true"
@@ -273,7 +273,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         android:fontFamily="@font/font_pretendard_extrabold"
-                        android:text="@string/home_faq_button_text"
+                        android:text="@string/home_rating_button_text"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 

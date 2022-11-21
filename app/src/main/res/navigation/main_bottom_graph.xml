@@ -66,6 +66,10 @@
         <action
             android:id="@+id/action_combinationFragment_to_foodCategoryFragment"
             app:destination="@+id/foodCategoryFragment"/>
+        <action
+            android:id="@+id/action_combinationFragment_to_rankingFragment"
+            app:destination="@id/rankingFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/drinkListFragment"
@@ -117,6 +121,11 @@
             app:destination="@id/combinationFragment"
             app:popUpTo="@id/combinationFragment"
             app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/rankingFragment"
+        android:name="com.kud.hanzan.ui.ranking.RankingFragment"
+        android:label="RankingFragment">
     </fragment>
     <!--    <activity-->
 <!--        android:id="@+id/mainActivity"-->

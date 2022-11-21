@@ -80,7 +80,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
                     1 -> R.id.cameraFragment
                     2 -> R.id.mapFragment
                     3 -> R.id.likeFragment
-                    else -> R.id.profileFragment
+                    4 -> R.id.profileFragment
+                    else -> R.id.rankingFragment
                 }
             )
             graph?.let { navController?.graph = it }
