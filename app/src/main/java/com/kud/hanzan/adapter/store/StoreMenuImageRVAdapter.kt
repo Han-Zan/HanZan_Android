@@ -23,8 +23,9 @@ class StoreMenuImageRVAdapter : RecyclerView.Adapter<StoreMenuImageRVAdapter.Vie
 
     override fun getItemCount(): Int = imgList.size
 
-    fun setData(data: MutableList<String>){
-        imgList = data
+    fun setData(data: List<String>){
+        imgList.clear()
+        imgList.addAll(data)
         notifyDataSetChanged()
     }
 

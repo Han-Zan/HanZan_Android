@@ -71,5 +71,6 @@ interface HanzanService {
     suspend fun postStore(@Body store: StoreKakaoData) : Long
     @GET("/stores")
     suspend fun getStore(@Query("kakaoId") storeId: String) : StoreCombData
-
+    @PUT("/stores/img")
+    suspend fun putStoreImage(@Query("imgLink", encoded = true) imgLink: String, @Query("kakaoIdx") kakaoId: String) : String
 }

@@ -9,6 +9,7 @@ import com.kud.hanzan.domain.model.map.Store
 import com.kud.hanzan.domain.model.map.StoreCombData
 import com.kud.hanzan.domain.usecase.store.GetStoreUseCase
 import com.kud.hanzan.domain.usecase.store.PostStoreUseCase
+import com.kud.hanzan.domain.usecase.store.PutStoreImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.catch
@@ -23,6 +24,7 @@ class StoreViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
     private val postStoreUseCase: PostStoreUseCase,
     private val getStoreUseCase: GetStoreUseCase,
+    private val putStoreImageUseCase: PutStoreImageUseCase,
     private val state: SavedStateHandle
 ) : ViewModel() {
     private var _storeId = MutableLiveData<Long>()
@@ -35,12 +37,20 @@ class StoreViewModel @Inject constructor(
 
     var isLoading : ObservableField<Boolean> = ObservableField<Boolean>()
 
+    private var _errorMessage = MutableLiveData<String>()
+    val errorMessage : LiveData<String>
+        get() = _errorMessage
+
     init {
         isLoading.set(true)
         state.get<Store>("store")?.let { s->
             viewModelScope.launch {
                 postStoreUseCase(s.id, s.name)
-                    .catch { it.cause?.let { isLoading.set(false)  }  }
+                    .catch { it.cause?.let { error ->
+                        _errorMessage.value = error.message
+                        isLoading.set(false)
+                        }
+                    }
                     .collectLatest {
                         _storeId.value = it
                         getStoreData(s.id)
@@ -60,7 +70,12 @@ class StoreViewModel @Inject constructor(
             override fun onStateChanged(id: Int, state: TransferState?) {
                 if (state == TransferState.COMPLETED) {
                     // Handle a completed upload
-                    Log.e("storeImage", "업로드 완료")
+                    _storeCombData.value?.kakaoId?.let {
+                        isLoading.set(true)
+                        putStoreImage("https://s3.ap-northeast-2.amazonaws.com/hanjanbucket/store/$fileName", it)
+                    } ?: run {
+                        _errorMessage.value = "네트워크 오류"
+                    }
                 }
             }
 
@@ -72,19 +87,39 @@ class StoreViewModel @Inject constructor(
             override fun onError(id: Int, ex: Exception?) {
                 Log.e("storeImage", ex?.message.toString())
                 Log.e("storeImage", "업로드 실패")
+                _errorMessage.value = ex?.message
             }
 
         })
     }
 
-    fun getStoreData(storeId: String){
+    private fun getStoreData(storeId: String){
         viewModelScope.launch {
             getStoreUseCase(storeId)
-                .catch {  }
+                .catch {
+                    it.cause?.let {
+                        _errorMessage.value = "네트워크 오류"
+                        isLoading.set(false)
+                    }
+                }
                 .collectLatest {
                     _storeCombData.value = it
                     isLoading.set(false)
                 }
+        }
+    }
+
+    private fun putStoreImage(imgLink: String, kakaoId: String){
+        viewModelScope.launch {
+            putStoreImageUseCase(imgLink, kakaoId)
+                .catch {
+                    it.cause?.let {
+                        _errorMessage.value = "네트워크 오류"
+                        isLoading.set(false)
+                    }
+                }
+                .collectLatest {  }
+                .also { getStoreData(kakaoId) }
         }
     }
 }

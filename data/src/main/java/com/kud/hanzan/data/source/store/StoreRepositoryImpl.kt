@@ -15,4 +15,8 @@ class StoreRepositoryImpl @Inject constructor(
     override fun getStoreData(
         storeId: String
     ): Flow<StoreCombData> = storeRemoteDataSource.getStore(storeId)
+
+    override fun putStoreImage(
+        imgLink: String, kakaoIdx: String
+    ): Flow<String> = storeRemoteDataSource.putStoreImage(imgLink, kakaoIdx)
 }

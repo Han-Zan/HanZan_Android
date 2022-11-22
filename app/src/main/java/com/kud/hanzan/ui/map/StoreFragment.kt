@@ -103,7 +103,21 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
     }
 
     private fun observe(){
-
+        viewModel.storeComb.observe(viewLifecycleOwner){
+            binding.storeCombData = it
+            // Todo : 현재 메뉴 이미지 하나만 있음
+            it.imgLink?.let { image ->
+                binding.store?.imgList = listOf(image)
+                binding.store?.combList = it.combinationList
+                (binding.homeImageRv.adapter as StoreMenuImageRVAdapter).setData(listOf(image))
+                Log.e("image인식", image)
+            }
+        }
+        viewModel.errorMessage.observe(viewLifecycleOwner){
+            it?.let { message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun openStorage(){

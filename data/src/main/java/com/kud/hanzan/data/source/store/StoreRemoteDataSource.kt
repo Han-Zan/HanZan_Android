@@ -23,4 +23,10 @@ class StoreRemoteDataSource @Inject constructor(
     ): Flow<StoreCombData> = flow {
         emit(hanzanService.getStore(storeId))
     }.flowOn(Dispatchers.IO)
+
+    override fun putStoreImage(
+        imgLink: String, kakaoIdx: String
+    ): Flow<String> = flow {
+        emit(hanzanService.putStoreImage(imgLink, kakaoIdx))
+    }.flowOn(Dispatchers.IO)
 }

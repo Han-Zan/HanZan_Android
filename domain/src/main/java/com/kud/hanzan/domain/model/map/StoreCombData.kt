@@ -3,7 +3,7 @@ package com.kud.hanzan.domain.model.map
 data class StoreCombData(
     val combinationList: List<StoreComb>,
     val idx: Int,
-    val imgLink: String,
+    val imgLink: String?,
     val kakaoId: String,
     val storeName: String
 )
