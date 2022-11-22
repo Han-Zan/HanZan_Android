@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
-
 @HiltViewModel
 class StoreViewModel @Inject constructor(
     private val transferUtility: TransferUtility,

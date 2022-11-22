@@ -15,7 +15,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kud.hanzan.R
+import com.kud.hanzan.adapter.store.StoreMenuImageRVAdapter
 import com.kud.hanzan.databinding.FragmentStoreBinding
 import com.kud.hanzan.domain.model.map.StoreDetail
 import com.kud.hanzan.ui.dialog.ImageSelectDialog
@@ -57,6 +59,7 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
         super.onViewCreated(view, savedInstanceState)
         initView()
         initListener()
+        observe()
     }
 
     private fun initView(){
@@ -71,6 +74,11 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
             if(it.resultCode == Activity.RESULT_OK){
                 showDialog(it.data?.data)
             }
+        }
+
+        binding.homeImageRv.apply {
+            adapter = StoreMenuImageRVAdapter()
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
@@ -92,6 +100,10 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
                 requestPermissionLauncher.launch(REQUIRED_EXTERNAL_STORAGE_PERMISSIONS)
             }
         }
+    }
+
+    private fun observe(){
+
     }
 
     private fun openStorage(){
