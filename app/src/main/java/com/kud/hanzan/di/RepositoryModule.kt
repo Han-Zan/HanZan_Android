@@ -18,6 +18,8 @@ import com.kud.hanzan.data.source.profile.ProfileDataSource
 import com.kud.hanzan.data.source.profile.ProfileRepositoryImpl
 import com.kud.hanzan.data.source.store.StoreRemoteDataSource
 import com.kud.hanzan.data.source.store.StoreRepositoryImpl
+import com.kud.hanzan.data.source.ranking.RankingDataSource
+import com.kud.hanzan.data.source.ranking.RankingRepositoryImpl
 import com.kud.hanzan.domain.repository.*
 import dagger.Module
 import dagger.Provides
@@ -78,7 +80,13 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providesStoreRepository(storeRemoteDataSource: StoreRemoteDataSource) : StoreRepository{
+    fun providesStoreRepository(storeRemoteDataSource: StoreRemoteDataSource) : StoreRepository {
         return StoreRepositoryImpl(storeRemoteDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun providesRankingRepository(rankingRepository: RankingDataSource) : RankingRepository{
+        return RankingRepositoryImpl(rankingRepository)
     }
 }

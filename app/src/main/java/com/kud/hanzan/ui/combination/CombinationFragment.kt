@@ -58,6 +58,11 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
                 findNavController().navigate(action)
             }
         }
+        binding.combinationRankCv.setOnClickListener {
+            val action =
+                CombinationFragmentDirections.actionCombinationFragmentToRankingFragment()
+            findNavController().navigate(action)
+        }
         binding.combinationNextBtn.setOnClickListener {
             binding.combinationNextBtn.visibility = View.INVISIBLE
             isCombPrinted = true
@@ -82,12 +87,14 @@ class CombinationFragment : BaseFragment<FragmentCombinationBinding>(R.layout.fr
         viewModel.foodLiveData.observe(viewLifecycleOwner) {
             binding.food = it
             if (binding.drink != null && binding.food != null) {
+                binding.combinationRankCv.visibility = View.INVISIBLE
                 binding.combinationNextBtn.visibility = View.VISIBLE
             }
         }
         viewModel.drinkLiveData.observe(viewLifecycleOwner) {
             binding.drink = it
             if (binding.drink != null && binding.food != null) {
+                binding.combinationRankCv.visibility = View.INVISIBLE
                 binding.combinationNextBtn.visibility = View.VISIBLE
             }
         }

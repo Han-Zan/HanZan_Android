@@ -11,7 +11,6 @@ import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.HomeData
 import com.kud.hanzan.domain.model.*
 import com.kud.hanzan.domain.model.map.StoreCombData
-import com.kud.hanzan.domain.repository.CombinationRepository
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -73,4 +72,12 @@ interface HanzanService {
     suspend fun getStore(@Query("kakaoId") storeId: String) : StoreCombData
     @PUT("/stores/img")
     suspend fun putStoreImage(@Query("imgLink", encoded = true) imgLink: String, @Query("kakaoIdx") kakaoId: String) : String
+
+    // 궁합 순위 화면
+    @GET("/combination")
+    suspend fun getCombination(@Query("userId") userId: Long, @Query("combID") combId: Long) : CombinationInfo
+    @POST("/combination")
+    suspend fun saveCombination(@Body combinationDto: CombinationDto) : String
+    @GET("/combination/list")
+    suspend fun listAll(@Query("userId") userId: Long) : List<CombinationInfo>
 }

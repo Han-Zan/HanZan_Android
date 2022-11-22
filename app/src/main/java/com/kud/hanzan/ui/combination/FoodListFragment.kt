@@ -35,8 +35,8 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
 
     private fun initListener() {
         with(binding){
-            val listAlcoholPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)
-            listAlcoholPopupWindow.apply {
+            val listFoodPopupWindow = ListPopupWindow(requireContext(), null, com.google.android.material.R.attr.listPopupWindowStyle)
+            listFoodPopupWindow.apply {
                 anchorView = foodListStyleBtn
                 val items = listOf("  육류  ", "  생선  ", "  튀김  ", " 탕/찌개 ", "마른 안주", "과일/채소", " 디저트 ", "  기타  ")
                 val adapter = ArrayAdapter(requireContext(), R.layout.list_popup_like_sort, items)
@@ -50,9 +50,9 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
                 }
             }
 
-            foodListStyleBtn.setOnClickListener { listAlcoholPopupWindow.show() }
+            foodListStyleBtn.setOnClickListener { listFoodPopupWindow.show() }
 
-            binding.foodListRv.apply {
+            foodListRv.apply {
                 adapter = FoodRVAdapter().apply {
                     setListener(object : FoodRVAdapter.Listener{
                         override fun onSelect(food: Food) {
