@@ -27,7 +27,6 @@ class StoreViewModel @Inject constructor(
     private val putStoreImageUseCase: PutStoreImageUseCase,
     private val state: SavedStateHandle
 ) : ViewModel() {
-
     private var _storeId = MutableLiveData<Long>()
     val storeId: LiveData<Long>
         get() = _storeId
