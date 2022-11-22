@@ -27,6 +27,7 @@ class StoreViewModel @Inject constructor(
     private val putStoreImageUseCase: PutStoreImageUseCase,
     private val state: SavedStateHandle
 ) : ViewModel() {
+
     private var _storeId = MutableLiveData<Long>()
     val storeId: LiveData<Long>
         get() = _storeId
@@ -36,6 +37,7 @@ class StoreViewModel @Inject constructor(
         get() = _storeCombData
 
     var isLoading : ObservableField<Boolean> = ObservableField<Boolean>()
+
 
     private var _errorMessage = MutableLiveData<String>()
     val errorMessage : LiveData<String>

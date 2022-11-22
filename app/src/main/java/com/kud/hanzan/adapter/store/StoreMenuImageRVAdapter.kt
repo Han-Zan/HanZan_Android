@@ -23,10 +23,9 @@ class StoreMenuImageRVAdapter : RecyclerView.Adapter<StoreMenuImageRVAdapter.Vie
 
     override fun getItemCount(): Int = imgList.size
 
-    fun setData(data: List<String>){
+    fun setData(data: List<String>) {
         imgList.clear()
         imgList.addAll(data)
-        notifyDataSetChanged()
     }
 
     inner class ViewHolder(val binding: ItemStoreMenuImageBinding) : RecyclerView.ViewHolder(binding.root) {
