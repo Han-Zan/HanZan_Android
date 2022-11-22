@@ -25,6 +25,7 @@ class RankingFragment : BaseFragment<FragmentRankingBinding>(R.layout.fragment_r
 
     private var userId: Long = -1
     private fun initView() {
+        binding.dataViewModel = viewModel
         userId = HanZanApplication.spfManager.getUserIdx()
         viewModel.listAll(userId)
         observe()
