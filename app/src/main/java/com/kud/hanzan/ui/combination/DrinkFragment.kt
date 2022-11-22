@@ -51,6 +51,13 @@ class DrinkFragment : BaseFragment<FragmentDrinkBinding>(R.layout.fragment_drink
                     bottomSheet.show(requireActivity().supportFragmentManager, "bottomSheet")
                 }
             }
+            likeDrinkCb.setOnClickListener {
+                drink?.id?.let {
+                    if (!likeDrinkCb.isChecked)
+                        viewModel.deleteDrinkLike(it)
+                    else viewModel.postDrinkLike(it)
+                }
+            }
         }
     }
 

@@ -292,22 +292,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
         super.onStop()
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
-//
-//    class CustomBalloonAdapter(private val context: Context): CalloutBalloonAdapter{
-//        private var balloonBinding: ItemCustomBalloonBinding = ItemCustomBalloonBinding.inflate(LayoutInflater.from(context))
-//
-//        override fun getCalloutBalloon(p0: MapPOIItem?): View {
-//            balloonBinding.name = (p0?.userObject as Store).name
-//            balloonBinding.address = (p0?.userObject as Store).address
-//            return balloonBinding.root
-//        }
-//
-//        // 말풍선 클릭시 event
-//        override fun getPressedCalloutBalloon(p0: MapPOIItem?): View? {
-//            return null
-//        }
-//
-//    }
+
     override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {
         // 도로명 주소 알아오기
         p0?.let{ p1?.let {
@@ -352,7 +337,9 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), Map
     }
 
     override fun onCalloutBalloonOfPOIItemTouched(p0: MapView?, p1: MapPOIItem?) {
-        val action = MapFragmentDirections.actionMapFragmentToStoreFragment(p1?.userObject as Store)
+        val store = p1?.userObject as Store
+
+        val action = MapFragmentDirections.actionMapFragmentToStoreFragment(store)
         findNavController().navigate(action)
     }
 

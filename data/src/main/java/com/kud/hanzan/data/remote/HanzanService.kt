@@ -6,9 +6,11 @@ import com.kud.hanzan.data.entity.preferred.CombResult
 import com.kud.hanzan.data.entity.preferred.DrinkResult
 import com.kud.hanzan.data.entity.preferred.PreferredCombDto
 import com.kud.hanzan.data.entity.preferred.PreferredDrinkDto
+import com.kud.hanzan.data.entity.store.StoreKakaoData
 import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.HomeData
 import com.kud.hanzan.domain.model.*
+import com.kud.hanzan.domain.model.map.StoreCombData
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -62,6 +64,14 @@ interface HanzanService {
     // 카메라 화면
     @POST("/cam")
     suspend fun postCameraList(@Body camPostDto: CamPostDto) : List<String>
+
+    // 가게 화면
+    @POST("/stores")
+    suspend fun postStore(@Body store: StoreKakaoData) : Long
+    @GET("/stores")
+    suspend fun getStore(@Query("kakaoId") storeId: String) : StoreCombData
+    @PUT("/stores/img")
+    suspend fun putStoreImage(@Query("imgLink", encoded = true) imgLink: String, @Query("kakaoIdx") kakaoId: String) : String
 
     // 궁합 순위 화면
     @GET("/combination")

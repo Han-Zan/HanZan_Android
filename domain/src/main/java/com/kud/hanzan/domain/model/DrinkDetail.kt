@@ -10,7 +10,7 @@ data class DrinkDetail(
     val detailedCategory: String,
     val id: Long,
     val img: String?,
-    val isPrefer: Boolean,
+    var isPrefer: Boolean,
     val name: String,
     val nation: String,
     val rating: Float,

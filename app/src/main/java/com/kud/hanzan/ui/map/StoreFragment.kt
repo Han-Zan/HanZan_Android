@@ -15,7 +15,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kud.hanzan.R
+import com.kud.hanzan.adapter.store.StoreMenuImageRVAdapter
 import com.kud.hanzan.databinding.FragmentStoreBinding
 import com.kud.hanzan.domain.model.map.StoreDetail
 import com.kud.hanzan.ui.dialog.ImageSelectDialog
@@ -57,16 +59,26 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
         super.onViewCreated(view, savedInstanceState)
         initView()
         initListener()
+        observe()
     }
 
     private fun initView(){
         val store = storeArgs.store
+        with(binding){
+            lifecycleOwner = this@StoreFragment
+            storeViewModel = viewModel
+        }
         binding.store = StoreDetail(store.id.toLong(), store.name, store.address, store.phone, 4.2, emptyList(), emptyList())
 
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { it ->
             if(it.resultCode == Activity.RESULT_OK){
                 showDialog(it.data?.data)
             }
+        }
+
+        binding.homeImageRv.apply {
+            adapter = StoreMenuImageRVAdapter()
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
@@ -90,6 +102,24 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
         }
     }
 
+    private fun observe(){
+        viewModel.storeComb.observe(viewLifecycleOwner){
+            binding.storeCombData = it
+            // Todo : 현재 메뉴 이미지 하나만 있음
+            it.imgLink?.let { image ->
+                binding.store?.imgList = listOf(image)
+                binding.store?.combList = it.combinationList
+                (binding.homeImageRv.adapter as StoreMenuImageRVAdapter).setData(listOf(image))
+                Log.e("image인식", image)
+            }
+        }
+        viewModel.errorMessage.observe(viewLifecycleOwner){
+            it?.let { message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun openStorage(){
         activityResultLauncher.launch(
             Intent(Intent.ACTION_GET_CONTENT).apply {
@@ -107,7 +137,7 @@ class StoreFragment : BaseFragment<FragmentStoreBinding>(R.layout.fragment_store
                         imgUri?.let { u ->
                             val file = File(URIPathHelper().getPath(requireContext(), u))
                             Log.e("storeImage Upload", "${file.name}, $file")
-                            viewModel.uploadImage(storeArgs.store.name + file.name, file)
+                            viewModel.uploadImage(storeArgs.store.id + file.name, file)
                         }
                     }
                 })

@@ -24,6 +24,12 @@ class CameraResultActivity : BaseActivity<ActivityCameraResultBinding>(R.layout.
                 TabLayoutMediator(cameraResultTab, cameraResultVp){
                         tab, position -> tab.text = tabInfo[position]
                 }.attach()
+                if (intent.hasExtra("drinkMode")){
+                    if (!intent.getBooleanExtra("drinkMode", true))
+                        cameraResultTab.apply {
+                            selectTab(getTabAt(1))
+                        }
+                }
             }
         }
         initListener()
@@ -31,10 +37,13 @@ class CameraResultActivity : BaseActivity<ActivityCameraResultBinding>(R.layout.
     }
 
     private fun initData(){
+
+
         if (intent.hasExtra("drinkList"))
             viewModel.setDrinkData(intent.getStringArrayExtra("drinkList") ?: emptyArray())
         if (intent.hasExtra("foodList"))
             viewModel.setFoodData(intent.getStringArrayExtra("foodList") ?: emptyArray())
+
     }
 
     private fun initListener(){

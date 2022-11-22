@@ -217,18 +217,20 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                                 cameraItemList.clear()
                                 val resultText = visionText.textBlocks
                                 resultText.forEach { e ->
-                                    if(e.text.length >= 2) cameraItemList.add(e.text)
+                                    // 줄바꿈 문자 포함된 경우
+                                    if (e.text.contains("\n")){
+                                        cameraItemList.add(e.text.substringBefore("\n"))
+                                        cameraItemList.add(e.text.substringAfter("\n"))
+                                    }
+                                    else cameraItemList.add(e.text)
                                 }
-                                Log.e("camera ocr result", cameraItemList.toString())
                                 image.close()
                                 if (drinkMode){
                                     // Todo : 술 리스트로 넘기기
                                     viewModel.postCameraDrink(cameraItemList)
                                 } else {
                                     // Todo : 음식 리스트로 넘기기
-                                    foodList.add("닭발")
-//                    putExtra("foodList", foodList.toTypedArray())
-                                    foodList.clear()
+                                    viewModel.postCameraDrink(cameraItemList)
                                 }
                             }
                     }
@@ -249,9 +251,9 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
         viewModel.cameraDrinkData.observe(viewLifecycleOwner){ d ->
             activityResultLauncher.launch(Intent(requireActivity(), CameraResultActivity::class.java).apply{
                 drinkList.addAll(d)
-                Log.e("camera ocr server", d.toString())
                 putExtra("drinkList",drinkList.toTypedArray())
                 putExtra("foodList",foodList.toTypedArray())
+                putExtra("drinkMode", drinkMode)
             })
             drinkList.clear()
             foodList.clear()

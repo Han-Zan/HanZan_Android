@@ -6,6 +6,6 @@ data class StoreDetail(
     val address: String?,
     val phone: String?,
     val rating: Double,
-    val imgList: List<String>,
-    val combList: List<String>
+    var imgList: List<String>,
+    var combList: List<StoreComb>
 )

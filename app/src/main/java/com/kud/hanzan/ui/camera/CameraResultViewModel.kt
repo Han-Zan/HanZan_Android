@@ -34,11 +34,11 @@ class CameraResultViewModel @Inject constructor(
 
     // set drinkLiveData
     fun setDrinkData(array: Array<String>){
-        _drinkLiveData.value = array.toMutableList()
+        _drinkLiveData.value = array.distinct().toMutableList()
     }
 
     // set foodLiveData
     fun setFoodData(array: Array<String>){
-        _foodLiveData.value = array.toMutableList()
+        _foodLiveData.value = array.distinct().toMutableList()
     }
 }
