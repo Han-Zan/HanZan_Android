@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -28,8 +29,13 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun sendNotification(context: Context, drinkName: String, foodName: String){
+        val bundle = Bundle()
+        bundle.putString("drinkName", drinkName)
+        bundle.putString("foodName", foodName)
         val intent = Intent(context, RatingActivity::class.java).apply {
             putExtra("notification", true)
+            putExtras(bundle)
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
         }
         /*
         1. FLAG_UPDATE_CURRENT : 현재 PendingIntent를 유지하고, 대신 인텐트의 extra data는 새로 전달된 Intent로 교체
@@ -41,7 +47,7 @@ class AlarmReceiver : BroadcastReceiver() {
             context,
             0,
             intent,
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT
         )
 
         val channelId = context.resources.getString(R.string.default_notification_channel_id)
