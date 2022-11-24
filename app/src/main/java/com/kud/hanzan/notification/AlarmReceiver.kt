@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.kud.hanzan.R
@@ -22,6 +23,7 @@ class AlarmReceiver : BroadcastReceiver() {
             Context.NOTIFICATION_SERVICE) as NotificationManager
         val drinkName = intent.getStringExtra("drinkName")
         val foodName = intent.getStringExtra("foodName")
+        Log.e("drinkName Position", drinkName.toString())
         drinkName?.let { drink -> foodName?.let { food -> sendNotification(context, drink, food) } }
     }
 

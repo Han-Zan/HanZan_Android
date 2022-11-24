@@ -19,6 +19,7 @@ import com.kud.hanzan.adapter.home.HomeCombRVAdapter
 import com.kud.hanzan.databinding.ActivityHomeBinding
 import com.kud.hanzan.notification.RatingActivity
 import com.kud.hanzan.ui.MainActivity
+import com.kud.hanzan.ui.camera.CameraCombActivity
 import com.kud.hanzan.ui.sbti.SbtiCheckActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -106,7 +107,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
                 startScreen(5)
             }
             homeRatingCv.setOnClickListener {
-                startActivity(Intent(this@HomeActivity, RatingActivity::class.java))
+                startActivity(Intent(this@HomeActivity, CameraCombActivity::class.java))
             }
         }
         binding.homeSbtiCv.setOnClickListener {
