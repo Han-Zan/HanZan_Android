@@ -19,9 +19,14 @@ import com.kud.hanzan.notification.RatingActivity
 import com.kud.hanzan.ui.home.HomeActivity
 import com.kud.hanzan.utils.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class CameraCombActivity : BaseActivity<ActivityCameraCombBinding>(R.layout.activity_camera_comb) {
+    private val calendar by lazy {
+        Calendar.getInstance()
+    }
+
     companion object{
         private const val REQUEST_POST_NOTIFICATIONS_PERMISSIONS = 10
         private const val REQUIRED_POST_NOTIFICATIONS_PERMISSIONS = Manifest.permission.POST_NOTIFICATIONS
@@ -73,6 +78,8 @@ class CameraCombActivity : BaseActivity<ActivityCameraCombBinding>(R.layout.acti
     }
 
     private fun sendNotification(position: Int){
+        finishAfterTransition()
+
         val intent = Intent(this, AlarmReceiver::class.java).apply {
             // Todo : 이름값 임시로 넣어둠
             // Todo : 궁합 분석화면 만들면 해당 화면에서 호출해야 함 바꿔야함, 현재는 테스트용용
@@ -83,21 +90,15 @@ class CameraCombActivity : BaseActivity<ActivityCameraCombBinding>(R.layout.acti
         }
         val pendingIntent = PendingIntent.getBroadcast(
             this, 0, intent,
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        alarmManager.set(
-            AlarmManager.ELAPSED_REALTIME_WAKEUP,
-            9000,
+        alarmManager.setExactAndAllowWhileIdle(
+            AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis + 9000,
             pendingIntent
         )
-        finishActivity()
-
-    }
-
-    private fun finishActivity(){
         startActivity(Intent(this, HomeActivity::class.java))
-        finish()
     }
 
     override fun onRequestPermissionsResult(

@@ -4,6 +4,12 @@
         <variable
             name="buttonVisible"
             type="java.lang.Boolean" />
+        <variable
+            name="drinkName"
+            type="java.lang.String" />
+        <variable
+            name="foodName"
+            type="java.lang.String" />
     </data>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -77,7 +83,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:text="술 고르기"/>
+                    android:text="@{drinkName, default=술}"/>
             </LinearLayout>
 
             <LinearLayout
@@ -107,7 +113,7 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:text="안주 고르기"/>
+                    android:text="@{foodName, default=음식}"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/rating_guide_tv"
@@ -150,22 +156,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:text="@string/rating_button_text"/>
-            <Button
-                android:id="@+id/rating_notification_test_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:paddingVertical="10dp"
-                android:minHeight="0dp"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/white"
-                app:layout_constraintTop_toBottomOf="@id/rating_bar_btn"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:text="푸시 알림 테스트"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
