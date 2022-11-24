@@ -30,7 +30,9 @@ class DrinkFragment : BaseFragment<FragmentDrinkBinding>(R.layout.fragment_drink
     private fun initListener(){
         with(binding){
             drinkToolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
+                findNavController().apply {
+                    popBackStack()
+                }
             }
             drinkSelectBtn.setOnClickListener {
                 drink?.let {

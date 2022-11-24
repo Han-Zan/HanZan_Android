@@ -32,7 +32,7 @@ class DrinkRVAdapter : RecyclerView.Adapter<DrinkRVAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(alcoholList[position])
-        holder.itemView.setOnClickListener { likeListener.onClick(alcoholList[position].id) }
+        holder.itemView.setOnClickListener { likeListener.onClick(alcoholList[position].id).also { Log.e("drinkTest", alcoholList.toString()) } }
     }
 
     override fun getItemCount(): Int = alcoholList.size

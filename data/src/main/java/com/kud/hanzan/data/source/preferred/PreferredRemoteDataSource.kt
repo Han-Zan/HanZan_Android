@@ -6,6 +6,7 @@ import com.kud.hanzan.data.entity.preferred.DrinkResult
 import com.kud.hanzan.data.entity.preferred.PreferredCombDto
 import com.kud.hanzan.data.entity.preferred.PreferredDrinkDto
 import com.kud.hanzan.data.remote.HanzanService
+import com.kud.hanzan.domain.model.LikeDrink
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -35,7 +36,7 @@ class PreferredRemoteDataSource @Inject constructor(
 
     override fun getPreferredAlcohol(
         userId: Long
-    ): Flow<List<DrinkInfo>> = flow {
+    ): Flow<List<LikeDrink>> = flow {
         emit(hanzanService.getPreferredAlcohol(userId))
     }.flowOn(Dispatchers.IO)
 

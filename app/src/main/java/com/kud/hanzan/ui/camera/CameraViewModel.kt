@@ -29,12 +29,27 @@ class CameraViewModel @Inject constructor(
     val cameraDrinkData : LiveData<List<String>>
         get() = _cameraDrinkData
 
+    private var _cameraFoodData = MutableLiveData<List<String>>()
+    val cameraFoodData : LiveData<List<String>>
+        get() = _cameraFoodData
+
     fun postCameraDrink(strList: List<String>){
         viewModelScope.launch {
             postCameraDrinkUseCase(strList)
                 .catch { _cameraDrinkData.value = emptyList() }
                 .collectLatest{
                     _cameraDrinkData.value = it
+                    Log.e("cameraViewModel", it.toString())
+                }
+        }
+    }
+
+    fun postCameraFood(strList: List<String>){
+        viewModelScope.launch {
+            postCameraFoodUseCase(strList)
+                .catch { _cameraDrinkData.value = emptyList() }
+                .collectLatest{
+                    _cameraFoodData.value = it
                     Log.e("cameraViewModel", it.toString())
                 }
         }

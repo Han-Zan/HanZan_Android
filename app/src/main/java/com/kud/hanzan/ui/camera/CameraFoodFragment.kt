@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -72,8 +73,14 @@ class CameraFoodFragment : BaseFragment<FragmentCameraFoodBinding>(R.layout.frag
 
     private fun observe(){
         viewModel.foodLiveData.observe(viewLifecycleOwner){
-            (binding.cameraFoodRv.adapter as CameraResultItemRVAdapter).setData(it)
-            Log.e("cameraFragment observe", it.toString())
+            if (it.isNotEmpty()) {
+                (binding.cameraFoodRv.adapter as CameraResultItemRVAdapter).setData(it)
+                Log.e("cameraFragment observe", it.toString())
+            } else if (!viewModel.isDrinkMode){
+                // 인식된 안주 데이터가 없고 안주 인식 모드로 촬영한 경우
+                Toast.makeText(requireContext(), "인식된 안주 데이터가 없습니다.\n다시 찍거나 직접 추가해주세요!", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 }
