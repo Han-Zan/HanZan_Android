@@ -25,7 +25,9 @@ class CameraResultActivity : BaseActivity<ActivityCameraResultBinding>(R.layout.
                         tab, position -> tab.text = tabInfo[position]
                 }.attach()
                 if (intent.hasExtra("drinkMode")){
-                    if (!intent.getBooleanExtra("drinkMode", true))
+                    if (!intent.getBooleanExtra("drinkMode", true).also {
+                            viewModel.isDrinkMode = it
+                        })
                         cameraResultTab.apply {
                             selectTab(getTabAt(1))
                         }
@@ -37,8 +39,6 @@ class CameraResultActivity : BaseActivity<ActivityCameraResultBinding>(R.layout.
     }
 
     private fun initData(){
-
-
         if (intent.hasExtra("drinkList"))
             viewModel.setDrinkData(intent.getStringArrayExtra("drinkList") ?: emptyArray())
         if (intent.hasExtra("foodList"))

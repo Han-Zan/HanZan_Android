@@ -35,7 +35,7 @@ interface HanzanService {
 
     // 좋아요 - 술
     @GET("/preferred")
-    suspend fun getPreferredAlcohol(@Query("userid") userId: Long) : List<DrinkInfo>
+    suspend fun getPreferredAlcohol(@Query("userid") userId: Long) : List<LikeDrink>
     @DELETE("/preferred")
     suspend fun deletePreferredAlcohol(@Query("drinkid") drinkId: Long, @Query("id") userId: Long) : String
     @POST("/preferred")
