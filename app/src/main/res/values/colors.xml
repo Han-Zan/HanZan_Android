@@ -30,4 +30,7 @@
     <color name="color_white">#FFFFFF</color>
     <color name="color_heart">#B00020</color>
 
+    <color name="color_20_FFAA11">#33FFAA11</color>
+    <color name="color_transparent">@android:color/transparent</color>
+
 </resources>

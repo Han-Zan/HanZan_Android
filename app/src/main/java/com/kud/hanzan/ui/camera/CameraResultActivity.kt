@@ -1,5 +1,6 @@
 package com.kud.hanzan.ui.camera
 
+import android.content.Intent
 import androidx.activity.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kud.hanzan.R
@@ -48,16 +49,9 @@ class CameraResultActivity : BaseActivity<ActivityCameraResultBinding>(R.layout.
 
     private fun initListener(){
         with(binding){
-            // Todo : 갔다 와서 찍으면 이미지 추가
-//            cameraAlcoholAgainBtn.setOnClickListener {
-//                val intent = Intent(this@CameraResultActivity, MainActivity::class.java)
-//                val alcoholList = (cameraResultItemAlcoholRv.adapter as CameraResultItemRVAdapter).getItemList()
-//                val drinkList = (cameraResultItemFoodRv.adapter as CameraResultItemRVAdapter).getItemList()
-//                intent.putExtra("alcoholList", alcoholList)
-//                intent.putExtra("foodList", drinkList)
-//                setResult(RESULT_OK, intent)
-//                onBackPressed()
-//            }
+            cameraResultNextBtn.setOnClickListener {
+                startActivity(Intent(this@CameraResultActivity, CameraCombActivity::class.java))
+            }
         }
     }
 }
