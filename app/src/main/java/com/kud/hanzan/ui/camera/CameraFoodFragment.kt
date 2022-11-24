@@ -76,11 +76,16 @@ class CameraFoodFragment : BaseFragment<FragmentCameraFoodBinding>(R.layout.frag
                 OneEditTextDialog("안주 직접 추가하기", "안주의 이름을 입력해주세요.").apply {
                     setCustomListener(object: OneEditTextDialog.DialogOneEditTextListener{
                         override fun onConfirm() {
-                            (binding.cameraFoodRv.adapter as CameraResultItemRVAdapter).addData(getText())
+                            if (foodList.count{it.name == getText()} != 0) {
+                                viewModel.addFoodData(getText())
+                                (binding.cameraFoodRv.adapter as CameraResultItemRVAdapter).addData(getText())
+                            } else {
+                                Toast.makeText(requireContext(), "등록되어 있지 않은 안주입니다.", Toast.LENGTH_SHORT).show()
+                            }
                             dismiss()
                         }
                     })
-                }.show(requireActivity().supportFragmentManager, "changeNickname")
+                }.show(requireActivity().supportFragmentManager, "addFood")
             }
         }
     }

@@ -9,11 +9,14 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.kud.hanzan.HanZanApplication
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.camera.CameraResultItemRVAdapter
 import com.kud.hanzan.databinding.FragmentCameraDrinkBinding
+import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.ui.dialog.ConfirmDialog
+import com.kud.hanzan.ui.dialog.OneEditTextDialog
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +31,9 @@ class CameraDrinkFragment : BaseFragment<FragmentCameraDrinkBinding>(R.layout.fr
         observe()
     }
 
+    private var drinkList = listOf<Drink>()
     private fun initView(){
+        viewModel.getAllDrinkList(HanZanApplication.spfManager.getUserIdx())
         with(binding){
             lifecycleOwner = this@CameraDrinkFragment
             cameraViewModel = viewModel
@@ -68,6 +73,21 @@ class CameraDrinkFragment : BaseFragment<FragmentCameraDrinkBinding>(R.layout.fr
                     onBackPressed()
                 }
             }
+            cameraDrinkAddBtn.setOnClickListener {
+                OneEditTextDialog("술 직접 추가하기", "술의 이름을 입력해주세요.").apply {
+                    setCustomListener(object: OneEditTextDialog.DialogOneEditTextListener{
+                        override fun onConfirm() {
+                            if (drinkList.count{it.name == getText()} != 0) {
+                                viewModel.addDrinkData(getText())
+                                (binding.cameraDrinkRv.adapter as CameraResultItemRVAdapter).addData(getText())
+                            } else {
+                                Toast.makeText(requireContext(), "등록되어 있지 않은 술입니다.", Toast.LENGTH_SHORT).show()
+                            }
+                            dismiss()
+                        }
+                    })
+                }.show(requireActivity().supportFragmentManager, "Drink")
+            }
         }
     }
 
@@ -80,7 +100,9 @@ class CameraDrinkFragment : BaseFragment<FragmentCameraDrinkBinding>(R.layout.fr
                 // 인식된 술 데이터가 없고 술 인식 모드로 촬영한 경우
                 Toast.makeText(requireContext(), "인식된 술 데이터가 없습니다.\n다시 찍거나 직접 추가해주세요!", Toast.LENGTH_SHORT).show()
             }
-
+        }
+        viewModel.drinkListLiveData.observe(viewLifecycleOwner) {
+            drinkList = it
         }
     }
 }

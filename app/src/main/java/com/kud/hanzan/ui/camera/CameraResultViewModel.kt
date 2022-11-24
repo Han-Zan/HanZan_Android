@@ -1,5 +1,6 @@
 package com.kud.hanzan.ui.camera
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,28 +35,52 @@ class CameraResultViewModel @Inject constructor(
         get() = _foodListLiveData
 
     var isDrinkMode = true
+    var isEmptyDrinkList : ObservableField<Boolean> = ObservableField<Boolean>()
+    var isEmptyFoodList : ObservableField<Boolean> = ObservableField<Boolean>()
+
+    // progress 리턴
+    var progress : ObservableField<Int> = ObservableField<Int>()
+
+    private fun setProgress() {
+        isEmptyDrinkList.set(_drinkLiveData.value?.isEmpty())
+        isEmptyFoodList.set(_foodLiveData.value?.isEmpty())
+        if (isEmptyDrinkList.get() == true && isEmptyFoodList.get() == true) {
+            progress.set(0)
+        } else if (isEmptyDrinkList.get() == false && isEmptyFoodList.get() == false) {
+            progress.set(100)
+        } else progress.set(50)
+    }
 
     fun deleteDrinkItem(position: Int){
         _drinkLiveData.value?.removeAt(position)
+        setProgress()
     }
 
     fun deleteFoodItem(position: Int){
         _foodLiveData.value?.removeAt(position)
+        setProgress()
     }
-
-    // progress 리턴
-    fun getProgress() : Int = if (_drinkLiveData.value?.isNotEmpty() == true && _foodLiveData.value?.isNotEmpty() == true) 100
-        else if (_drinkLiveData.value?.isEmpty() == true && _foodLiveData.value?.isEmpty() == true) 0
-        else 50
 
     // set drinkLiveData
     fun setDrinkData(array: Array<String>){
         _drinkLiveData.value = array.distinct().toMutableList()
+        setProgress()
+    }
+
+    fun addDrinkData(drinkName: String) {
+        _drinkLiveData.value?.add(drinkName)
+        setProgress()
     }
 
     // set foodLiveData
     fun setFoodData(array: Array<String>){
         _foodLiveData.value = array.distinct().toMutableList()
+        setProgress()
+    }
+
+    fun addFoodData(foodName: String) {
+        _foodLiveData.value?.add(foodName)
+        setProgress()
     }
 
     fun getAllDrinkList(userId: Long) {
