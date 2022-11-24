@@ -5,9 +5,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.combination.FoodListFragment">
 
+    <data>
+        <variable
+            name="dataViewModel"
+            type="com.kud.hanzan.ui.combination.FoodListViewModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/home_circular_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            visibleGone="@{dataViewModel.isLoading()}"
+            android:layout_gravity="center"/>
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/like_basic_layout"

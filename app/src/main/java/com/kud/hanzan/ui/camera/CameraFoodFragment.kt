@@ -12,8 +12,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.camera.CameraResultItemRVAdapter
 import com.kud.hanzan.databinding.FragmentCameraFoodBinding
+import com.kud.hanzan.domain.model.Food
 import com.kud.hanzan.ui.MainActivity
 import com.kud.hanzan.ui.dialog.ConfirmDialog
+import com.kud.hanzan.ui.dialog.OneEditTextDialog
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +30,9 @@ class CameraFoodFragment : BaseFragment<FragmentCameraFoodBinding>(R.layout.frag
         observe()
     }
 
+    private var foodList = listOf<Food>()
     private fun initView(){
+        viewModel.getAllFoodList()
         with(binding){
             lifecycleOwner = this@CameraFoodFragment
             cameraViewModel = viewModel
@@ -68,6 +72,21 @@ class CameraFoodFragment : BaseFragment<FragmentCameraFoodBinding>(R.layout.frag
                     onBackPressed()
                 }
             }
+            cameraFoodAddBtn.setOnClickListener {
+                OneEditTextDialog("안주 직접 추가하기", "안주의 이름을 입력해주세요.").apply {
+                    setCustomListener(object: OneEditTextDialog.DialogOneEditTextListener{
+                        override fun onConfirm() {
+                            if (foodList.count{it.name == getText()} != 0) {
+                                viewModel.addFoodData(getText())
+                                (binding.cameraFoodRv.adapter as CameraResultItemRVAdapter).addData(getText())
+                            } else {
+                                Toast.makeText(requireContext(), "등록되어 있지 않은 안주입니다.", Toast.LENGTH_SHORT).show()
+                            }
+                            dismiss()
+                        }
+                    })
+                }.show(requireActivity().supportFragmentManager, "addFood")
+            }
         }
     }
 
@@ -81,6 +100,9 @@ class CameraFoodFragment : BaseFragment<FragmentCameraFoodBinding>(R.layout.frag
                 Toast.makeText(requireContext(), "인식된 안주 데이터가 없습니다.\n다시 찍거나 직접 추가해주세요!", Toast.LENGTH_SHORT).show()
             }
 
+        }
+        viewModel.foodListLiveData.observe(viewLifecycleOwner) {
+            foodList = it
         }
     }
 }

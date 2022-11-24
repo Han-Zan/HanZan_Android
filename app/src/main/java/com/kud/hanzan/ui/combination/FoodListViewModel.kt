@@ -1,5 +1,6 @@
 package com.kud.hanzan.ui.combination
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,6 +23,12 @@ class FoodListViewModel @Inject constructor(
     private val listLiveData: LiveData<List<Food>>
         get() = _listLiveData
 
+    var isLoading : ObservableField<Boolean> = ObservableField<Boolean>()
+
+    init {
+        isLoading.set(true)
+    }
+
     fun getAllFood(style: Int){
         viewModelScope.launch {
             val res = repository.getAllFood()
@@ -32,5 +39,6 @@ class FoodListViewModel @Inject constructor(
 
     fun chooseFoodType(style: Int) {
         _foodLiveData.value = listLiveData.value?.filter { it.foodType == style }
+        isLoading.set(false)
     }
 }

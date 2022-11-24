@@ -29,6 +29,7 @@ class FoodListFragment : BaseFragment<FragmentFoodListBinding>(R.layout.fragment
     }
 
     private fun initView() {
+        binding.dataViewModel = viewModel
         viewModel.getAllFood(styleArgs.style)
         observe()
     }

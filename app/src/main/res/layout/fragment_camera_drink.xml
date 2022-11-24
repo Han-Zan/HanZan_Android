@@ -13,13 +13,13 @@
         android:id="@+id/camera_drink_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        visibleGone="@{!cameraViewModel.drinkLiveData.empty}"/>
+        visibleGone="@{!cameraViewModel.isEmptyDrinkList()}"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        visibleGone="@{cameraViewModel.drinkLiveData.empty}">
+        visibleGone="@{cameraViewModel.isEmptyDrinkList()}">
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"

@@ -1,5 +1,6 @@
 package com.kud.hanzan.ui.ranking
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -41,6 +42,12 @@ class RankingViewModel @Inject constructor(
     val deletePrefLiveData: LiveData<String>
         get() = _deletePrefLiveData
 
+    var isLoading : ObservableField<Boolean> = ObservableField<Boolean>()
+
+    init {
+        isLoading.set(true)
+    }
+
     fun getCombination(userId: Long, combId: Long) {
         viewModelScope.launch {
             val res = repository.getCombination(userId, combId)
@@ -54,11 +61,13 @@ class RankingViewModel @Inject constructor(
         viewModelScope.launch {
             val res = repository.listAll(userId)
             _totalLiveData.value = res
+            isLoading.set(false)
         }
     }
 
     private var drinkStyle = 0
     fun chooseDrinkType(style: Int) {
+        isLoading.set(true)
         drinkStyle = style
         if (style == 0) {
             if (foodStyle == -1) _listLiveData.value = totalLiveData.value
@@ -67,10 +76,12 @@ class RankingViewModel @Inject constructor(
             if (foodStyle == -1) _listLiveData.value = totalLiveData.value?.filter { it.drinkCategory == drinkStyle }
             else _listLiveData.value = totalLiveData.value?.filter { (it.drinkCategory == drinkStyle) && (it.foodCategory == foodStyle) }
         }
+        isLoading.set(false)
     }
 
     private var foodStyle = -1
     fun chooseFoodType(style: Int) {
+        isLoading.set(true)
         foodStyle = style - 1
         if (style == 0) {
             if (drinkStyle == 0) _listLiveData.value = totalLiveData.value
@@ -79,6 +90,7 @@ class RankingViewModel @Inject constructor(
             if (drinkStyle == 0) _listLiveData.value = totalLiveData.value?.filter { it.foodCategory == foodStyle }
             else _listLiveData.value = totalLiveData.value?.filter { (it.drinkCategory == drinkStyle) && (it.foodCategory == foodStyle) }
         }
+        isLoading.set(false)
     }
 
     fun postCombLike(userId: Long, combIdx: Long){

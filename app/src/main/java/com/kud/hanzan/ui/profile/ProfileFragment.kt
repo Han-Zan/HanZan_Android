@@ -59,10 +59,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
     }
 
     private fun initView() {
+        binding.isLoading = true
         userId = HanZanApplication.spfManager.getUserIdx()
         viewModel.getUser(userId)
 
-        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { it ->
+        activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if(it.resultCode == Activity.RESULT_OK){
                 showDialog(it.data?.data)
             }
@@ -118,6 +119,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         with(viewModel) {
             userLiveData.observe(viewLifecycleOwner) {
                 binding.user = User(it.id, it.kakaoId, it.male, it.nickname, it.profileimage, it.sbti, it.userage, it.username)
+                binding.isLoading = false
                 Log.e(TAG, binding.user.toString())
             }
             resChangeNickNameLiveData.observe(viewLifecycleOwner) {
