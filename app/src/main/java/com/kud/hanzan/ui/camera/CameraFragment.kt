@@ -230,7 +230,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                                     viewModel.postCameraDrink(cameraItemList)
                                 } else {
                                     // Todo : 음식 리스트로 넘기기
-                                    viewModel.postCameraDrink(cameraItemList)
+                                    viewModel.postCameraFood(cameraItemList)
                                 }
                             }
                     }
@@ -251,6 +251,17 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
         viewModel.cameraDrinkData.observe(viewLifecycleOwner){ d ->
             activityResultLauncher.launch(Intent(requireActivity(), CameraResultActivity::class.java).apply{
                 drinkList.addAll(d)
+                putExtra("drinkList",drinkList.toTypedArray())
+                putExtra("foodList",foodList.toTypedArray())
+                putExtra("drinkMode", drinkMode)
+            })
+            drinkList.clear()
+            foodList.clear()
+        }
+
+        viewModel.cameraFoodData.observe(viewLifecycleOwner){ d ->
+            activityResultLauncher.launch(Intent(requireActivity(), CameraResultActivity::class.java).apply{
+                foodList.addAll(d)
                 putExtra("drinkList",drinkList.toTypedArray())
                 putExtra("foodList",foodList.toTypedArray())
                 putExtra("drinkMode", drinkMode)

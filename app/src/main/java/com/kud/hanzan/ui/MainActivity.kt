@@ -14,6 +14,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.kud.hanzan.R
@@ -150,8 +151,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         if (getForegroundFragment() is CameraFragment){
             finish()
         } else{
+            super.onBackPressed()
             setResult(RESULT_OK, Intent(this, HomeActivity::class.java))
-            if (!isFinishing) finish()
         }
     }
 

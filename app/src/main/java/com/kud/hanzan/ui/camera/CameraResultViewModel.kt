@@ -33,6 +33,8 @@ class CameraResultViewModel @Inject constructor(
     val foodListLiveData : LiveData<List<Food>>
         get() = _foodListLiveData
 
+    var isDrinkMode = true
+
     fun deleteDrinkItem(position: Int){
         _drinkLiveData.value?.removeAt(position)
     }

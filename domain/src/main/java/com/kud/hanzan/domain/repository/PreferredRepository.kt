@@ -2,6 +2,7 @@ package com.kud.hanzan.domain.repository
 
 import com.kud.hanzan.domain.model.Combination
 import com.kud.hanzan.domain.model.Drink
+import com.kud.hanzan.domain.model.LikeDrink
 import kotlinx.coroutines.flow.Flow
 
 interface PreferredRepository {

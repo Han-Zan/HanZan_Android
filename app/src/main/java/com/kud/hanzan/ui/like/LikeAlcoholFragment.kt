@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.kud.hanzan.R
 import com.kud.hanzan.adapter.DrinkRVAdapter
@@ -67,7 +68,8 @@ class LikeAlcoholFragment : BaseFragment<FragmentLikeAlcoholBinding>(R.layout.fr
             adapter = DrinkRVAdapter().apply {
                 setListener(object : DrinkRVAdapter.Listener{
                     override fun onClick(drinkId: Long) {
-//                        TODO("Not yet implemented")
+                        val action = LikeFragmentDirections.actionLikeFragmentToDrinkFragment(drinkId)
+                        findNavController().navigate(action)
                     }
 
                     override fun onDelete(drinkId: Long) {
