@@ -121,7 +121,8 @@ class SbtiCheckActivity : BaseActivity<ActivitySbtiCheckBinding>(R.layout.activi
                     else -> "https://hanjanbucket.s3.ap-northeast-2.amazonaws.com/src_sbti_misik.png"
                 },
                 link = Link(
-                    mobileWebUrl = "https://www.youtube.com/watch?v=Goxgot4xDDc"
+                    webUrl = "https://github.com/Han-Zan",
+                    mobileWebUrl = "https://github.com/Han-Zan",
                 )
             ),
             buttons = listOf(
@@ -131,7 +132,14 @@ class SbtiCheckActivity : BaseActivity<ActivitySbtiCheckBinding>(R.layout.activi
                         androidExecutionParams = mapOf("key1" to "value1", "key2" to "value2"),
                         iosExecutionParams = mapOf("key1" to "value1", "key2" to "value2")
                     )
-                )
+                ),
+                Button(
+                    "웹에서 보기",
+                    Link(
+                        webUrl = "https://github.com/Han-Zan",
+                        mobileWebUrl = "https://github.com/Han-Zan",
+                    )
+                ),
             )
         )
 
