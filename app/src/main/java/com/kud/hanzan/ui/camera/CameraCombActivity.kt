@@ -90,12 +90,14 @@ class CameraCombActivity : BaseActivity<ActivityCameraCombBinding>(R.layout.acti
         }
         val pendingIntent = PendingIntent.getBroadcast(
             this, 0, intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
+        // Todo : 현재 9초 후로 되어있는 것 수정하기
+        calendar.add(Calendar.SECOND, 9)
         alarmManager.setExactAndAllowWhileIdle(
             AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis + 9000,
+            calendar.timeInMillis,
             pendingIntent
         )
         startActivity(Intent(this, HomeActivity::class.java))
