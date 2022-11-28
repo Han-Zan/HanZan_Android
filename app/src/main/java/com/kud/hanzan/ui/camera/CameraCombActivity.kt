@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -83,10 +84,10 @@ class CameraCombActivity : BaseActivity<ActivityCameraCombBinding>(R.layout.acti
         val intent = Intent(this, AlarmReceiver::class.java).apply {
             // Todo : 이름값 임시로 넣어둠
             // Todo : 궁합 분석화면 만들면 해당 화면에서 호출해야 함 바꿔야함, 현재는 테스트용용
-            putExtra("drinkName", viewModel.combData.value?.get(position)?.drinkname).also {
-                Log.e("drinkPosition", viewModel.combData.value?.get(position)?.drinkname.toString())
-            }
-            putExtra("foodName", viewModel.combData.value?.get(position)?.foodname)
+            val combination = viewModel.combData.value?.get(position)
+            putExtra("drinkName", combination?.drinkname)
+            putExtra("foodName", combination?.foodname)
+            putExtra("combIdx", combination?.id)
         }
         val pendingIntent = PendingIntent.getBroadcast(
             this, 0, intent,
@@ -100,6 +101,8 @@ class CameraCombActivity : BaseActivity<ActivityCameraCombBinding>(R.layout.acti
             calendar.timeInMillis,
             pendingIntent
         )
+        Toast.makeText(this, "궁합 선택이 완료되었습니다", Toast.LENGTH_SHORT).show()
+
         startActivity(Intent(this, HomeActivity::class.java))
     }
 

@@ -1,6 +1,6 @@
 package com.kud.hanzan.data.remote
 
-import com.kud.hanzan.data.entity.DrinkInfo
+import com.kud.hanzan.data.entity.rating.RatingDto
 import com.kud.hanzan.data.entity.camera.CamPostDto
 import com.kud.hanzan.data.entity.preferred.CombResult
 import com.kud.hanzan.data.entity.preferred.DrinkResult
@@ -80,4 +80,8 @@ interface HanzanService {
     suspend fun saveCombination(@Body combinationDto: CombinationDto) : String
     @GET("/combination/list")
     suspend fun listAll(@Query("userId") userId: Long) : List<CombinationInfo>
+
+    // 평점 화면
+    @POST("/rating")
+    suspend fun postRating(@Body rating: RatingDto) : String
 }

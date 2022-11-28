@@ -24,14 +24,17 @@ class AlarmReceiver : BroadcastReceiver() {
             Context.NOTIFICATION_SERVICE) as NotificationManager
         val drinkName = intent.getStringExtra("drinkName")
         val foodName = intent.getStringExtra("foodName")
+        val combIdx = intent.getLongExtra("combIdx", 0)
         Log.e("drinkName Position", drinkName.toString())
-        drinkName?.let { drink -> foodName?.let { food -> sendNotification(context, drink, food) } }
+        drinkName?.let { drink -> foodName?.let { food -> sendNotification(context, drink, food, combIdx) } }
     }
 
-    private fun sendNotification(context: Context, drinkName: String, foodName: String){
+    private fun sendNotification(context: Context, drinkName: String, foodName: String, combIdx: Long){
         val bundle = Bundle()
         bundle.putString("drinkName", drinkName)
         bundle.putString("foodName", foodName)
+        bundle.putLong("combIdx", combIdx)
+        // Todo : 이미지도 전송해야함
         val intent = Intent(context, RatingActivity::class.java).apply {
             putExtra("notification", true)
             putExtras(bundle)

@@ -20,6 +20,8 @@ import com.kud.hanzan.data.source.store.StoreRemoteDataSource
 import com.kud.hanzan.data.source.store.StoreRepositoryImpl
 import com.kud.hanzan.data.source.ranking.RankingDataSource
 import com.kud.hanzan.data.source.ranking.RankingRepositoryImpl
+import com.kud.hanzan.data.source.rating.RatingRemoteDataSource
+import com.kud.hanzan.data.source.rating.RatingRepositoryImpl
 import com.kud.hanzan.domain.repository.*
 import dagger.Module
 import dagger.Provides
@@ -88,5 +90,11 @@ object RepositoryModule {
     @Provides
     fun providesRankingRepository(rankingRepository: RankingDataSource) : RankingRepository{
         return RankingRepositoryImpl(rankingRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun providesRatingRepository(ratingRemoteDataSource: RatingRemoteDataSource) : RatingRepository {
+        return RatingRepositoryImpl(ratingRemoteDataSource)
     }
 }

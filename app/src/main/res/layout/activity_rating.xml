@@ -10,6 +10,9 @@
         <variable
             name="foodName"
             type="java.lang.String" />
+        <variable
+            name="combIdx"
+            type="java.lang.Long" />
     </data>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
