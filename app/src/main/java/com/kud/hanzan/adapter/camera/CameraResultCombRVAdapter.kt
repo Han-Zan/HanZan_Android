@@ -13,11 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ItemCameraCombLayoutBinding
 import com.kud.hanzan.domain.model.CombinationInfo
+import com.kud.hanzan.domain.model.RecommendItem
 
 class CameraResultCombRVAdapter : RecyclerView.Adapter<CameraResultCombRVAdapter.ViewHolder>() {
     private lateinit var binding: ItemCameraCombLayoutBinding
-    // Todo : 임시로 Combination으로 해둠
-    private var combList = mutableListOf<CombinationInfo>()
+    private var combList = mutableListOf<RecommendItem>()
 
     private var selectedItemPosition: Int = -1
     private var prevItemPosition : Int = -1
@@ -27,7 +27,7 @@ class CameraResultCombRVAdapter : RecyclerView.Adapter<CameraResultCombRVAdapter
     override fun getItemId(position: Int): Long = position.toLong()
 
     interface CustomListener{
-        fun onClick(combination: CombinationInfo, position: Int)
+        fun onClick(combination: RecommendItem, position: Int)
     }
 
     fun setCustomListener(listener: CustomListener){
@@ -51,14 +51,14 @@ class CameraResultCombRVAdapter : RecyclerView.Adapter<CameraResultCombRVAdapter
 
     override fun getItemCount(): Int = combList.size
 
-    fun setData(data: List<CombinationInfo>){
+    fun setData(data: List<RecommendItem>){
         combList.clear()
         combList.addAll(data)
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(val binding: ItemCameraCombLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(combination: CombinationInfo){
+        fun bind(combination: RecommendItem){
             binding.combination = combination
             binding.rank = adapterPosition + 1
             binding.rankingCombLayout.setOnClickListener {

@@ -1,37 +1,54 @@
 package com.kud.hanzan.ui.camera
 
+import android.content.Intent
 import android.util.Log
 import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.kud.hanzan.HanZanApplication
 import com.kud.hanzan.domain.model.CombinationInfo
+import com.kud.hanzan.domain.model.RecommendItem
+import com.kud.hanzan.domain.usecase.camera.GetRecommendUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class CameraCombViewModel @Inject constructor(
+    private val getRecommendUseCase: GetRecommendUseCase
 ) : ViewModel(){
-    private var _combData = MutableLiveData<List<CombinationInfo>>()
-    val combData : LiveData<List<CombinationInfo>>
+    private var _combData = MutableStateFlow<List<RecommendItem>>(emptyList())
+    val combData : StateFlow<List<RecommendItem>>
         get() = _combData
 
     var isEnabled : ObservableField<Boolean> = ObservableField<Boolean>()
-    var combination: CombinationInfo? = null
+    var combination: RecommendItem? = null
+
+    private var userIdx : Long = HanZanApplication.spfManager.getUserIdx()
+
+    var isLoading : ObservableField<Boolean> = ObservableField<Boolean>()
 
     init {
-        _combData.value = listOf(
-            CombinationInfo(99, 1, null, "소주", 2, null, "닭발", 1, true, 1, 1.0f),
-            CombinationInfo(95, 1, null, "맥주", 2, null, "치킨", 1, true, 1, 1.0f),
-            CombinationInfo(94, 1, null, "국순당 막걸리", 2, null, "파전", 1, true, 1, 1.0f),
-            CombinationInfo(92, 1, null, "화이트 와인", 2, null, "맛살", 1, true, 1, 1.0f),
-
-            )
         isEnabled.set(false)
+        isLoading.set(true)
     }
 
-    fun setEnabled(combination: CombinationInfo, position: Int){
+    fun setEnabled(combination: RecommendItem, position: Int){
         isEnabled.set(position != -1)
         this.combination = _combData.value?.get(position)
+    }
+
+    fun getRecommend(drinkList: List<String>, foodList: List<String>){
+        viewModelScope.launch {
+            getRecommendUseCase(drinkList, foodList, userIdx)
+                .catch { Log.e("okhttp Error", it.message.toString()) }
+                .collect {
+                    _combData.value = it
+                    isLoading.set(false)
+                }
+        }
     }
 }

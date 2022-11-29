@@ -50,7 +50,10 @@ class CameraResultActivity : BaseActivity<ActivityCameraResultBinding>(R.layout.
     private fun initListener(){
         with(binding){
             cameraResultNextBtn.setOnClickListener {
-                startActivity(Intent(this@CameraResultActivity, CameraCombActivity::class.java))
+                startActivity(Intent(this@CameraResultActivity, CameraCombActivity::class.java).apply {
+                    putExtra("drinkList", viewModel.drinkLiveData.value?.toTypedArray())
+                    putExtra("foodList", viewModel.foodLiveData.value?.toTypedArray())
+                })
             }
         }
     }

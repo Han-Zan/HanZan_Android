@@ -1,10 +1,11 @@
 package com.kud.hanzan.data.source.camera
 
 import com.kud.hanzan.data.entity.camera.CamPostDto
+import com.kud.hanzan.data.entity.recommend.RecommandationDto
 import com.kud.hanzan.data.remote.HanzanService
-import com.kud.hanzan.domain.model.CombinationInfo
 import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.Food
+import com.kud.hanzan.domain.model.RecommendItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -23,6 +24,12 @@ class CameraRemoteDataSource @Inject constructor(
     override fun postCameraFood(cameraDto: CamPostDto)
     : Flow<List<String>> = flow {
         emit(hanzanService.postCameraList(cameraDto))
+    }.flowOn(Dispatchers.IO)
+
+    override fun getRecommend(recommandationDto: RecommandationDto)
+    : Flow<List<RecommendItem>> = flow {
+        emit(hanzanService.getRecommendations(recommandationDto).sortedByDescending { recommendItem -> recommendItem.combScore }
+            .take(20))
     }.flowOn(Dispatchers.IO)
 
     override suspend fun getAllDrinkList(userId: Long) : List<Drink> {

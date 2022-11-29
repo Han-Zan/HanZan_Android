@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityRatingBinding
@@ -30,12 +31,15 @@ class RatingActivity : BaseActivity<ActivityRatingBinding>(R.layout.activity_rat
     }
 
     private fun initData(){
-        // Todo : 이미지나 클래스 보내는 것도 고려
         val extras = intent.extras
+        // Todo : 딴건 다오는데 사진은 왜안오노?
         binding.drinkName = extras?.getString("drinkName")
         binding.foodName = extras?.getString("foodName")
         binding.combIdx = extras?.getLong("combIdx")
-        Log.e("combIdx", binding.combIdx.toString())
+        Glide.with(binding.ratingDrinkIv)
+            .load(intent.getStringExtra("drinkImg"))
+        Glide.with(binding.ratingFoodIv)
+            .load(extras?.getString("foodImg"))
     }
 
     private fun initListener(){
