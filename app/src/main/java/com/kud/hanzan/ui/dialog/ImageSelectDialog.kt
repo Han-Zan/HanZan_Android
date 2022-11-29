@@ -41,7 +41,8 @@ class ImageSelectDialog(private val imgUri: Uri) : DialogFragment() {
             params?.width = (deviceWidth * 0.9).toInt()
             dialog?.window?.attributes = params as WindowManager.LayoutParams
         } else {
-            // Todo : Android 11 미만 버전용
+            params?.width = 1000
+            dialog?.window?.attributes = params as WindowManager.LayoutParams
         }
     }
 
