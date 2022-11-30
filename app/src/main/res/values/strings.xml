@@ -219,6 +219,8 @@
     <string name="camera_comb_title">궁합 리스트</string>
     <string name="camera_comb_select_btn">선택하기</string>
 
+    <string name="camera_comb_loading">궁합을 분석중입니다..</string>
+
     <!--    Button Content Description-->
     <string name="white_glass">white glass</string>
     <string name="yellow_glass">yellow glass</string>

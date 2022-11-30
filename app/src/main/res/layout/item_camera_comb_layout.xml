@@ -8,7 +8,7 @@
             type="java.lang.Integer" />
         <variable
             name="combination"
-            type="com.kud.hanzan.domain.model.CombinationInfo" />
+            type="com.kud.hanzan.domain.model.RecommendItem" />
     </data>
 
     <LinearLayout
@@ -44,7 +44,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                app:imageUrl="@{combination.drinkimg}"
+                app:imageUrl="@{combination.drinkImg}"
                 app:placeholder="@{@drawable/bg_like_comb}"
                 android:background="@drawable/bg_like_comb"/>
 
@@ -57,7 +57,7 @@
                 android:id="@+id/item_camera_comb_food_iv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                app:imageUrl="@{combination.foodimg}"
+                app:imageUrl="@{combination.foodImg}"
                 app:placeholder="@{@drawable/bg_like_comb}"
                 android:background="@drawable/bg_like_comb"/>
 
@@ -73,19 +73,31 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text='@{combination.drinkname + " - " + combination.foodname, default="주류 - 음식"}'
-                    android:maxLines="1"
+                    android:text='@{combination.drinkName + " - " + combination.foodName, default="주류 - 음식"}'
+                    android:maxLines="2"
                     android:ellipsize="end"
                     android:fontFamily="@font/font_pretendard_semibold"
                     android:textSize="16sp"/>
 
                 <TextView
+                    android:id="@+id/item_camera_comb_rec_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{String.valueOf(combination.combScore) + "%", default="95%"}'
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:text="스마트 추천"
+                    android:visibility="gone"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/bg_plate_yellow_glass"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{String.valueOf(combination.combScore) + "%"}'
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#409C51"
+                    android:textColor="@color/color_hanzan"
+                    visibleGone="@{!combination.highlyRec}"
                     android:layout_marginHorizontal="6dp"/>
             </LinearLayout>
         </LinearLayout>

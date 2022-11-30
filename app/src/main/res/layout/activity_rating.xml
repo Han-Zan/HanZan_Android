@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="buttonVisible"
@@ -10,8 +11,17 @@
         <variable
             name="foodName"
             type="java.lang.String" />
+        <variable
+            name="combIdx"
+            type="java.lang.Long" />
+        <variable
+            name="drinkImg"
+            type="java.lang.String" />
+        <variable
+            name="foodImg"
+            type="java.lang.String" />
     </data>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -71,7 +81,7 @@
                     android:id="@+id/rating_drink_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:imageUrl="@{null}"
+                    app:imageUrl="@{drinkImg}"
                     app:placeholder="@{@android:color/transparent}"
                     android:background="@drawable/bg_comb_frame"/>
 
@@ -101,9 +111,9 @@
                     android:id="@+id/rating_food_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_comb_frame"
-                    app:imageUrl="@{null}"
-                    app:placeholder="@{@android:color/transparent}"/>
+                    app:imageUrl="@{foodImg}"
+                    app:placeholder="@{@android:color/transparent}"
+                    android:background="@drawable/bg_comb_frame" />
 
                 <TextView
                     android:id="@+id/rating_food_tv"

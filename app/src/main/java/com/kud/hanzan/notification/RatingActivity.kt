@@ -8,7 +8,10 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ActivityRatingBinding
 import com.kud.hanzan.ui.dialog.ConfirmDialog
@@ -18,18 +21,24 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RatingActivity : BaseActivity<ActivityRatingBinding>(R.layout.activity_rating){
+    private val viewModel by viewModels<RatingViewModel>()
+
     private lateinit var alarmManager : AlarmManager
     override fun initView() {
-        initListener()
         initData()
+        initListener()
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
     }
 
     private fun initData(){
-        // Todo : 이미지나 클래스 보내는 것도 고려
         val extras = intent.extras
+
+        binding.drinkImg = extras?.getString("drinkImg")
+        binding.foodImg = extras?.getString("foodImg")
+
         binding.drinkName = extras?.getString("drinkName")
         binding.foodName = extras?.getString("foodName")
+        binding.combIdx = extras?.getLong("combIdx")
     }
 
     private fun initListener(){
@@ -39,7 +48,11 @@ class RatingActivity : BaseActivity<ActivityRatingBinding>(R.layout.activity_rat
                 buttonVisible = b && fl > 0
             }
             ratingBarBtn.setOnClickListener {
-                // Todo : 서버로 평점 데이터 연결
+                Toast.makeText(this@RatingActivity, "궁합 평가가 완료되었습니다", Toast.LENGTH_SHORT).show()
+                // 서버에 레이팅 보내기
+                combIdx?.let {
+                    viewModel.postRating(it, ratingBar.rating)
+                }
                 if (runningCount == 1){
                     finishAfterTransition()
                     startActivity(Intent(this@RatingActivity, HomeActivity::class.java))

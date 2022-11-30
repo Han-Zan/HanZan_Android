@@ -47,7 +47,26 @@
             android:clickable="true"
             android:overScrollMode="never"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            visibleGone="@{!combViewModel.isLoading()}"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            visibleGone="@{combViewModel.isLoading()}">
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="@string/camera_comb_loading"/>.
+        </LinearLayout>
     </LinearLayout>
     <Button
         android:id="@+id/camera_comb_select_btn"
@@ -59,6 +78,7 @@
         android:enabled="@{combViewModel.isEnabled()}"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
+        visibleInvisible="@{!combViewModel.isLoading()}"
         android:text="@string/camera_comb_select_btn"
         android:textColor="@color/white"/>
 

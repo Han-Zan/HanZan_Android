@@ -10,6 +10,6 @@ data class Combination(
     val foodname: String,
     val id: Long,
     var pnum: Int,
-    val rating: Int,
-    var like: Boolean = true
+    val rating: Float,
+    var isPrefer: Boolean? = true
 )

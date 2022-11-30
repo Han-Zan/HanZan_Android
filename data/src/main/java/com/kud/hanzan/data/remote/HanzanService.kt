@@ -1,11 +1,12 @@
 package com.kud.hanzan.data.remote
 
-import com.kud.hanzan.data.entity.DrinkInfo
+import com.kud.hanzan.data.entity.rating.RatingDto
 import com.kud.hanzan.data.entity.camera.CamPostDto
 import com.kud.hanzan.data.entity.preferred.CombResult
 import com.kud.hanzan.data.entity.preferred.DrinkResult
 import com.kud.hanzan.data.entity.preferred.PreferredCombDto
 import com.kud.hanzan.data.entity.preferred.PreferredDrinkDto
+import com.kud.hanzan.data.entity.recommend.RecommandationDto
 import com.kud.hanzan.data.entity.store.StoreKakaoData
 import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.domain.model.HomeData
@@ -27,7 +28,7 @@ interface HanzanService {
 
     // 좋아요 - 조합
     @GET("/prefcomb")
-    suspend fun getPreferredComb(@Query("userId") userId: Long) : CombResult
+    suspend fun getPreferredComb(@Query("userId") userId: Long) : List<Combination>
     @DELETE("/prefcomb")
     suspend fun deletePreferredComb(@Query("combidx") combId: Long, @Query("userid") userId: Long) : String
     @POST("/prefcomb")
@@ -80,4 +81,13 @@ interface HanzanService {
     suspend fun saveCombination(@Body combinationDto: CombinationDto) : String
     @GET("/combination/list")
     suspend fun listAll(@Query("userId") userId: Long) : List<CombinationInfo>
+
+
+    // 궁합 추천
+    @POST("/recommands/all")
+    suspend fun getRecommendations(@Body recommandationDto: RecommandationDto) : List<RecommendItem>
+
+    // 평점 화면
+    @POST("/rating")
+    suspend fun postRating(@Body rating: RatingDto) : String
 }

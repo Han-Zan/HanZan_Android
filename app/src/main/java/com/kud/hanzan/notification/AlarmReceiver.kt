@@ -24,18 +24,24 @@ class AlarmReceiver : BroadcastReceiver() {
             Context.NOTIFICATION_SERVICE) as NotificationManager
         val drinkName = intent.getStringExtra("drinkName")
         val foodName = intent.getStringExtra("foodName")
+        val combIdx = intent.getLongExtra("combIdx", 0)
+        val drinkImg = intent.getStringExtra("drinkImg") ?: " "
+        val foodImg = intent.getStringExtra("foodImg") ?: " "
         Log.e("drinkName Position", drinkName.toString())
-        drinkName?.let { drink -> foodName?.let { food -> sendNotification(context, drink, food) } }
+        drinkName?.let { drink -> foodName?.let { food -> sendNotification(context, drink, food, combIdx, drinkImg, foodImg) } }
     }
 
-    private fun sendNotification(context: Context, drinkName: String, foodName: String){
+    private fun sendNotification(context: Context, drinkName: String, foodName: String, combIdx: Long, drinkImg: String, foodImg: String){
         val bundle = Bundle()
         bundle.putString("drinkName", drinkName)
         bundle.putString("foodName", foodName)
+        bundle.putLong("combIdx", combIdx)
+        bundle.putString("drinkImg", drinkImg)
+        bundle.putString("foodImg", foodImg)
+        // Todo : 이미지도 전송해야함
         val intent = Intent(context, RatingActivity::class.java).apply {
             putExtra("notification", true)
             putExtras(bundle)
-            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
         }
         /*
         1. FLAG_UPDATE_CURRENT : 현재 PendingIntent를 유지하고, 대신 인텐트의 extra data는 새로 전달된 Intent로 교체
@@ -47,7 +53,7 @@ class AlarmReceiver : BroadcastReceiver() {
             context,
             0,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
         val channelId = context.resources.getString(R.string.default_notification_channel_id)
