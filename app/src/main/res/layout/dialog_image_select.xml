@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginBottom="20dp">
+
         <Button
             android:id="@+id/dialog_image_cancel_btn"
             android:layout_width="0dp"
@@ -31,13 +32,14 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="@string/image_cancel_btn"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:minHeight="0dp"
             android:paddingHorizontal="20dp"
             android:paddingVertical="8dp"
             android:backgroundTint="@color/white"/>
+
         <Button
             android:id="@+id/dialog_image_upload_btn"
             android:layout_width="0dp"
@@ -46,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="@string/image_upload_btn"
             android:textColor="@color/white"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:textStyle="bold"
             android:minHeight="0dp"
             android:paddingHorizontal="20dp"

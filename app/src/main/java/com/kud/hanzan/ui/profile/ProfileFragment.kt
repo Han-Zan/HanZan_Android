@@ -12,17 +12,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.kakao.sdk.user.UserApiClient
 import com.kud.hanzan.HanZanApplication
 import com.kud.hanzan.R
-import com.kud.hanzan.databinding.DialogOneEditTextBinding
 import com.kud.hanzan.databinding.FragmentProfileBinding
 import com.kud.hanzan.domain.model.User
 import com.kud.hanzan.ui.dialog.ImageSelectDialog
 import com.kud.hanzan.ui.dialog.OneEditTextDialog
-import com.kud.hanzan.ui.map.StoreFragment
 import com.kud.hanzan.utils.URIPathHelper
 import com.kud.hanzan.utils.base.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +40,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted){
-            Log.e("storeFragment", "외부 저장소 읽기")
+            Log.e(TAG, "외부 저장소 읽기")
             openStorage()
         } else {
             Toast.makeText(requireContext(), "저장소 권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
@@ -84,7 +81,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
                 }.show(requireActivity().supportFragmentManager, "changeNickname")
             }
             profileUserChangeProfileBtn.setOnClickListener {
-                requestPermissionLauncher.launch(ProfileFragment.REQUIRED_EXTERNAL_STORAGE_PERMISSIONS)
+                requestPermissionLauncher.launch(REQUIRED_EXTERNAL_STORAGE_PERMISSIONS)
             }
             profileSbtiBtn.setOnClickListener {
 
@@ -107,7 +104,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
                 setCustomListener(object : ImageSelectDialog.ImageSelectListener{
                     override fun onConfirm() {
                         dismiss()
-                        viewModel.changeUserProfile(userId, imgUri.toString())
+                        val file = File(URIPathHelper().getPath(requireContext(), it))
+                        Log.e(TAG, "${file.name}, $file")
+                        viewModel.uploadImage(userId, file)
                     }
                 })
             }
