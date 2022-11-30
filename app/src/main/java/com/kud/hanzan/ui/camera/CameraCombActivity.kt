@@ -104,14 +104,12 @@ class CameraCombActivity : BaseActivity<ActivityCameraCombBinding>(R.layout.acti
         finishAfterTransition()
 
         val intent = Intent(this, AlarmReceiver::class.java).apply {
-            // Todo : 이름값 임시로 넣어둠
-            // Todo : 궁합 분석화면 만들면 해당 화면에서 호출해야 함 바꿔야함, 현재는 테스트용용
             val combination = viewModel.combData.value?.get(position)
+            putExtra("drinkImg", combination?.drinkImg)
+            putExtra("foodImg", combination?.foodImg)
             putExtra("drinkName", combination?.drinkName)
             putExtra("foodName", combination?.foodName)
             putExtra("combIdx", combination?.combId)
-            putExtra("drinkImg", combination?.drinkImg.also { Log.e("camera Drink", it.toString()) })
-            putExtra("foodImg", combination?.foodImg)
         }
         val pendingIntent = PendingIntent.getBroadcast(
             this, 0, intent,

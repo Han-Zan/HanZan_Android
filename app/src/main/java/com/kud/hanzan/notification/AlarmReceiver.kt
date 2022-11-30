@@ -25,15 +25,19 @@ class AlarmReceiver : BroadcastReceiver() {
         val drinkName = intent.getStringExtra("drinkName")
         val foodName = intent.getStringExtra("foodName")
         val combIdx = intent.getLongExtra("combIdx", 0)
+        val drinkImg = intent.getStringExtra("drinkImg") ?: " "
+        val foodImg = intent.getStringExtra("foodImg") ?: " "
         Log.e("drinkName Position", drinkName.toString())
-        drinkName?.let { drink -> foodName?.let { food -> sendNotification(context, drink, food, combIdx) } }
+        drinkName?.let { drink -> foodName?.let { food -> sendNotification(context, drink, food, combIdx, drinkImg, foodImg) } }
     }
 
-    private fun sendNotification(context: Context, drinkName: String, foodName: String, combIdx: Long){
+    private fun sendNotification(context: Context, drinkName: String, foodName: String, combIdx: Long, drinkImg: String, foodImg: String){
         val bundle = Bundle()
         bundle.putString("drinkName", drinkName)
         bundle.putString("foodName", foodName)
         bundle.putLong("combIdx", combIdx)
+        bundle.putString("drinkImg", drinkImg)
+        bundle.putString("foodImg", foodImg)
         // Todo : 이미지도 전송해야함
         val intent = Intent(context, RatingActivity::class.java).apply {
             putExtra("notification", true)

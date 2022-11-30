@@ -14,6 +14,12 @@
         <variable
             name="combIdx"
             type="java.lang.Long" />
+        <variable
+            name="drinkImg"
+            type="java.lang.String" />
+        <variable
+            name="foodImg"
+            type="java.lang.String" />
     </data>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     android:layout_width="match_parent"
@@ -75,6 +81,8 @@
                     android:id="@+id/rating_drink_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:imageUrl="@{drinkImg}"
+                    app:placeholder="@{@android:color/transparent}"
                     android:background="@drawable/bg_comb_frame"/>
 
                 <TextView
@@ -103,6 +111,8 @@
                     android:id="@+id/rating_food_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:imageUrl="@{foodImg}"
+                    app:placeholder="@{@android:color/transparent}"
                     android:background="@drawable/bg_comb_frame" />
 
                 <TextView

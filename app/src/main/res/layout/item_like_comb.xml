@@ -78,7 +78,7 @@
                 android:layout_height="36dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:button="@null"
-                android:checked="@{!combination.like, default=true}"
+                android:checked="@{!combination.isPrefer(), default=true}"
                 android:drawableStart="@drawable/selector_heart"
                 android:paddingStart="8dp"
                 app:layout_constraintEnd_toEndOf="parent"

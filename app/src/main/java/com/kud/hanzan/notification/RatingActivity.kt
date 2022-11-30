@@ -25,21 +25,20 @@ class RatingActivity : BaseActivity<ActivityRatingBinding>(R.layout.activity_rat
 
     private lateinit var alarmManager : AlarmManager
     override fun initView() {
-        initListener()
         initData()
+        initListener()
         alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
     }
 
     private fun initData(){
         val extras = intent.extras
-        // Todo : 딴건 다오는데 사진은 왜안오노?
+
+        binding.drinkImg = extras?.getString("drinkImg")
+        binding.foodImg = extras?.getString("foodImg")
+
         binding.drinkName = extras?.getString("drinkName")
         binding.foodName = extras?.getString("foodName")
         binding.combIdx = extras?.getLong("combIdx")
-        Glide.with(binding.ratingDrinkIv)
-            .load(intent.getStringExtra("drinkImg"))
-        Glide.with(binding.ratingFoodIv)
-            .load(extras?.getString("foodImg"))
     }
 
     private fun initListener(){

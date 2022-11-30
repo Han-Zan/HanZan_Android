@@ -88,6 +88,7 @@ class LikeCombFragment : BaseFragment<FragmentLikeCombinationBinding>(R.layout.f
             repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.combData.collectLatest {
                     (binding.likeCombRv.adapter as LikeCombRVAdapter).setData(it)
+                    Log.e("comb Okhttp", it.toString())
                 }
             }
         }

@@ -80,22 +80,23 @@
                     android:textSize="16sp"/>
 
                 <TextView
+                    android:id="@+id/item_camera_comb_rec_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:text="스마트 추천"
-                    visibleGone="@{combination.highlyRec}"
+                    android:visibility="gone"
                     android:paddingVertical="10dp"
                     android:paddingHorizontal="20dp"
                     android:background="@drawable/bg_plate_yellow_glass"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{String.valueOf(combination.combScore) + "%", default="95%"}'
+                    android:text='@{String.valueOf(combination.combScore) + "%"}'
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#409C51"
+                    android:textColor="@color/color_hanzan"
                     visibleGone="@{!combination.highlyRec}"
                     android:layout_marginHorizontal="6dp"/>
             </LinearLayout>

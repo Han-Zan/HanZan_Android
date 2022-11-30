@@ -2,8 +2,10 @@ package com.kud.hanzan.adapter.camera
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.opengl.Visibility
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.selection.ItemDetailsLookup
@@ -61,6 +63,7 @@ class CameraResultCombRVAdapter : RecyclerView.Adapter<CameraResultCombRVAdapter
         fun bind(combination: RecommendItem){
             binding.combination = combination
             binding.rank = adapterPosition + 1
+            binding.itemCameraCombRecTv.visibility = if (combination.highlyRec) View.VISIBLE else View.GONE
             binding.rankingCombLayout.setOnClickListener {
                 selectedItemPosition = adapterPosition
                 if(prevItemPosition == -1)

@@ -53,7 +53,7 @@ class LikeCombRVAdapter : RecyclerView.Adapter<LikeCombRVAdapter.ViewHolder>() {
                     likeListener.onPost(combination.id)
                     combination.pnum += 1
                 }
-                combination.like = binding.itemLikeCombLikeCb.isChecked
+                combination.isPrefer = binding.itemLikeCombLikeCb.isChecked
                 binding.itemLikeCombCountTv.text = combination.pnum.toString()
             }
         }
