@@ -8,6 +8,7 @@ data class DrinkDetail(
     val body: Int,
     val category: Int,
     val detailedCategory: String,
+    val foodImgTxt: List<DrinkComb>,
     val id: Long,
     val img: String?,
     var isPrefer: Boolean,

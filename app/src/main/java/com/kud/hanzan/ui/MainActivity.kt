@@ -69,6 +69,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         }
     }
 
+    fun setCameraClickable(clickable: Boolean){
+        binding.mainCameraFab.isClickable = clickable
+    }
+
     private fun initBottomNav(){
         binding.mainBottomNav.background = null
         navController = supportFragmentManager.findFragmentById(R.id.main_fragment_container)?.findNavController()

@@ -5,7 +5,9 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kud.hanzan.R
+import com.kud.hanzan.adapter.DrinkFoodRVAdapter
 import com.kud.hanzan.databinding.FragmentDrinkBinding
 import com.kud.hanzan.domain.model.Drink
 import com.kud.hanzan.ui.dialog.BottomSheet
@@ -60,12 +62,17 @@ class DrinkFragment : BaseFragment<FragmentDrinkBinding>(R.layout.fragment_drink
                     else viewModel.postDrinkLike(it)
                 }
             }
+            drinkCombRv.apply {
+                adapter = DrinkFoodRVAdapter()
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            }
         }
     }
 
     private fun observe(){
         viewModel.drinkData.observe(viewLifecycleOwner){
             binding.drink = it
+            (binding.drinkCombRv.adapter as DrinkFoodRVAdapter).setData(it.foodImgTxt)
         }
     }
 }

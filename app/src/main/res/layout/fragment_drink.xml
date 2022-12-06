@@ -33,6 +33,7 @@
                 android:layout_gravity="center"/>
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/drink_scroll_view"
         android:layout_width="match_parent"
@@ -344,6 +345,11 @@
                     android:fontFamily="@font/font_pretendard_semibold"
                     android:textSize="18sp"
                     android:text="@string/drink_combination"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/drink_comb_rv"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
