@@ -31,6 +31,7 @@ object CustomBinder {
             .placeholder(placeholder)
             .error(placeholder)
             .diskCacheStrategy(DiskCacheStrategy.NONE)
+            .skipMemoryCache(true)
             .apply(RequestOptions().fitCenter())
             .into(imageView)
     }
