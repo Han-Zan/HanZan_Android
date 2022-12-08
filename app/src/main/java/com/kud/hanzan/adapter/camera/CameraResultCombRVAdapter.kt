@@ -1,25 +1,30 @@
 package com.kud.hanzan.adapter.camera
 
-import android.annotation.SuppressLint
 import android.graphics.Color
-import android.opengl.Visibility
-import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupWindow
+import androidx.core.widget.PopupWindowCompat
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.selection.ItemDetailsLookup
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StableIdKeyProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.kud.hanzan.R
 import com.kud.hanzan.databinding.ItemCameraCombLayoutBinding
-import com.kud.hanzan.domain.model.CombinationInfo
 import com.kud.hanzan.domain.model.RecommendItem
 
 class CameraResultCombRVAdapter : RecyclerView.Adapter<CameraResultCombRVAdapter.ViewHolder>() {
     private lateinit var binding: ItemCameraCombLayoutBinding
     private var combList = mutableListOf<RecommendItem>()
+
+    private lateinit var customView : View
+
+    private val popupWindow by lazy {
+        PopupWindow(customView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT).also { p->
+            p.contentView.setOnClickListener { p.dismiss() }
+        }
+    }
+
 
     private var selectedItemPosition: Int = -1
     private var prevItemPosition : Int = -1
@@ -39,6 +44,7 @@ class CameraResultCombRVAdapter : RecyclerView.Adapter<CameraResultCombRVAdapter
     fun getPosition() : Int = selectedItemPosition
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        customView = LayoutInflater.from(parent.context).inflate(R.layout.layout_popup_guide, null)
         binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_camera_comb_layout, parent, false)
         return ViewHolder(binding)
     }
@@ -60,10 +66,14 @@ class CameraResultCombRVAdapter : RecyclerView.Adapter<CameraResultCombRVAdapter
     }
 
     inner class ViewHolder(val binding: ItemCameraCombLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+        private var popupVisible = false
         fun bind(combination: RecommendItem){
             binding.combination = combination
             binding.rank = adapterPosition + 1
+            // Visibility 변경
             binding.itemCameraCombRecTv.visibility = if (combination.highlyRec) View.VISIBLE else View.GONE
+            binding.itemCameraCombGuideLayout.visibility = if (combination.highlyRec) View.VISIBLE else View.GONE
+
             binding.rankingCombLayout.setOnClickListener {
                 selectedItemPosition = adapterPosition
                 if(prevItemPosition == -1)
@@ -74,6 +84,14 @@ class CameraResultCombRVAdapter : RecyclerView.Adapter<CameraResultCombRVAdapter
                 }
                 notifyItemChanged(selectedItemPosition)
                 combListener.onClick(combination, adapterPosition)
+            }
+            // popup window visible 보이기
+            binding.itemCameraCombGuideLayout.setOnClickListener {
+                if (!popupVisible)
+                    PopupWindowCompat.showAsDropDown(popupWindow, binding.itemCameraCombGuideLayout,0, 10, Gravity.CENTER)
+                else
+                    popupWindow.dismiss()
+                popupVisible = !popupVisible
             }
         }
 

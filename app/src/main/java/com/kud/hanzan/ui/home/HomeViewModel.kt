@@ -41,7 +41,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             homeDataUseCase(userIdx)
                 .catch {
-                    _userName.value = "이동건"
+                    _userName.value = "재윤아 서버켜줘"
                     _userSbti.value = "고독한 미식가"
                     _rankCombData.value = listOf(
                         HomeComb(null, "일반 소주", null,"닭발",  1, true, 4),
