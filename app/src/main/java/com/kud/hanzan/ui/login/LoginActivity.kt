@@ -19,8 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
     private fun isCorrectUserName(userName: String): Boolean {
-        //TODO("닉네임 조건 결정하고 구현하기")
-        return userName.length == 3
+        return userName.length in 3..8;
     }
 
     private fun turnOffAllButtons(exceptAge: Int) {
@@ -32,7 +31,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
         binding.loginUserAge60over.isChecked = exceptAge == 60
     }
 
-    fun verifyUserName() {
+    private fun verifyUserName() {
         val status = binding.loginUserNameStatusTV
         if (isCorrectUserName(binding.loginUserNameET.text.toString())) {
             status.text = getString(R.string.user_name_correct)
