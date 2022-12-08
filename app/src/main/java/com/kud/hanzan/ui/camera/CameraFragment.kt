@@ -227,14 +227,19 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                             .addOnSuccessListener { visionText ->
                                 cameraItemList.clear()
                                 val resultText = visionText.textBlocks
+
+                                // Todo : 테스트 출력을 위한 temp List
+                                val temp = mutableListOf<String>()
                                 resultText.forEach { e ->
                                     // 줄바꿈 문자 포함된 경우
+                                    temp.add(e.text)
                                     if (e.text.contains("\n")){
                                         cameraItemList.add(e.text.substringBefore("\n"))
                                         cameraItemList.add(e.text.substringAfter("\n"))
                                     }
                                     else cameraItemList.add(e.text)
                                 }
+                                Log.e("image temp list", temp.toString())
                                 image.close()
                                 if (drinkMode){
                                     // Todo : 술 리스트로 넘기기
