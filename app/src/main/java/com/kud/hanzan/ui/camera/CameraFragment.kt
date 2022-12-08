@@ -178,6 +178,7 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                 it.setListener(object : MainActivity.CameraListener{
                     override fun onCameraClick() {
                         takePicture()
+                        it.setCameraClickable(false)
                     }
                 })
                 it.fabCameraListener()
@@ -190,6 +191,16 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>(R.layout.fragment_cam
                     R.id.camera_mode_drink_btn -> drinkMode = true
                     R.id.camera_mode_food_btn -> drinkMode = false
                 }
+            }
+        }
+    }
+
+    // 다시 클릭 가능하게
+    override fun onStop() {
+        super.onStop()
+        activity?.let {
+            if (it is MainActivity){
+                it.setCameraClickable(true)
             }
         }
     }
