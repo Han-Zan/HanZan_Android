@@ -1,5 +1,6 @@
 package com.kud.hanzan.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -26,6 +27,7 @@ class DrinkFoodRVAdapter : RecyclerView.Adapter<DrinkFoodRVAdapter.ViewHolder>()
 
     fun setData(data : List<DrinkComb>){
         foodList.clear()
+        Log.e("okhttp food data", data.toString() )
         foodList.addAll(data)
         notifyDataSetChanged()
     }

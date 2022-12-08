@@ -3,6 +3,7 @@ package com.kud.hanzan.ui.home
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -73,6 +74,7 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
 
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == RESULT_OK) {
+                Log.e("resultLauncher", "발동됨")
                 viewModel.getData(userIdx)
             }
         }
@@ -105,9 +107,6 @@ class HomeActivity : BaseActivity<ActivityHomeBinding>(R.layout.activity_home) {
             }
             homeCombCb.setOnClickListener {
                 startScreen(5)
-            }
-            homeRatingCv.setOnClickListener {
-                startActivity(Intent(this@HomeActivity, CameraCombActivity::class.java))
             }
         }
         binding.homeSbtiCv.setOnClickListener {

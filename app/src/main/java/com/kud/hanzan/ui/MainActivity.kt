@@ -155,8 +155,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
         if (getForegroundFragment() is CameraFragment){
             finish()
         } else{
-            super.onBackPressed()
-            setResult(RESULT_OK, Intent(this, HomeActivity::class.java))
+
+            navController?.popBackStack()
+            if (navController?.currentBackStackEntry == null){
+                setResult(RESULT_OK, Intent(this, HomeActivity::class.java))
+                finish()
+            }
+
+
         }
     }
 
