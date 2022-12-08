@@ -122,11 +122,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_p
                 Log.e(TAG, binding.user.toString())
             }
             resChangeNickNameLiveData.observe(viewLifecycleOwner) {
+
                 Toast.makeText(context, "정상적으로 변경되었습니다.", Toast.LENGTH_SHORT).show()
                 viewModel.getUser(userId)
             }
             resChangeProfileLiveData.observe(viewLifecycleOwner) {
                 Toast.makeText(context, "정상적으로 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                binding.isLoading = true;
                 viewModel.getUser(userId)
             }
             resDeleteLiveData.observe(viewLifecycleOwner) {
